@@ -67,7 +67,7 @@ const ChartTypeArea = () => {
                 <button      className={` bg-[${ updateIndedx === 1 ? '#f5f5f5' : '#0000'}] text-[#333] text-sm  font-bold py-1 px-2 dark:text-white `} onClick={() => updateSeries('day')} >Day</button>
                 <button  onClick={() => updateSeries('month')}>Month</button>
                 <button onClick={() => updateSeries('year')}>Year</button>
-            
+        
                 </span>
                 </div>
             <Chart

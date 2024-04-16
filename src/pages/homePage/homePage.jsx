@@ -9,6 +9,8 @@ function HomePage() {
       <ChartTypeArea />
       </div>
       <div>
+      
+      <ChartTypeArea />
       </div>
     </div>
   );
