@@ -60,19 +60,11 @@ export default function Playground({
         onBackdropClick={() => setToggled(false)}
         toggled={toggled}
         breakPoint="md"
-        className="h-screen shadow-md"
+        className="h-screen shadow-md bg-white dark:bg-[#212130]"
       >
         <div className="flex flex-col justify-between h-full">
           <div
-            className=''
-            style={{
-              padding: "10px 0 ",
-              background: "#ffff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "10px",
-            }}
+            className='flex justify-center items-center py-3 px-4'
           >
             <svg
               class="logo-abbr"
