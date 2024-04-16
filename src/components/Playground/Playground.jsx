@@ -8,13 +8,14 @@ import {
 } from "react-pro-sidebar";
 import { IoMenuSharp } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
-import { FaWallet, FaHistory } from "react-icons/fa";
+import { FaWallet, FaHistory, FaMinus } from "react-icons/fa";
 import { NavLink, Routes } from "react-router-dom";
 import { MdNightlight } from "react-icons/md";
 import { RiLoginBoxLine } from "react-icons/ri";
 import { CiCalendar } from "react-icons/ci";
 import { ImProfile } from "react-icons/im";
 import { FaThLarge } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 
 export default function Playground({
   collapsed,
@@ -22,37 +23,11 @@ export default function Playground({
   toggled,
   setToggled,
 }) {
-  const menuItemStyles = {
-    root: {
-      fontSize: "15px",
-      fontWeight: "bold",
-      color: "#b6b7b9",
-    },
+  const [activeMenuItem, setActiveMenuItem] = useState("/");
 
-    SubMenuExpandIcon: {
-      color: "#b6b7b9",
-    },
-    subMenuContent: ({ level }) => ({
-      backgroundColor: level === 0 ? "#ffff" : "transparent",
-    }),
-    button: {
-      [`&.${menuClasses.disabled}`]: {
-        color: "#b6b7b9",
-      },
-      "&:hover": {
-        color: "green",
-      },
 
-      [`&.active`]: {
-        backgroundColor: "#00000",
-        color: "green",
-      },
-    },
 
-    label: ({ open }) => ({
-      fontWeight: open ? 600 : undefined,
-    }),
-  };
+
   return (
     <>
       <Sidebar
@@ -110,56 +85,75 @@ export default function Playground({
             </svg>
           </div>
           <div style={{ flex: 1, marginBottom: "32px" }}>
-            <Menu menuItemStyles={menuItemStyles}>
-              <MenuItem icon={<MdDashboard />} component={<NavLink to="/" />}>
+            <Menu transitionDuration={1000}>
+              <MenuItem
+                rootStyles={{
+                  ['.' + menuClasses.button]: {
+                    backgroundColor: '#eaabff',
+                    color: '#9f0099',
+                    '&:hover': {
+                      backgroundColor: '#eecef9',
+                    },
+                  },
+                }}
+                className={`text-[18px] text-[#737B8B] hover:bg-[#000] hover:text-[#f73a0b]  ${activeMenuItem === "/" && "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"}
+                }`}
+                icon={<FaHome className=" w-[20px] h-[20px]" />} component={<NavLink to="/" onClick={() => setActiveMenuItem("/")} />}>
                 Home
               </MenuItem>
-              <MenuItem
-                icon={<MdDashboard />}
-                component={<NavLink to="/Dashboard" />}
+              <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/Dashboard" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`}
+                icon={<MdDashboard className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/Dashboard" onClick={() => setActiveMenuItem("/Dashboard")} />}
               >
-                DASHBOARD LIGHT
+                Dashboard
               </MenuItem>
-              <MenuItem
-                icon={<ImProfile />}
-                component={<NavLink to="/profile" />}
+              <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/profile" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`}
+                icon={<ImProfile className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/profile" onClick={() => setActiveMenuItem("/profile")} />}
               >
-                PROFILE
+                Profile
               </MenuItem>
-              <MenuItem
-                icon={<CiCalendar />}
-                component={<NavLink to="/calendary" />}
+              <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/calendary" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`}
+                icon={<CiCalendar className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/calendary" onClick={() => setActiveMenuItem("/calendary")} />}
               >
-                CALENDARY
+                Calendary
               </MenuItem>
-              <SubMenu label="Кошелек" icon={<FaWallet />}>
-                <MenuItem component={<NavLink to="" />}>История</MenuItem>
-                <MenuItem as={NavLink} to={""}>
+              <SubMenu onClick={() => setActiveMenuItem("/wallet")} className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/wallet" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`} label="Кошелек" icon={<FaWallet className=" w-[20px] h-[20px]" />}>
+                <MenuItem className="text-[18px] dark:bg-[#212130] text-[#737B8B]" icon={<FaMinus className=" w-[16px] h-[16px]" />} component={<NavLink to="" />}>История</MenuItem>
+                <MenuItem className="text-[18px] dark:bg-[#212130] text-[#737B8B]" icon={<FaMinus className="  w-[16px] h-[16px]" />} component={<NavLink to="" />}>
                   Кнопка
                 </MenuItem>
               </SubMenu>
-              <MenuItem
-                icon={<FaHistory />}
-                component={<NavLink to="/history" />}
+              <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/history" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`}
+                icon={<FaHistory className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/history" onClick={() => setActiveMenuItem("/history")} />}
               >
-                FOOTBALL FIELDS
+                Football Fields
               </MenuItem>
-              <MenuItem
-                icon={<RiLoginBoxLine />}
-                component={<NavLink to="/login" />}
+              <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/login" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`}
+                icon={<RiLoginBoxLine className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/login" onClick={() => setActiveMenuItem("/login")} />}
               >
-                LOGIN
+                Login
               </MenuItem>
-              <MenuItem
-                icon={<FaThLarge />}
-                component={<NavLink to="/companies" />}
+              <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/companies" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
+                }`}
+                icon={<FaThLarge className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/companies" onClick={() => setActiveMenuItem("/companies")} />}
               >
-                COMPANIES
+                Companies
               </MenuItem>
             </Menu>
           </div>
         </div>
-      </Sidebar>
+      </Sidebar >
     </>
   );
 }

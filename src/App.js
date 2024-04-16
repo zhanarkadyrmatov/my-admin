@@ -26,11 +26,10 @@ function App() {
           setDarkMode={setDarkMode}
           darkMode={darkMode}
         />
-        <div className="overflow-y-auto h-screen px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px] bg-[#f5f5f5] dark:bg-[#212130]">
+        <div className="overflow-y-auto h-screen px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px] bg-[#f5f5f5] dark:bg-[#17171e]">
 
-        <Routes>
-        <Route path="/" element={<HomePage />} /> 
-            
+          <Routes>
+            <Route path="/" element={<HomePage />} />
           </Routes>
         </div>
       </main>
