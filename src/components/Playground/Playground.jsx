@@ -41,7 +41,7 @@ export default function Playground({
           <div
             className='flex justify-center items-center py-3 px-4'
           >
-            <svg
+            <svg className="w-[50px] h-[50px]"
               class="logo-abbr"
               xmlns="http://www.w3.org/2000/svg"
               width="62.074"
@@ -85,17 +85,14 @@ export default function Playground({
             </svg>
           </div>
           <div style={{ flex: 1, marginBottom: "32px" }}>
+            <div className="w-[83%] mx-[20px] bg-[#17171e]">
+              <div className="flex justify-between items-center">
+                <img className="w-[50px] h-[50px] rounded-[10px]" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+              </div>
+
+            </div>
             <Menu transitionDuration={1000}>
               <MenuItem
-                rootStyles={{
-                  ['.' + menuClasses.button]: {
-                    backgroundColor: '#eaabff',
-                    color: '#9f0099',
-                    '&:hover': {
-                      backgroundColor: '#eecef9',
-                    },
-                  },
-                }}
                 className={`text-[18px] text-[#737B8B] hover:bg-[#000] hover:text-[#f73a0b]  ${activeMenuItem === "/" && "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"}
                 }`}
                 icon={<FaHome className=" w-[20px] h-[20px]" />} component={<NavLink to="/" onClick={() => setActiveMenuItem("/")} />}>

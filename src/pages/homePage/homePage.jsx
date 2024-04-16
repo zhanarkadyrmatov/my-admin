@@ -5,7 +5,7 @@ function HomePage() {
 
   return (
     <div style={{ marginTop: '20px' }}>
-    <ChartTypeArea/>
+      <ChartTypeArea />
     </div>
   );
 }
