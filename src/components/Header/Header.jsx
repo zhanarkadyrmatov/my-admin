@@ -2,8 +2,6 @@ import React from "react";
 import { BiMessageDetail } from "react-icons/bi";
 import { GoBell, GoPlus } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
-import { IoMenuSharp, IoSettingsOutline } from "react-icons/io5";
-import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
@@ -60,10 +58,9 @@ export default function Header({
           </div>
         </div>
         <div className='flex items-center lg:gap-4 gap-3'>
-          {darkMode ?
-            <MdDarkMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer dark:fill-[#b3b3b3]" />
+          {darkMode ? <MdLightMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
             :
-            <MdLightMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
+            <MdDarkMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer dark:fill-[#b3b3b3]" />
           }
           <BiMessageDetail className=" dark:fill-[#b3b3b3]  lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
           <GoBell className=" dark:fill-[#b3b3b3] lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
