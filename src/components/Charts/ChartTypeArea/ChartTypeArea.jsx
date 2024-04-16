@@ -14,8 +14,9 @@ const ChartTypeArea = () => {
             data: [10, 40, 45, 20, 4, 65, 3, 91]
         },
     ]);
-
+    const [updateIndedx, setUpdateIndex] = useState(0)
     const updateSeries = (e) => {
+        
         if (e === 'day') {
             setSeries([
                 {
@@ -27,6 +28,7 @@ const ChartTypeArea = () => {
                     data: [10, 45, 20, 4, 65, 3, 91]
                 },
             ]);
+            setUpdateIndex(1)
         }
         else if (e === 'month') {
             setSeries([
@@ -39,6 +41,7 @@ const ChartTypeArea = () => {
                     data: [10, 45, 20, 4, 65, 3, 91]
                 },
             ]);
+            setUpdateIndex(2)
         }
         else if (e === 'year') {
             setSeries([
@@ -51,20 +54,18 @@ const ChartTypeArea = () => {
                     data: [10, 45, 20, 4, 6, 3, 91]
                 },
             ]);
+            setUpdateIndex(3)
         }
-
     };
-
     return (
         <div className='ChartTypeArea bg-white dark:bg-[#212130] text-red  rounded-2xl '>
-
             <div className='Nav'>
-                <h2>
+                <h2 className='text-black text-3xl  font-bold dark:text-white'>
                     Vacancy Stats
                 </h2>
-                <span>
-                <button onClick={() => updateSeries('day')} >Day</button>
-                <button onClick={() => updateSeries('month')}>Month</button>
+                <span className="bg-[#F5F5F5] p-1  dark:bg-[#17171E] ">
+                <button      className={` bg-[${ updateIndedx === 1 ? '#f5f5f5' : '#0000'}] text-[#333] text-sm  font-bold py-1 px-2 dark:text-white `} onClick={() => updateSeries('day')} >Day</button>
+                <button  onClick={() => updateSeries('month')}>Month</button>
                 <button onClick={() => updateSeries('year')}>Year</button>
             
                 </span>
