@@ -1,0 +1,29 @@
+.ChartTypeArea{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+width: 1000px;
+height: 400px;
+padding: 10px;
+}
+
+.Nav{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.Nav h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+
+}
+.Nav span {
+    display: flex;
+    gap: 10px;
+  align-items: center;
+
+padding: 10px;
+}
