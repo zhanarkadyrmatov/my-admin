@@ -9,6 +9,10 @@ body {
   overflow: hidden;
 }
 
+.wrapper {
+  height: 100vh;
+}
+
 .css-1wvake5 {
   border-right-width: 0px !important;
 }
