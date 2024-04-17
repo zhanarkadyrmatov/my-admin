@@ -1,27 +1,24 @@
 import React, { useState } from 'react'
-import Chart from "react-apexcharts";
+import Chart from 'react-apexcharts';
 import './page.css'
-const ChartTypeArea = () => {
-    const [options, setOptions] = useState({ dataLabels: { enabled: false ,},  legend: {
-        show: true,
-        position: 'top' 
-        
-      },
-     });
+const ChartTypeBar = () => {
+    const [updateIndedx, setUpdateIndex] = useState(0)
 
     const [series, setSeries] = useState([
         {
             name: "series-1",
             data: [30, 40, 45, 50, 49, 60, 70, 91]
         },
-        {
-            name: "series-1",
-            data: [10, 40, 45, 20, 4, 65, 3, 91]
-        },
     ]);
-    const [updateIndedx, setUpdateIndex] = useState(0)
+    const options = {
+        chart: {
+            id: "basic-bar"
+        },
+        xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+        }
+    };
     const updateSeries = (e) => {
-        
         if (e === 'day') {
             setSeries([
                 {
@@ -69,16 +66,15 @@ const ChartTypeArea = () => {
                     Vacancy Stats
                 </h2>
                 <span className="bg-[#F5F5F5] p-1  dark:bg-[#17171E] ">
-                <button className={` bg-[${ updateIndedx === 1 ? '#f5f5f5' : '#0000'}] text-[#333] text-sm  font-bold py-1 px-2 dark:text-white `} onClick={() => updateSeries('day')} >Day</button>
-                <button onClick={() => updateSeries('month')}>Month</button>
-                <button onClick={() => updateSeries('year')}>Year</button>
-        
+                    <button className={` bg-[${updateIndedx === 1 ? '#f5f5f5' : '#0000'}] text-[#333] text-sm  font-bold py-1 px-2 dark:text-white `} onClick={() => updateSeries('day')} >Day</button>
+                    <button onClick={() => updateSeries('month')}>Month</button>
+                    <button onClick={() => updateSeries('year')}>Year</button>
                 </span>
-                </div>
+            </div>
             <Chart
                 options={options}
                 series={series}
-                type="area"
+                type="bar"
                 width="100%"
                 height="80%"
             />
@@ -86,4 +82,4 @@ const ChartTypeArea = () => {
     )
 }
 
-export default ChartTypeArea
+export default ChartTypeBar
