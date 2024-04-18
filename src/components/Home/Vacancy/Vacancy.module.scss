@@ -1,0 +1,70 @@
+.vacans_statig {
+    .block_grid {
+        background-color: #fff;
+        border-radius: 15px;
+        .flex_text_button {
+            padding: 30px 30px 30px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            h3 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                text-transform: capitalize;
+                line-height: 1.5;
+            }
+            .flex_button {
+                button {
+                    border: 0;
+                    border-radius: 0.2rem;
+                    margin: 0;
+                    padding: 0.7rem 1.425rem;
+                    font-weight: 500;
+                }
+                .btn7 {
+                    background-color: #f93a0b;
+                    color: #fff;
+                }
+            }
+        }
+        .statig_margin {
+            margin: 0 0 0 10px;
+        }
+    }
+    .nav_link_li {
+        nav {
+            display: flex;
+            align-items: center;
+            li {
+                display: flex;
+                align-items: center;
+                list-style: none;
+                padding-left: 12px;
+                button {
+                    margin-right: 8px;
+                }
+            }
+            .border_radius {
+                width: 13px;
+                height: 13px;
+                border-radius: 20px;
+                background: #047203;
+                border: none;
+            }
+            .border_radius_blue {
+                width: 13px;
+                height: 13px;
+                border-radius: 20px;
+                background: #1c5ed9;
+                border: none;
+            }
+            .border_radius_red {
+                width: 13px;
+                height: 13px;
+                border-radius: 20px;
+                background: #f93a0b;
+                border: none;
+            }
+        }
+    }
+}

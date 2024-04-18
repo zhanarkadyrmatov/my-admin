@@ -1,0 +1,35 @@
+.image_title_text {
+    display: grid;
+    text-align: center;
+    justify-content: center;
+    width: 214px;
+    height: 240px;
+    border: 1px solid #8888;
+    border-radius: 15px;
+    padding: 20px;
+    img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 56px;
+        height: 56px;
+        margin-bottom: 15px;
+    }
+    h4 {
+        margin-bottom: 0.25rem;
+        line-height: 1.5;
+        font-size: 1rem;
+    }
+    p {
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        color: #f93a0b;
+    }
+    span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        line-height: 1.8;
+        color: #888888;
+        font-size: 14px;
+    }
+}
