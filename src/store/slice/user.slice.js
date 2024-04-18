@@ -1,25 +1,42 @@
-import { createSlice ,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
-import {axios} from './user.slice'
-const initialState = {
+import axios from "axios";
 
-}
+const initialState = {};
 
 export const fetchUser = createAsyncThunk(
-    'user/fetchUser',
-    async () => {
-        const response = await fetch(Api)
-        const data = await response.json()
-        return data
+    "user/fetchUser",
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${Api}user_api/login/`, credentials);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
     }
-)
+);
 
 export const userSlice = createSlice({
-    name: 'user',
+    name: "user",
     initialState,
-    reducers: {
-        
-    }
-})
+    status: null,
+    error: null,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchUser.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchUser.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.user = action.payload;
+            })
+            .addCase(fetchUser.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            });
+    },
+});
 
-export default userSlice.reducer
+export default userSlice.reducer;

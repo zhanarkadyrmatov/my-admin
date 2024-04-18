@@ -1,9 +1,14 @@
+
 import React, { useState } from 'react';
 import './page.css';
 import cm from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from '../../store/slice/user.slice';
 function Login() {
     const [email, setEmail] = useState({ value: '', error: '' });
     const [password, setPassword] = useState({ value: '', error: '' });
+   const dispatch = useDispatch()
+   const {data, status , error} = useSelector((state) => state.user)
 
 
     const handleSubmit = (e) => {
@@ -13,8 +18,9 @@ function Login() {
         }
         if (!password.value) {
             setPassword((i) => ({ ...i, error: 'Password is required' }));
-            
         }
+
+        dispatch(fetchUser({identifier: email.value, password: password.value}))
     };
     return (
         <div className="Login" style={{ marginTop: '30px' }}>
