@@ -6,16 +6,36 @@ const initialState = {};
 
 export const fetchUser = createAsyncThunk(
     "user/fetchUser",
-    async (credentials, { rejectWithValue }) => {
+    async (credentials, { rejectWithValue,dispatch }) => {
         try {
-            const response = await axios.post(`${Api}user_api/login_admin/`, credentials);
-            const data = await response.json();
-            return data;
+            const response = await axios.post(`${Api}user_api/login/`, credentials);
+
+             await localStorage.setItem("token", response.data.access_token);
+ await dispatch(getUser())
+            console.log(response.data.access_token);
+            return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
 );
+
+export  const getUser = createAsyncThunk(
+    "user/getUser",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${Api}user_api/user/me/` ,{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }   
+)
 
 export const userSlice = createSlice({
     name: "user",

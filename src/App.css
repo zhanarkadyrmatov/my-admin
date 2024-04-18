@@ -11,6 +11,9 @@ body {
   overflow: hidden;
   font-family: "Roboto", sans-serif;
 }
+p{
+  font-family: "Roboto", sans-serif;
+}
 
 .wrapper {
   height: 100vh;
