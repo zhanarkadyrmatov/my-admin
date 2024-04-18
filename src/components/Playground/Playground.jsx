@@ -8,7 +8,7 @@ import {
 } from "react-pro-sidebar";
 import { IoMenuSharp } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
-import { FaWallet, FaHistory, FaMinus } from "react-icons/fa";
+import { FaWallet, FaHistory, FaMinus, FaChevronDown } from "react-icons/fa";
 import { NavLink, Routes } from "react-router-dom";
 import { MdNightlight } from "react-icons/md";
 import { RiLoginBoxLine } from "react-icons/ri";
@@ -16,6 +16,7 @@ import { CiCalendar } from "react-icons/ci";
 import { ImProfile } from "react-icons/im";
 import { FaThLarge } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import { FaArrowRightLong } from 'react-icons/fa6';
 
 export default function Playground({
   collapsed,
@@ -84,13 +85,24 @@ export default function Playground({
               </g>
             </svg>
           </div>
-          <div style={{ flex: 1, marginBottom: "32px" }}>
-            <div className="w-[83%] mx-[20px] bg-[#17171e]">
-              <div className="flex justify-between items-center">
-                <img className="w-[50px] h-[50px] rounded-[10px]" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
-              </div>
+          <div className="flex-1 mb-5 ">
+            <div className="flex justify-center items-center mb-3">
+              <div className={`w-[83%] bg-[#f5f5f5] rounded-md p-1 dark:bg-[#17171e] mb-3 cursor-pointer`}>
+                <div className={`flex ${collapsed ? 'justify-center' : 'justify-between'} items-center`}>
+                  <div className="flex items-center gap-2">
+                    <img className="w-[50px] h-[50px] rounded-[10px] object-cover" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
+                    {!collapsed && <div>
+                      <p className="text-[#737B8B] text-[14px]">Janarbek KD</p>
+                      <p className="text-[#737B8B] text-[14px]">Superadmin</p>
+                    </div>}
 
+                  </div>
+                  {!collapsed && <FaChevronDown className="w-[16px] h-[16px] text-[#737B8B]" />
+                  }
+                </div>
+              </div>
             </div>
+
             <Menu transitionDuration={1000}>
               <MenuItem
                 className={`text-[18px] text-[#737B8B] hover:bg-[#000] hover:text-[#f73a0b]  ${activeMenuItem === "/" && "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"}

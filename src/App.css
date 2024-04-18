@@ -20,3 +20,9 @@ body {
 .css-dip3t8 {
   background-color: transparent !important;
 }
+
+@media screen and (max-width: 768px) {
+  .css-dip3t8 {
+    background-color: #ffffff !important;
+  }
+}
