@@ -8,7 +8,7 @@ export const fetchUser = createAsyncThunk(
     "user/fetchUser",
     async (credentials, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${Api}user_api/login/`, credentials);
+            const response = await axios.post(`${Api}user_api/login_admin/`, credentials);
             const data = await response.json();
             return data;
         } catch (error) {
