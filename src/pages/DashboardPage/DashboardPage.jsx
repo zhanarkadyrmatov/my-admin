@@ -8,7 +8,7 @@ import Overflow from '../../components/Home/Overflow/Overflow';
 import Static from '../../components/Home/Static/Static';
 import Franklin from '../../components/Home/Franklin/Franklin';
 
-import s from './HomePages.module.scss'
+import s from './DashboardPage.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
