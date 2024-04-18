@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './Network.module.scss'
-import Blockradius from '../../Cards/blockradius/blockradius'
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Blockradius from '../../Cards/blockradius/blockradius';
 export default function Network() {
     return (
         <div>

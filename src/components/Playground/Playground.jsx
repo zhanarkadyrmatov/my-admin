@@ -113,7 +113,7 @@ export default function Playground({
               <MenuItem className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${activeMenuItem === "/Dashboard" && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
                 }`}
                 icon={<MdDashboard className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/Dashboard" onClick={() => setActiveMenuItem("/Dashboard")} />}
+                component={<NavLink to="/dashboard" onClick={() => setActiveMenuItem("/Dashboard")} />}
               >
                 Dashboard
               </MenuItem>

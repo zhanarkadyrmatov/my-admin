@@ -3,7 +3,7 @@ import s from './Available.module.scss'
 import Slider from "react-slick";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { TiArrowSortedUp } from "react-icons/ti";
-import Blockslick from '../../Cards/blockslick/blockslick'
+import Blockslick from '../../Cards/blockslick/blockslick';
 export default function Available() {
     const settings = {
         dots: false,

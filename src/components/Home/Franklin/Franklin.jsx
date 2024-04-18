@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './Franklin.module.scss'
-import image from '../../Home/Franklin/Franklin.module.scss'
+import image from '../../../img/image.jpg'
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Box from '@mui/material/Box';
 import { PieChart } from '@mui/x-charts/PieChart';

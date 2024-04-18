@@ -6,6 +6,8 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import DataPages from "./pages/DataPages/DataPages";
+import Section from "./pages/Section/Section";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -32,7 +34,10 @@ function App() {
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/" element={<HomePage />} />
+            <Route path="/calendary" element={<DataPages />} />
+            <Route path="/history" element={<Section />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/companies" element={<Login />} />
           </Routes>
         </div>
       </main>
