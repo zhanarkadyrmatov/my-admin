@@ -10,7 +10,6 @@ function Login() {
    const dispatch = useDispatch()
    const {data, status , error} = useSelector((state) => state.user)
 console.log(error, 'test');
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!email.value) {
@@ -19,7 +18,6 @@ console.log(error, 'test');
         if (!password.value) {
             setPassword((i) => ({ ...i, error: 'Password is required' }));
         }
-
         dispatch(fetchUser({identifier: email.value, password: password.value}))
     };
     return (
