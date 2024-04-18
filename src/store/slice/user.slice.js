@@ -42,6 +42,7 @@ export const userSlice = createSlice({
     initialState,
     status: null,
     error: null,
+    user: null,
     reducers: {},
     extraReducers: (builder) => {
         builder
@@ -49,11 +50,22 @@ export const userSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(fetchUser.fulfilled, (state, action) => {
-                state.status = "succeeded";
+                state.status = "fulfilled";
                 state.user = action.payload;
             })
             .addCase(fetchUser.rejected, (state, action) => {
-                state.status = "failed";
+                state.status = "rejected";
+                state.error = action.payload;
+            })
+            .addCase(getUser.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(getUser.fulfilled, (state, action) => {
+                state.status = "fulfilled";
+                state.user = action.payload;
+            })
+            .addCase(getUser.rejected, (state, action) => {
+                state.status = "rejected";
                 state.error = action.payload;
             });
     },

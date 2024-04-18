@@ -1,15 +1,16 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './page.css';
 import cm from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../store/slice/user.slice';
+import { redirect, useNavigate } from 'react-router-dom';
 function Login() {
     const [email, setEmail] = useState({ value: '', error: '' });
     const [password, setPassword] = useState({ value: '', error: '' });
    const dispatch = useDispatch()
    const {data, status , error} = useSelector((state) => state.user)
-console.log(error, 'test');
+   const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!email.value) {
@@ -20,12 +21,17 @@ console.log(error, 'test');
         }
         dispatch(fetchUser({identifier: email.value, password: password.value}))
     };
+
+    useEffect(() => {
+        if(status === 'fulfilled'){
+           navigate('/');
+        }
+    },[status])
     return (
         <div className="Login" style={{ marginTop: '30px' }}>
             <div className="Login__container">
             <p className="Login__p--hint">Войти вы можете только зарегистрированным <br /> пользователем</p>
-             {error?.detail && <p className="Login__p--error">{error.detail}</p>}  
-
+            {error?.detail && <p className="Login__p--error">{error.detail}</p>}  
                 <label>
                     <p>Email</p>
                     <input
@@ -48,8 +54,8 @@ console.log(error, 'test');
                         />
                     {password.error && <p className="Login__p">{password.error}</p>}
                 </label>
-                <button type="submit" onClick={handleSubmit} >
-                    Login
+                <button type="submit" onClick={handleSubmit} disabled={status === 'loading'}  >
+                     {status === 'loading' ? 'Loading...' : 'Login'}
                 </button>
             </div>
         </div>
