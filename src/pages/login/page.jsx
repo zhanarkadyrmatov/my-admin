@@ -9,7 +9,7 @@ function Login() {
     const [password, setPassword] = useState({ value: '', error: '' });
    const dispatch = useDispatch()
    const {data, status , error} = useSelector((state) => state.user)
-
+console.log(error, 'test');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,6 +25,9 @@ function Login() {
     return (
         <div className="Login" style={{ marginTop: '30px' }}>
             <div className="Login__container">
+            <p className="Login__p--hint">Войти вы можете только зарегистрированным <br /> пользователем</p>
+             {error?.detail && <p className="Login__p--error">{error.detail}</p>}  
+
                 <label>
                     <p>Email</p>
                     <input
