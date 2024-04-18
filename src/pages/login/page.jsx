@@ -7,8 +7,8 @@ import { fetchUser } from '../../store/slice/user.slice';
 function Login() {
     const [email, setEmail] = useState({ value: '', error: '' });
     const [password, setPassword] = useState({ value: '', error: '' });
-   const dispatch = useDispatch()
-   const {data, status , error} = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    const { data, status, error } = useSelector((state) => state.user)
 
 
     const handleSubmit = (e) => {
@@ -20,7 +20,7 @@ function Login() {
             setPassword((i) => ({ ...i, error: 'Password is required' }));
         }
 
-        dispatch(fetchUser({identifier: email.value, password: password.value}))
+        dispatch(fetchUser({ identifier: email.value, password: password.value }))
     };
     return (
         <div className="Login" style={{ marginTop: '30px' }}>
@@ -28,7 +28,7 @@ function Login() {
                 <label>
                     <p>Email</p>
                     <input
-                        onChange={(e) => setEmail((i) => ({  value: e.target.value }))}
+                        onChange={(e) => setEmail((i) => ({ value: e.target.value }))}
                         value={email.value}
                         type="email"
                         placeholder="Email"
@@ -39,12 +39,12 @@ function Login() {
                 <label>
                     <p>Password</p>
                     <input
-                        onChange={(e) => setPassword((i) => ({  value: e.target.value }))}
+                        onChange={(e) => setPassword((i) => ({ value: e.target.value }))}
                         value={password.value}
                         type="password"
                         placeholder="Password"
                         className={cm('Login__input', { 'Login__input--error': password.error })}
-                        />
+                    />
                     {password.error && <p className="Login__p">{password.error}</p>}
                 </label>
                 <button type="submit" onClick={handleSubmit} >
