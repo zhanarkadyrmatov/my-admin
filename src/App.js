@@ -5,6 +5,7 @@ import Playground from "./components/Playground/Playground";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/page";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -29,9 +30,9 @@ function App() {
         />
         <div className="overflow-y-auto h-screen px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px] bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
           <Routes>
-            <Route path="/Dashboard" element={<Homepages />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="/Login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </main>
