@@ -5,7 +5,6 @@ import Playground from "./components/Playground/Playground";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/page";
-import Profil from "./pages/profil/profil";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -28,11 +27,11 @@ function App() {
           setDarkMode={setDarkMode}
           darkMode={darkMode}
         />
-        <div className="overflow-y-auto h-screen px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px] bg-[#f5f5f5] dark:bg-[#17171e] w-screen">
+        <div className="overflow-y-auto h-screen px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px] bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
           <Routes>
+            <Route path="/Dashboard" element={<Homepages />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/Login" element={<Login />} />
-            <Route path="/profile" element={<Profil />} />
           </Routes>
         </div>
       </main>

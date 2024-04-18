@@ -9,17 +9,18 @@ function HomePage() {
 
   return (
     <div className='page'>
-      <div className='homePage' style={{ marginTop: '20px', }}>
-        <div className='HomePageBlock'>
-          <ChartTypeArea />
-          <ChartTypeBar />
-          <ChartsTypeRadialBar />
-        </div>
-        <div>
-          <ChartsTypeUsageGraph />
-          <ChartsTypeDonut />
-        </div>
+    <div className='homePage' style={{ marginTop: '20px', }}>
+      <div className='HomePageBlock'>
+      <ChartTypeArea />
+      <ChartTypeBar/>
+      <ChartsTypeRadialBar/>
       </div>
+      <div>
+      <ChartsTypeUsageGraph/>
+      <ChartsTypeDonut/>
+      </div>
+    
+    </div>
     </div>
   );
 }

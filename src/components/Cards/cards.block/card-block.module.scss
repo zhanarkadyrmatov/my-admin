@@ -1,0 +1,47 @@
+.cartbBlock_flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 1.875rem;
+    background: #ffff;
+    border-radius: 20px;
+    @media(max-width:600px){
+        display: grid;
+    }
+
+    img {
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+    }
+    h2 {
+        line-height: 1.5;
+        font-size: 1.125rem;
+    }
+    h4 {
+        font-size: 14px;
+        font-weight: 400;
+        color: rgb(146, 141, 141);
+        line-height: 1.8;
+    }
+    button {
+        width: 200px;
+        height: 40px;
+        border: 1px solid #f93a0b;
+        border-radius: 2.5rem !important;
+        color: #f93a0b;
+        background: #ffff;
+    }
+}
+
+.Block_flex {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+.flex_block {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}

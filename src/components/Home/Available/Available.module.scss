@@ -1,0 +1,40 @@
+.block_img_slick {
+    background-color: #fff;
+    border-radius: 15px;
+    .btn_title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 30px 8px;
+        h3 {
+            font-size: 20px;
+        }
+        .flex_bread {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            button {
+                display: flex;
+                align-items: center;
+                padding: 10px 20px;
+                background-color: #fbe1da;
+                color: #f93a0b;
+                border: none;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+            .icon_arrow {
+                position: relative;
+                left: 10px;
+            }
+        }
+    }
+    .blocks_slick {
+        padding: 30px;
+        .className {
+            display: grid;
+            justify-content: center;
+            gap: 40px;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.block_img_flex{
+    display: flex;
+    align-items: center;
+    // margin: 0 0 0 16px;
+    // padding: 0 0 0 16px;
+    // border-bottom: 1px solid #000;
+    // width: 280px;
+    
+    .grid_text{
+        display: grid;
+        row-gap: 10px;
+        margin: 0 0 0 16px;
+      
+
+        h4{
+            font-size: 16px;
+            font-weight: 700;
+        }
+        h5{
+           font-size: 14px;
+           font-weight: 400;
+           opacity: 0.7;
+        }
+    }
+}

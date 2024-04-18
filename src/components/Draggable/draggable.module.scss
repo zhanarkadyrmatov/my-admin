@@ -1,0 +1,102 @@
+.draggable{
+  box-shadow: 0rem 0.3125rem 0.3125rem 0rem rgba(82, 63, 105, 0.05);
+}
+.d_start {
+  margin-bottom: 1.875rem;
+  background-color: #fff;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+  border: 0rem solid transparent;
+  border-radius: 0.5rem;
+  padding: 1.875rem;
+  .draggable_title {
+    h4 {
+      line-height: 1.5;
+      font-size: 1.125rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    p {
+      line-height: 1.8;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 14px;
+      color: #8888;
+    }
+  }
+  .draggable_block_title {
+    display: grid;
+    align-items: center;
+    row-gap: 10px;
+    .primary_block_1 {
+      text-align: left;
+      font-size: 16px;
+      border-color: #f93a0b1a;
+      display: flex;
+      align-items: center;
+      background-color: #f93a0b1a;
+      padding: 10px 10px;
+      border-radius: 5px;
+      li {
+        scrollbar-width: thin;
+        color: #f93a0b;
+        text-align: left;
+        font-size: 16px;
+        list-style: none;
+      }
+      .primary_btn {
+        display: block;
+        width: 0.875rem;
+        min-width: 0.875rem;
+        height: 0.875rem;
+        border-radius: 50%;
+        margin-right: 0.9rem;
+        position: relative;
+        top: 0.125rem;
+        background-color: #f93a0b;
+      }
+    }
+  }
+  .draggable_checkbox {
+    display: flex;
+    gap: 20px;
+    // padding: 0;
+    // padding-left: 1.5em;
+    // padding-top: 1rem !important;
+    // padding-bottom: 0.5rem !important;
+    min-height: 1.3125rem;
+    // padding-left: 1.5em;
+    margin-bottom: 0.125rem;
+    margin-top: 1.87rem;
+    input {
+      width: 18px;
+      height: 18px;
+    }
+    p {
+      // margin-left: 0.3125rem;
+      // margin-top: 0.1875rem;
+      line-height: 1.8;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 14px;
+      color: #8888;
+    }
+  }
+  .draggable_button {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100% !important;
+      padding: 0.65rem 1.25rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      background-color: #f93a0b;
+      border-color: #f93a0b;
+      color: #fff;
+    }
+  }
+}

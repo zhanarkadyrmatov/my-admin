@@ -1,0 +1,15 @@
+.CartBlock {
+   
+    .cart_block_mini{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        @media(max-width:1200px){
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        
+    }
+}
+
+

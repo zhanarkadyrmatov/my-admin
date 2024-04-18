@@ -1,0 +1,24 @@
+.container {
+    width: 100%;
+}
+.flexGrow {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 15px;
+    @media (max-width: 1400px) {
+        width: 100%;
+        grid-template-columns: none;
+        row-gap: 30px;
+    }
+}
+.display_grid {
+    display: grid;
+    @media(max-width:1400px){
+        row-gap: 10px;
+    }
+}
+.div_react {
+    display: grid;
+    row-gap: 10px;
+
+}
