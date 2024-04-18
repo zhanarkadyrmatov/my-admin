@@ -8,6 +8,7 @@ import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import DataPages from "./pages/DataPages/DataPages";
 import Section from "./pages/Section/Section";
+import CartbBlock from "./pages/cart-block/Cart-block";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -37,7 +38,7 @@ function App() {
             <Route path="/calendary" element={<DataPages />} />
             <Route path="/history" element={<Section />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/companies" element={<Login />} />
+            <Route path="/companies" element={<CartbBlock />} />
           </Routes>
         </div>
       </main>

@@ -5,7 +5,7 @@ import Blockradius from '../../Cards/blockradius/blockradius';
 export default function Network() {
     return (
         <div>
-            <div className={s.prososser}>
+            <div className={`${s.prososser} dark:bg-[#212130] dark:text-[#fff]`}>
                 <div className={s.btn_title}>
                     <h3>Network</h3>
                     <div className={s.flex_bread}>

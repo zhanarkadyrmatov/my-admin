@@ -15,7 +15,7 @@ const lxLabels = [
 ];
     return (
         <div>
-            <div className={s.Chart}>
+            <div className={`${s.Chart} dark:bg-[#212130] dark:text-[#fff]`}>
                 <div className={s.chart_grid}>
                     <div className={s.flex_text_button}>
                         <h3>Chart</h3>

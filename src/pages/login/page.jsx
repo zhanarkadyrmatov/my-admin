@@ -29,8 +29,8 @@ function Login() {
         setShowPassword(!showPassword);
     };
     return (
-        <div className="Login" style={{ marginTop: '30px' }}>
-            <div className="Login__container">
+        <div className="Login dark:bg-[#17171E]  dark:text-[#fff]`" style={{ marginTop: '30px' }}>
+            <div className="Login__container dark:bg-[#212130]  dark:text-[#fff]">
                 {error?.detail && <p className="Login__p--error">{error.detail}</p>}
                 <div>
                     <img src={register} alt="" />
@@ -46,7 +46,7 @@ function Login() {
                         value={email.value}
                         type="email"
                         placeholder="Email"
-                        className={cm('Login__input', { 'Login__input--error': email.error })}
+                        className={cm('Login__input','dark:bg-[#212130]  dark:text-[#fff]', { 'Login__input--error': email.error })}
                     />
                     {email.error && <p className="Login__p">{email.error}</p>}
                 </label>
@@ -58,7 +58,7 @@ function Login() {
                         placeholder="Password"
                         type={showPassword ? 'text' : 'password'}
                         onClick={(e) => setPassword(e.target.value)}
-                        className={cm('Login__input', { 'Login__input--error': password.error })}
+                        className={cm('Login__input', 'dark:bg-[#212130]  dark:text-[#fff]', { 'Login__input--error': password.error })}
                     />
                     <span className='absolute right-[5px] top-[75%] transform -translate-y-1/2 cursor-pointer w-6 h-6' onClick={togglePasswordVisibility}>
                         {showPassword ?

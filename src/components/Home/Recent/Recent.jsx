@@ -6,7 +6,7 @@ import BlockImg from '../../Cards/blockimg/blockimg';
 export default function Recent() {
     return (
         <div>
-            <div className={s.block_all_scroll}>
+            <div className={`${s.block_all_scroll} dark:bg-[#212130] dark:text-[#fff]`}>
                 <div className={s.btn_title}>
                     <h3>Recent Activity</h3>
                     <div className={s.flex_bread}>

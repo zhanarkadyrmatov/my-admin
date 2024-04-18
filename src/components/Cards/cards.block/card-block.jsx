@@ -6,7 +6,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 export default function Cardblock({}) {
  
     return (
-        <div className={s.cartbBlock_flex}>
+        <div className={`${s.cartbBlock_flex} dark:bg-[#212130]  dark:text-[#fff]`}>
             <div className={s.flex_block}>
                 <img src={image3} alt="" />
                 <div>
@@ -18,7 +18,7 @@ export default function Cardblock({}) {
                     </div>
                 </div>
             </div>
-            <button>6 Jobs Available</button>
+            <button className=' dark:bg-[#212130] dark:text-[#f93a0b]  dark:text-[#fff]'>6 Jobs Available</button>
         </div>
     )
 }

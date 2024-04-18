@@ -11,7 +11,7 @@ import { GoPlus } from "react-icons/go";
 export default function Draggable() {
   return (
     <div className={s.draggable}>
-      <div className={s.d_start}>
+      <div className={`${s.d_background} dark:bg-[#212130]  dark:text-[#fff]`}>
         <div className={s.draggable_title}>
           <h4>Calendar</h4>
           <p>Drag and drop your event or click in the calendar</p>
@@ -49,7 +49,7 @@ export default function Draggable() {
           </div>
         </div>
         <div className={s.draggable_checkbox}>
-          <input type="checkbox"/>
+          <input type="checkbox" />
           <p>Remove After Drop</p>
         </div>
         <div className={s.draggable_button}>

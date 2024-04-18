@@ -17,7 +17,7 @@ export default function Vacancy() {
     return (
         <div>
             <div className={s.vacans_statig}>
-                <div className={s.block_grid}>
+                <div className={`${s.block_grid} dark:bg-[#212130] dark:text-[#fffff]`}>
                     <div className={s.flex_text_button}>
                         <h3>Vacancy Stats</h3>
                         <div className={s.flex_button}>

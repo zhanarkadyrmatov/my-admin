@@ -14,7 +14,7 @@ export default function Available() {
     };
     return (
         <div>
-            <div className={s.block_img_slick}>
+            <div className={`${s.block_img_slick} dark:bg-[#212130] dark:text-[#8888]`}>
                 <div className={s.btn_title}>
                     <h3>Available Jobs For You</h3>
                     <div className={s.flex_bread}>

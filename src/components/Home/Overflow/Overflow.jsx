@@ -5,7 +5,7 @@ import HomeCover from '../../Cards/hompage-card/homepage';
 export default function Overflow() {
     return (
         <div>
-            <div className={s.Block_context_img}>
+            <div className={`${s.Block_context_img} dark:bg-[#212130] dark:text-[#fff]`}>
                 <div className={s.context_burger}>
                     <h3>Featured Companies</h3>
                     <BsThreeDotsVertical className={s.icon_point} />
