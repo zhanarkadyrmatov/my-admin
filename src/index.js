@@ -9,10 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <ProviderRedux>
-    
-    <App />
-    </ProviderRedux>
+      <ProviderRedux>
+        <App />
+      </ProviderRedux>
     </BrowserRouter>
   </React.StrictMode>
 );
