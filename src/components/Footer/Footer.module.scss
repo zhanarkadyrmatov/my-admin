@@ -1,0 +1,22 @@
+.footer_all {
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.9375rem;
+        p {
+            color: #737b8b;
+            text-align: center;
+            margin: 0;
+            font-size: 0.875rem;
+            line-height: 1.8;
+            a {
+                color: #f93a0b;
+                text-decoration: none;
+            }
+        }
+    }
+}

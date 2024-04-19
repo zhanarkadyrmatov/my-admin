@@ -9,6 +9,8 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import HistoryPage from "./pages/historyPage/historyPage";
 import Profil from './pages/profil/profil';
 import DataPages from './pages/DataPages/DataPages';
+import CartPages from "./pages/cartPages/CartPages";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -31,15 +33,20 @@ function App() {
           setDarkMode={setDarkMode}
           darkMode={darkMode}
         />
-        <div className="overflow-y-auto h-screen px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px] bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
-          <Routes>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/calendary" element={<DataPages />} />
-            <Route path="/profil" element={<Profil />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/history" element={<HistoryPage />} />
-          </Routes>
+
+        <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
+          <div className="px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px]">
+            <Routes>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/calendary" element={<DataPages />} />
+              <Route path="/profil" element={<Profil />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/companies" element={<CartPages />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
       </main>
     </div>
