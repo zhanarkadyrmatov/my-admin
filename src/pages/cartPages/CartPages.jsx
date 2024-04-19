@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './Cart-block.module.scss'
+import s from './CartPages.module.scss'
 import Cardblock  from '../../components/Cards/cards.block/card-block';
 export default function CartbBlock() {
     return (

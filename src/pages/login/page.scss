@@ -28,6 +28,19 @@
     background-color: #ffff;
     padding: 1.875rem;
     border-radius: 0.5rem;
+    input {
+        border-radius: 0.5rem;
+        height: 2.8rem;
+        border: 1px solid #e6e6e6;
+        padding: 0.3125rem 1.25rem;
+        transition:
+            border-color 0.15s #983c25,
+            box-shadow 0.15s #983c25;
+        outline: none;
+        &:focus {
+            border: 1px solid #a86336;
+        }
+    }
 }
 .Login__container input {
     border-radius: 10px;
@@ -77,19 +90,7 @@
     text-align: center;
 }
 
-input {
-    border-radius: 0.5rem;
-    height: 2.8rem;
-    border: 1px solid #e6e6e6;
-    padding: 0.3125rem 1.25rem;
-    transition:
-        border-color 0.15s #983c25,
-        box-shadow 0.15s #983c25;
-    outline: none;
-    &:focus {
-        border: 1px solid #a86336;
-    }
-}
+
 
 .remember_all {
     display: flex;

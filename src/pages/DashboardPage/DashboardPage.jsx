@@ -6,10 +6,14 @@ import Vacancy from '../../components/Home/Vacancy/Vacancy';
 import Chart from '../../components/Home/Chart/Chart';
 import Overflow from '../../components/Home/Overflow/Overflow';
 import Static from '../../components/Home/Static/Static';
-import s from './DashboardPage.module.scss';
+import s from './DashboardPage.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Franklin from '../../components/Home/Franklin/Franklin';
+
+
+
+
 
 
 export default function DashboardPage() {
@@ -19,8 +23,8 @@ export default function DashboardPage() {
             <div className={s.flexGrow}>
                 <div className={s.div_react}>
                     <Static />
-                    <Vacancy />
-                    <Chart />
+                    <ChartTypeArea />
+                    <ChartTypeBar />
                     <Overflow />
                 </div>
                 <div className={s.display_grid}>

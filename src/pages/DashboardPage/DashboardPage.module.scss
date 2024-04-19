@@ -1,10 +1,11 @@
 .container {
     width: 100%;
+    margin: 40px 0 40px 0;
 }
 .flexGrow {
     display: grid;
     grid-template-columns: 2fr 2fr;
-    gap: 15px;
+    gap: 30px;
     @media (max-width: 1400px) {
         width: 100%;
         grid-template-columns: none;
@@ -13,12 +14,13 @@
 }
 .display_grid {
     display: grid;
+    row-gap: 30px;
     @media(max-width:1400px){
         row-gap: 10px;
     }
 }
 .div_react {
     display: grid;
-    row-gap: 10px;
+    row-gap: 30px;
 
 }
