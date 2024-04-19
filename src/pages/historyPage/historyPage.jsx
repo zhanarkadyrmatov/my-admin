@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import s from '../Section/Section.module.scss'
+import s from './history.module.scss'
 import { MdDelete } from "react-icons/md";
 import { FaMinus } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
