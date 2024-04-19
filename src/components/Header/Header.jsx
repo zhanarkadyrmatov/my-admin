@@ -28,7 +28,8 @@ export default function Header({
     <div>
       <div style={{
         width: "-webkit-fill-available",
-      }} class="fixed top-0 py-3 px-4 z-10 flex justify-between items-center bg-white dark:bg-[#212130] shadow-md">
+        boxShadow: "5px 1px 10px -5px #000"
+      }} class="fixed top-0 py-3 px-4 z-10 flex justify-between items-center bg-white dark:bg-[#212130]">
         <div className=''>
           <div className='flex items-center gap-4'>
             <Link className="flex md:hidden" to="/">
