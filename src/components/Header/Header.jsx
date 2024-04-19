@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BiMessageDetail } from "react-icons/bi";
 import { GoBell, GoPlus } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { SlSettings } from "react-icons/sl";
 import { FaBars } from "react-icons/fa6";
+import { useDispatch } from 'react-redux';
+import { getUser } from "../../store/slice/user.slice";
 
 export default function Header({
   setCollapsed,
@@ -16,6 +18,12 @@ export default function Header({
   setDarkMode,
   darkMode,
 }) {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUser())
+  }, []);
+
   return (
     <div>
       <div style={{

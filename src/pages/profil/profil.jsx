@@ -6,8 +6,12 @@ import { FaTelegram } from "react-icons/fa";
 import { RiMessage2Fill } from "react-icons/ri";
 import { FaArrowUp } from "react-icons/fa";
 import Chart from 'react-apexcharts';
+import { useSelector } from 'react-redux';
 
 function Profil() {
+  const { user } = useSelector(state => state.user)
+
+  console.log(user);
 
   const options = {
     labels: ['A', 'B', 'C'],

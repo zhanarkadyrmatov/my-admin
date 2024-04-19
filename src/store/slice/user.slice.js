@@ -6,12 +6,12 @@ const initialState = {};
 
 export const fetchUser = createAsyncThunk(
     "user/fetchUser",
-    async (credentials, { rejectWithValue,dispatch }) => {
+    async (credentials, { rejectWithValue, dispatch }) => {
         try {
             const response = await axios.post(`${Api}user_api/login/`, credentials);
 
-             await localStorage.setItem("token", response.data.access_token);
- await dispatch(getUser())
+            await localStorage.setItem("token", response.data.access_token);
+            await dispatch(getUser())
             console.log(response.data.access_token);
             return response;
         } catch (error) {
@@ -20,21 +20,20 @@ export const fetchUser = createAsyncThunk(
     }
 );
 
-export  const getUser = createAsyncThunk(
+export const getUser = createAsyncThunk(
     "user/getUser",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${Api}user_api/user/me/` ,{
+            const response = await axios.get(`${Api}user_api/user/me/`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
-            
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
-    }   
+    }
 )
 
 export const userSlice = createSlice({
