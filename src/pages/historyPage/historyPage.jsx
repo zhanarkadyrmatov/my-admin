@@ -70,7 +70,7 @@ function HistoryPage() {
     const [user, setUser] = useState(false)
     return (
         <>
-            <TableContainer component={Paper}  className='dark:bg-[#212130] ' >
+            <TableContainer component={Paper} className='dark:bg-[#212130] ' >
                 <div className={`${s.project_header} ${s.project_header} dark:bg-[#212130]`}>
                     <div className={s.project_header_flex}>
                         <th>FOOTBALL FIELDS </th>
