@@ -7,6 +7,7 @@ import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import HistoryPage from "./pages/historyPage/historyPage";
+import Profil from './pages/profil/profil';
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/history" element={<HistoryPage />} />
+            <Route path="/profil" element={<Profil />} />
           </Routes>
         </div>
       </main>
