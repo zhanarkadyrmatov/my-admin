@@ -10,6 +10,8 @@ import s from './DashboardPage.scss'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Franklin from '../../components/Home/Franklin/Franklin';
+import ChartTypeArea from '../../components/Charts/ChartTypeArea/ChartTypeArea';
+import ChartTypeBar from '../../components/Charts/ChartTypeBar/ChartTypeBar';
 
 
 
