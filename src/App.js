@@ -7,6 +7,8 @@ import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import HistoryPage from "./pages/historyPage/historyPage";
+import Profil from './pages/profil/profil';
+import DataPages from './pages/DataPages/DataPages';
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
