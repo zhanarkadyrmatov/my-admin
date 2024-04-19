@@ -35,8 +35,8 @@ function Login() {
         }
     }, [status])
     return (
-        <div className="Login" style={{ marginTop: '30px' }}>
-            <div className="Login__container">
+        <div className="Login dark:bg-[#17171E] dark:text-[#000]" style={{ marginTop: '30px' }}>
+            <div className="Login__container dark:bg-[#212130] dark:text-[#fff]">
                 <p className="Login__p--hint">Войти вы можете только зарегистрированным <br /> пользователем</p>
                 {error?.detail && <p className="Login__p--error">{error.detail}</p>}
 
