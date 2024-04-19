@@ -70,7 +70,7 @@ function HistoryPage() {
     const [user, setUser] = useState(false)
     return (
         <>
-            <TableContainer component={Paper} className='dark:bg-[#212130] ' >
+            <TableContainer style={{margin:'40px 0 40px 0'}} component={Paper} className='dark:bg-[#212130] ' >
                 <div className={`${s.project_header} ${s.project_header} dark:bg-[#212130]`}>
                     <div className={s.project_header_flex}>
                         <th>FOOTBALL FIELDS </th>
@@ -78,7 +78,7 @@ function HistoryPage() {
                     </div>
                 </div>
                 <div className={`${s.tableResponsive} dark:bg-[#212130]`}>
-                    <Table sx={{ minWidth: '100%' }} aria-label="customized table" style={{ width: '100%', overflow: 'scroll' }}
+                    <Table sx={{ minWidth: '100%' }} aria-label="customized table" 
                     >
                         <TableHead style={{ width: "100%" }} className='dark:bg-[#212130]'>
                             <TableRow >

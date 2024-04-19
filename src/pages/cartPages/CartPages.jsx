@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './CartPages.module.scss'
 import Cardblock  from '../../components/Cards/cards.block/card-block';
-export default function CartbBlock() {
+export default function CartPages() {
     return (
         <div>
             <div className={s.CartBlock}>
