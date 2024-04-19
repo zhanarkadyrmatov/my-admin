@@ -1,7 +1,7 @@
 import React from 'react'
 import image5 from '../../../img/image5.png'
 import s from './bloxkimg.module.scss'
-export default function Blockimg() {
+export default function BlockImg() {
     return (
             <div className={s.flex_group}>
                 <img src={image5} alt="" />

@@ -2,7 +2,7 @@ import React from 'react'
 import s from './homepage.module.scss'
 import image5 from '../../../img/image5.png'
 
-export default function Homepage() {
+export default function HomeCover() {
     return (
         <div className={s.block_img_flex}>
             <img src={image5} alt="" />

@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './Franklin.module.scss'
-import image from '../../Home/Franklin/Franklin.module.scss'
+import image from '../../../img/image.jpg'
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Box from '@mui/material/Box';
 import { PieChart } from '@mui/x-charts/PieChart';
@@ -10,7 +10,7 @@ export default function Franklin() {
     return (
         <div>
             <div className={s.flex_wrap}>
-                <div className={s.cart_block_width}>
+                <div className={`${s.cart_block_width} dark:bg-[#212130] dark:text-[#fff] `}>
                     <div className={s.flex_img}>
                         <img src={image} alt="" />
                         <div className={s.grid_text}>
