@@ -32,3 +32,8 @@ p{
     background-color: #ffffff !important;
   }
 }
+
+.fc-event-main div {
+  padding: 10px;
+  background-color: red !important;
+}

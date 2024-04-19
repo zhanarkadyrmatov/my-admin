@@ -21,7 +21,7 @@ const events = [
   {
     title: "Bekmyrza",
     start: new Date("Tue Feb 9 2024 11:16:43 GMT+0600 (Киргизия)"),
-    end: new Date("Tue Feb 10 2024 11:16:43 GMT+0600 (Киргизия)"),
+    end: new Date("Tue Feb 15 2024 11:16:43 GMT+0600 (Киргизия)"),
   },
 ];
 
@@ -54,6 +54,19 @@ export default function Calendar() {
         editable={true}
         dayMaxEvents={true}
         events={events}
+        components={{
+          DateView: ({ date, events }) => (
+            <div>
+              <h2>{date.toLocaleDateString()}</h2>
+              <ul>
+                {events.map((event) => (
+                  <li key={event.id}>{event.title}</li>
+                ))}
+              </ul>
+            </div>
+          ),
+        }}
+  
         eventContent={renderEventContent}
       />
     </div>
