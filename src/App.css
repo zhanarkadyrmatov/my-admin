@@ -37,3 +37,6 @@ p{
   padding: 10px;
   background-color: red !important;
 }
+.fc-daygrid-dot-event div {
+  background-color: red !important;
+}
