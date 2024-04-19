@@ -58,7 +58,7 @@ export default function Header({
           </div>
         </div>
         <div className='flex items-center lg:gap-4 gap-3'>
-          {darkMode ? <MdLightMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
+          {darkMode ? <MdLightMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer  dark:fill-[#b3b3b3]" />
             :
             <MdDarkMode onClick={() => setDarkMode(!darkMode)} className="lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer dark:fill-[#b3b3b3]" />
           }
