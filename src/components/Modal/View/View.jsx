@@ -1,23 +1,26 @@
 import React from 'react'
 import s from './View.module.scss'
+import { useForm } from 'react-hook-form';
 export default function View() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     return (
         <div className={s.container}>
             <div className={s.user_modal}>
-              <div >
-                     {/* <div className={s.header_context}>
-                    <h1>New Job</h1>
-                    {/* <div className={s.all_icon}>
-                        <div className={s.div_icon}><CiMail className={s.mail} color='#fff' /></div>
-                        <div className={s.div_icon}><FaPhoneFlip className={s.mail} /></div>
-                        <div className={s.div_icon}>
-                            <h3 className={s.mail}>i</h3>
-                        </div>
-                    </div> */}
-                {/* </div> * / } */}
                 <div className={s.user_background}>
                     <div className={s.user_window}>
                         <div className={s.block_grid}>
+                            <form onSubmit={handleSubmit((data) => console.log(data))}>
+                                <input {...register('firstName')} />
+                                 <input {...register('lastName', { required: true })} />
+                                {errors.lastName && <p>Last name is required.</p>}
+                                <input {...register('age', { pattern: /\d+/ })} />
+                                {errors.age && <p>Please enter number for age.</p>}
+                                <input type="submit" />
+                            </form>
                             <h3>Company Name <span>*</span></h3>
                             <input type="text" placeholder='Name' />
                         </div>
@@ -96,7 +99,6 @@ export default function View() {
                         </textarea>
                     </div>
                 </div>
-              </div>
             </div>
         </div>
     )

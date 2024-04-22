@@ -71,7 +71,7 @@ function HistoryPage() {
     return (
         <>
             <TableContainer style={{margin:'40px 0 40px 0'}} component={Paper} className='dark:bg-[#212130] ' >
-                <div className={`${s.project_header} ${s.project_header} dark:bg-[#212130]`}>
+                <div className={`${s.project_header} dark:bg-[#212130]`}>
                     <div className={s.project_header_flex}>
                         <th>FOOTBALL FIELDS </th>
                         <th className={s.icons}><FaMinus /><FaTimes /></th>
