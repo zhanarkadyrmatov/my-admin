@@ -24,6 +24,9 @@
         overflow-y: scroll;
         height: 400px;
         margin: 20px 0 30px 30px;
+        @media(max-width:768px){
+            grid-template-columns: 1fr;
+        }
     }
     .border_bottom {
         width: 280px;

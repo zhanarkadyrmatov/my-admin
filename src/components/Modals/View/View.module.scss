@@ -1,0 +1,118 @@
+.user_modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    background: #f3f3f3;
+    overflow: scroll;
+    .container {
+        max-width: 1440px;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .user_background {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        margin: 30px 80px 30px 100px;
+        @media (max-width: 1280px) {
+            // width: 100%;
+            // height: 100%;
+        margin: 20px 50px 20px 60px;
+
+        }
+
+        .user_window {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 26px;
+            row-gap: 40px;
+            column-gap: 30px;
+            @media (max-width: 650px) {
+                grid-template-columns: none;
+            }
+            .block_grid {
+                display: grid;
+                row-gap: 10px;
+            }
+            input {
+                // width: 90%;
+                // height: 40px;
+                padding: 10px 12px;
+                font-size: 12px;
+                border-radius: 10px;
+                outline: #2099d6;
+                @media (max-width: 1280px) {
+                    width: 100%;
+                }
+                border: 1px solid #b7b4b6;
+                &:hover {
+                    border: 1px solid #109f28;
+                }
+            }
+            h3 {
+                font-size: 16px;
+                font-weight: 500;
+                span {
+                    color: #dc3545;
+                }
+            }
+        }
+    }
+    .big_input {
+        display: grid;
+        justify-content: center;
+        @media(max-width:1200px){
+            width: 100%;
+        }
+        textarea {
+            width: 100%;
+            height: 230px;
+            background: #ffffff;
+            border-radius: 10px;
+            margin: 30px 30px 0 30px;
+            outline: #145650;
+            border: 1px solid #b7b4b6;
+            &:hover {
+                border: 1px solid #145650;
+            }
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: 500;
+            padding-left: 30px;
+            span {
+                color: #dc3545;
+            }
+        }
+    }
+    .header_context {
+        width: 1100px;
+        display: flex;
+        margin: 100px 0 20px 100px;
+        justify-content: space-between;
+    }
+    .all_icon {
+        display: flex;
+        gap: 10px;
+        color: #fff;
+        .div_icon {
+            height: 2.8125rem;
+            width: 2.8125rem;
+            border-radius: 0.5rem;
+            background-color: #145650;
+            display: inline-flex;
+            align-items: center;
+            font-size: 1rem;
+            justify-content: center;
+            color: #fff;
+        }
+        .mail {
+            color: #fff;
+        }
+    }
+}
