@@ -13,9 +13,9 @@ import { FaMinus } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
-import View from '../../components/Modal/View/View';
-import Data from '../../components/Modal/Data/Data';
-import Search from '../../components/Modal/Search/Search';
+import View from '../../components/Modals/View/View';
+import Data from '../../components/Modals/Data/Data';
+import Search from '../../components/Modals/Search/Search';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

@@ -11,8 +11,8 @@ import Profil from './pages/profil/profil';
 import DataPages from './pages/DataPages/DataPages';
 import CartPages from "./pages/cartPages/CartPages";
 import Footer from "./components/Footer/Footer";
-import Filter from "./components/Filter/Filter";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
+import Payment from "./pages/historyPayment/Payment"; 
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -42,14 +42,13 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/calendary" element={<DataPages />} />
               <Route path="/profil" element={<Profil />} />
-              <Route path="/" element={<HomePage />} />
+              <Route path="/payment" element={<Payment />} />
               <Route path="/armor" element={<ArmorHistory/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/companies" element={<CartPages />} />
             </Routes>
           </div>
-          <Footer />
         </div>
       </main>
     </div>
