@@ -42,7 +42,7 @@ p {
 .fc-button-primary {
   color: #333 !important;
 }
-.fc-button-group button {
+.fc-button-group button { 
   color: #333;
   background-color: #0000 !important;
 }
