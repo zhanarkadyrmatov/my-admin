@@ -115,7 +115,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
               </MenuItem>
               <SubMenu className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/wallet") && "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"}
                 }`} label="Кошелек" icon={<FaWallet className=" w-[20px] h-[20px]" />}>
-                <MenuItem className="text-[18px] dark:bg-[#212130] text-[#737B8B]" icon={<FaMinus className=" w-[16px] h-[16px]" />} component={<NavLink to="" />}>История</MenuItem>
+                <MenuItem className="text-[18px] dark:bg-[#212130] text-[#737B8B]" icon={<FaMinus className=" w-[16px] h-[16px]" />} component={<NavLink to="/armor" />}>История</MenuItem>
                 <MenuItem className="text-[18px] dark:bg-[#212130] text-[#737B8B]" icon={<FaMinus className="  w-[16px] h-[16px]" />} component={<NavLink to="" />}>
                   Кнопка
                 </MenuItem>
