@@ -27,7 +27,7 @@ const events = [
 
 export default function Calendar() {
   return (
-    <div className={`${s.calendar} dark:bg-[#212130] dark:text-[#8888]`}>
+    <div className={`${s.calendar} dark:bg-[#212130] dark:text-[#fff]`}>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin]}
         timeZone="UTC"

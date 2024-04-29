@@ -1,3 +1,9 @@
+
+:root   {
+  --bg-color:  white;
+  --text-color: #333;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 * {
   margin: 0;
@@ -39,54 +45,5 @@ p {
 .fc-daygrid-dot-event div {
   background-color: red !important;
 }
-.fc-button-primary {
-  color: #333 !important;
-}
-.fc-button-group button { 
-  color: #333;
-  background-color: #0000 !important;
-}
-.fc-button-group button span {
-  color: #333;
-}
 
-.fc-button-group button:focus {
-  background-color: #f93a0b !important;
-  color: white !important;
-}
 
-.fc-button-group button:focus span {
-  background-color: #f93a0b !important;
-  color: white !important;
-}
-
-.fc-button-group button:hover {
-  background-color: #f93a0b !important;
-  color: white !important;
-}
-.fc-button-group button:hover span {
-  background-color: #f93a0b !important;
-  color: white !important;
-}
-
-.fc-button-group button:active span {
-  background-color: #f93a0b !important;
-  color: white !important;
-}
-
-.fc-button-group button:active {
-  background-color: #f93a0b !important;
-  color: white !important;
-}
-
-.fc-toolbar-title {
-  font-size: 18px !important;
-}
-
-.fc-button-primary {
-  background-color: #0000 !important;
-}
-
-.fc-button-primary:disabled {
-  opacity: 0.2;
-}
