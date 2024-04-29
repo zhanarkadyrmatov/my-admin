@@ -13,6 +13,7 @@ import CartPages from "./pages/cartPages/CartPages";
 import Footer from "./components/Footer/Footer";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment"; 
+import Book from "./components/Calendary/Book/page";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -47,6 +48,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/companies" element={<CartPages />} />
+              <Route path="/calendary/book" element={<Book />} />
             </Routes>
           </div>
         </div>
