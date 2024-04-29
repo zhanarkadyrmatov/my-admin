@@ -12,7 +12,7 @@ export default function Overflow() {
                 </div>
                 <div className={s.block_context_grid}>
                     <HomeCover /><HomeCover /><HomeCover />
-                    <HomeCover /><HomeCover /><HomeCover />
+                    <HomeCover /><HomeCover /><HomeCover  />
                     <HomeCover /><HomeCover /><HomeCover />
                     <HomeCover /><HomeCover /><HomeCover />
                 </div>
