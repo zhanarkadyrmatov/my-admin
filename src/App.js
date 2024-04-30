@@ -14,6 +14,7 @@ import Footer from "./components/Footer/Footer";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment"; 
 import Book from "./components/Calendary/Book/page";
+import BookId from "./components/Calendary/Book/BookId/page";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -40,7 +41,7 @@ function App() {
         <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
           <div className="px-4 py-[35px] lg:py-[55px] xl:px-6 xl:py-[60px]">
             <Routes>
-              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/" element={<DashboardPage />} />
               <Route path="/calendary" element={<DataPages />} />
               <Route path="/profil" element={<Profil />} />
               <Route path="/payment" element={<Payment />} />
@@ -49,6 +50,7 @@ function App() {
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/companies" element={<CartPages />} />
               <Route path="/calendary/book" element={<Book />} />
+              <Route path="/calendary/book/:bookId" element={<BookId />} />
             </Routes>
           </div>
         </div>

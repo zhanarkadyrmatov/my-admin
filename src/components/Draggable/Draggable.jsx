@@ -9,7 +9,14 @@ import { Input } from "@mui/material";
 import { GoPlus } from "react-icons/go";
 
 export default function Draggable() {
+  
+
+  const  redireact = () => {
+    window.location.href = "/calendary/book";
+  }
   return (
+
+    
     <div className={s.draggable}>
       <div className={`${s.d_background} dark:bg-[#212130]  dark:text-[#fff]`}>
         <div className={s.draggable_title}>
@@ -53,7 +60,7 @@ export default function Draggable() {
           <p>Remove After Drop</p>
         </div>
         <div className={s.draggable_button}>
-          <button><GoPlus size={20} />Create New</button>
+          <button onClick={()=> redireact()} ><GoPlus size={20}  />Create New</button>
         </div>
       </div>
     </div>
