@@ -8,6 +8,7 @@
   border: 0rem solid transparent;
   border-radius: 0.5rem;
   padding: 1.875rem;
+
   .draggable_title {
     h4 {
       line-height: 1.5;
@@ -28,6 +29,9 @@
     display: grid;
     align-items: center;
     row-gap: 10px;
+    gap: 15px;
+    overflow-y: scroll;
+    max-height: 70vh;
     .primary_block_1 {
       text-align: left;
       font-size: 16px;
@@ -56,7 +60,47 @@
         background-color: #f93a0b;
       }
     }
+    tr {
+      border-bottom: 1px solid #f93a0b1a;
+      display: grid;
+      justify-content: space-between;
+      gap: 10px;
+      grid-template-columns: 50% 1fr 1fr ;
+      border-bottom: 0.5px solid #ECECEC;
+      padding-bottom: 15px;
+    td:nth-of-child(1) {
+font-size: 14px;
+font-weight: 400;
+line-height: 17.24px;
+text-align: left;
+color: #000 !important;
+
+    }
+    td {
+font-size: 14px;
+font-weight: 400;
+
+line-height: 17.24px;
+text-align: left;
+color:  #C7C7C7;
+display: grid;
+
+align-items: center;
+}
+     }
+    .tableHad{
+      td{
+font-size: 14px;
+font-weight: 400;
+line-height: 17.24px;
+text-align: left;
+color:#AEAEAE  !important;
+
+      }
+    }
   }
+  
+
   .draggable_checkbox {
     display: flex;
     gap: 20px;
@@ -98,4 +142,26 @@
       color: #fff;
     }
   }
+}
+
+
+.draggable_block_title::-webkit-scrollbar {
+  width: 10px;
+}
+
+.draggable_block_title::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+
+.draggable_block_title::-webkit-scrollbar-thumb {
+  background: #ff2424;
+  border-radius: 20px;
+  bottom: 3px solid #ff0202;
+}
+
+
+.filter{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
