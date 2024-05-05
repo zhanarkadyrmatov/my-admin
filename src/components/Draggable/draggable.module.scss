@@ -8,13 +8,16 @@
   border: 0rem solid transparent;
   border-radius: 0.5rem;
   padding: 1.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   .draggable_title {
     h4 {
       line-height: 1.5;
-      font-size: 1.125rem;
+      font-size: 40px;
       margin-top: 0;
-      margin-bottom: 0.5rem;
+
       font-weight: 600;
     }
     p {
@@ -164,4 +167,44 @@ color:#AEAEAE  !important;
   display: flex;
   justify-content: space-between;
   gap: 10px;
+align-items: center;
+  h4{
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 17.24px;
+    text-align: left;
+    color: #000 !important;
+  }
+  select {
+    stroke: none;
+    text-decoration: none;
+    
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 17.24px;
+    text-align: left;
+    color:  #000;
+    display: grid;
+    align-items: center;
+    padding: 0 10px;
+  }
+  @media screen and (max-width: 1429px) {
+    
+    select {
+      font-size: 18px;
+    }
+    h4{
+      font-size: 30px !important;
+    }
+    @media screen and  (max-width:433px) {
+
+      select {
+        font-size: 16px;
+      }
+      h4{
+        font-size: 26px !important;
+      }
+    }
+  }
 }

@@ -22,8 +22,7 @@ export default function Draggable() {
           <option value="">This Week</option>
           </select>
         </div>
-          <p>Drag and drop your event or click in the calendar</p>
-        </div>
+         </div>
         <table className={s.draggable_block_title}>
         
     <tr className={s.tableHad}>
