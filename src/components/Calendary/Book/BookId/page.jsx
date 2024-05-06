@@ -1,103 +1,59 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import blockimage from "../../../../img/blockimage.svg";
+import edit from "../../../../img/edit.svg";
+import ball from "../../../../img/ball.svg";
+import star from "../../../../img/star.svg";
+import star2 from "../../../../img/star2.svg";
 import s from "./page.module.scss";
 import { CiBaseball } from "react-icons/ci";
 import { IoFootballOutline } from "react-icons/io5";
-const BookId = () => {
-  const { bookId } = useParams();
-
-  const [pageIndex, setPageIndex] = useState(0);
+export default function BookId() {
   return (
-    <div className={s.bookId}>
-      <ul className="flex  gap-[10px] ">
-        <li
-          onClick={() => setPageIndex(0)}
-          className={`text-[#505050] dark:text-[#e4e3e3] hover:text-[#000] cursor-pointer hover:dark:text-[#ffffff] ${
-            pageIndex === 0
-              ? "border-b border-solid border-[#000] dark:border-[#fff]"
-              : ""
-          }`}
-        >
-          Обзор
-        </li>
-        <li
-          onClick={() => setPageIndex(1)}
-          className={`text-[#505050] dark:text-[#e4e3e3] hover:text-[#000] cursor-pointer hover:dark:text-[#ffffff] ${
-            pageIndex === 1
-              ? "border-b border-solid border-[#000] dark:border-[#fff]"
-              : ""
-          }`}
-        >
-          График / Контакты
-        </li>
-        <li
-          onClick={() => setPageIndex(2)}
-          className={`text-[#505050] dark:text-[#e4e3e3] hover:text-[#000] cursor-pointer hover:dark:text-[#ffffff] ${
-            pageIndex === 2
-              ? "border-b border-solid border-[#000] dark:border-[#fff]"
-              : ""
-          }`}
-        >
-          Галерея
-        </li>
-      </ul>
-      {pageIndex === 0 && (
-        <div className="text-[#000] dark:text-[#fff] flex gap-[30px] flex-col">
-          <div className="flex gap-[15px] flex-col">
-            <h3 className="text-[#000] dark:text-[#fff] text-20px] md:text-[30px]">
-              Преимущества
-            </h3>
-            <div className={s.CiBaseball}>
-              {[1, 3, 4, 5, 6, 7, 8, 9, 9, 9].map((res, i) => (
-                <div className="flex gap-[15px]  border border-solid border-[#000] dark:border-[#fff] p-[15px] rounded-[20px]">
-                  <span className="text-[#000] dark:text-[#fff]  border border-solid border-[#000] dark:border-[#fff] rounded-full p-[5px]">
-                    <IoFootballOutline size={60} />
-                  </span>
-                  <span className="flex flex-col  align-middle h-full justify-center">
-                    <h2 className="text-[#000] dark:text-[#fff]   text-left  text-[20px] font-[500]">
-                      Возможность{" "}
-                    </h2>
-                    <p className="text-[#000] dark:text-[#fff]  text-left ">
-                      по дате{" "}
-                    </p>
-                  </span>
-                </div>
-              ))}
+    <div>
+      <div className={s.page_block_all}>
+        <div className={s.pages_block}>
+          <div className={s.page_img}>
+            <div className={s.page_block_big_img}>
+              <div className={s.page_edit}>
+                <img className={s.edit} src={edit} alt="" />
+              </div>
+              <img className={s.big_img} src={blockimage} alt="" />
+              <div className={s.page_price}>
+                <h4>1 000 сом / час</h4>
+              </div>
             </div>
           </div>
-          <div className="flex gap-[15px] flex-col">
-            <h3 className="text-[#000] dark:text-[#fff] text-20px] md:text-[30px]">
-            Описание
-            </h3>
-            <div className={s.CiBaseball}>
-              {[1, 9, 9].map((res, i) => (
-                <div className="flex gap-[15px]  border border-solid border-[#000] dark:border-[#fff] p-[15px] rounded-[20px]">
-                  <span className="text-[#000] dark:text-[#fff]  border border-solid border-[#000] dark:border-[#fff] rounded-full p-[5px]">
-                    <IoFootballOutline size={60} />
-                  </span>
-                  <span className="flex flex-col  align-middle h-full justify-center">
-                    <h2 className="text-[#000] dark:text-[#fff]   text-left  text-[20px] font-[500]">
-                      Возможность{" "}
-                    </h2>
-                    <p className="text-[#000] dark:text-[#fff]  text-left ">
-                      по дате{" "}
-                    </p>
-                  </span>
+          <div className={s.page_block_back}>
+            <div className={s.page_beetwen}>
+              <div className={s.page_grid}>
+                <h4>El Clasico</h4>
+                <p>Спортивный комплекс</p>
+              </div>
+              <small>26 км</small>
+            </div>
+            <div className={s.page_block_end}>
+              <div className={s.page_block_flex}>
+                <img src={ball} alt="" />
+                <img src={ball} alt="" />
+                <img src={ball} alt="" />
+                <img src={ball} alt="" />
+              </div>
+              <div className={s.page_flex_beetwen}>
+                <div>
+                  <h5>3.0 (2)</h5>
                 </div>
-              ))}
+                <div className={s.flex_beetwen}>
+                  <img src={star} alt="" />
+                  <img src={star} alt="" />
+                  <img src={star} alt="" />
+                  <img src={star2} alt="" />
+                  <img src={star2} alt="" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      )}
-      {pageIndex === 1 && (
-        <div className="text-[#000] dark:text-[#fff]">asdasdasd2 </div>
-      )}
-      {pageIndex === 2 && (
-        <div className="text-[#000] dark:text-[#fff]">asdasdasd3 </div>
-      )}
-      <div className="text-[#fff] dark:text-[#fff] bg-[#0A9829] p-[15px] rounded-[10px] cursor-pointer  justify-center flex  text-[17px] ">Забронировать поле</div>
+      </div>
     </div>
   );
-};
-
-export default BookId;
+}

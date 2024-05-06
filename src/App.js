@@ -15,6 +15,9 @@ import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment"; 
 import Book from "./components/Calendary/Book/page";
 import BookId from "./components/Calendary/Book/BookId/page";
+import Fields from "./components/Calendary/Fields/Fields";
+import Galerya from "./components/Calendary/Book/Galerya/Galerya";
+import UserBook from "./components/Calendary/Book/usersBook/UserBook";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -50,6 +53,9 @@ function App() {
               <Route path="/history" element={<HistoryPage />} />
               <Route path="/companies" element={<CartPages />} />
               <Route path="/calendary/book" element={<Book />} />
+              <Route path="/calendary/fields" element={<Fields />} />
+              <Route path="/calendary/fields/galerya" element={<Galerya />} />
+              <Route path="/calendary/fields/usersBook" element={<UserBook />} />
               <Route path="/calendary/book/:bookId" element={<BookId />} />
             </Routes>
           </div>

@@ -108,6 +108,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<FaHome className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/" />}
+                onClick={() => setToggled(false)}
               >
                 Home
               </MenuItem>
@@ -145,7 +146,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
               Брони
               </MenuItem>
               <SubMenu
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b]  ${
                   isActive("/wallet") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                 }
