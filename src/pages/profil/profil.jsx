@@ -38,9 +38,9 @@ function Profil() {
     <div>
       <div className={'flex flex-col gap-[20px] lg:gap-[70px] w-[100%] mt-[40px]'}>
         <div className='relative w-[100%] h-[250px] xl:h-[350px] '>
-          <div className={'w-[100%] h-[100%] absolute z-1 rounded-[20px] bg-[rgba(0,0,0,0.5)]'}></div>
+          <div className={'w-[100%] h-[100%] absolute z-0 rounded-[20px] bg-[rgba(0,0,0,0.5)]'}></div>
           <img className={'w-[100%] h-[100%] object-cover rounded-[20px]'} src="https://jobick.dexignlab.com/xhtml/images/profile1.jpg" alt="" />
-          <div className='absolute bottom-[20px] lg:bottom-[-40px] left-[50%] w-[95%]  translate-x-[-50%] z-5'>
+          <div className='absolute bottom-[20px] lg:bottom-[-40px] left-[50%] w-[95%]  translate-x-[-50%] z-[3]'>
             <div className={'flex lg:justify-between lg:items-center flex-col-reverse lg:flex-row gap-[100px]'}>
               <div className={'flex items-center xl:gap-4 gap-2'}>
                 <div className={'lg:p-2 xl:p-3 rounded-[15px] bg-[#fff]'}>
@@ -116,23 +116,23 @@ function Profil() {
               <div className={'bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4 dark:bg-[#212130]'}>
                 <h3 className={'text-xl font-bold text-black dark:text-[#fff] '}>Socials</h3>
                 <div className={'flex flex-col gap-2'}>
-                  <div className={'flex items-center gap-2 w-[100%] h-[30px] px-5 bg-[green] rounded-lg hover:bg-[#105910]  transition-all duration-150'}>
-                    <FaWhatsappSquare className={'w-5 h-5 fill-[#fff]'} />
+                  <div className={'flex items-center gap-2 w-[100%] h-[30px] bg-[green] rounded-lg hover:bg-[#105910]  transition-all duration-150'}>
+                    <FaWhatsappSquare className={'ml-3 w-5 h-5 fill-[#fff]'} />
                     <div className={'w-[1.5px] h-[100%] bg-[#ffffff]'}></div>
                     <p className={'text-white text-lg'}>Whatsapp</p>
                   </div>
-                  <div className={' flex items-center gap-2 w-[100%] h-[30px] px-5 bg-[#12a1cd] rounded-lg hover:bg-[#05627e]  transition-all duration-150'}>
-                    <FaTelegram className={'w-5 h-5 fill-[#fff]'} />
+                  <div className={'flex items-center gap-2 w-[100%] h-[30px] bg-[#12a1cd] rounded-lg hover:bg-[#05627e]  transition-all duration-150'}>
+                    <FaTelegram className={'ml-3 w-5 h-5 fill-white'} />
                     <div className={'w-[1.5px] h-[100%] bg-[#ffffff]'}></div>
                     <p className={'text-white text-lg'} >Telegram</p>
                   </div>
-                  <div className={' flex items-center gap-2 w-[100%] h-[30px] px-5 bg-[#12a1cd] rounded-lg hover:bg-[#05627e]  transition-all duration-150'}>
-                    <FaPhoneFlip className={'w-5 h-5 fill-[#fff]'} />
+                  <div className={' flex items-center gap-2 w-[100%] h-[30px] bg-[#12a1cd] rounded-lg hover:bg-[#05627e]  transition-all duration-150'}>
+                    <FaPhoneFlip className={'ml-3 w-5 h-5 fill-[#fff]'} />
                     <div className={'w-[1.5px] h-[100%] bg-[#ffffff]'}></div>
                     <p className={' text-white text-lg'}>Phone </p>
                   </div>
-                  <div className={' flex items-center gap-2 w-[100%] h-[30px] px-5 bg-[#12a1cd] rounded-lg hover:bg-[#05627e]  transition-all duration-150'}>
-                    <RiMessage2Fill className={'w-5 h-5 fill-[#fff]'} />
+                  <div className={'flex items-center gap-2 w-[100%] h-[30px] bg-[#12a1cd] rounded-lg hover:bg-[#05627e]  transition-all duration-150'}>
+                    <RiMessage2Fill className={'ml-3 w-5 h-5 fill-[#fff]'} />
                     <div className={'w-[1.5px] h-[100%] bg-[#ffffff]'}></div>
                     <p className={'text-white text-lg'}>Message</p>
                   </div>
