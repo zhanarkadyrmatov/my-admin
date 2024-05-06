@@ -50,7 +50,7 @@ export default function Header({
               />
             </Link>
             <button
-              className="hidden md:flex"
+              className='hidden lg:flex'
               onClick={() => setCollapsed(!collapsed)}
             >
               {collapsed ? (
@@ -60,10 +60,9 @@ export default function Header({
               )}
             </button>
             <button
-              className="flex md:hidden"
+              className='flex lg:hidden'
               onClick={() => {
-                console.log(toggled);
-                setToggled(!toggled);
+                setToggled(!toggled)
               }}
             >
               <FaBars className="w-[20px] h-[20px] dark:fill-[#b3b3b3]" />
