@@ -7,7 +7,6 @@ function MainComponent({
   eventLocation,
 }) {
 
-
   return (
     <div className="bg-[#ffffff] text-[#000000] rounded-lg overflow-hidden shadow-lg w-fill cursor-pointer dark:bg-[#000000] dark:text-[#fff] ">
     <div     className="w-full h-[200px] "
@@ -25,6 +24,7 @@ function MainComponent({
           <span>{eventLocation}</span>
         </p>
         </div>
+      
     </div>
   );
 }

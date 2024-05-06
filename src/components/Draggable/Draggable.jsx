@@ -12,6 +12,7 @@ export default function Draggable() {
     <div className={s.draggable}>
       <div className={`${s.d_background} dark:bg-[#212130]   dark:text-[#fff]`}>
         <div className={s.draggable_title}>
+
           <div className={s.filter}>
 
             <h4>Calendar</h4>
@@ -24,6 +25,18 @@ export default function Draggable() {
           </div>
           <p>Drag and drop your event or click in the calendar</p>
         </div>
+
+        <div className={s.filter}>
+        
+        <h4>Calendar</h4>
+         <select name="" id="">
+          <option value="">Today</option>
+          
+          <option value="">Tomorrow</option>
+          <option value="">This Week</option>
+          </select>
+        </div>
+         </div>
         <table className={s.draggable_block_title}>
 
           <tr className={s.tableHad}>

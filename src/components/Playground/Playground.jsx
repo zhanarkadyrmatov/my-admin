@@ -137,7 +137,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 icon={<CiCalendar className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/calendary" />}
               >
-                Calendary
+              Брони
               </MenuItem>
               <SubMenu
                 className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/wallet") &&
