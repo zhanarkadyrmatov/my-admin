@@ -1,5 +1,5 @@
-.draggable{
-}
+.draggable {}
+
 .d_background {
   margin-bottom: 1.875rem;
   background-color: #fff;
@@ -17,6 +17,7 @@
       margin-bottom: 0.5rem;
       font-weight: 600;
     }
+
     p {
       line-height: 1.8;
       margin-top: 0;
@@ -25,13 +26,15 @@
       color: #8888;
     }
   }
+
   .draggable_block_title {
     display: grid;
     align-items: center;
     row-gap: 10px;
     gap: 15px;
     overflow-y: scroll;
-    max-height: 70vh;
+    max-height: 60vh;
+
     .primary_block_1 {
       text-align: left;
       font-size: 16px;
@@ -41,6 +44,7 @@
       background-color: #f93a0b1a;
       padding: 10px 10px;
       border-radius: 5px;
+
       li {
         scrollbar-width: thin;
         color: #f93a0b;
@@ -48,6 +52,7 @@
         font-size: 16px;
         list-style: none;
       }
+
       .primary_btn {
         display: block;
         width: 0.875rem;
@@ -60,46 +65,50 @@
         background-color: #f93a0b;
       }
     }
+
     tr {
       border-bottom: 1px solid #f93a0b1a;
       display: grid;
       justify-content: space-between;
       gap: 10px;
-      grid-template-columns: 50% 1fr 1fr ;
+      grid-template-columns: 50% 1fr 1fr;
       border-bottom: 0.5px solid #ECECEC;
       padding-bottom: 15px;
-    td:nth-of-child(1) {
-font-size: 14px;
-font-weight: 400;
-line-height: 17.24px;
-text-align: left;
-color: #000 !important;
 
+      td:nth-of-child(1) {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17.24px;
+        text-align: left;
+        color: #000 !important;
+
+      }
+
+      td {
+        font-size: 14px;
+        font-weight: 400;
+
+        line-height: 17.24px;
+        text-align: left;
+        color: #C7C7C7;
+        display: grid;
+
+        align-items: center;
+      }
     }
-    td {
-font-size: 14px;
-font-weight: 400;
 
-line-height: 17.24px;
-text-align: left;
-color:  #C7C7C7;
-display: grid;
-
-align-items: center;
-}
-     }
-    .tableHad{
-      td{
-font-size: 14px;
-font-weight: 400;
-line-height: 17.24px;
-text-align: left;
-color:#AEAEAE  !important;
+    .tableHad {
+      td {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 17.24px;
+        text-align: left;
+        color: #AEAEAE !important;
 
       }
     }
   }
-  
+
 
   .draggable_checkbox {
     display: flex;
@@ -112,10 +121,12 @@ color:#AEAEAE  !important;
     // padding-left: 1.5em;
     margin-bottom: 0.125rem;
     margin-top: 1.87rem;
+
     input {
       width: 18px;
       height: 18px;
     }
+
     p {
       // margin-left: 0.3125rem;
       // margin-top: 0.1875rem;
@@ -126,6 +137,7 @@ color:#AEAEAE  !important;
       color: #8888;
     }
   }
+
   .draggable_button {
     button {
       display: flex;
@@ -160,7 +172,7 @@ color:#AEAEAE  !important;
 }
 
 
-.filter{
+.filter {
   display: flex;
   justify-content: space-between;
   gap: 10px;

@@ -36,7 +36,7 @@ export default function Header({
               <img src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-6 w-auto" alt="" />
             </Link>
             <button
-              className='hidden md:flex'
+              className='hidden lg:flex'
               onClick={() => setCollapsed(!collapsed)}
             >
               {collapsed ? (
@@ -46,9 +46,8 @@ export default function Header({
               )}
             </button>
             <button
-              className='flex md:hidden'
+              className='flex lg:hidden'
               onClick={() => {
-                console.log(toggled)
                 setToggled(!toggled)
               }}
             >

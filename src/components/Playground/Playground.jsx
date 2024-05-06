@@ -74,9 +74,8 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 className={`w-[83%] bg-[#f5f5f5] rounded-md p-1 dark:bg-[#17171e] mb-3 cursor-pointer`}
               >
                 <div
-                  className={`flex ${
-                    collapsed ? "justify-center" : "justify-between"
-                  } items-center`}
+                  className={`flex ${collapsed ? "justify-center" : "justify-between"
+                    } items-center`}
                 >
                   <div className="flex items-center gap-2">
                     <img
@@ -101,10 +100,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
             </div>
             <Menu transitionDuration={1000}>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:bg-[#000] hover:text-[#f73a0b]  ${
-                  isActive("/") &&
+                className={`text-[18px] text-[#737B8B] hover:bg-[#000] hover:text-[#f73a0b]  ${isActive("/") &&
                   "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"
-                }
+                  }
                 }`}
                 icon={<FaHome className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/" />}
@@ -112,10 +110,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Home
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/dashboard") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/dashboard") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 icon={<MdDashboard className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/dashboard" />}
@@ -123,10 +120,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Dashboard
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/profil") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/profil") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 icon={<ImProfile className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/profil" />}
@@ -134,10 +130,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Profile
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/calendary") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/calendary") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 icon={<CiCalendar className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/calendary" />}
@@ -145,10 +140,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Calendary
               </MenuItem>
               <SubMenu
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/wallet") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/wallet") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 label="Кошелек"
                 icon={<FaWallet className=" w-[20px] h-[20px]" />}
@@ -169,10 +163,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 </MenuItem>
               </SubMenu>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/history") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/history") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 icon={<FaHistory className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/history" />}
@@ -180,10 +173,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Football Fields
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/login") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/login") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 icon={<RiLoginBoxLine className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/login" />}
@@ -191,10 +183,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Login
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${
-                  isActive("/companies") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/companies") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                  }
                 }`}
                 icon={<FaThLarge className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/companies" />}
