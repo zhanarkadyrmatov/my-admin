@@ -498,7 +498,7 @@ export default function Fields() {
       </div>
       {alert && (
         <div>
-          <div onClick={() => setAlert(false)} className={s.alert_modal}></div>
+          <div className={s.alert_modal}></div>
           <div className={s.alert_block}>
             <div className={s.alert_grid}>
               <svg
@@ -524,8 +524,12 @@ export default function Fields() {
                 possible.
               </p>
               <div className={s.alert_btn}>
-                <button className={s.btn}>Несуществующий </button>
-                <button onClick={() => brends()} className={s.btn2}>Существующий пользователь</button>
+                <button onClick={() => setAlert(false)} className={s.btn}>
+                  Несуществующий{" "}
+                </button>
+                <button onClick={() => brends()} className={s.btn2}>
+                  Существующий пользователь
+                </button>
               </div>
             </div>
           </div>
