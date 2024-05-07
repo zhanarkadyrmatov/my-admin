@@ -1,31 +1,11 @@
-// .bookId {
-//     margin-top: 40px;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 20px;
-// }
-// .active{
-//     opacity: 1 !important;
-
-//     .opacity-50{
-//         opacity: 1 !important;
-
-//     }
-// }
-
-// .CiBaseball{
-//     display: grid;
-//     gap: 10px;
-//     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-
-// }
 .pages_block {
     width: 100%;
+
     .page_img {
         .page_edit {
             position: absolute;
             right: 10px;
-            z-index: 50;
+
             .edit {
                 position: relative;
                 top: 12px;
@@ -38,6 +18,7 @@
             border-radius: 0px 6px 6px 0px;
             background: #ffffff4d;
             bottom: 12px;
+
             h4 {
                 position: relative;
                 font-size: 15px;
@@ -48,20 +29,24 @@
             }
         }
     }
+
     .page_block_back {
         background: #fff;
         width: 100%;
         padding: 10px 14px 10px 14px;
         border-radius: 0px 0px 10px 10px;
+
         .page_beetwen {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 322px;
             height: 36px;
+
             .page_grid {
                 display: grid;
                 row-gap: 4px;
+
                 h4 {
                     font-family: Ubuntu;
                     font-size: 16px;
@@ -71,6 +56,7 @@
                     opacity: 0.9;
                     color: #222222;
                 }
+
                 p {
                     font-family: Ubuntu;
                     font-size: 13px;
@@ -80,6 +66,7 @@
                     color: #484848;
                 }
             }
+
             small {
                 font-size: 14px;
                 font-weight: 400;
@@ -90,21 +77,25 @@
             }
         }
     }
+
     .page_block_end {
         margin: 10px 0 0 0;
         display: grid;
         row-gap: 10px;
+
         .page_block_flex {
             display: flex;
             justify-content: space-between;
             width: 114px;
         }
+
         .page_flex_beetwen {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 127px;
             height: 16px;
+
             h5 {
                 padding: 2px 0 0 0;
                 font-size: 13px;
@@ -113,6 +104,7 @@
                 text-align: left;
                 color: #222222;
             }
+
             .flex_beetwen {
                 display: flex;
                 gap: 2px;
@@ -124,8 +116,9 @@
 
 .page_block_big_img {
     position: relative;
-    z-index: 100;
+    z-index: 0;
 }
+
 .big_img {
     width: 100%;
 }

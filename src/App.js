@@ -12,12 +12,9 @@ import DataPages from './pages/DataPages/DataPages';
 import CartPages from "./pages/cartPages/CartPages";
 import Footer from "./components/Footer/Footer";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
-import Payment from "./pages/historyPayment/Payment"; 
-import Book from "./components/Calendary/Book/page";
-import BookId from "./components/Calendary/Book/BookId/page";
-import Fields from "./components/Calendary/Fields/Fields";
-import Galerya from "./components/Calendary/Book/Galerya/Galerya";
-import UserBook from "./components/Calendary/Book/usersBook/UserBook";
+import Payment from "./pages/historyPayment/Payment";
+import Fields from "./pages/fields/page";
+import FieldsId from "./pages/fields/fieldsId/fieldsId";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -48,15 +45,15 @@ function App() {
               <Route path="/calendary" element={<DataPages />} />
               <Route path="/profil" element={<Profil />} />
               <Route path="/payment" element={<Payment />} />
-              <Route path="/armor" element={<ArmorHistory/>} />
+              <Route path="/armor" element={<ArmorHistory />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/fields" element={<Fields />} />
               <Route path="/companies" element={<CartPages />} />
-              <Route path="/calendary/book" element={<Book />} />
-              <Route path="/calendary/fields" element={<Fields />} />
-              <Route path="/calendary/fields/galerya" element={<Galerya />} />
-              <Route path="/calendary/fields/usersBook" element={<UserBook />} />
-              <Route path="/calendary/book/:bookId" element={<BookId />} />
+              {/* <Route path="/calendary/book" element={<Book />} /> */}
+              <Route path="/fields/:id" element={<FieldsId />} />
+              {/* <Route path="/calendary/fields/galerya" element={<Galerya />} /> */}
+              {/* <Route path="/calendary/fields/usersBook" element={<UserBook />} /> */}
+              {/* <Route path="/calendary/book/:bookId" element={<BookId />} /> */}
             </Routes>
           </div>
         </div>

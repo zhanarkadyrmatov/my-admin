@@ -4,10 +4,12 @@
     gap: 20px;
     row-gap: 20px;
 }
+
 .book_flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     h4 {
         font-size: 16px;
         font-weight: 600;
@@ -15,6 +17,7 @@
         text-align: left;
         color: #1c1c1c;
     }
+
     .book_btn {
         display: flex;
         align-items: center;
@@ -22,6 +25,7 @@
         padding: 8px 16px 8px 8px;
         background: #7384e8;
         border-radius: 12px;
+
         h5 {
             font-size: 14px;
             font-weight: 400;

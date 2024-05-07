@@ -1,8 +1,4 @@
 import * as React from "react";
-// import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-// import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-// import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-// import { DateRangeCalendar } from "@mui/x-date-pickers-pro/DateRangeCalendar";
 import image30 from "../../../../img/image30.svg";
 import { CiSearch } from "react-icons/ci";
 import { GoPlus } from "react-icons/go";
@@ -36,8 +32,6 @@ export default function UserBook() {
             </div>
           </div>
         </div>
-
-        
         <div className={s.repeat_all}>
           <div className={s.repeat_block}>
             <h4>Повторить</h4>

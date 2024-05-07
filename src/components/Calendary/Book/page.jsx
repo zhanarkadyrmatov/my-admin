@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./pageBook.module.scss";
-import BookId from "./BookId/page";
+import BookId from "../../Cards/BookId/BookId";
 import { GoPlus } from "react-icons/go";
 export default function page() {
   const build = () => {

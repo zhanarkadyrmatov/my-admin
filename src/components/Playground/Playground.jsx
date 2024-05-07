@@ -138,7 +138,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 icon={<CiCalendar className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/calendary" />}
               >
-              Брони
+                Брони
               </MenuItem>
               <SubMenu
                 className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/wallet") &&
@@ -164,12 +164,12 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 </MenuItem>
               </SubMenu>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/history") &&
+                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/fields") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
                 }`}
                 icon={<FaHistory className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/history" />}
+                component={<NavLink to="/fields" />}
               >
                 Football Fields
               </MenuItem>

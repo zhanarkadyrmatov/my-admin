@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import blockimage from "../../../../img/blockimage.svg";
-import edit from "../../../../img/edit.svg";
-import ball from "../../../../img/ball.svg";
-import star from "../../../../img/star.svg";
-import star2 from "../../../../img/star2.svg";
+import blockimage from "../../../img/blockimage.svg";
+import edit from "../../../img/edit.svg";
+import ball from "../../../img/ball.svg";
+import star from "../../../img/star.svg";
+import star2 from "../../../img/star2.svg";
 import s from "./page.module.scss";
-import { CiBaseball } from "react-icons/ci";
-import { IoFootballOutline } from "react-icons/io5";
+import { NavLink } from 'react-router-dom';
+
+
 export default function BookId() {
   return (
     <div>
@@ -17,7 +18,9 @@ export default function BookId() {
               <div className={s.page_edit}>
                 <img className={s.edit} src={edit} alt="" />
               </div>
-              <img className={s.big_img} src={blockimage} alt="" />
+              <NavLink to={'/fields/id'}>
+                <img className={s.big_img} src={blockimage} alt="" />
+              </NavLink>
               <div className={s.page_price}>
                 <h4>1 000 сом / час</h4>
               </div>
