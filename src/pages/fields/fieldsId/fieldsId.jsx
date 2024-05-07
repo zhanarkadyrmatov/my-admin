@@ -3,6 +3,8 @@ import s from "./fieldsId.module.scss";
 import { FaDeleteLeft, FaPlus } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
+import Review from "../../../components/Review/Review";
+import Gallery from "../../../components/Gallery/Gallery";
 
 export default function FieldsId() {
   const [active, setActive] = useState(0);
@@ -61,6 +63,10 @@ export default function FieldsId() {
                 </div>
               </div>
               <div>
+                {active === 0 && <Review />}
+                {active === 1 && <Gallery />}
+                {/* {active === 2 && <Calendar />} */}
+                {/* {active === 3 && <Reviews />} */}
 
               </div>
             </>
@@ -71,7 +77,6 @@ export default function FieldsId() {
           )}
         </div>
       </div>
-
     </>
   );
 }
