@@ -117,6 +117,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<MdDashboard className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/dashboard" />}
+                onClick={() => setToggled(false)}
               >
                 Dashboard
               </MenuItem>
@@ -127,6 +128,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<ImProfile className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/profil" />}
+                onClick={() => setToggled(false)}
               >
                 Profile
               </MenuItem>
@@ -137,6 +139,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<CiCalendar className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/calendary" />}
+                onClick={() => setToggled(false)}
               >
                 Брони
               </MenuItem>
@@ -152,6 +155,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   className="text-[18px] dark:bg-[#212130] text-[#737B8B]"
                   icon={<FaMinus className=" w-[16px] h-[16px]" />}
                   component={<NavLink to="/armor" />}
+                  onClick={() => setToggled(false)}
                 >
                   История брони
                 </MenuItem>
@@ -159,6 +163,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   className="text-[18px] dark:bg-[#212130] text-[#737B8B]"
                   icon={<FaMinus className=" w-[16px] h-[16px]" />}
                   component={<NavLink to="/payment" />}
+                  onClick={() => setToggled(false)}
                 >
                   История платежей
                 </MenuItem>
@@ -169,8 +174,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   }
                 }`}
                 icon={<FaHistory className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/fields" />}
-              >
+                component={<NavLink to="/fields" />}    >
                 Football Fields
               </MenuItem>
               <MenuItem
@@ -180,6 +184,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<RiLoginBoxLine className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/login" />}
+                onClick={() => setToggled(false)}
               >
                 Login
               </MenuItem>
@@ -190,6 +195,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<FaThLarge className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/companies" />}
+                onClick={() => setToggled(false)}
               >
                 Companies
               </MenuItem>
