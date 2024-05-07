@@ -9,10 +9,10 @@ export default function Draggable() {
   };
   return (
     <div >
-      <div className={'bg-[#fff] p-[30px] rounded-[10px] flex flex-col gap-2'}>
+      <div className={'bg-[#fff] p-[30px] rounded-[10px] flex flex-col gap-[20px]'}>
         <div className={''}>
           <div className={"flex justify-between items-center gap-1"}>
-            <h4 className={'font-normal text-[40px] text-[#000] leading-normal'}>
+            <h4 className={'font-normal text-[24px] text-[#000] leading-normal'}>
               Calendar
             </h4>
             <select name="" id="">
@@ -22,18 +22,18 @@ export default function Draggable() {
             </select>
           </div>
         </div>
-        <table className={''}>
-          <tr className={'border-[1px] border-[#423e3e1a]'}>
-            <td>Имя</td>
-            <td>День</td>
-            <td>Время</td>
+        <table className={'flex flex-col gap-2 max-h-[60vh] overflow-y-auto webkit-scrollbar webkit-scrollbar-track:[#423e3e1a] webkit-scrollbar-thumb'}>
+          <tr className={'grid grid-cols-4 gap-1'}>
+            <td className={'col-span-2 text-[#AEAEAE] text-[16px] leading-[19px] font-normal'}>Имя</td>
+            <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">День</td>
+            <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">Время</td>
           </tr>
           {[1, 2, 3, 4, 5, 6, 7, 8, , 3, 45, 5, 6, 7, 8, 9, 0, 0, 9].map(
             (res, i) => (
-              <tr key={i}>
-                <td style={{ color: "#000" }}>John Mathew Kayne</td>
-                <td>06 Dec 2020</td>
-                <td>17:30 - 19:00</td>
+              <tr key={i} className={'border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 '}>
+                <td className={'text-[#404040] text-[14px] leading-[19px] font-normal col-span-2'}>John Mathew Kayne</td>
+                <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>06.08.2020</td>
+                <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>17:30-19:00</td>
               </tr>
             )
           )}
