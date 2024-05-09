@@ -1,6 +1,5 @@
 .fields_all {
   margin: 50px 0 0 0;
-
   .flex_gap {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -488,6 +487,7 @@
 
       .btn {
         padding: 10px 40px 10px 30px;
+       
         border-radius: 8px;
         background: #f0f0f0;
         font-size: 16px;

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Masonry from "@mui/lab/Masonry";
 import { styled } from "@mui/material/styles";
-
+import s from "./Gallery.module.scss";
 const Label = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -14,7 +14,7 @@ const Label = styled(Paper)(({ theme }) => ({
 export default function Gallery() {
   return (
     <Box sx={{ width: "100%" }}>
-      <Masonry columns={3} spacing={2}>
+      <Masonry className={s.grid_item} columns={3} spacing={2}>
         {itemData.map((item, index) => (
           <div key={index}>
             <img
