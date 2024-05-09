@@ -6,6 +6,8 @@ import { MdDelete } from "react-icons/md";
 import Review from "../../../components/Review/Review";
 import Gallery from "../../../components/Gallery/Gallery";
 import CustomerReviews from "../../../components/CustomerReviews/CustomerReviews";
+import Alert from '../../../components/AlertBook/Alert';
+import Schedule from '../../../components/Schedule/Schedule';
 
 export default function FieldsId() {
   const [active, setActive] = useState(0);
@@ -33,8 +35,8 @@ export default function FieldsId() {
               <button
                 onClick={() => setRequest(0)}
                 className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${request === 0
-                    ? "bg-[#656565] text-white"
-                    : "bg-[#fff] text-[#1C1C1C]"
+                  ? "bg-[#656565] text-white"
+                  : "bg-[#fff] text-[#1C1C1C]"
                   } `}
               >
                 Описание
@@ -42,8 +44,8 @@ export default function FieldsId() {
               <button
                 onClick={() => setRequest(1)}
                 className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${request === 1
-                    ? "bg-[#656565] text-white"
-                    : "bg-[#fff] text-[#1C1C1C]"
+                  ? "bg-[#656565] text-white"
+                  : "bg-[#fff] text-[#1C1C1C]"
                   } `}
               >
                 Запросы
@@ -84,8 +86,8 @@ export default function FieldsId() {
                   <button
                     onClick={() => setActive(0)}
                     className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 0
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
                       }`}
                   >
                     Обзор
@@ -93,8 +95,8 @@ export default function FieldsId() {
                   <button
                     onClick={() => setActive(1)}
                     className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 1
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
                       }`}
                   >
                     Галерея
@@ -102,8 +104,8 @@ export default function FieldsId() {
                   <button
                     onClick={() => setActive(2)}
                     className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 2
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
                       }`}
                   >
                     График
@@ -111,8 +113,8 @@ export default function FieldsId() {
                   <button
                     onClick={() => setActive(3)}
                     className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 3
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
                       }`}
                   >
                     Отзывы
