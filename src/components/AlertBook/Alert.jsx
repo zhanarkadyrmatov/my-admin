@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import img6 from "../../img/img6.svg";
 
 export default function Alert({ setAlert }) {
-x
+
   return (
     <div>
       <div>
