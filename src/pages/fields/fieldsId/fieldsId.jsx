@@ -8,6 +8,8 @@ import Gallery from "../../../components/Gallery/Gallery";
 import CustomerReviews from "../../../components/CustomerReviews/CustomerReviews";
 import Alert from '../../../components/AlertBook/Alert';
 import Schedule from '../../../components/Schedule/Schedule';
+import DraggableFields from "../../../components/DraggableFields/DraggableFields";
+import CalendarFields from "../../../components/CalendarFields/CalendarFields";
 
 export default function FieldsId() {
   const [active, setActive] = useState(0);
@@ -156,7 +158,12 @@ export default function FieldsId() {
             </>
           ) : (
             <>
-
+              <div className={'grid grid-cols-1 xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]'}>
+                <DraggableFields />
+                <div className='col-span-2'>
+                  <CalendarFields />
+                </div>
+              </div>
             </>
           )}
         </div>
