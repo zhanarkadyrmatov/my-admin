@@ -1,14 +1,14 @@
 import React from "react";
 import { GoPlus } from "react-icons/go";
 
-export default function Draggable() {
+export default function DraggableFields() {
 
   const redireact = () => {
     window.location.href = "/calendary/book";
   };
   return (
     <div >
-      <div className={'bg-[#fff] h-[82vh] p-[30px] rounded-[10px] flex flex-col gap-[20px]'}>
+      <div className={'bg-[#fff] h-[82vh] p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]'}>
         <div className={''}>
           <div className={"flex justify-between items-center gap-1"}>
             <h4 className={'font-normal text-[24px] text-[#000] leading-normal'}>

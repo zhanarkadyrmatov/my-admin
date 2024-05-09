@@ -13,7 +13,7 @@ import CartPages from "./pages/cartPages/CartPages";
 import Footer from "./components/Footer/Footer";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment";
-import Fields from "./pages/fields/page";
+import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
 
 function App() {

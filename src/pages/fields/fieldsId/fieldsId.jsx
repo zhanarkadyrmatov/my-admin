@@ -6,6 +6,8 @@ import { MdDelete } from "react-icons/md";
 import Review from "../../../components/Review/Review";
 import Gallery from "../../../components/Gallery/Gallery";
 import CustomerReviews from "../../../components/CustomerReviews/CustomerReviews";
+import DraggableFields from '../../../components/DraggableFields/DraggableFields';
+import CalendarFields from "../../../components/CalendarFields/CalendarFields";
 
 export default function FieldsId() {
   const [active, setActive] = useState(0);
@@ -68,13 +70,15 @@ export default function FieldsId() {
                 {active === 1 && <Gallery />}
                 {/* {active === 2 && <Calendar />} */}
                 {active === 3 && <CustomerReviews />}
-
               </div>
             </>
           ) : (
-            <>
-
-            </>
+            <div className={'grid grid-cols-1 xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]'}>
+              <DraggableFields />
+              <div className='col-span-2'>
+                <CalendarFields />
+              </div>
+            </div>
           )}
         </div>
       </div>

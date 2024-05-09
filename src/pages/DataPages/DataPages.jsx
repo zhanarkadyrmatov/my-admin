@@ -6,9 +6,11 @@ import Draggable from '../../components/Draggable/Draggable'
 export default function DataPages() {
   return (
     <div className={s.dataPage}>
-      <div className={s.wrapper}>
+      <div className={'mt-[55px] lg:mt-[50px] xl:mt-[40px] grid grid-cols-1 xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]'}>
         <Draggable />
-        <Calendar />
+        <div className='col-span-2'>
+          <Calendar />
+        </div>
       </div>
     </div>
   )

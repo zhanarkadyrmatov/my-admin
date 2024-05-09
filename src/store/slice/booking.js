@@ -1,4 +1,4 @@
-import { createAction , createSlice , createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
 
@@ -14,7 +14,7 @@ export const fetchUser = createAsyncThunk(
         try {
             const response = await axios.post(`${Api}user_api/login/`, credentials);
             return response;
-            } catch (error) {
+        } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
