@@ -1,60 +1,51 @@
 import React, { useState } from "react";
 import blockimage from "../../../img/blockimage.svg";
 import edit from "../../../img/edit.svg";
-import ball from "../../../img/ball.svg";
-import star from "../../../img/star.svg";
-import star2 from "../../../img/star2.svg";
-import s from "./page.module.scss";
 import { NavLink } from "react-router-dom";
-import trash from '../../../img/trash.png'
+import trash from '../../../img/trash.svg'
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+export default function BookId({ item }) {
 
-export default function BookId() {
   return (
     <div>
-      <div className={s.page_block_all}>
-        <div className={s.pages_block}>
-          <div className={s.page_img}>
-            <div className={s.page_block_big_img}>
-              <div className={s.page_edit}>
-                <img className={s.delete} src={trash} alt="" />
-                <img className={s.edit} src={edit} alt="" />
+      <div className={''}>
+        <div className={'w-[100%] relative shadow-lg top-0 left-0 right-0 rounded-[15px]'}>
+          <div className={'w-[100%]'}>
+            <div className={'w-[100%]'}>
+              <div className={'absolute top-[12px] right-[12px] flex items-center gap-[10px] '}>
+                <img className={'w-[24px] h-[24px] cursor-pointer'} src={trash} alt="" />
+                <img className={'w-[24px] h-[24px] cursor-pointer'} src={edit} alt="" />
               </div>
-              <NavLink to={"/fields/id"}>
-                <img className={s.big_img} src={blockimage} alt="" />
+              <NavLink className={'w-[100%]'} to={`/fields/${item?.id}`}>
+                <img className={'w-[100%] h-[160px] object-cover rounded-t-[15px]'} src={item?.main_foto || blockimage} alt="" />
               </NavLink>
-              <div className={s.page_price}>
-                <h4>1 000 сом / час</h4>
+              <div className={'absolute top-[115px] left-0 z-10 bg-[#FFFFFF4D]  py-[6px] pl-[14px] pr-[20px] rounded-r-[6px]'}>
+                <h4 className={'text-[14px] leading-[16px] font-[500] text-[#fff]'}>{item?.min_price} сом / час</h4>
               </div>
             </div>
           </div>
-          <div className={s.page_block_back}>
-              <div className={s.page_grid}>
-                <h4>El Clasico</h4>
-                <p>Спортивный комплекс</p>
-            </div>
-            <div className={s.page_block_end}>
-              <div className={s.page_block_flex}>
-                <img src={ball} alt="" />
-                <img src={ball} alt="" />
-                <img src={ball} alt="" />
-                <img src={ball} alt="" />
+          <div className="px-[14px] py-[10px]">
+            <div className={'flex flex-col gap-[10px]'}>
+              <div className={''}>
+                <h4 className="text-[16px] leading-[19px] font-[500] text-[#222222] ">{item?.name}</h4>
+                <p className="text-[#222222] text-[12px] leading-[16px] font-[500] opacity-70">Спортивный комплекс</p>
               </div>
-              <div className={s.page_flex_beetwen}>
-                <div>
-                  <h5>3.0 (2)</h5>
-                </div>
-                <div className={s.flex_beetwen}>
-                  <img src={star} alt="" />
-                  <img src={star} alt="" />
-                  <img src={star} alt="" />
-                  <img src={star2} alt="" />
-                  <img src={star2} alt="" />
-                </div>
+              <div className={'flex justify-start items-center gap-[10px]'}>
+                {item?.advantages?.map((el) => (
+                  <img className={'w-[20px] h-[20px]'} src={el?.icon} alt="" />
+                ))}
+              </div>
+              <div className={'flex justify-start items-center gap-1'}>
+                <p className="text-[#222222] text-[14px] leading-[16px] font-[500]">{item?.avg_rating} ({item?.rating_num})</p>
+                <Stack spacing={1}>
+                  <Rating name="half-rating-read" defaultValue={item?.avg_rating} precision={0.5} readOnly />
+                </Stack>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
