@@ -3,18 +3,16 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Playground from "./components/Playground/Playground";
 import Header from "./components/Header/Header";
-import HomePage from "./pages/homePage/homePage";
 import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import HistoryPage from "./pages/historyPage/historyPage";
 import Profil from './pages/profil/profil';
 import DataPages from './pages/DataPages/DataPages';
 import CartPages from "./pages/cartPages/CartPages";
-import Footer from "./components/Footer/Footer";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment";
 import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
+import Reserve from './pages/reserve/reserve';
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -49,11 +47,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/fields" element={<Fields />} />
               <Route path="/companies" element={<CartPages />} />
-              {/* <Route path="/calendary/book" element={<Book />} /> */}
               <Route path="/fields/:id" element={<FieldsId />} />
-              {/* <Route path="/calendary/fields/galerya" element={<Galerya />} /> */}
-              {/* <Route path="/calendary/fields/usersBook" element={<UserBook />} /> */}
-              {/* <Route path="/calendary/book/:bookId" element={<BookId />} /> */}
+              <Route path="/reserve" element={<Reserve />} />
             </Routes>
           </div>
         </div>

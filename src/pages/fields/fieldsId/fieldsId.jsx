@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import s from "./fieldsId.module.scss";
 import { FaDeleteLeft, FaPlus } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import Review from "../../../components/Review/Review";
 import Gallery from "../../../components/Gallery/Gallery";
 import CustomerReviews from "../../../components/CustomerReviews/CustomerReviews";
-import Alert from '../../../components/AlertBook/Alert';
+import FieldsModal from '../../../components/Modal/FieldsModal';
 import Schedule from '../../../components/Schedule/Schedule';
 import DraggableFields from "../../../components/DraggableFields/DraggableFields";
 import CalendarFields from "../../../components/CalendarFields/CalendarFields";
@@ -15,14 +14,8 @@ export default function FieldsId() {
   const [active, setActive] = useState(0);
   const [active2, setActive2] = useState(0);
   const [request, setRequest] = useState(0);
-  const files = () => {
-    window.location.href = "/calendary/fields/galerya";
-  };
 
-  const brends = () => {
-    window.location.href = "/calendary/fields/usersBook";
-  };
-  const [alert, setAlert] = useState(false);
+  const [fieldValue, setFieldValue] = useState(false);
 
   return (
     <>
@@ -55,7 +48,7 @@ export default function FieldsId() {
             </div>
             <div className={"flex flex-col lg:flex-row items-center gap-3"}>
               <button
-                onClick={() => setAlert(true)}
+                onClick={() => setFieldValue(true)}
                 className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#7384E8] rounded-[8px] hover:bg-[#4a60e0] duration-300"
               >
                 <FaPlus className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px]  fill-white" />
@@ -168,7 +161,7 @@ export default function FieldsId() {
           )}
         </div>
       </div>
-      {alert && <Alert setAlert={setAlert} />}
+      {fieldValue && <FieldsModal setFieldValue={setFieldValue} />}
     </>
   );
 }
