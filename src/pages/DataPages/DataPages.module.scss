@@ -9,34 +9,32 @@
   }
 }
 
-.Cards{
+.Cards {
   display: flex;
   gap: 12px;
-  overflow-y:  scroll;
-  div{
+  overflow-y: scroll;
+  div {
     background-color: #fff;
     padding: 12px 16px;
-    border: 1px solid  #2222221A;
+    border: 1px solid #2222221a;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 4px ;
-    h3{
-font-size: 16px;
-font-weight: 500;
-line-height: 19.36px;
-white-space: nowrap;
-letter-spacing: -0.5px;
-text-align: left;
+    gap: 4px;
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19.36px;
+      white-space: nowrap;
+      letter-spacing: -0.5px;
+      text-align: left;
     }
-    p{
-font-size: 12px;
-font-weight: 400;
-line-height: 13.79px;
-letter-spacing: -0.5px;
-text-align: left;
-
+    p {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 13.79px;
+      letter-spacing: -0.5px;
+      text-align: left;
     }
-    
   }
 }
