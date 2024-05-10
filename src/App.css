@@ -1,6 +1,5 @@
-
-:root   {
-  --bg-color:  white;
+:root {
+  --bg-color: white;
   --text-color: #333;
 }
 
@@ -46,4 +45,48 @@ p {
   background-color: red !important;
 }
 
+input[type="radio"] {
+  min-width: 20px;
+  min-height: 20px;
+  cursor: pointer;
+  border: 2px solid #222222;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+input[type="radio"]:checked {
+  background-image: url("../src/img/Vector.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #222222;
+  background-size: 22px 22px;
+}
+
+input[type="checkbox"] {
+  min-width: 20px;
+  min-height: 20px;
+  cursor: pointer;
+  background-color: black;
+  border: 2px solid #fff;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--form-background);
+  margin: 0;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "✔";
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  line-height: 16px;
+}
