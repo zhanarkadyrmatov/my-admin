@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoPlus } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBookings,  } from "../../store/slice/story";
 
-export default function Draggable() {
+export default function Draggable  ({data}) {
+
+  const [storyId, setStoryId] = React.useState(data[0]?.id);    
+
+
+
+  const dispatch = useDispatch();
+  const { bookings ,status , error} =  useSelector((state) => state.story)
+
+  useEffect(() => {
+    dispatch(fetchBookings(storyId))
+  },[storyId])
+
+  console.log(bookings  , status,"stories");
 
   const redireact = () => {
     window.location.href = "/calendary/book";
@@ -14,10 +29,10 @@ export default function Draggable() {
             <h4 className={'font-normal text-[24px] text-[#000] leading-normal'}>
               Calendar
             </h4>
-            <select name="" id="">
-              <option value="">Today</option>
-              <option value="">Tomorrow</option>
-              <option value="">This Week</option>
+            <select onChange={(e)=> setStoryId(e.target.value)} value={storyId} name="" id="">
+            {data.map((res,i)=> (
+              <option key={i} value={res.id}>{res.name}</option>
+            ))}
             </select>
           </div>
         </div>
@@ -27,7 +42,7 @@ export default function Draggable() {
             <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">День</td>
             <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">Время</td>
           </tr>
-          {[1, 2, 3, 4, 5, 6, 7, 8, , 3, 45, 5, 6, 7, 8, 9, 0, 0, 9].map(
+          {[1, 2, 3, 4, 5, 6, 7, 8,  3, 45, 5, 6, 7, 8, 9, 0, 0, 9].map(
             (res, i) => (
               <tr key={i} className={'border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 '}>
                 <td className={'text-[#404040] text-[14px] leading-[19px] font-normal col-span-2'}>John Mathew Kayne</td>
