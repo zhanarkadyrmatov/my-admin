@@ -7,19 +7,22 @@ import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import Profil from './pages/profil/profil';
 import DataPages from './pages/DataPages/DataPages';
+import HistoryPage from "./pages/historyPage/historyPage";
 import CartPages from "./pages/cartPages/CartPages";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment";
 import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
 import Reserve from './pages/reserve/reserve';
+import Football from "./pages/football/Football";
+import MiniFields from "./pages/miniFelds/MiniFields";
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   return (
-    <div className={`flex ${darkMode && 'dark'} `}>
+    <div className={`flex ${darkMode && "dark"} `}>
       <Playground
         collapsed={collapsed}
         setCollapsed={setCollapsed}
@@ -47,6 +50,12 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/fields" element={<Fields />} />
               <Route path="/companies" element={<CartPages />} />
+              <Route path="//fields/football" element={<Football />} />
+              <Route
+                path="//fields/football/minifields"
+                element={<MiniFields />}
+              />
+              {/* <Route path="/calendary/book" element={<Book />} /> */}
               <Route path="/fields/:id" element={<FieldsId />} />
               <Route path="/reserve" element={<Reserve />} />
             </Routes>
