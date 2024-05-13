@@ -5,15 +5,15 @@ import Playground from "./components/Playground/Playground";
 import Header from "./components/Header/Header";
 import Login from "./pages/login/page";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import Profil from './pages/profil/profil';
-import DataPages from './pages/DataPages/DataPages';
+import Profil from "./pages/profil/profil";
+import DataPages from "./pages/DataPages/DataPages";
 import HistoryPage from "./pages/historyPage/historyPage";
 import CartPages from "./pages/cartPages/CartPages";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment";
 import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
-import Reserve from './pages/reserve/reserve';
+import Reserve from "./pages/reserve/reserve";
 import Football from "./pages/football/Football";
 import MiniFields from "./pages/miniFelds/MiniFields";
 
