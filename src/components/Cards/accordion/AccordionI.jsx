@@ -43,13 +43,7 @@ export default function AccordionI() {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <input
-              className="min-w-[18px] min-h-[18px] cursor-pointer bg-[#ffffff] border-[2px]  border-black appearance-none rounded-lg flex justify-center items-center"
-              type="checkbox"
-              name="service"
-              id="Страхование"
-              value="Страхование"
-            />
+            <input type="checkbox" name="checkbox" />
             <div className="flex flex-col gap-[2px]">
               <h4>Вода</h4>
               <small className="text-[12px] font-normal leading-5 text-left opacity-70">
@@ -63,17 +57,17 @@ export default function AccordionI() {
           ></AccordionSummary>
         </div>
         <AccordionDetails>
-          <Typography className="">
+          <Typography >
             <div className="flex items-center gap-2">
-              <input type="checkbox" />
+              <input type="radio" />
               <p>2 кабины</p>
             </div>
             <div className="flex items-center gap-2">
-              <input type="checkbox" />
+              <input type="radio" />
               <p>2 кабины</p>
             </div>
             <div className="flex items-center gap-2">
-              <input type="checkbox" />
+              <input type="radio" />
               <p>2 кабины</p>
             </div>
           </Typography>
