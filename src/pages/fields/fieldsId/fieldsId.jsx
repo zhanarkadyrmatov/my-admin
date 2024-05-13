@@ -10,6 +10,7 @@ import Schedule from '../../../components/Schedule/Schedule';
 import DraggableFields from "../../../components/DraggableFields/DraggableFields";
 import CalendarFields from "../../../components/CalendarFields/CalendarFields";
 import Icon from '../../../img/foodbol.svg'
+import { NavLink } from "react-router-dom";
 
 export default function FieldsId() {
   const [active, setActive] = useState(0);
@@ -70,12 +71,12 @@ export default function FieldsId() {
                   Забронировать поле
                 </span>
               </button>
-              <button className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300">
+              <NavLink to={`/editFields`} className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300">
                 <CiEdit className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
                 <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">
                   Редактировать поле
                 </span>
-              </button>
+              </NavLink>
               <button className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#FFDEDE] rounded-[8px] hover:bg-[#cb8181] duration-300">
                 <MdDelete className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
                 <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">

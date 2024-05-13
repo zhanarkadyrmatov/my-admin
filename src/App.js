@@ -16,6 +16,7 @@ import FieldsId from "./pages/fields/fieldsId/fieldsId";
 import Reserve from "./pages/reserve/reserve";
 import Football from "./pages/football/Football";
 import MiniFields from "./pages/miniFelds/MiniFields";
+import EditFieds from './pages/editFields/editFieds';
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -49,6 +50,7 @@ function App() {
               <Route path="/armor" element={<ArmorHistory />} />
               <Route path="/login" element={<Login />} />
               <Route path="/fields" element={<Fields />} />
+              <Route path="/editFields" element={<EditFieds />} />
               <Route path="/companies" element={<CartPages />} />
               <Route path="//fields/football" element={<Football />} />
               <Route
