@@ -90,3 +90,15 @@ input[type="checkbox"]:checked::before {
   text-align: center;
   line-height: 16px;
 }
+input {
+  outline: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+  /* Добавление кастомного стрелочного курсора для указания на возможность выбора */
+  cursor: pointer;
+}
