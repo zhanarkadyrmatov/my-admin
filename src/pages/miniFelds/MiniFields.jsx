@@ -1,18 +1,18 @@
 import React from "react";
 import Time from "../../components/Cards/time/Time";
 import { CiLocationOn } from "react-icons/ci";
-import { FaPlus } from "react-icons/fa6";
+import { HiOutlinePlusSm } from "react-icons/hi";
 export default function MiniFields() {
   return (
-    <div className="xl:grid-cols-2 mt-[50px] grid grid-cols-[1fr] gap-x-[20px]">
+    <div className="xl:grid-cols-2 mt-[50px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
       <div className="rounded-[10px] h-min bg-[#ffffff]">
-        <div className="w-[580px] h-[58px] border-b border-solid border-gray-200 p-[20px]">
+        <div className="w-full border-b border-solid border-gray-200 p-[20px]">
           <h4>Описание</h4>
         </div>
         <div className="p-[20px] grid gap-y-[20px]">
           <div className="grid gap-y-[8px] ">
             <p>Тип поля</p>
-            <div className="lg:grid-cols-[1fr_1fr_1fr_1fr] grid grid-cols-[1fr_1fr_1fr] gap-[10px] ">
+            <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr] grid gap-[10px] ">
               <button className="rounded-[4px] border border-solid border-gray-200 ">
                 Крытое поле
               </button>
@@ -26,7 +26,7 @@ export default function MiniFields() {
                 Крытое поле
               </button>
               <button className="rounded-[4px] border border-solid border-gray-200 ">
-                Крытое поле
+                <p>Крытое поле</p>
               </button>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function MiniFields() {
                     type="nomer"
                     placeholder="+996 (000) 000 - 000"
                   />
-                  <FaPlus size={25} />
+                  <HiOutlinePlusSm size={25} />
                 </div>
               </div>
               <div className="grid gap-y-[8px]">
@@ -129,7 +129,7 @@ export default function MiniFields() {
                     type="nomer"
                     placeholder="+996 (000) 000 - 000"
                   />
-                  <FaPlus size={25} />
+                  <HiOutlinePlusSm size={25} />
                 </div>
               </div>
               <div className="grid gap-y-[8px] ">
@@ -142,7 +142,7 @@ export default function MiniFields() {
                     type="nomer"
                     placeholder="+996 (000) 000 - 000"
                   />
-                  <FaPlus size={25} />
+                  <HiOutlinePlusSm size={25} />
                 </div>
               </div>
             </div>
@@ -168,10 +168,10 @@ export default function MiniFields() {
           <div className="p-[20px]  border-b border-gray-300">
             <h4>Галерея</h4>
           </div>
-          <div className="p-[20px] ">
+          <div className="p-[20px]">
             <div className="grid gap-[10px]">
               <div className="w-full h-[140px] bg-[#f0f0f0]"></div>
-              <div className="grid grid-cols-[1fr_2fr] gap-x-[10px]">
+              <div className=" sm:grid-cols-[1fr_2fr] grid grid-cols-1  gap-x-[10px]">
                 <div className="w-full h-[320px] bg-[#D9D9D9]"></div>
                 <div className="grid gap-y-[10px]">
                   <div className="w-full h-[130px] bg-[#D9D9D9]"></div>
@@ -184,7 +184,7 @@ export default function MiniFields() {
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-x-[10px] justify-end">
+        <div className="items-center gap-y-[10px] md:gap-x-[10px] grid md:grid-cols-2 grid-cols-1  ">
           <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
             Предыдущая
           </button>
