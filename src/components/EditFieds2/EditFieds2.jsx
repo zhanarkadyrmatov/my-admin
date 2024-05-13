@@ -68,8 +68,6 @@ function EditFieds2() {
 
 
       </div>
-
-
     </div>
   )
 }
