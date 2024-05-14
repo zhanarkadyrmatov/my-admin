@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pie from "../../components/Cards/pie/Pie";
 import AccordionI from "../../components/Cards/accordion/AccordionI";
 import { BiSolidCameraPlus } from "react-icons/bi";
@@ -10,7 +10,6 @@ import MiniFields from "../miniFelds/MiniFields";
 import Time from "../../components/Cards/time/Time";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
-
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -27,7 +26,7 @@ export default function Addfootball() {
   return (
     <>
       {page === "home" && (
-        <div className="mt-[20px]">
+        <div className="mt-[50px]">
           <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
             <div className="h-min w-full rounded-[10px] bg-white">
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
@@ -236,8 +235,35 @@ export default function Addfootball() {
       )}
       {page === "about" && (
         <div>
-          
-          <div className="xl:grid-cols-2 mt-[50px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
+          <div
+            className={
+              "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] "
+            }
+          >
+            <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
+              <button
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+              >
+                Мини поле
+              </button>
+              <button
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+              >
+                Стандарт
+              </button>
+              <button
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+              >
+                Фут-Зал
+              </button>
+              <button
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+              >
+                Описание
+              </button>
+            </div>
+          </div>
+          <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
             <div className="rounded-[10px] h-min bg-[#ffffff]">
               <div className="w-full border-b border-solid border-gray-200 p-[20px]">
                 <h4>Описание</h4>
