@@ -17,7 +17,7 @@ import Reserve from "./pages/reserve/reserve";
 import MiniFields from "./pages/miniFelds/MiniFields";
 import EditFieds from './pages/editFields/editFieds';
 import Addfootball from "./pages/football/Addfootball";
-
+import FiledFoot from "./components/FiledFoot/FiledFoot";
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
@@ -53,10 +53,8 @@ function App() {
               <Route path="/editFields" element={<EditFieds />} />
               <Route path="/companies" element={<CartPages />} />
               <Route path="//fields/football" element={<Addfootball />} />
-              <Route
-                path="//fields/minifields"
-                element={<MiniFields />}
-              />
+              <Route path="/fields/fieldsfoot" element={<FiledFoot />} />
+              <Route path="//fields/minifields" element={<MiniFields />} />
               {/* <Route path="/calendary/book" element={<Book />} /> */}
               <Route path="/fields/:id" element={<FieldsId />} />
               <Route path="/reserve" element={<Reserve />} />
