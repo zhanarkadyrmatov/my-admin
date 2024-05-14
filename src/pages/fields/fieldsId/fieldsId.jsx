@@ -9,6 +9,8 @@ import FieldsModal from '../../../components/Modal/FieldsModal';
 import Schedule from '../../../components/Schedule/Schedule';
 import DraggableFields from "../../../components/DraggableFields/DraggableFields";
 import CalendarFields from "../../../components/CalendarFields/CalendarFields";
+import Icon from '../../../img/foodbol.svg'
+import { NavLink } from "react-router-dom";
 
 export default function FieldsId() {
   const [active, setActive] = useState(0);
@@ -19,8 +21,21 @@ export default function FieldsId() {
 
   return (
     <>
-      <div>
-        <div className={"flex flex-col gap-[20px] mt-[60px] lg:mt-[50px]"}>
+      <div className="mt-[25px] lg:mt-[20px] flex flex-col gap-[20px]">
+        <div style={{
+          backgroundImage: "url(https://s3-alpha-sig.figma.com/img/696a/d53f/f12d7954e04dc1366cf76d70a5e06d46?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Bqr595FS-9Jnnoz7MQeXaDXBqj9RjzjTGlCn0mcM9GfikckMEan9qFS45XrVUIu90Aprs35~buBA5OSPTeTbJx65KqvtHs2Gn03XOd9lIxoTTROatOKEORQ-pvDkYXr092tPnkepB~G733o1n9xVhLncWYr~G9dYha20S9Hv0AwFxyW5AiHhsC7bLRAP4ZMyXaota5l7JPUIwNl0PlBi5XkqirrKtQqT2P-3Xw-dPcqn4Z6DSB5yq9drv-sK5M6tyLSId5qbxAxuhAVITfsvVGGUXPnmHx7jAnh1t4zcQORpuh5TxGkeg6WZA2281dITxasa7E4lKYu~VLFH51ReWw__)",
+        }} className="h-[200px] w-[100%]  ">
+          <div className="flex flex-col items-center justify-center h-full gap-[10px]">
+            <img className="w-[50px] " src={Icon} alt="" />
+            <div className="text-center flex flex-col gap-2">
+              <h4 className="text-[18px] leading-[20px] font-bold text-white">
+                El Clasico
+              </h4>
+              <p className="text-white text-[13px] leading-[15px] font-normal opacity-70">Спортивный комплекс</p>
+            </div>
+          </div>
+        </div>
+        <div className={"flex flex-col gap-[20px] xl:px-5 px-4"}>
           <div
             className={
               "flex flex-col lg:flex-row justify-between lg:items-center gap-3"
@@ -56,12 +71,12 @@ export default function FieldsId() {
                   Забронировать поле
                 </span>
               </button>
-              <button className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300">
+              <NavLink to={`/editFields`} className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300">
                 <CiEdit className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
                 <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">
                   Редактировать поле
                 </span>
-              </button>
+              </NavLink>
               <button className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#FFDEDE] rounded-[8px] hover:bg-[#cb8181] duration-300">
                 <MdDelete className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
                 <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">

@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { FaPlus } from 'react-icons/fa6'
 import { useLocation } from 'react-router-dom';
-
+import Calendar from 'react-calendar';
+// import 'react-calendar/dist/Calendar.css';
+import DatePicker from 'react-datepicker';
+import ReserveDatepicker from '../../components/ReserveDatepicker/ReserveDatepicker';
 
 
 function Reserve() {
   const { state } = useLocation();
-  console.log(state);
+  const [value, onChange] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
-    <div className='mt-[55px] lg:mt-[50px] xl:mt-[40px] flex flex-col gap-[20px]'>
+    <div className='mt-[55px] lg:mt-[50px] xl:mt-[40px] flex flex-col gap-[20px] xl:px-5 px-4'>
       <div
         className={
           "p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex justify-between items-center flex-col lg:flex-row  gap-[10px] "
@@ -41,16 +45,34 @@ function Reserve() {
       </div>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-y-[20px] lg:gap-[20px]'>
         <div className="">
-          <div className='p-[20px] rounded-[10px] bg-[#fff]'>
+          <div className='p-[20px] rounded-t-[10px] bg-[#fff]'>
             <p className='text-[15px] text-[#1C1C1C] font-normal leading-[18px]'>Выберите дату и время</p>
           </div>
-          <div className='p-[20px] rounded-b-[10px] bg-[#fff]'>
-            <div>
-
-            </div>
-
+          <div>
+            <ReserveDatepicker />
           </div>
-
+          <div className='p-[20px] rounded-b-[10px] bg-[#fff] flex flex-col gap-[10px] overflow-y-auto h-[65vh]'>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((res, i) => {
+              return (
+                <div className={`px-[20px] py-[10px] rounded-[10px] ${true ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70" : "bg-[#F5F5F5]"} `}>
+                  <div className='flex justify-between items-center gap-2'>
+                    <div className='flex flex-col gap-[6px]'>
+                      <p className='text-[12px] text-[#222222 font-normal leading-[14px] opacity-70'>Время:</p>
+                      <p className='text-[15px] text-[#222222] font-normal leading-[18px]'>10:00 - 10:30 </p>
+                    </div>
+                    {true ? (
+                      <p className='text-[14px] text-[#222222] font-normal leading-[16px]'>Занято</p>
+                    ) : (
+                      <div className='flex flex-col gap-[6px]'>
+                        <p className='text-[12px] text-[#222222 font-normal leading-[14px] opacity-70'>Цена:</p>
+                        <p className='text-[15px] text-[#222222] font-normal leading-[18px]'>1000 сом</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
         <div className='flex flex-col gap-[20px]'>
           {state?.reserve ?
