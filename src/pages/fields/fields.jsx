@@ -12,10 +12,9 @@ export default function Fields() {
 
   const { fields } = useSelector((state) => state.fields);
 
-  console.log(fields, "fields");
   return (
     <div
-      className={"flex flex-col gap-[20px] mt-[55px] lg:mt-[50px] xl:mt-[40px] xl:px-5 px-4"}
+      className={"flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 px-4"}
     >
       <div
         className={

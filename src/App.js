@@ -41,7 +41,7 @@ function App() {
         />
 
         <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
-          <div className="py-[35px] lg:py-[55px] xl:py-[60px]">
+          <div className="">
             <Routes>
               <Route path="/" element={<DashboardPage />} />
               <Route path="/calendary" element={<DataPages />} />

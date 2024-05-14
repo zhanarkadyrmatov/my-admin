@@ -38,7 +38,7 @@ export default function Header({
           width: "-webkit-fill-available",
           boxShadow: "5px 1px 10px -5px #000",
         }}
-        class="fixed top-0 py-3 px-4 z-10 flex justify-between items-center bg-white dark:bg-[#212130]"
+        class="fixed top-0 py-4 px-4 z-10 flex justify-between items-center bg-white dark:bg-[#212130]"
       >
         <div className="">
           <div className="flex items-center gap-4">
@@ -70,19 +70,6 @@ export default function Header({
             <h4 className="hidden md:block dark:text-white text-black text-[16px] lg:text-lg font-bold">
               Dashboard
             </h4>
-          </div>
-        </div>
-        <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-4 bg-[#f5f5f5] p-2 rounded-[8px] focus-within:border-[#f5f5f5] border-[1px] py-2  px-4 dark:bg-black dark:border-black dark:text-white">
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-transparent outline-none"
-            />
-            <IoIosSearch className="w-[24px] h-[24px] cursor-pointer" />
-          </div>
-          <div className="flex items-center justify-center w-[40px] h-[40px] rounded-[8px] bg-[#f5f5f5] cursor-pointer dark:bg-[#318e86] dark:hover:bg-[#113a36] hover:bg-[#a8a5a5] transition-all">
-            <GoPlus className="w-[24px] h-[24px] dark:fill-white " />
           </div>
         </div>
         <div className="flex items-center lg:gap-4 gap-3">
@@ -129,18 +116,6 @@ export default function Header({
               </div>
             </div>
           )}
-          <SlSettings
-            onClick={() => setOpenNotification(true)}
-            className="dark:fill-[#b3b3b3] lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer"
-          />
-          {openNotification && <Setting />}
-          <Link to="/">
-            <img
-              className="lg:w-[50px] w-[35px] lg:h-[50px] h-[35px] rounded-[10px] cursor-pointer object-cover "
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-              alt=""
-            />
-          </Link>
         </div>
       </div>
     </div>
