@@ -3,7 +3,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import s from './Calendary.module.scss'
-
 const events = [
   { title: "Meeting", start: new Date() },
   {
@@ -37,14 +36,13 @@ export default function Calendar() {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-
+        
         buttonText={{
           today: "Сегодня",
           month: "Месяц",
           week: "Неделя",
           day: "День",
           allday: "весь день",
-
         }}
         locale={"ru"}
         weekText="нед:"
