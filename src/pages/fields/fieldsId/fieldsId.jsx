@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaDeleteLeft, FaPlus } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
@@ -10,14 +10,22 @@ import Schedule from '../../../components/Schedule/Schedule';
 import DraggableFields from "../../../components/DraggableFields/DraggableFields";
 import CalendarFields from "../../../components/CalendarFields/CalendarFields";
 import Icon from '../../../img/foodbol.svg'
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFieldsIdDetail, fetchFieldsIdList } from "../../../store/slice/fields-slice";
 
 export default function FieldsId() {
+  const { id } = useParams();
   const [active, setActive] = useState(0);
   const [active2, setActive2] = useState(0);
   const [request, setRequest] = useState(0);
-
+  const dispatch = useDispatch()
   const [fieldValue, setFieldValue] = useState(false);
+  const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
+
+  useEffect(() => {
+    dispatch(fetchFieldsIdList(id))
+  }, [id])
 
   return (
     <>
@@ -93,6 +101,7 @@ export default function FieldsId() {
                 }
               >
                 <div className="flex justify-center items-center gap-[20px] lg:gap-[15px] xl:gap-[20px]">
+
                   <button
                     onClick={() => setActive(0)}
                     className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 0
@@ -131,30 +140,20 @@ export default function FieldsId() {
                   </button>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-                  <button
-                    className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${active2 === 0 ? "opacity-100" : "opacity-70"
-                      }`}
-                  >
-                    Мини поле
-                  </button>
-                  <button
-                    className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${active2 === 1 ? "opacity-100" : "opacity-70"
-                      }`}
-                  >
-                    Стандарт
-                  </button>
-                  <button
-                    className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${active2 === 2 ? "opacity-100" : "opacity-70"
-                      }`}
-                  >
-                    Фут-Зал
-                  </button>
-                  <button
-                    className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${active2 === 3 ? "opacity-100" : "opacity-70"
-                      }`}
-                  >
-                    Описание
-                  </button>
+                  {fieldsIdList?.map((item) => {
+                    return (
+                      <button onClick={() => {
+                        dispatch(fetchFieldsIdDetail(item?.id))
+                      }}
+                        className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${fieldsIdDetail?.id === item?.id ? "opacity-100 border-[2px]" : "opacity-70 border-[1px]"
+                          }`
+                        }
+                      >
+                        {item?.name}
+                      </button>
+                    )
+                  }
+                  )}
                 </div>
               </div>
               <div>
@@ -175,8 +174,9 @@ export default function FieldsId() {
             </>
           )}
         </div>
-      </div>
-      {fieldValue && <FieldsModal setFieldValue={setFieldValue} />}
+      </div >
+      {fieldValue && <FieldsModal setFieldValue={setFieldValue} />
+      }
     </>
   );
 }

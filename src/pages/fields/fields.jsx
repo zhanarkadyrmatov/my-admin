@@ -4,6 +4,8 @@ import { GoPlus } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFields } from "../../store/slice/fields-slice";
 import { NavLink } from "react-router-dom";
+import element3 from "../../img/element3.svg";
+import vertival from "../../img/vertical.svg";
 export default function Fields() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -12,10 +14,9 @@ export default function Fields() {
 
   const { fields } = useSelector((state) => state.fields);
 
-  console.log(fields, "fields");
   return (
     <div
-      className={"flex flex-col gap-[20px] mt-[55px] lg:mt-[50px] xl:mt-[40px] xl:px-5 px-4"}
+      className={"flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 px-4"}
     >
       <div
         className={
@@ -25,18 +26,28 @@ export default function Fields() {
         <h4 className="text-xl font-bold leading-5 text-left text-gray-700">
           Футбольные поля
         </h4>
-        <NavLink to="/fields/football">
-          <button
-            className={
-              "px-3 py-2 bg-[#7384E8] rounded-[12px] flex justify-center items-center gap-2 "
-            }
-          >
-            <GoPlus color="#fff" className="w-[24px] h-[24px]" />
-            <p className="text-[14px]  font-bold leading-5  text-white">
-              Добавить футбольное поле
-            </p>
-          </button>
-        </NavLink>
+        <div className="flex items-center gap-x-[12px]">
+          <NavLink to="/fields/fieldsfoot">
+            <div className="w-[36px] h-[36px] rounded-[12px] p-[8px] bg-[#1c1c1c]">
+              <img src={element3} alt="" />
+            </div>
+          </NavLink>
+          <div className="w-[36px] h-[36px] rounded-[12px] p-[8px] bg-[#E5E5E5]">
+            <img src={vertival} alt="" />
+          </div>
+          <NavLink to="/fields/football">
+            <button
+              className={
+                "px-3 py-2 bg-[#7384E8] rounded-[12px] flex justify-center items-center gap-2 "
+              }
+            >
+              <GoPlus color="#fff" className="w-[24px] h-[24px]" />
+              <p className="text-[14px]  font-bold leading-5  text-white">
+                Добавить футбольное поле
+              </p>
+            </button>
+          </NavLink>
+        </div>
       </div>
       <>
         {fields?.length > 0 ? (

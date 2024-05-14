@@ -13,7 +13,6 @@ function Login() {
     const [password, setPassword] = useState({ value: '', error: '' });
     const dispatch = useDispatch()
     const { data, status, error } = useSelector((state) => state.user)
-    console.log(error, 'test');
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!email.value) {
