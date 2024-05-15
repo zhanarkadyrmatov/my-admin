@@ -16,7 +16,7 @@ export default function Fields() {
 
   return (
     <div
-      className={"flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 px-4"}
+      className={"flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 lg:px-4 px-3"}
     >
       <div
         className={

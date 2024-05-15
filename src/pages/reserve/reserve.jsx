@@ -12,7 +12,7 @@ function Reserve() {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
-    <div className="mt-[55px] lg:mt-[50px] xl:mt-[40px] flex flex-col gap-[20px] xl:px-5 px-4">
+    <div className="my-[85px] md:my-[90px] flex flex-col gap-[20px] xl:px-5 lg:px-4 px-3">
       <div
         className={
           "p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex justify-between items-center flex-col lg:flex-row  gap-[10px] "
@@ -55,11 +55,10 @@ function Reserve() {
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((res, i) => {
               return (
                 <div
-                  className={`px-[20px] py-[10px] rounded-[10px] ${
-                    true
-                      ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
-                      : "bg-[#F5F5F5]"
-                  } `}
+                  className={`px-[20px] py-[10px] rounded-[10px] ${true
+                    ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
+                    : "bg-[#F5F5F5]"
+                    } `}
                 >
                   <div className="flex justify-between items-center gap-2">
                     <div className="flex flex-col gap-[6px]">

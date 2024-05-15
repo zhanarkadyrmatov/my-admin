@@ -7,26 +7,29 @@ import { useEffect } from 'react'
 import { getFootballFieldsList } from '../../store/slice/armor'
 
 export default function DataPages() {
-  const {footballFields , fields, status} =  useSelector((state) => state.armor)
+  const { footballFields, fields, status } = useSelector((state) => state.armor)
 
+  console.log(footballFields)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getFootballFieldsList())
-  },[])
+  }, [])
+
   if (status === 'loading') {
     return <div>loading</div>
   }
+
   return (
-    <div className={s.dataPage}>
-      <div className={`mt-[55px] lg:mt-[50px] xl:mt-[40px] ${s.Cards} `}>
+    <div className={"flex flex-col gap-[20px] my-[85px] lg:my-[90px] xl:px-5 px-3"}>
+      <div className={`${s.Cards} `}>
         {footballFields.map((res) => (
-          <div key={res.id} >      
-            <h3>{res.name}</h3> 
+          <div key={res.id} >
+            <h3>{res.name}</h3>
           </div>
         ))}
       </div>
-      <div className={'mt-[55px] lg:mt-[50px] xl:mt-[40px] grid grid-cols-1 xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]'}>
-        <Draggable data={fields}/>
+      <div className={'grid grid-cols-1 xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]'}>
+        <Draggable data={fields} />
         <div className='col-span-2'>
           <Calendar />
         </div>

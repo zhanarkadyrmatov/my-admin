@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { MdDashboard } from "react-icons/md";
 import { FaWallet, FaHistory, FaMinus, FaChevronDown } from "react-icons/fa";
@@ -8,13 +8,22 @@ import { CiCalendar } from "react-icons/ci";
 import { ImProfile } from "react-icons/im";
 import { FaThLarge } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import Booking from "../../img/Booking";
+import Wallet from "../../img/Wallet";
+import IconSet from "../../img/IconSet";
+import SoccerBall from "../../img/SoccerBall";
+import Alt from "../../img/alt";
+import Logout from "../Logout/Logout";
 
 export default function Playground({ collapsed, toggled, setToggled }) {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
+  const [logout, setLogout] = useState(false);
+
   return (
     <>
+      {logout && <Logout setLogout={setLogout} />}
       <Sidebar
         collapsed={collapsed}
         onBackdropClick={() => setToggled(false)}
@@ -69,38 +78,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
             </svg>
           </div>
           <div className="flex-1 mb-5 ">
-            <div className="flex justify-center items-center mb-3">
-              <div
-                className={`w-[83%] bg-[#f5f5f5] rounded-md p-1 dark:bg-[#17171e] mb-3 cursor-pointer`}
-              >
-                <div
-                  className={`flex ${collapsed ? "justify-center" : "justify-between"
-                    } items-center`}
-                >
-                  <div className="flex items-center gap-2">
-                    <img
-                      className="w-[50px] h-[50px] rounded-[10px] object-cover"
-                      src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                      alt=""
-                    />
-                    {!collapsed && (
-                      <div>
-                        <p className="text-[#737B8B] text-[14px]">
-                          Janarbek KD
-                        </p>
-                        <p className="text-[#737B8B] text-[14px]">Superadmin</p>
-                      </div>
-                    )}
-                  </div>
-                  {!collapsed && (
-                    <FaChevronDown className="w-[16px] h-[16px] text-[#737B8B]" />
-                  )}
-                </div>
-              </div>
-            </div>
             <Menu transitionDuration={1000}>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:bg-[#000] hover:text-[#f73a0b]  ${isActive("/") &&
+                className={`text-[18px] text-[#737B8B] hover:bg-[#000]   ${isActive("/") &&
                   "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"
                   }
                 }`}
@@ -108,10 +88,10 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 component={<NavLink to="/" />}
                 onClick={() => setToggled(false)}
               >
-                Home
+                Главная
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/dashboard") &&
+                className={`text-[18px] text-[#737B8B]  ${isActive("/dashboard") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
                 }`}
@@ -122,82 +102,61 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Dashboard
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/profil") &&
+                className={`text-[18px] text-[#737B8B]  ${isActive("/calendary") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
                 }`}
-                icon={<ImProfile className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/profil" />}
-                onClick={() => setToggled(false)}
-              >
-                Profile
-              </MenuItem>
-              <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/calendary") &&
-                  "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
-                }`}
-                icon={<CiCalendar className=" w-[20px] h-[20px]" />}
+                icon={<Booking
+                  isActive={isActive("/calendary")} className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/calendary" />}
                 onClick={() => setToggled(false)}
               >
-                Брони
+                Список брони
               </MenuItem>
-              <SubMenu
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/wallet") &&
+              <MenuItem
+                className={`text-[18px] text-[#737B8B]  ${isActive("/wallet") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
                 }`}
-                label="Кошелек"
-                icon={<FaWallet className=" w-[20px] h-[20px]" />}
+                icon={<Wallet isActive={isActive("/wallet")} className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/wallet" />}
+                onClick={() => setToggled(false)}
               >
-                <MenuItem
-                  className="text-[18px] dark:bg-[#212130] text-[#737B8B]"
-                  icon={<FaMinus className=" w-[16px] h-[16px]" />}
-                  component={<NavLink to="/armor" />}
-                  onClick={() => setToggled(false)}
-                >
-                  История брони
-                </MenuItem>
-                <MenuItem
-                  className="text-[18px] dark:bg-[#212130] text-[#737B8B]"
-                  icon={<FaMinus className=" w-[16px] h-[16px]" />}
-                  component={<NavLink to="/payment" />}
-                  onClick={() => setToggled(false)}
-                >
-                  История платежей
-                </MenuItem>
-              </SubMenu>
-              <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/fields") &&
-                  "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
-                }`}
-                icon={<FaHistory className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/fields" />}    >
-                Football Fields
+                Кошелек
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/login") &&
+                className={`text-[18px] text-[#737B8B]  ${isActive("/fields") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
                 }`}
-                icon={<RiLoginBoxLine className=" w-[20px] h-[20px]" />}
+                icon={<SoccerBall isActive={isActive("/fields")} className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/fields" />}    >
+                Футбольные поля
+              </MenuItem>
+              <MenuItem
+                className={`text-[18px] text-[#737B8B] ${isActive("/login") &&
+                  "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
+                  }
+                }`}
+                icon={<Alt isActive={isActive("/login")} className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/login" />}
                 onClick={() => setToggled(false)}
               >
-                Login
+                Войти
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:text-[#f73a0b] ${isActive("/companies") &&
+                className={`text-[18px] text-[#737B8B]  ${isActive("/companies") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
                 }`}
-                icon={<FaThLarge className=" w-[20px] h-[20px]" />}
+                icon={<Alt isActive={isActive("/сompanies")} className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/companies" />}
-                onClick={() => setToggled(false)}
+                onClick={() => {
+                  setLogout(!logout)
+                  setToggled(false)
+                }}
               >
-                Companies
+                Выйти
               </MenuItem>
             </Menu>
           </div>

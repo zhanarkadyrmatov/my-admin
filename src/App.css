@@ -101,10 +101,6 @@ input {
 }
 
 select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: none;
   cursor: pointer;
   outline: none;
 }

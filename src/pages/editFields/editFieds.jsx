@@ -8,7 +8,7 @@ function EditFieds() {
   const [page, setPage] = useState(1)
 
   return (
-    <div className='mt-[50px] xl:mt-[45px] xl:px-5 px-4'>
+    <div className='my-[80px] md:my-[90px] xl:px-5 lg:px-4 px-3'>
       {page === 1 && <EditFieds1 page={page} setPage={setPage} />}
       {page === 2 && <EditFieds2 page={page} setPage={setPage} />}
     </div>
