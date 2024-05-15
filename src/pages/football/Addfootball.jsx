@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Pie from "../../components/Cards/pie/Pie";
-import AccordionI from "../../components/Cards/accordion/AccordionI";
 import { BiSolidCameraPlus } from "react-icons/bi";
-import { IoIosArrowDown } from "react-icons/io";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { NavLink } from "react-router-dom";
 import img7 from "../../img/img7.svg";
-import MiniFields from "../miniFelds/MiniFields";
 import Time from "../../components/Cards/time/Time";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
+import s from "./page.module.scss";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -18,6 +14,40 @@ export default function Addfootball() {
     }
   };
   const [page, setPage] = useState("home");
+
+  const InputList = [ 
+    {
+      id: 1,
+      name: "Название",
+      type: "text",
+      placeholder: "Название",
+    },
+    {
+      id: 2,
+      name: "Тип",
+      type: "text",
+      placeholder: "Тип",
+    },
+    {
+      id: 3,
+      name: "Преимущества",
+      type: "text",
+      placeholder: "Преимущества",
+      
+    },
+    {
+      id: 4,
+      name: "Оценка",
+      type: "text",
+      placeholder: "Оценка",
+    },
+    {
+      id: 5,
+      name: "Действие",
+      type: "text",
+      placeholder: "Действие",
+    },
+  ]
 
   const goToPage = (pageName) => {
     setPage(pageName);
@@ -32,16 +62,27 @@ export default function Addfootball() {
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-              <div className="px-[20px]">
-                <Pie />
-                <AccordionI />
-                <Pie />
-                <Pie />
-                <Pie />
-                <Pie />
-                <AccordionI />
-                <Pie />
-                <Pie />
+              <div className={
+                s.checkboxList
+              }>
+              {InputList.map((res, i) => {
+                  return (
+                    <div className={s.checkbox}>
+                      <input
+                        type="checkbox"
+                        className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                      />
+                      <div className="flex flex-col gap-0 w-full">
+                        <label
+                          className="text-[15px] leading-[17px] text-[#222222] font-normal"
+                          htmlFor=""
+                        >
+                          {res.name}
+                        </label>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
             <div className="bg-[#fff]">
