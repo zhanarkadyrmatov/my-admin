@@ -15,7 +15,7 @@ import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
 import Reserve from "./pages/reserve/reserve";
 import MiniFields from "./pages/miniFelds/MiniFields";
-import EditFieds from './pages/editFields/editFieds';
+import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
 function App() {
@@ -53,7 +53,6 @@ function App() {
               <Route path="/editFields" element={<EditFieds />} />
               <Route path="/companies" element={<CartPages />} />
               <Route path="//fields/football" element={<Addfootball />} />
-              <Route path="/fields/fieldsfoot" element={<FiledFoot />} />
               <Route path="//fields/minifields" element={<MiniFields />} />
               {/* <Route path="/calendary/book" element={<Book />} /> */}
               <Route path="/fields/:id" element={<FieldsId />} />
