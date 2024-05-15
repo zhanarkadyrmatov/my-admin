@@ -5,3 +5,8 @@
        width: 100%;
     }
 }
+.masonry_grid{
+    @media(max-width:800px){
+        display: grid;
+    }
+}
