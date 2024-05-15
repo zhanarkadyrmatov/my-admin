@@ -1,0 +1,29 @@
+.checkboxList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    .checkbox{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        label {
+            p{
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 17px;
+                color: #222222;
+font-size: 15px;
+font-weight: 500;
+line-height: 17.24px;
+letter-spacing: -0.5px;
+text-align: left;
+
+                
+            }
+        }
+    }
+
+
+}
