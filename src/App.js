@@ -18,6 +18,7 @@ import MiniFields from "./pages/miniFelds/MiniFields";
 import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
+import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
@@ -47,6 +48,7 @@ function App() {
               <Route path="/calendary" element={<DataPages />} />
               <Route path="/profil" element={<Profil />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/wallet" element={<BalanceCard />} />
               <Route path="/armor" element={<ArmorHistory />} />
               <Route path="/login" element={<Login />} />
               <Route path="/fields" element={<Fields />} />
