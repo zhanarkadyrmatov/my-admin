@@ -6,6 +6,8 @@ import Time from "../../components/Cards/time/Time";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import s from "./page.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getAdvantages } from "../../store/slice/create-foobol-slice";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -14,45 +16,25 @@ export default function Addfootball() {
     }
   };
   const [page, setPage] = useState("home");
+  const dispatch = useDispatch()
+  const { advantages, status } = useSelector((state) => state.createFoobol)
+  const [advantagesValue, setAdvantagesValue] = useState([])
+  const [newName, setNewName] = useState()
+  const [addFootballTypes, setAddFootballTypes] = useState()
+  console.log(addFootballTypes, "advantagesValue");
+  useEffect(() => {
+    dispatch(getAdvantages())
+  }, [])
 
-  const InputList = [ 
-    {
-      id: 1,
-      name: "Название",
-      type: "text",
-      placeholder: "Название",
-    },
-    {
-      id: 2,
-      name: "Тип",
-      type: "text",
-      placeholder: "Тип",
-    },
-    {
-      id: 3,
-      name: "Преимущества",
-      type: "text",
-      placeholder: "Преимущества",
-      
-    },
-    {
-      id: 4,
-      name: "Оценка",
-      type: "text",
-      placeholder: "Оценка",
-    },
-    {
-      id: 5,
-      name: "Действие",
-      type: "text",
-      placeholder: "Действие",
-    },
-  ]
-
-  const goToPage = (pageName) => {
-    setPage(pageName);
+  const getAdvantagesId = (e) => {
+    setAdvantagesValue((advantages) => [...advantages, e]);
+    alert(JSON.stringify(advantagesValue));
   };
 
+
+            const goToPage = (pageName) => {
+            setPage(pageName);
+            };
   return (
     <>
       {page === "home" && (
@@ -62,13 +44,12 @@ export default function Addfootball() {
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-              <div className={
-                s.checkboxList
-              }>
-              {InputList.map((res, i) => {
+              <div className={s.checkboxList}>
+                {advantages?.map((res, i) => {
                   return (
                     <div className={s.checkbox}>
                       <input
+                        onChange={(e) => getAdvantagesId(res.id)}
                         type="checkbox"
                         className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
                       />
@@ -79,6 +60,7 @@ export default function Addfootball() {
                         >
                           {res.name}
                         </label>
+                        <p>{res.description}</p>
                       </div>
                     </div>
                   )
@@ -138,25 +120,7 @@ export default function Addfootball() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-y-[5px]">
-                    <p>Добавьте типы футбольных полей</p>
-                    <select
-                      className="bg-[#F0F0F0] p-[14px] text-[14px] leading-[16px] rounded-[10px] font-normal text-[#222222]"
-                      name=""
-                      id=""
-                    >
-                      <option
-                        className="py-[10px] text-[14px] text-[#222222] "
-                        value=""
-                      >
-                        Мини поле
-                      </option>
-                      <option value="">Мини поле</option>
-                      <option value="">Мини поле</option>
-                      <option value="">Мини поле</option>
-                      <option value="">Мини поле</option>
-                    </select>
-                  </div>
+                  
                 </div>
                 <div className="grid gap-y-[8px]">
                   <h4 className="text-base font-normal leading-normal text-left">
@@ -164,6 +128,8 @@ export default function Addfootball() {
                   </h4>
                   <div>
                     <input
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
                       className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none focus:shadow-outline"
                       type="text"
                       placeholder="El-Clasico"
@@ -171,7 +137,7 @@ export default function Addfootball() {
                   </div>
                 </div>
                 <div className="grid gap-y-[8px] ">
-                  <h4>Выберите тип футбольного поля</h4>
+                  <h4>Выберите тип филиала</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     <button className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
                       <h4 className="text-base font-normal leading-6 tracking-tight text-left">
@@ -183,6 +149,7 @@ export default function Addfootball() {
                       <h4 className="text-base font-normal leading-6 tracking-tight text-left">
                         Стадион
                       </h4>
+
                       <input type="radio" className="w-[18px] h-[18px]" />
                     </button>
                     <button className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
@@ -191,7 +158,9 @@ export default function Addfootball() {
                       </h4>
                       <input type="radio" className="w-[18px] h-[18px]" />
                     </button>
-                    <button className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
+                    <button
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                    >
                       <h4 className="text-base font-normal leading-6 tracking-tight text-left">
                         Стадион
                       </h4>
@@ -199,24 +168,9 @@ export default function Addfootball() {
                     </button>
                   </div>
                 </div>
-                <div className="grid gap-y-[8px] ">
+                <div className="grid gap-y-[8px]">
                   <h4>Добавьте типы футбольных полей</h4>
-                  <select
-                    className="bg-[#F0F0F0] p-[14px] text-[14px] leading-[16px] rounded-[10px] font-normal text-[#222222]"
-                    name=""
-                    id=""
-                  >
-                    <option
-                      className="py-[10px] text-[14px] text-[#222222] "
-                      value=""
-                    >
-                      Мини поле
-                    </option>
-                    <option value="">Мини поле</option>
-                    <option value="">Мини поле</option>
-                    <option value="">Мини поле</option>
-                    <option value="">Мини поле</option>
-                  </select>
+                
                 </div>
                 <div className="grid gap-[5px]">
                   <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center ">
@@ -231,25 +185,7 @@ export default function Addfootball() {
                     </div>
                   </div>
                 </div>
-                <div className="grid  ">
-                  <select
-                    className="bg-[#F0F0F0] p-[14px] text-[14px] leading-[16px] rounded-[10px] font-normal text-[#222222]"
-                    name=""
-                    id=""
-                  >
-                    <option
-                      className="py-[10px] text-[14px] text-[#222222] "
-                      value=""
-                    >
-                      Мини поле
-                    </option>
-                    <option value="">Мини поле</option>
-                    <option value="">Мини поле</option>
-                    <option value="">Мини поле</option>
-                    <option value="">Мини поле</option>
-                  </select>
-                </div>
-
+             
                 <div className="flex gap-[10px] items-center">
                   <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
                     Мини поле1
@@ -261,10 +197,7 @@ export default function Addfootball() {
                     Фут-Зал
                   </button>
                 </div>
-                <div
-                  onClick={() => goToPage("about")}
-                  className="p-[8px] rounded-[8px] bg-[#7384E8]"
-                >
+                <div onClick={() => goToPage("about")} className="p-[8px] rounded-[8px] bg-[#7384E8]">
                   <p className="text-base font-medium leading-5 text-center text-[#fff]">
                     Далее
                   </p>
@@ -509,3 +442,5 @@ export default function Addfootball() {
     </>
   );
 }
+
+  

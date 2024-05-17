@@ -55,7 +55,6 @@ function App() {
               <Route path="//fields/football" element={<Addfootball />} />
               <Route path="/fields/fieldsfoot" element={<FiledFoot />} />
               <Route path="//fields/minifields" element={<MiniFields />} />
-              {/* <Route path="/calendary/book" element={<Book />} /> */}
               <Route path="/fields/:id" element={<FieldsId />} />
               <Route path="/reserve" element={<Reserve />} />
             </Routes>
