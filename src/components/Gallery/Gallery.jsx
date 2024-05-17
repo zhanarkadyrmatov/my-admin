@@ -1,11 +1,4 @@
 import { Masonry } from "react-masonry";
-import img1 from "../../img/img1.png";
-import img2 from "../../img/img2.png";
-import img3 from "../../img/img3.png";
-import img4 from "../../img/img4.png";
-import img5 from "../../img/img5.svg";
-import img6 from "../../img/img6.svg";
-import img7 from "../../img/img7.svg";
 export default function Gallery() {
   return (
     <div className="mb:p-10">
