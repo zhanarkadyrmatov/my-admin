@@ -2,7 +2,7 @@ import React from 'react'
 import img6 from '../../img/img6.svg'
 
 export default function Logout({ setLogout }) {
-  
+
   return (
     <div>
       <div>
@@ -24,9 +24,7 @@ export default function Logout({ setLogout }) {
               >
                 Нет, не хочу
               </button>
-              <button className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-[#726EFB] hover:bg-[#544fe2] duration-300 text-white bg-opacity-90 whitespace-nowrap">
-                Да, хочу
-              </button>
+              
             </div>
           </div>
         </div>
