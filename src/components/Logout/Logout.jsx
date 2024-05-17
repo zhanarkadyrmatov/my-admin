@@ -2,6 +2,7 @@ import React from 'react'
 import img6 from '../../img/img6.svg'
 
 export default function Logout({ setLogout }) {
+  
   return (
     <div>
       <div>

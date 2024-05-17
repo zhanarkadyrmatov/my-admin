@@ -7,7 +7,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdvantages } from "../../store/slice/create-foobol-slice";
+import { getAdvantages, postAdvantages } from "../../store/slice/create-foobol-slice";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -20,21 +20,53 @@ export default function Addfootball() {
   const { advantages, status } = useSelector((state) => state.createFoobol)
   const [advantagesValue, setAdvantagesValue] = useState([])
   const [newName, setNewName] = useState()
-  const [addFootballTypes, setAddFootballTypes] = useState()
-  console.log(addFootballTypes, "advantagesValue");
+  const [addFootballTypes, setAddFootballTypes] = useState("Мини поле1")
+  const [addFootballTypesList, setAddFootballTypesList] = useState([])
+  const [selectedValue, setSelectedValue] = useState(null);
   useEffect(() => {
     dispatch(getAdvantages())
   }, [])
 
+  console.log(advantages, "advantages");
   const getAdvantagesId = (e) => {
     setAdvantagesValue((advantages) => [...advantages, e]);
     alert(JSON.stringify(advantagesValue));
   };
 
+  const handleAddFootballTypes = (e) => {
+    setAddFootballTypesList([...addFootballTypesList, addFootballTypes])
 
-            const goToPage = (pageName) => {
-            setPage(pageName);
-            };
+  }
+  const [selectBranchTypeList, setSelectBranchTypeList] = useState([
+    {
+      name: "Стадион",
+      id: "1",
+      isAcctive: true
+    },
+    {
+      name: "Мини поле",
+      id: "2",
+      isAcctive: false
+    },
+    {
+      name: "Площадка",
+      id: "3",
+      isAcctive: false
+    }
+  ])
+  const goToPage = (pageName) => {
+    setPage(pageName);
+    const data = {
+      name: newName,
+      advantages: advantagesValue,
+      type: addFootballTypesList
+    }
+
+  };
+
+  const handleRadioChange = (e, res) => {
+    setSelectedValue(res.name);
+  };
   return (
     <>
       {page === "home" && (
@@ -120,7 +152,7 @@ export default function Addfootball() {
                       </p>
                     </div>
                   </div>
-                  
+
                 </div>
                 <div className="grid gap-y-[8px]">
                   <h4 className="text-base font-normal leading-normal text-left">
@@ -130,7 +162,7 @@ export default function Addfootball() {
                     <input
                       value={newName}
                       onChange={(e) => setNewName(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none focus:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
                       type="text"
                       placeholder="El-Clasico"
                     />
@@ -139,63 +171,43 @@ export default function Addfootball() {
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите тип филиала</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    <button className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
-                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                        Стадион
-                      </h4>
-                      <input type="radio" className="w-[18px] h-[18px]" />
-                    </button>
-                    <button className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
-                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                        Стадион
-                      </h4>
-
-                      <input type="radio" className="w-[18px] h-[18px]" />
-                    </button>
-                    <button className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
-                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                        Стадион
-                      </h4>
-                      <input type="radio" className="w-[18px] h-[18px]" />
-                    </button>
-                    <button
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                    >
-                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                        Стадион
-                      </h4>
-                      <input type="radio" className="w-[18px] h-[18px]" />
-                    </button>
+                    {selectBranchTypeList.map((res, i) => (
+                      <button key={i} className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
+                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                          {res.name}
+                        </h4>
+                        <input onChange={(e) => handleRadioChange(e, res)}
+                          name="myRadio"
+                          type="radio" className="w-[18px] h-[18px]" />
+                      </button>
+                    ))}
                   </div>
                 </div>
                 <div className="grid gap-y-[8px]">
                   <h4>Добавьте типы футбольных полей</h4>
-                
                 </div>
                 <div className="grid gap-[5px]">
                   <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center ">
-                    <h4 className="font-size-[13px] font-weight-400 line-height-17-24 text-left pl-[10px] text[#222222] opacity-70">
-                      Мини поле
-                    </h4>
+                    <select className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center " value={addFootballTypes} onChange={(e) => setAddFootballTypes(e.target.value)} >
+                      <option value="Мини поле1">Мини поле1</option>
+                      <option value="Мини поле 2">Мини поле 2
+                      </option>
+                      <option value="Фут-Зал">Фут-Зал</option>
+                    </select>
                     <div className="flex gap-[10px] items-center">
                       <MdKeyboardArrowDown size={25} />
-                      <button className="p-[8px] rounded-lg bg-blue-500 text-white">
+                      <button onClick={() => setAddFootballTypesList([...addFootballTypesList, addFootballTypes])} className="p-[8px] rounded-lg bg-blue-500 text-white">
                         Добавить
                       </button>
                     </div>
                   </div>
                 </div>
-             
-                <div className="flex gap-[10px] items-center">
-                  <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
-                    Мини поле1
-                  </button>
-                  <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
-                    Мини поле 2
-                  </button>
-                  <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
-                    Фут-Зал
-                  </button>
+                <div className="flex gap-[10px] items-center flex-wrap">
+                  {addFootballTypesList.map((item, index) => (
+                    <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
+                      {item}
+                    </button>
+                  ))}
                 </div>
                 <div onClick={() => goToPage("about")} className="p-[8px] rounded-[8px] bg-[#7384E8]">
                   <p className="text-base font-medium leading-5 text-center text-[#fff]">
@@ -443,4 +455,3 @@ export default function Addfootball() {
   );
 }
 
-  

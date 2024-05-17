@@ -50,8 +50,6 @@ export default function Calendar() {
         weekNumbers={false}
         navLinks={true}
         editable={true}
-        dayMaxEvents={true}
-        events={events}
         eventContent={renderEventContent}
       />
     </div>
