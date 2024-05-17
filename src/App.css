@@ -107,11 +107,3 @@ select {
   cursor: pointer;
   outline: none;
 }
-
-button[type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
-[type="submit"]:not(:disabled),
-button:not(:disabled) {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
-  opacity: 0.8;
-}

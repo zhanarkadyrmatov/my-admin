@@ -150,7 +150,6 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   }
                 }`}
                 icon={<Alt isActive={isActive("/сompanies")} className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/companies" />}
                 onClick={() => {
                   setLogout(!logout)
                   setToggled(false)

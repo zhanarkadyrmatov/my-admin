@@ -5,7 +5,9 @@ import { NavLink } from "react-router-dom";
 import trash from "../../../img/trash.svg";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-export default function BookId({ item }) {
+import { FaPlus } from "react-icons/fa6";
+
+export default function BookId({ item, setFieldDelete, fieldDelete }) {
   return (
     <div>
       <div className={""}>
@@ -21,16 +23,25 @@ export default function BookId({ item }) {
                   "absolute top-[12px] right-[12px] flex items-center gap-[10px] "
                 }
               >
-                <img
-                  className={"w-[24px] h-[24px] cursor-pointer"}
-                  src={trash}
-                  alt=""
-                />
-                <img
-                  className={"w-[24px] h-[24px] cursor-pointer"}
-                  src={edit}
-                  alt=""
-                />
+                <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
+                  <img
+                    className={"w-[20px] h-[20px] "}
+                    src={edit}
+                    alt=""
+                  />
+                </div>
+                <div onClick={() => setFieldDelete(!fieldDelete)} className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
+                  <img
+                    className={"w-[20px] h-[20px] "}
+                    src={trash}
+                    alt=""
+                  />
+                </div>
+
+                <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
+                  <FaPlus className={"w-[20px] h-[20px] fill-white "}
+                  />
+                </div>
               </div>
               <NavLink className={"w-[100%]"} to={`/fields/${item?.id}`}>
                 <img
@@ -41,7 +52,7 @@ export default function BookId({ item }) {
               </NavLink>
               <div
                 className={
-                  "absolute top-[115px] left-0 z-10 bg-[#FFFFFF4D]  py-[6px] pl-[14px] pr-[20px] rounded-r-[6px]"
+                  "absolute top-[115px] left-0 z-10 bg-[#FFF]  py-[6px] pl-[14px] pr-[20px] rounded-r-[6px] backdrop-blur-sm bg-opacity-30"
                 }
               >
                 <h4

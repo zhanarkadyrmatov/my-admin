@@ -25,13 +25,12 @@ export const fetchFieldsIdList = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     console.log(id)
     try {
-      const response = await axios.get(`${Api}admin_api/football_field_type_list/${id}/`, {
+      const response = await axios.get(`${Api}admin_api/football_field_detail/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      // console.log(response.data[0].id)
-      dispatch(fetchFieldsIdDetail(response.data[0].id))
+      // dispatch(fetchFieldsIdDetail(response.data[0].id))
       return response.data;
     } catch (error) {
       console.log(error);

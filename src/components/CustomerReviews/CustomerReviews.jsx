@@ -4,7 +4,7 @@ import { MdOutlineStar } from 'react-icons/md'
 import { useSelector } from 'react-redux';
 
 export default function CustomerReviews() {
-  const { fieldsComments } = useSelector((state) => state.fields);
+  const { fieldsIdList, fieldsComments } = useSelector((state) => state.fields);
 
   return (
     <div className='grid grid-cols-1  xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]'>
@@ -14,8 +14,8 @@ export default function CustomerReviews() {
         </div>
         <div className='p-[20px] bg-white rounded-b-[12px] flex justify-center items-center gap-[14px] md:gap-[20px] xl:gap-[14px] '>
           <div>
-            <h4 className='text-[53px] leading-[60px] text-[#222222] font-bold'>3.0</h4>
-            <p className='text-[14px] leading-[16px] text-[#222222]  font-normal opacity-50'>15 оценок</p>
+            <h4 className='text-[53px] leading-[60px] text-[#222222] font-bold'>{fieldsIdList?.avg_rating}</h4>
+            <p className='text-[14px] leading-[16px] text-[#222222]  font-normal opacity-50 flex items-center gap-1'><span>{fieldsIdList?.rating_num}</span> <span>оценок</span></p>
           </div>
           <div className={'flex flex-col gap-[2px]'}>
             {[...Array(5)].map((res, i) => (

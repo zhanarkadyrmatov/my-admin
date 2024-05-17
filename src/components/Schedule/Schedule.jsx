@@ -1,39 +1,36 @@
 import React from "react";
-import ScheduleText from "../Cards/schedule/ScheduleText";
 import img5 from "../../img/img5.svg";
-export default function Schedule({ title, time }) {
+import { useSelector } from "react-redux";
+export default function Schedule() {
+
+  const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
+  const aaaa = [1, 2, 3, 4, 5, 6, 7]
+
   return (
-    <div>
-      <div className="w-[390px] h-[408px] bg-[#FFFFFF] rounded-[10px]">
-        <div className="w-[390px] h-[58px] p-[20px] border-b border-solid border-gray-200">
-          <h4>График работы</h4>
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[20px]">
+      <div className="">
+        <div className='p-[20px] bg-white rounded-t-[12px] border-[#2222220D] border-b-[2px]'>
+          <h4 className='text-[16px] leading-[18px] font-bold'>
+            График работы
+          </h4>
         </div>
-        <div className="w-[390px] h-[350px] shadow-md p-[20px]">
-          <div className="w-[390px] h-[304px] flex gap-[12px] items-center">
-            <div className="grid justify-start items-center mt-[10px]">
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-              <div className="w-[2px] h-[37px] bg-black ml-[5.305px]"></div>
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-              <div className="w-[2px] h-[37px] bg-black ml-[5.305px]"></div>
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-              <div className="w-[2px] h-[37px] bg-black ml-[5.305px]"></div>
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-              <div className="w-[2px] h-[37px] bg-black ml-[5.305px]"></div>
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-              <div className="w-[2px] h-[37px] bg-black ml-[5.305px]"></div>
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-              <div className="w-[2px] h-[37px] bg-black ml-[5.305px]"></div>
-              <div className="w-[12px] h-[12px] rounded-[10px] bg-black"></div>
-            </div>
-            <div className="w-[357px] h-[304px] grid  grid-cols-1 gap-[25px]">
-              <ScheduleText title={"Понедельник"} time={"07:00 - 22:00"} />
-              <ScheduleText title={"Вторник"} time={"07:00 - 22:00"} />
-              <ScheduleText title={"Среда"} time={"07:00 - 22:00"} />
-              <ScheduleText title={"Четверг"} time={"07:00 - 22:00"} />
-              <ScheduleText title={"Пятница"} time={"07:00 - 22:00"} />
-              <ScheduleText title={"Суббота"} time={"07:00 - 22:00"} />
-              <ScheduleText title={"Воскресенье"} time={"07:00 - 22:00"} />
-            </div>
+        <div className=" bg-white rounded-b-[12px] shadow-md p-[20px]">
+          <div className="flex flex-col gap-[30px]">
+            {aaaa.map((item, index) => {
+              const isLastItem = index !== aaaa.length - 1;
+              return (
+                <div className="flex items-center gap-3 last:text-[#DF2323]">
+                  <div className="w-[12px] h-[12px] bg-[#222222] rounded-full flex justify-center items-start">
+                    {
+                      isLastItem && <div className="w-[2px] h-[50px] bg-[#222222] rounded-full" />
+                    }
+                  </div>
+                  <p className="text-[14px] leading-[16px] text-[#222222]">
+                    <span className="font-bold">Понедельник -</span> <span>07:00 - 22:00</span>
+                  </p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

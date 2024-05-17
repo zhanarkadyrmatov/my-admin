@@ -13,11 +13,12 @@ import Icon from '../../../img/foodbol.svg'
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFieldsIdDetail, fetchFieldsIdList } from "../../../store/slice/fields-slice";
+import FieldsDelete from "../../../components/Modal/FieldsDelete";
 
 export default function FieldsId() {
   const { id } = useParams();
   const [active, setActive] = useState(0);
-  const [active2, setActive2] = useState(0);
+  const [fieldDelete, setFieldDelete] = useState(false);
   const [request, setRequest] = useState(0);
   const dispatch = useDispatch()
   const [fieldValue, setFieldValue] = useState(false);
@@ -27,17 +28,20 @@ export default function FieldsId() {
     dispatch(fetchFieldsIdList(id))
   }, [id])
 
+  console.log(fieldsIdList)
+
   return (
     <>
+      {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} />}
       <div className="my-[65px] flex flex-col gap-[20px]">
         <div style={{
-          backgroundImage: "url(https://s3-alpha-sig.figma.com/img/696a/d53f/f12d7954e04dc1366cf76d70a5e06d46?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Bqr595FS-9Jnnoz7MQeXaDXBqj9RjzjTGlCn0mcM9GfikckMEan9qFS45XrVUIu90Aprs35~buBA5OSPTeTbJx65KqvtHs2Gn03XOd9lIxoTTROatOKEORQ-pvDkYXr092tPnkepB~G733o1n9xVhLncWYr~G9dYha20S9Hv0AwFxyW5AiHhsC7bLRAP4ZMyXaota5l7JPUIwNl0PlBi5XkqirrKtQqT2P-3Xw-dPcqn4Z6DSB5yq9drv-sK5M6tyLSId5qbxAxuhAVITfsvVGGUXPnmHx7jAnh1t4zcQORpuh5TxGkeg6WZA2281dITxasa7E4lKYu~VLFH51ReWw__)",
+          backgroundImage: `url(${fieldsIdList?.main_foto})`
         }} className="h-[200px] w-[100%]  ">
           <div className="flex flex-col items-center justify-center h-full gap-[10px]">
             <img className="w-[50px] " src={Icon} alt="" />
             <div className="text-center flex flex-col gap-2">
               <h4 className="text-[18px] leading-[20px] font-bold text-white">
-                El Clasico
+                {fieldsIdList?.name}
               </h4>
               <p className="text-white text-[13px] leading-[15px] font-normal opacity-70">Спортивный комплекс</p>
             </div>
@@ -85,7 +89,7 @@ export default function FieldsId() {
                   Редактировать поле
                 </span>
               </NavLink>
-              <button className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#FFDEDE] rounded-[8px] hover:bg-[#cb8181] duration-300">
+              <button onClick={() => setFieldDelete(!fieldDelete)} className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#FFDEDE] rounded-[8px] hover:bg-[#cb8181] duration-300">
                 <MdDelete className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
                 <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">
                   Удалить поле
@@ -140,7 +144,7 @@ export default function FieldsId() {
                   </button>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-                  {fieldsIdList?.map((item) => {
+                  {/* {fieldsIdList?.map((item) => {
                     return (
                       <button onClick={() => {
                         dispatch(fetchFieldsIdDetail(item?.id))
@@ -153,7 +157,7 @@ export default function FieldsId() {
                       </button>
                     )
                   }
-                  )}
+                  )} */}
                 </div>
               </div>
               <div>

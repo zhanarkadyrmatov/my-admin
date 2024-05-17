@@ -8,7 +8,6 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import Profil from "./pages/profil/profil";
 import DataPages from "./pages/DataPages/DataPages";
 import HistoryPage from "./pages/historyPage/historyPage";
-import CartPages from "./pages/cartPages/CartPages";
 import ArmorHistory from "./pages/armorHistory/ArmorHistory";
 import Payment from "./pages/historyPayment/Payment";
 import Fields from "./pages/fields/fields";
@@ -53,7 +52,6 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/fields" element={<Fields />} />
               <Route path="/editFields" element={<EditFieds />} />
-              <Route path="/companies" element={<CartPages />} />
               <Route path="//fields/football" element={<Addfootball />} />
               <Route path="//fields/minifields" element={<MiniFields />} />
               <Route path="/fields/:id" element={<FieldsId />} />

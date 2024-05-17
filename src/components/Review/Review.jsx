@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 export default function Review() {
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
 
-  console.log(fieldsIdDetail);
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[20px]'>
@@ -14,7 +13,7 @@ export default function Review() {
           <h4 className='text-[16px] leading-[18px] font-bold'>Преимущества</h4>
         </div>
         <div className='px-[20px] py-[5px] bg-white rounded-b-[12px] '>
-          {fieldsIdDetail?.advantages?.map((item) => {
+          {fieldsIdList?.advantages?.map((item) => {
             return (
               <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
                 <div className='min-w-[40px] min-h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
@@ -47,7 +46,6 @@ export default function Review() {
               </div>
             )
           })}
-
           <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
             <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
               <img className='w-[24px] h-[24px]' src={Icon} alt="" />

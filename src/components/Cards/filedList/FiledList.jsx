@@ -2,29 +2,29 @@ import React from "react";
 import pie from "../../../img/pie.svg";
 
 import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";      
-export default function FiledList({ item }) {
-
+import Stack from "@mui/material/Stack";
+import { FaPlus } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
+export default function FiledList({ item, index, fieldDelete, setFieldDelete }) {
+  console.log(item)
   return (
     <div>
-      <nav className="flex items-center justify-between w-full h-[76px] px-[10px] py-[20px] border-b border-solid border-gray-100">
-        <div className="flex items-center gap-[42px]">
-          <li className="list-none">1 </li>
-          <li className="list-none">{item?.name}</li>
-        </div>
-        <li className="list-none">Спортивное поле</li>
-        <div className="flex items-center gap-[10px]">
+      <nav className="grid grid-cols-11 items-center gap-1 w-full  px-[10px] py-[20px] border-b-[2px] border-gray-100">
+        <div className="col-span-1 text-left">{index + 1}</div>
+        <NavLink to={`/fields/${item?.id}`} className="col-span-2 text-left hover:text-[#DF2323] duration-300">{item?.name}</NavLink>
+        <div className="col-span-2 text-left">Спортивное поле</div>
+        <div className="col-span-2 flex items-center justify-start gap-[10px]">
           {item?.advantages?.map((el) => (
             <img className={"w-[20px] h-[20px]"} src={el?.icon} alt="" />
           ))}
         </div>
-        <div className="flex items-center gap-[2px]">
-          <p className="text-base font-normal leading-4 tracking-tighter text-left">
-            3.0 (2)
+        <div className="col-span-2 flex items-center gap-[2px]">
+          <p className="text-base font-normal leading-4 tracking-tighter text-left whitespace-nowrap">
+            {item?.avg_rating} ({item?.rating_num})
           </p>
           <div className="flex items-center">
             {" "}
-            <Stack   spacing={1}>
+            <Stack spacing={1}>
               <Rating
                 name="half-rating-read"
                 defaultValue={item?.avg_rating}
@@ -34,32 +34,11 @@ export default function FiledList({ item }) {
             </Stack>
           </div>
         </div>
-        <div className="flex gap-x-[12px]">
-          <div className="w-[36px] h-[36px] rounded-[12px] p-[8px] bg-[#7384E8]">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 10H15"
-                stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M10 15V5"
-                stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+        <div className="col-span-2 flex items-center justify-end gap-x-[12px]">
+          <div className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center bg-[#7384E8] hover:scale-105 duration-300 cursor-pointer">
+            <FaPlus className="w-[20px] h-[20px] fill-white" />
           </div>
-          <div className="w-[36px] h-[36px] rounded-[12px] p-[8px] bg-[#E5E5E5]">
+          <div className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center  bg-[#E5E5E5] hover:scale-105 duration-300 cursor-pointer">
             <svg
               width="20"
               height="20"
@@ -90,7 +69,7 @@ export default function FiledList({ item }) {
               />
             </svg>
           </div>
-          <div className="w-[36px] h-[36px] rounded-[12px] p-[8px] bg-[#FFDEDE]">
+          <div onClick={() => setFieldDelete(!fieldDelete)} className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center bg-[#FFDEDE] hover:scale-105 duration-300 cursor-pointer">
             <svg
               width="20"
               height="20"
