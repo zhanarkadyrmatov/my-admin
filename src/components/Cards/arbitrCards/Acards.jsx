@@ -12,7 +12,7 @@ export default function Acards() {
               ataialanov
             </h5>
             <li className="flex gap-x-[2px] items-center list-none text-xs font-medium leading-tight text-left">
-              El Clasico{" "}
+              El Clasico
               <span className="w-[3px] h-[3px] bg-[#222222] opacity-70 rounded-full"></span>
               <span className="text-xs font-medium leading-tight text-left opacity-70">
                 Спортивный комплекс
