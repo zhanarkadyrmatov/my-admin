@@ -56,17 +56,35 @@ export default function Addfootball() {
   ])
   const goToPage = (pageName) => {
     setPage(pageName);
-    const data = {
-      name: newName,
-      advantages: advantagesValue,
-      type: addFootballTypesList
-    }
+   
 
   };
 
   const handleRadioChange = (e, res) => {
     setSelectedValue(res.name);
   };
+
+
+   // {advantages?.map((res, i) => {
+                //   return (
+                //     <div className={s.checkbox}>
+                //       <input
+                //         onChange={(e) => getAdvantagesId(res.id)}
+                //         type="checkbox"
+                //         className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                //       />
+                //       <div className="flex flex-col gap-0 w-full">
+                //         <label
+                //           className="text-[15px] leading-[17px] text-[#222222] font-normal"
+                //           htmlFor=""
+                //         >
+                //           {res?.name}
+                //         </label>
+                //         <p>{res?.description}</p>
+                //       </div>
+                //     </div>
+                //   )
+                // })}
   return (
     <>
       {page === "home" && (
@@ -77,26 +95,7 @@ export default function Addfootball() {
                 <h4>Преимущества</h4>
               </div>
               <div className={s.checkboxList}>
-                {advantages?.map((res, i) => {
-                  return (
-                    <div className={s.checkbox}>
-                      <input
-                        onChange={(e) => getAdvantagesId(res.id)}
-                        type="checkbox"
-                        className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
-                      />
-                      <div className="flex flex-col gap-0 w-full">
-                        <label
-                          className="text-[15px] leading-[17px] text-[#222222] font-normal"
-                          htmlFor=""
-                        >
-                          {res.name}
-                        </label>
-                        <p>{res.description}</p>
-                      </div>
-                    </div>
-                  )
-                })}
+               
               </div>
             </div>
             <div className="bg-[#fff]">
@@ -171,10 +170,10 @@ export default function Addfootball() {
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите тип филиала</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {selectBranchTypeList.map((res, i) => (
+                    {selectBranchTypeList?.map((res, i) => (
                       <button key={i} className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
                         <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res.name}
+                          {res?.name}
                         </h4>
                         <input onChange={(e) => handleRadioChange(e, res)}
                           name="myRadio"
@@ -203,7 +202,7 @@ export default function Addfootball() {
                   </div>
                 </div>
                 <div className="flex gap-[10px] items-center flex-wrap">
-                  {addFootballTypesList.map((item, index) => (
+                  {addFootballTypesList?.map((item, index) => (
                     <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
                       {item}
                     </button>
