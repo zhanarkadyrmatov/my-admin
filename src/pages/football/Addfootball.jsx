@@ -8,6 +8,7 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdvantages, postAdvantages } from "../../store/slice/create-foobol-slice";
+import { useAccordionState } from "../../hooks/useAccordionState";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -30,7 +31,7 @@ export default function Addfootball() {
   console.log(advantages, "advantages");
   const getAdvantagesId = (e) => {
     setAdvantagesValue((advantages) => [...advantages, e]);
-    alert(JSON.stringify(advantagesValue));
+    // alert(JSON.stringify(advantagesValue));
   };
 
   const handleAddFootballTypes = (e) => {
@@ -56,35 +57,10 @@ export default function Addfootball() {
   ])
   const goToPage = (pageName) => {
     setPage(pageName);
-   
-
   };
-
   const handleRadioChange = (e, res) => {
     setSelectedValue(res.name);
   };
-
-
-   // {advantages?.map((res, i) => {
-                //   return (
-                //     <div className={s.checkbox}>
-                //       <input
-                //         onChange={(e) => getAdvantagesId(res.id)}
-                //         type="checkbox"
-                //         className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
-                //       />
-                //       <div className="flex flex-col gap-0 w-full">
-                //         <label
-                //           className="text-[15px] leading-[17px] text-[#222222] font-normal"
-                //           htmlFor=""
-                //         >
-                //           {res?.name}
-                //         </label>
-                //         <p>{res?.description}</p>
-                //       </div>
-                //     </div>
-                //   )
-                // })}
   return (
     <>
       {page === "home" && (
@@ -95,7 +71,44 @@ export default function Addfootball() {
                 <h4>Преимущества</h4>
               </div>
               <div className={s.checkboxList}>
-               
+              {advantages?.map((res, i) => {
+                let isAcc  = true;
+                const handleCheckboxChange = (event) => {
+                  if (event.target.checked) {
+                    isAcc = true;
+                  } else {
+                    isAcc = false;
+                  }
+                };
+                return (
+                  <div className={s.checkbox} key={i}>
+                    <div className="flex gap-[5px] w-full flex-col">
+                      <div className="flex gap-[10px] w-full">
+                        <input
+                          onChange={(event) => handleCheckboxChange(event)}
+                          name={res.id}
+                          type="checkbox"
+                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                        />
+                        <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
+                          {res?.name}
+                        </label>
+                      </div>
+                      {isAcc === true &&
+                        res?.specific_advantages.map((ress) => (
+                          <div className={s.checkboxType} key={ress.id}>
+                            <input
+                              onChange={(event) => handleRadioChange(event, res)}
+                              name={res.id}
+                              type="radio"
+                            />
+                            {ress?.type.name}
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                );
+              })}
               </div>
             </div>
             <div className="bg-[#fff]">
@@ -151,7 +164,6 @@ export default function Addfootball() {
                       </p>
                     </div>
                   </div>
-
                 </div>
                 <div className="grid gap-y-[8px]">
                   <h4 className="text-base font-normal leading-normal text-left">
