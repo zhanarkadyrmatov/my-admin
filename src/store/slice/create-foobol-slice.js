@@ -18,6 +18,27 @@ export const getAdvantages = createAsyncThunk(
     }
 );
 
+export const createFoobolField = createAsyncThunk(
+  "advantages/createFoobolField",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${Api}admin_api/football_field_create/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          data,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 export const getLocationsCities  = createAsyncThunk(
     "advantages/getLocationsCities",
     async (_, { rejectWithValue }) => {
@@ -63,7 +84,8 @@ const advantagesSlice = createSlice({
         advantages: null,
         status: null,
         error: null,
-        locationsCities: null
+        locationsCities: null,
+        creacteFoobolStatus: null,
     },
     extraReducers: (builder) => {
         builder
@@ -88,6 +110,17 @@ const advantagesSlice = createSlice({
             })
             .addCase(getLocationsCities.rejected, (state, action) => {
                 state.status = "rejected";
+                state.error = action.payload;
+                console.error("Error fetching advantages:", action.payload);
+            })
+            .addCase(createFoobolField.pending, (state) => {
+                state.creacteFoobolStatus = "loading";
+            })
+            .addCase(createFoobolField.fulfilled, (state, action) => {
+                state.creacteFoobolStatus = "fulfilled";
+            })
+            .addCase(createFoobolField.rejected, (state, action) => {
+                state.creacteFoobolStatus = "rejected";
                 state.error = action.payload;
                 console.error("Error fetching advantages:", action.payload);
             })
