@@ -36,7 +36,7 @@ export default function Calendar() {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-        
+
         buttonText={{
           today: "Сегодня",
           month: "Месяц",
