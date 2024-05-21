@@ -21,8 +21,8 @@ export const BalanceCard = () => {
             "StaticDatePicker",
           ]}
         >
-          <div className="xl:grid grid-cols-[1.3fr_2fr] gap-x-[30px] w-full grid gap-y-[30px]">
-            <div className="w-full flex justify-between   h-[114px] items-center bg-[#222222] text-white p-4 rounded-lg">
+          <div className="xl:grid-cols-[1.3fr_2fr] gap-x-[30px] w-full grid gap-y-[30px] grid-cols-1">
+            <div className="w-full sm:flex justify-between items-center h-min bg-[#222222] text-white p-4 rounded-lg grid gap-y-[50px]">
               <div>
                 <p
                   className="text-base font-normal leading-tight text-left opacity-70 text-[#FFFFFF]"
@@ -37,19 +37,17 @@ export const BalanceCard = () => {
                   15 000 сом
                 </h1>
               </div>
-
-              
               <img
-                  className="absolute z-[100] top-[-30px] left-[0px] transform rotate-[180deg] "
-                  src={Ellipse}
-                  alt=""
-                />
-                <img
-                  className="absolute top-[-60px] left-[60px]"
-                  src={Ellipse2}
-                  а
-                  alt=""
-                />
+                className="absolute z-[100] top-[-30px] left-[0px] transform rotate-[180deg] "
+                src={Ellipse}
+                alt=""
+              />
+              <img
+                className="absolute top-[-60px] left-[60px]"
+                src={Ellipse2}
+                а
+                alt=""
+              />
               <div className=" ">
                 <button className="mt-[-40px] flex gap-x-[8px] py-[10px] px-[16px] bg-[#FFFFFF4D] items-center text-white rounded-lg text-lg z-[200]">
                   <p
@@ -60,7 +58,6 @@ export const BalanceCard = () => {
                   </p>
                   <GoPlus className="w-[20px] h-[20px]" />
                 </button>
-               
               </div>
             </div>
             <div className="w-full  bg-[#fff] rounded-[10px]">
@@ -69,7 +66,7 @@ export const BalanceCard = () => {
                   История платежей
                 </h4>
               </div>
-              <div className="flex gap-[10px] h-[60px] px-[20px] ">
+              <div className="sm:flex gap-[10px]  px-[20px] grid">
                 <div className="grid w-full">
                   <DemoItem label="От:">
                     <MobileDatePicker defaultValue={dayjs("Дата:")} />
@@ -92,7 +89,7 @@ export const BalanceCard = () => {
                     ))}
                   </div>
                   <h4 className="text-base font-medium leading-4 text-left">
-                    Сегодня
+                    07.01.2024
                   </h4>
                   {[1, 2].map((res, i) => (
                     <Acards />
