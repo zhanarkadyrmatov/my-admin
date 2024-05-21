@@ -18,10 +18,12 @@ import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
 import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
+
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+
   return (
     <div className={`flex ${darkMode && "dark"} `}>
       <Playground
@@ -39,9 +41,8 @@ function App() {
           setDarkMode={setDarkMode}
           darkMode={darkMode}
         />
-
-        <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
-          <div className="">
+        <div className="overflow-y-auto h-screen bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
+          <div>
             <Routes>
               <Route path="/" element={<DashboardPage />} />
               <Route path="/calendary" element={<DataPages />} />
@@ -63,5 +64,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

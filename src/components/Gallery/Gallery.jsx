@@ -2,8 +2,7 @@ import { Masonry } from "react-masonry";
 export default function Gallery() {
   return (
     <div className="mb:p-10">
-      <div></div>
-      <div className="columns-1 gap-[5px] lg:gap-[8px] sm:columns-1 lg:columns-2 xl:columns-3 [&>img:not(:first-child)]:mt-5 md:[&>img:not(:first-child)]:mt-8">
+      <div className="columns-1 gap-[5px] lg:gap-[8px] sm:columns-1 lg:columns-2 xl:columns-3 [&>img:not(:first-child)]:mt-1 md:[&>img:not(:first-child)]:mt-3">
         <img
           className="rounded-[10px] w-full"
           src="https://source.unsplash.com/ztpUS4N1xhY"

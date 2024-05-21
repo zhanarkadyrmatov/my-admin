@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BiSolidCameraPlus } from "react-icons/bi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import img7 from "../../img/img7.svg";
@@ -7,7 +7,65 @@ import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdvantages, postAdvantages } from "../../store/slice/create-foobol-slice";
+import * as React from "react";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import { styled } from "@mui/material/styles";
+import {
+  getAdvantages,
+  postAdvantages,
+} from "../../store/slice/create-foobol-slice";
+
+const IOSSwitch = styled((props) => (
+  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+))(({ theme }) => ({
+  width: 42,
+  height: 26,
+  padding: 0,
+  "& .MuiSwitch-switchBase": {
+    padding: 0,
+    margin: 2,
+    transitionDuration: "300ms",
+    "&.Mui-checked": {
+      transform: "translateX(16px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
+        opacity: 1,
+        border: 0,
+      },
+      "&.Mui-disabled + .MuiSwitch-track": {
+        opacity: 0.5,
+      },
+    },
+    "&.Mui-focusVisible .MuiSwitch-thumb": {
+      color: "#33cf4d",
+      border: "6px solid #fff",
+    },
+    "&.Mui-disabled .MuiSwitch-thumb": {
+      color:
+        theme.palette.mode === "light"
+          ? theme.palette.grey[100]
+          : theme.palette.grey[600],
+    },
+    "&.Mui-disabled + .MuiSwitch-track": {
+      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxSizing: "border-box",
+    width: 22,
+    height: 22,
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 26 / 2,
+    backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
+    opacity: 1,
+    transition: theme.transitions.create(["background-color"], {
+      duration: 500,
+    }),
+  },
+}));
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -16,16 +74,16 @@ export default function Addfootball() {
     }
   };
   const [page, setPage] = useState("home");
-  const dispatch = useDispatch()
-  const { advantages, status } = useSelector((state) => state.createFoobol)
-  const [advantagesValue, setAdvantagesValue] = useState([])
-  const [newName, setNewName] = useState()
-  const [addFootballTypes, setAddFootballTypes] = useState("Мини поле1")
-  const [addFootballTypesList, setAddFootballTypesList] = useState([])
+  const dispatch = useDispatch();
+  const { advantages, status } = useSelector((state) => state.createFoobol);
+  const [advantagesValue, setAdvantagesValue] = useState([]);
+  const [newName, setNewName] = useState();
+  const [addFootballTypes, setAddFootballTypes] = useState("Мини поле1");
+  const [addFootballTypesList, setAddFootballTypesList] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   useEffect(() => {
-    dispatch(getAdvantages())
-  }, [])
+    dispatch(getAdvantages());
+  }, []);
 
   console.log(advantages, "advantages");
   const getAdvantagesId = (e) => {
@@ -34,57 +92,53 @@ export default function Addfootball() {
   };
 
   const handleAddFootballTypes = (e) => {
-    setAddFootballTypesList([...addFootballTypesList, addFootballTypes])
-
-  }
+    setAddFootballTypesList([...addFootballTypesList, addFootballTypes]);
+  };
   const [selectBranchTypeList, setSelectBranchTypeList] = useState([
     {
       name: "Стадион",
       id: "1",
-      isAcctive: true
+      isAcctive: true,
     },
     {
       name: "Мини поле",
       id: "2",
-      isAcctive: false
+      isAcctive: false,
     },
     {
       name: "Площадка",
       id: "3",
-      isAcctive: false
-    }
-  ])
+      isAcctive: false,
+    },
+  ]);
   const goToPage = (pageName) => {
     setPage(pageName);
-   
-
   };
 
   const handleRadioChange = (e, res) => {
     setSelectedValue(res.name);
   };
 
-
-   // {advantages?.map((res, i) => {
-                //   return (
-                //     <div className={s.checkbox}>
-                //       <input
-                //         onChange={(e) => getAdvantagesId(res.id)}
-                //         type="checkbox"
-                //         className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
-                //       />
-                //       <div className="flex flex-col gap-0 w-full">
-                //         <label
-                //           className="text-[15px] leading-[17px] text-[#222222] font-normal"
-                //           htmlFor=""
-                //         >
-                //           {res?.name}
-                //         </label>
-                //         <p>{res?.description}</p>
-                //       </div>
-                //     </div>
-                //   )
-                // })}
+  // {advantages?.map((res, i) => {
+  //   return (
+  //     <div className={s.checkbox}>
+  //       <input
+  //         onChange={(e) => getAdvantagesId(res.id)}
+  //         type="checkbox"
+  //         className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+  //       />
+  //       <div className="flex flex-col gap-0 w-full">
+  //         <label
+  //           className="text-[15px] leading-[17px] text-[#222222] font-normal"
+  //           htmlFor=""
+  //         >
+  //           {res?.name}
+  //         </label>
+  //         <p>{res?.description}</p>
+  //       </div>
+  //     </div>
+  //   )
+  // })}
   return (
     <>
       {page === "home" && (
@@ -94,9 +148,7 @@ export default function Addfootball() {
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-              <div className={s.checkboxList}>
-               
-              </div>
+              <div className={s.checkboxList}></div>
             </div>
             <div className="bg-[#fff]">
               <div className="p-[20px] rounded-t-[10px] bg-white border-b-[1px] border-[#E8E8E8]">
@@ -151,7 +203,6 @@ export default function Addfootball() {
                       </p>
                     </div>
                   </div>
-
                 </div>
                 <div className="grid gap-y-[8px]">
                   <h4 className="text-base font-normal leading-normal text-left">
@@ -171,13 +222,19 @@ export default function Addfootball() {
                   <h4>Выберите тип филиала</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {selectBranchTypeList?.map((res, i) => (
-                      <button key={i} className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
+                      <button
+                        key={i}
+                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                      >
                         <h4 className="text-base font-normal leading-6 tracking-tight text-left">
                           {res?.name}
                         </h4>
-                        <input onChange={(e) => handleRadioChange(e, res)}
+                        <input
+                          onChange={(e) => handleRadioChange(e, res)}
                           name="myRadio"
-                          type="radio" className="w-[18px] h-[18px]" />
+                          type="radio"
+                          className="w-[18px] h-[18px]"
+                        />
                       </button>
                     ))}
                   </div>
@@ -187,15 +244,26 @@ export default function Addfootball() {
                 </div>
                 <div className="grid gap-[5px]">
                   <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center ">
-                    <select className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center " value={addFootballTypes} onChange={(e) => setAddFootballTypes(e.target.value)} >
+                    <select
+                      className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center "
+                      value={addFootballTypes}
+                      onChange={(e) => setAddFootballTypes(e.target.value)}
+                    >
                       <option value="Мини поле1">Мини поле1</option>
-                      <option value="Мини поле 2">Мини поле 2
-                      </option>
+                      <option value="Мини поле 2">Мини поле 2</option>
                       <option value="Фут-Зал">Фут-Зал</option>
                     </select>
                     <div className="flex gap-[10px] items-center">
                       <MdKeyboardArrowDown size={25} />
-                      <button onClick={() => setAddFootballTypesList([...addFootballTypesList, addFootballTypes])} className="p-[8px] rounded-lg bg-blue-500 text-white">
+                      <button
+                        onClick={() =>
+                          setAddFootballTypesList([
+                            ...addFootballTypesList,
+                            addFootballTypes,
+                          ])
+                        }
+                        className="p-[8px] rounded-lg bg-blue-500 text-white"
+                      >
                         Добавить
                       </button>
                     </div>
@@ -208,7 +276,10 @@ export default function Addfootball() {
                     </button>
                   ))}
                 </div>
-                <div onClick={() => goToPage("about")} className="p-[8px] rounded-[8px] bg-[#7384E8]">
+                <div
+                  onClick={() => goToPage("about")}
+                  className="p-[8px] rounded-[8px] bg-[#7384E8]"
+                >
                   <p className="text-base font-medium leading-5 text-center text-[#fff]">
                     Далее
                   </p>
@@ -222,7 +293,7 @@ export default function Addfootball() {
         <div>
           <div
             className={
-              "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] "
+              "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] justify-between items-center"
             }
           >
             <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
@@ -246,6 +317,13 @@ export default function Addfootball() {
               >
                 Описание
               </button>
+            </div>
+            <div>
+              <FormControlLabel
+                className="flex flex-row-reverse justify-between items-center"
+                control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+                label="Cкопировать детали предыдущих полей"
+              />
             </div>
           </div>
           <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
@@ -453,4 +531,3 @@ export default function Addfootball() {
     </>
   );
 }
-
