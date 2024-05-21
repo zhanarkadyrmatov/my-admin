@@ -18,49 +18,52 @@ import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
 import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
-function App() {
+function App({ items }) {
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   return (
-    <div className={`flex ${darkMode && "dark"} `}>
-      <Playground
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-        toggled={toggled}
-        setToggled={setToggled}
-      />
-      <main className="relative w-full">
-        <Header
+    <>
+      <div className={`flex ${darkMode && "dark"} `}>
+        <Playground
           collapsed={collapsed}
           setCollapsed={setCollapsed}
           toggled={toggled}
           setToggled={setToggled}
-          setDarkMode={setDarkMode}
-          darkMode={darkMode}
         />
+        <main className="relative w-full">
+          <Header
+            collapsed={collapsed}
+            setCollapsed={setCollapsed}
+            toggled={toggled}
+            setToggled={setToggled}
+            setDarkMode={setDarkMode}
+            darkMode={darkMode}
+          />
 
-        <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
-          <div className="">
-            <Routes>
-              <Route path="/" element={<DashboardPage />} />
-              <Route path="/calendary" element={<DataPages />} />
-              <Route path="/profil" element={<Profil />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/wallet" element={<BalanceCard />} />
-              <Route path="/armor" element={<ArmorHistory />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/fields" element={<Fields />} />
-              <Route path="/editFields" element={<EditFieds />} />
-              <Route path="//fields/football" element={<Addfootball />} />
-              <Route path="//fields/minifields" element={<MiniFields />} />
-              <Route path="/fields/:id" element={<FieldsId />} />
-              <Route path="/reserve" element={<Reserve />} />
-            </Routes>
+          <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
+            <div className="">
+              <Routes>
+                <Route path="/" element={<DashboardPage />} />
+                <Route path="/calendary" element={<DataPages />} />
+                <Route path="/profil" element={<Profil />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/wallet" element={<BalanceCard />} />
+                <Route path="/armor" element={<ArmorHistory />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/fields" element={<Fields />} />
+                <Route path="/editFields" element={<EditFieds />} />
+                <Route path="//fields/football" element={<Addfootball />} />
+                <Route path="//fields/minifields" element={<MiniFields />} />
+                <Route path="/fields/:id" element={<FieldsId />} />
+                <Route path="/reserve" element={<Reserve />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+
+    </>
   );
 }
 
