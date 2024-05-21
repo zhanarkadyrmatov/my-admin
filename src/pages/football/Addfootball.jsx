@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { BiSolidCameraPlus } from "react-icons/bi";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdClose, MdKeyboardArrowDown } from "react-icons/md";
 import img7 from "../../img/img7.svg";
 import Time from "../../components/Cards/time/Time";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getAdvantages, postAdvantages } from "../../store/slice/create-foobol-slice";
+import { getAdvantages, getLocationsCities, postAdvantages } from "../../store/slice/create-foobol-slice";
 import { useAccordionState } from "../../hooks/useAccordionState";
+import YandexMaps from "../../components/yandexMaps/yandexMaps";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -18,26 +19,22 @@ export default function Addfootball() {
   };
   const [page, setPage] = useState("home");
   const dispatch = useDispatch()
-  const { advantages, status } = useSelector((state) => state.createFoobol)
+  const { advantages, locationsCities, status } = useSelector((state) => state.createFoobol)
   const [advantagesValue, setAdvantagesValue] = useState([])
   const [newName, setNewName] = useState()
   const [addFootballTypes, setAddFootballTypes] = useState("Мини поле1")
   const [addFootballTypesList, setAddFootballTypesList] = useState([])
   const [selectedValue, setSelectedValue] = useState(null);
+  const [locationsCitiesValue, setLocationsCitiesValue] = useState(null)
+  const [address, setAddress] = useState(null)
+  const [district, setDistrict] = useState(null)
+  const [isModalMap, setIsModalMap] = useState(true)
+  const [description, setDescription] = useState()
   useEffect(() => {
     dispatch(getAdvantages())
+    dispatch(getLocationsCities())
   }, [])
 
-  console.log(advantages, "advantages");
-  const getAdvantagesId = (e) => {
-    setAdvantagesValue((advantages) => [...advantages, e]);
-    // alert(JSON.stringify(advantagesValue));
-  };
-
-  const handleAddFootballTypes = (e) => {
-    setAddFootballTypesList([...addFootballTypesList, addFootballTypes])
-
-  }
   const [selectBranchTypeList, setSelectBranchTypeList] = useState([
     {
       name: "Стадион",
@@ -61,54 +58,69 @@ export default function Addfootball() {
   const handleRadioChange = (e, res) => {
     setSelectedValue(res.name);
   };
+
   return (
     <>
       {page === "home" && (
         <div className="mt-[50px]">
           <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
+            {
+              isModalMap && (
+                <div className={s.Map}>
+                  <div className={s.YandexMapsStyle}>
+                    
+          <div className={s.MdClose}>
+          <MdClose />
+          </div>
+                  
+                  <YandexMaps />
+                  </div>
+                </div>
+              )
+            }
             <div className="h-min w-full rounded-[10px] bg-white">
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
               <div className={s.checkboxList}>
-              {advantages?.map((res, i) => {
-                let isAcc  = true;
-                const handleCheckboxChange = (event) => {
-                  if (event.target.checked) {
-                    isAcc = true;
-                  } else {
-                    isAcc = false;
-                  }
-                };
-                return (
-                  <div className={s.checkbox} key={i}>
-                    <div className="flex gap-[5px] w-full flex-col">
-                      <div className="flex gap-[10px] w-full">
-                        <input
-                          onChange={(event) => handleCheckboxChange(event)}
-                          name={res.id}
-                          type="checkbox"
-                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
-                        />
-                        <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
-                          {res?.name}
-                        </label>
+                {advantages?.map((res, i) => {
+                  let isAcc = true;
+                  const handleCheckboxChange = (event) => {
+                    if (event.target.checked) {
+                      isAcc = true;
+                    } else {
+                      isAcc = false;
+                    }
+                  };
+                  return (
+                    <div className={s.checkbox} key={i}>
+                      <div className="flex gap-[5px] w-full flex-col">
+                        <div className="flex gap-[10px] w-full">
+                          <input
+                            onChange={(event) => handleCheckboxChange(event)}
+                            name={res.id}
+                            type="checkbox"
+                            className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                          />
+                          <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
+                            {res?.name}
+                          </label>
+                        </div>
+                        {isAcc === true &&
+                          res?.specific_advantages.map((ress) => (
+                            <div className={s.checkboxType} key={ress.id}>
+                              <input
+                                onChange={(event) => handleRadioChange(event, res)}
+                                name={res.id}
+                                type="radio"
+                              />
+                              {ress?.type.name}
+                            </div>
+                          ))}
                       </div>
-                      {isAcc === true &&
-                        res?.specific_advantages.map((ress) => (
-                          <div className={s.checkboxType} key={ress.id}>
-                            <input
-                              onChange={(event) => handleRadioChange(event, res)}
-                              name={res.id}
-                              type="radio"
-                            />
-                            {ress?.type.name}
-                          </div>
-                        ))}
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
               </div>
             </div>
             <div className="bg-[#fff]">
@@ -179,8 +191,36 @@ export default function Addfootball() {
                     />
                   </div>
                 </div>
+                <div className="grid gap-y-[8px]">
+                  <h4 className="text-base font-normal leading-normal text-left">
+                    Адрес
+                  </h4>
+                  <div>
+                    <input
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      type="text"
+                      placeholder="г. Москва, ул. Пушкина, д. 17"
+                    />
+                  </div>
+                </div>
+                <div className="grid gap-y-[8px]">
+                  <h4 className="text-base font-normal leading-normal text-left">
+                    Округ
+                  </h4>
+                  <div>
+                    <input
+                      value={district}
+                      onChange={(e) => setDistrict(e.target.value)}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      type="text"
+                      placeholder="Округ 1"
+                    />
+                  </div>
+                </div>
                 <div className="grid gap-y-[8px] ">
-                  <h4>Выберите тип филиала</h4>
+                  <h4>Выберите тип</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {selectBranchTypeList?.map((res, i) => (
                       <button key={i} className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
@@ -193,6 +233,32 @@ export default function Addfootball() {
                       </button>
                     ))}
                   </div>
+                </div>
+                <div className="grid gap-y-[8px] ">
+                  <h4>Выберите город </h4>
+                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                    {locationsCities?.map((res, i) => (
+                      <button key={i} className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center ">
+                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                          {res?.name.ru}
+                        </h4>
+                        <input onChange={(e) => setLocationsCitiesValue(res.slug)}
+                          name="locationsCities"
+                          type="radio" className="w-[18px] h-[18px]" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className={s.description}>
+                  <p>Описание</p>
+                  <textarea
+                    className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                    type="text"
+                    placeholder="Описание"
+                    onChange={(e) => setDescription(e.target.value)}
+                    value={description}
+
+                  />
                 </div>
                 <div className="grid gap-y-[8px]">
                   <h4>Добавьте типы футбольных полей</h4>

@@ -18,6 +18,24 @@ export const getAdvantages = createAsyncThunk(
     }
 );
 
+export const getLocationsCities  = createAsyncThunk(
+    "advantages/getLocationsCities",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${Api}locations/cities/`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+
+
 
 export const postAdvantages = createAsyncThunk(
     "advantages/postAdvantages",
@@ -45,6 +63,7 @@ const advantagesSlice = createSlice({
         advantages: null,
         status: null,
         error: null,
+        locationsCities: null
     },
     extraReducers: (builder) => {
         builder
@@ -59,7 +78,20 @@ const advantagesSlice = createSlice({
                 state.status = "rejected";
                 state.error = action.payload;
                 console.error("Error fetching advantages:", action.payload);
-            });
+            })
+            .addCase(getLocationsCities.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(getLocationsCities.fulfilled, (state, action) => {
+                state.status = "fulfilled";
+                state.locationsCities = action.payload;
+            })
+            .addCase(getLocationsCities.rejected, (state, action) => {
+                state.status = "rejected";
+                state.error = action.payload;
+                console.error("Error fetching advantages:", action.payload);
+            })
+            
     },
 });
 
