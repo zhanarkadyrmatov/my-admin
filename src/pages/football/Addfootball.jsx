@@ -1,71 +1,20 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BiSolidCameraPlus } from "react-icons/bi";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdClose, MdKeyboardArrowDown } from "react-icons/md";
 import img7 from "../../img/img7.svg";
 import Time from "../../components/Cards/time/Time";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import * as React from "react";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import { styled } from "@mui/material/styles";
 import {
   getAdvantages,
+  getLocationsCities,
   postAdvantages,
 } from "../../store/slice/create-foobol-slice";
-
-const IOSSwitch = styled((props) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
-  width: 42,
-  height: 26,
-  padding: 0,
-  "& .MuiSwitch-switchBase": {
-    padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
-    "&.Mui-checked": {
-      transform: "translateX(16px)",
-      color: "#fff",
-      "& + .MuiSwitch-track": {
-        backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
-        opacity: 1,
-        border: 0,
-      },
-      "&.Mui-disabled + .MuiSwitch-track": {
-        opacity: 0.5,
-      },
-    },
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: "#33cf4d",
-      border: "6px solid #fff",
-    },
-    "&.Mui-disabled .MuiSwitch-thumb": {
-      color:
-        theme.palette.mode === "light"
-          ? theme.palette.grey[100]
-          : theme.palette.grey[600],
-    },
-    "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    boxSizing: "border-box",
-    width: 22,
-    height: 22,
-  },
-  "& .MuiSwitch-track": {
-    borderRadius: 26 / 2,
-    backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-  },
-}));
+import { useAccordionState } from "../../hooks/useAccordionState";
+import YandexMaps from "../../components/yandexMaps/yandexMaps";
+import { AiOutlineClose } from "react-icons/ai";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -75,25 +24,25 @@ export default function Addfootball() {
   };
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
-  const { advantages, status } = useSelector((state) => state.createFoobol);
+  const { advantages, locationsCities, creacteFoobolStatus, status } =
+    useSelector((state) => state.createFoobol);
   const [advantagesValue, setAdvantagesValue] = useState([]);
   const [newName, setNewName] = useState();
   const [addFootballTypes, setAddFootballTypes] = useState("Мини поле1");
   const [addFootballTypesList, setAddFootballTypesList] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
+  const [address, setAddress] = useState(null);
+  const [district, setDistrict] = useState(null);
+  const [isModalMap, setIsModalMap] = useState(false);
+  const [description, setDescription] = useState();
+
+  const [mapLatLon, setMapLatLon] = useState();
   useEffect(() => {
     dispatch(getAdvantages());
+    dispatch(getLocationsCities());
   }, []);
 
-  console.log(advantages, "advantages");
-  const getAdvantagesId = (e) => {
-    setAdvantagesValue((advantages) => [...advantages, e]);
-    alert(JSON.stringify(advantagesValue));
-  };
-
-  const handleAddFootballTypes = (e) => {
-    setAddFootballTypesList([...addFootballTypesList, addFootballTypes]);
-  };
   const [selectBranchTypeList, setSelectBranchTypeList] = useState([
     {
       name: "Стадион",
@@ -111,44 +60,104 @@ export default function Addfootball() {
       isAcctive: false,
     },
   ]);
+
+  const [administratorList, setAdministratorList] = useState([
+    { name: "Erik", id: 1, type: "Менеджер " },
+    { name: "john", id: 2, type: "Админ" },
+    { name: "alex", id: 3, type: "Админ" },
+    { name: "jane", id: 4, type: "Техник" },
+    { name: "jane", id: 5, type: "Админ" },
+  ]);
+
+  const [administratorValue, setAdministratorValue] = useState(null);
+  const handlerPostCreacteFoobolField = () => {
+    const data = {
+      name: newName,
+      advantages: advantagesValue,
+      description: description,
+      administrator: administratorValue,
+      address: address,
+      city: locationsCitiesValue,
+      district: district,
+
+      latitude: mapLatLon?.lat,
+      longitude: mapLatLon?.lon,
+    };
+    console.log(data, "test1");
+  };
   const goToPage = (pageName) => {
     setPage(pageName);
-  };
 
+    handlerPostCreacteFoobolField();
+  };
   const handleRadioChange = (e, res) => {
     setSelectedValue(res.name);
   };
 
-  // {advantages?.map((res, i) => {
-  //   return (
-  //     <div className={s.checkbox}>
-  //       <input
-  //         onChange={(e) => getAdvantagesId(res.id)}
-  //         type="checkbox"
-  //         className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
-  //       />
-  //       <div className="flex flex-col gap-0 w-full">
-  //         <label
-  //           className="text-[15px] leading-[17px] text-[#222222] font-normal"
-  //           htmlFor=""
-  //         >
-  //           {res?.name}
-  //         </label>
-  //         <p>{res?.description}</p>
-  //       </div>
-  //     </div>
-  //   )
-  // })}
   return (
     <>
       {page === "home" && (
         <div className="mt-[50px]">
           <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
+            {isModalMap && (
+              <div className={s.Map}>
+                <div className={s.InfoTitel}>
+                  <p>Нужно выбрать местоположение</p>
+                  <div onClick={() => setIsModalMap(false)}>
+                    <AiOutlineClose />
+                  </div>
+                </div>
+                <div className={s.YandexMapsStyle}>
+                  <YandexMaps setMapLatLon={setMapLatLon} />
+                </div>
+              </div>
+            )}
             <div className="h-min w-full rounded-[10px] bg-white">
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-              <div className={s.checkboxList}></div>
+              <div className={s.checkboxList}>
+                {advantages?.map((res, i) => {
+                  let isAcc = true;
+                  const handleCheckboxChange = (event) => {
+                    if (event.target.checked) {
+                      isAcc = true;
+                    } else {
+                      isAcc = false;
+                    }
+                  };
+                  return (
+                    <div className={s.checkbox} key={i}>
+                      <div className="flex gap-[5px] w-full flex-col">
+                        <div className="flex gap-[10px] w-full">
+                          <input
+                            onChange={(event) => handleCheckboxChange(event)}
+                            name={res.id}
+                            type="checkbox"
+                            className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                          />
+                          <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
+                            {res?.name}
+                          </label>
+                        </div>
+                        {isAcc === true &&
+                          res?.specific_advantages.map((ress) => (
+                            <div className={s.checkboxType} key={ress.id}>
+                              <input
+                                onChange={(event) =>
+                                  handleRadioChange(event, res)
+                                }
+                                name={res.id}
+                                type="radio"
+                              />
+                              {ress?.type.name}
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className="bg-[#fff]">
               <div className="p-[20px] rounded-t-[10px] bg-white border-b-[1px] border-[#E8E8E8]">
@@ -162,7 +171,9 @@ export default function Addfootball() {
                     <div className="flex flex-col gap-y-[10px] items-center">
                       <div
                         style={{
-                          backgroundImage: `url(${img7})`,
+                          backgroundImage: `url(${
+                            selectedImage != null ? selectedImage : img7
+                          })`,
                         }}
                         className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                       ></div>
@@ -218,8 +229,50 @@ export default function Addfootball() {
                     />
                   </div>
                 </div>
+                <div className="grid gap-y-[8px]">
+                  <h4 className="text-base font-normal leading-normal text-left">
+                    Адрес
+                  </h4>
+                  <div>
+                    <input
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      type="text"
+                      placeholder="г. Москва, ул. Пушкина, д. 17"
+                    />
+                  </div>
+                </div>
+                <div className="grid gap-y-[8px]">
+                  <h4 className="text-base font-normal leading-normal text-left">
+                    Выбрать кординаты на карте
+                  </h4>
+                  <div>
+                    <input
+                      value={mapLatLon}
+                      onClick={(e) => setIsModalMap(!isModalMap)}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      type="text"
+                      placeholder="42.9797372189141,74.35650861718749"
+                    />
+                  </div>
+                </div>
+                <div className="grid gap-y-[8px]">
+                  <h4 className="text-base font-normal leading-normal text-left">
+                    Округ
+                  </h4>
+                  <div>
+                    <input
+                      value={district}
+                      onChange={(e) => setDistrict(e.target.value)}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      type="text"
+                      placeholder="Округ 1"
+                    />
+                  </div>
+                </div>
                 <div className="grid gap-y-[8px] ">
-                  <h4>Выберите тип филиала</h4>
+                  <h4>Выберите тип</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {selectBranchTypeList?.map((res, i) => (
                       <button
@@ -239,11 +292,63 @@ export default function Addfootball() {
                     ))}
                   </div>
                 </div>
+                <div className="grid gap-y-[8px] ">
+                  <h4>Выберите город </h4>
+                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                    {locationsCities?.map((res, i) => (
+                      <button
+                        key={i}
+                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                      >
+                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                          {res?.name.ru}
+                        </h4>
+                        <input
+                          onChange={(e) => setLocationsCitiesValue(res.slug)}
+                          name="locationsCities"
+                          type="radio"
+                          className="w-[18px] h-[18px]"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid gap-y-[8px] ">
+                  <h4>Администратор Футбольного комплекса </h4>
+                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                    {administratorList?.map((res, i) => (
+                      <button
+                        key={i}
+                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                      >
+                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                          {res?.name}
+                        </h4>
+                        <input
+                          onChange={(e) => setAdministratorValue(res.name)}
+                          name="administrator"
+                          type="radio"
+                          className="w-[18px] h-[18px]"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className={s.description}>
+                  <p>Описание</p>
+                  <textarea
+                    className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                    type="text"
+                    placeholder="Описание"
+                    onChange={(e) => setDescription(e.target.value)}
+                    value={description}
+                  />
+                </div>
                 <div className="grid gap-y-[8px]">
                   <h4>Добавьте типы футбольных полей</h4>
                 </div>
                 <div className="grid gap-[5px]">
-                  <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center ">
+                  <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] gap:[20px] rounded-[8px] flex justify-between items-center ">
                     <select
                       className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center "
                       value={addFootballTypes}
@@ -254,7 +359,6 @@ export default function Addfootball() {
                       <option value="Фут-Зал">Фут-Зал</option>
                     </select>
                     <div className="flex gap-[10px] items-center">
-                      <MdKeyboardArrowDown size={25} />
                       <button
                         onClick={() =>
                           setAddFootballTypesList([
@@ -293,7 +397,7 @@ export default function Addfootball() {
         <div>
           <div
             className={
-              "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] justify-between items-center"
+              "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] "
             }
           >
             <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
@@ -317,13 +421,6 @@ export default function Addfootball() {
               >
                 Описание
               </button>
-            </div>
-            <div>
-              <FormControlLabel
-                className="flex flex-row-reverse justify-between items-center"
-                control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-                label="Cкопировать детали предыдущих полей"
-              />
             </div>
           </div>
           <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
