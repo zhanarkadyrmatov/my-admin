@@ -19,7 +19,7 @@ import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
 import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
 import { useCollapsed } from "./hooks/useCollapsed";
-function App() {
+function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
@@ -43,6 +43,7 @@ function App() {
             setToggled={setToggled}
             setDarkMode={setDarkMode}
             darkMode={darkMode}
+            onclick={() => setOpenSetting(!openSetting)}
           />
           <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
             <div className="">
