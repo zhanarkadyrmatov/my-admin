@@ -15,19 +15,21 @@ import ChartTypeBar from "../../components/Charts/ChartTypeBar/ChartTypeBar";
 
 export default function DashboardPage() {
   return (
-    <div className={s.container}>
-      <div className={s.flexGrow}>
-        <div className={s.div_react}>
-          <Static />
-          <ChartTypeArea />
-          <ChartTypeBar />
-          <Overflow />
-        </div>
-        <div className={s.display_grid}>
-          <Franklin />
-          <Recent />
-          <Available />
-          <Network />
+    <div className="mx-[20px] mt-[90px]">
+      <div className={s.container}>
+        <div className={s.flexGrow}>
+          <div className={s.div_react}>
+            <Static />
+            <ChartTypeArea />
+            <ChartTypeBar />
+            <Overflow />
+          </div>
+          <div className={s.display_grid}>
+            <Franklin />
+            <Recent />
+            <Available />
+            <Network />
+          </div>
         </div>
       </div>
     </div>
