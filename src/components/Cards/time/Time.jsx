@@ -54,7 +54,7 @@ const IOSSwitch = styled((props) => (
     }),
   },
 }));
-export default function Time() {
+export default function Time({res}) {
   const [isSwitchOn, setIsSwitchOn] = useState(true);
   const [hour, setHour] = useState("09:00");
   const [userInputTime, setUserInputTime] = useState("");
@@ -79,13 +79,13 @@ export default function Time() {
   return (
     <div className="p-[4px] bg-gray-200 rounded-lg flex justify-between items-center">
       <h4 className="text-base font-normal leading-[18.38px] text-left pl-[10px]">
-        Понедельник
+       {res.day}
       </h4>
       <div className="flex items-center  ml-[30px]">
         <FormControlLabel
           className="flex flex-row-reverse justify-between items-center"
           control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
-          label="09:00 - 00:00"
+          label={`${res.startTime} - ${res.endTime}`}
         />
       </div>
     </div>
