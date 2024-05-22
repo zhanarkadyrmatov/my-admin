@@ -32,7 +32,7 @@ export default function Header({
   const [openNotification, setOpenNotification] = useState(false);
 
   return (
-    <div>
+    <div> 
       <div
         style={{
           width: "-webkit-fill-available",
@@ -50,7 +50,7 @@ export default function Header({
               />
             </Link>
             <button
-              className='hidden lg:flex'
+              className="hidden lg:flex"
               onClick={() => setCollapsed(!collapsed)}
             >
               {collapsed ? (
@@ -60,9 +60,9 @@ export default function Header({
               )}
             </button>
             <button
-              className='flex lg:hidden'
+              className="flex lg:hidden"
               onClick={() => {
-                setToggled(!toggled)
+                setToggled(!toggled);
               }}
             >
               <FaBars className="w-[20px] h-[20px] dark:fill-[#b3b3b3]" />
@@ -94,9 +94,7 @@ export default function Header({
             onClick={() => setOpen(true)}
             className=" dark:fill-[#b3b3b3]  lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer"
           />
-          <GoBell
-            className=" dark:fill-[#b3b3b3] lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer"
-          />
+          <GoBell className=" dark:fill-[#b3b3b3] lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
         </div>
       </div>
     </div>
