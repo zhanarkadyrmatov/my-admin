@@ -107,3 +107,19 @@ select {
   cursor: pointer;
   outline: none;
 }
+
+.fc-toolbar {
+}
+
+@media screen and (max-width: 500px) {
+  .fc-toolbar {
+    display: grid !important;
+    row-gap: 10px;
+  }
+  .fc-toolbar-title {
+    font-size: 23px !important;
+  }
+}
+.css-j204z7-MuiFormControlLabel-root {
+  margin: 0 !important;
+}

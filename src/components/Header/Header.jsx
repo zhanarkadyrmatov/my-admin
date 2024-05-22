@@ -53,7 +53,7 @@ export default function Header({
                 />
               </Link>
               <button
-                className='hidden lg:flex'
+                className="hidden lg:flex"
                 onClick={() => setCollapsed(!collapsed)}
               >
                 {collapsed ? (
@@ -63,9 +63,9 @@ export default function Header({
                 )}
               </button>
               <button
-                className='flex lg:hidden'
+                className="flex lg:hidden"
                 onClick={() => {
-                  setToggled(!toggled)
+                  setToggled(!toggled);
                 }}
               >
                 <FaBars className="w-[20px] h-[20px] dark:fill-[#b3b3b3]" />
@@ -76,7 +76,10 @@ export default function Header({
             </div>
           </div>
           <div className="flex items-center lg:gap-5 gap-3">
-            <button onClick={() => setOpenSetting(true)} className="flex items-center gap-2 px-3 py-2  bg-[#1C1C1C0D] rounded-[8px] duration-300 hover:bg-[#b3b1b1] ">
+            <button
+              onClick={() => setOpenSetting(true)}
+              className="flex items-center gap-2 px-3 py-2  bg-[#1C1C1C0D] rounded-[8px] duration-300 hover:bg-[#b3b1b1] "
+            >
               <span className="font-normal hidden sm:block  text-[14px] leading-[20px] text-[#1C1C1C]">
                 Забронировать поле
               </span>
@@ -97,19 +100,11 @@ export default function Header({
               onClick={() => setOpen(true)}
               className=" dark:fill-[#b3b3b3]  lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer"
             />
-            <GoBell
-              className=" dark:fill-[#b3b3b3] lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer"
-            />
+            <GoBell className=" dark:fill-[#b3b3b3] lg:w-[24px] lg:h-[24px] w-[20px] h-[20px] cursor-pointer" />
           </div>
         </div>
       </div>
-      {
-        openSetting && (
-          <div>
-
-          </div>
-        )
-      }
+      {openSetting && <div></div>}
     </>
   );
 }

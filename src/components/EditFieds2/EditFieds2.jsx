@@ -137,10 +137,7 @@ function EditFieds2() {
               График работы
             </h4>
           </div>
-
         </div>
-
-
       </div>
     </div>
   )
