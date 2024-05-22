@@ -18,10 +18,13 @@ import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
 import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
-function App({ items }) {
-  const [collapsed, setCollapsed] = useState(false);
+import { useCollapsed } from "./hooks/useCollapsed";
+function App() {
+  const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
+
   return (
     <>
       <div className={`flex ${darkMode && "dark"} `}>
@@ -30,6 +33,7 @@ function App({ items }) {
           setCollapsed={setCollapsed}
           toggled={toggled}
           setToggled={setToggled}
+
         />
         <main className="relative w-full">
           <Header
@@ -40,7 +44,6 @@ function App({ items }) {
             setDarkMode={setDarkMode}
             darkMode={darkMode}
           />
-
           <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
             <div className="">
               <Routes>
