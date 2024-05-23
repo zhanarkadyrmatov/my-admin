@@ -6,6 +6,7 @@ import s from "../../page.module.scss";
 import Time from "../../../../components/Cards/time/Time";
 import { AiOutlineClose } from "react-icons/ai";
 import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
+import { InputMask } from "@react-input/mask";
 
 const Page2 = () => {
   //Дневная цена
@@ -86,7 +87,31 @@ const Page2 = () => {
       isAcctive: false,
     },
   ];
+  //WhatsApp 
+  const [whatsappVlaue, setWhatsappVlaue] = useState("");
+  const [whatsappList, setWhatsappList] = useState([]);
+  const handleAddWhatsappList = () => {
+    if(whatsappVlaue?.length < 17) return;
+    setWhatsappList([...whatsappList, whatsappVlaue]);
+    setWhatsappVlaue("");
+  }
+  //telegram
+  const [telegramVlaue, setTelegramVlaue] = useState("");
+  const [telegramList, setTelegramList] = useState([]);
+  const handleAddTelegramList = () => {
+    if(telegramVlaue?.length < 17) return;
+    setTelegramList([...telegramList, telegramVlaue]);
+    setTelegramVlaue("");
+  }
 
+  //Номер телефона 
+  const [phoneValue, setPhoneValue] = useState("");
+  const [phoneList, setPhoneList] = useState([]);
+  const handleAddPhoneList = () => {
+    if(phoneValue?.length < 17) return;
+    setPhoneList([...phoneList, phoneValue]);
+    setPhoneValue("");
+  }
   return (
     <div>
       <div>
@@ -236,43 +261,88 @@ const Page2 = () => {
                   />
                 </div>
                 <div className="lg:grid-cols-[1fr_1fr] gap-[10px] grid grid-cols-1">
-                  <div className="grid gap-y-[8px]">
+                  <div className="flex flex-col gap-y-[8px]">
                     <p className="text-base font-normal leading-4 text-left">
                       WhatsApp
                     </p>
                     <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
-                      <input
+                      <InputMask
                         className="bg-[#f0f0f0]"
                         type="nomer"
+                        value={whatsappVlaue}
                         placeholder="+996 (000) 000 - 000"
+                        mask="+996(___)-___-___" replacement={{ _: /\d/ }}
+                        onChange={(e) => {
+                          setWhatsappVlaue(e.target.value);
+                        }}
                       />
-                      <HiOutlinePlusSm size={25} />
+                      <HiOutlinePlusSm style={{cursor: 'pointer'}} size={25} onClick={() => handleAddWhatsappList()} />
+                    </div>
+                    <div className={s.whatsappList}>
+                      {
+                        whatsappList?.map((item, i) => (
+                          <p key={i} className="text-base font-normal leading-4 text-left">
+                            {item}
+                          </p>
+                        ))
+                      }
                     </div>
                   </div>
-                  <div className="grid gap-y-[8px]">
+
+                  <div className="flex flex-col gap-y-[8px]">
                     <p className="text-base font-normal leading-4 text-left">
-                      WhatsApp
+                      Telegram
                     </p>
                     <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
-                      <input
+                      <InputMask
                         className="bg-[#f0f0f0]"
                         type="nomer"
+                        value={telegramVlaue}
                         placeholder="+996 (000) 000 - 000"
+                        mask="+996(___)-___-___" replacement={{ _: /\d/ }}
+                        onChange={(e) => {
+                          setTelegramVlaue(e.target.value);
+                        }}
                       />
-                      <HiOutlinePlusSm size={25} />
+                      <HiOutlinePlusSm style={{cursor: 'pointer'}} size={25} onClick={() => handleAddTelegramList()} />
+                    </div>
+                    <div className={s.whatsappList}>
+                      {
+                        telegramList?.map((item, i) => (
+                          <p key={i} className="text-base font-normal leading-4 text-left">
+                            {item}
+                          </p>
+                        ))
+                      }
                     </div>
                   </div>
-                  <div className="grid gap-y-[8px] ">
+                 <div className="flex flex-col gap-y-[8px]">
                     <p className="text-base font-normal leading-4 text-left">
-                      WhatsApp
+                    Номер телефона
                     </p>
                     <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
-                      <input
+                      <InputMask
                         className="bg-[#f0f0f0]"
                         type="nomer"
+                        value={phoneValue}
                         placeholder="+996 (000) 000 - 000"
+                        mask="+996(___)-___-___" replacement={{ _: /\d/ }}
+                        onChange={(e) => {
+                          
+                          setPhoneValue(e.target.value);
+                        }}
+
                       />
-                      <HiOutlinePlusSm size={25} />
+                      <HiOutlinePlusSm style={{cursor: 'pointer'}} size={25} onClick={() => handleAddPhoneList()} />
+                    </div>
+                    <div className={s.whatsappList}>
+                      {
+                        phoneList?.map((item, i) => (
+                          <p key={i} className="text-base font-normal leading-4 text-left">
+                            {item}
+                          </p>
+                        ))
+                      }
                     </div>
                   </div>
                 </div>
