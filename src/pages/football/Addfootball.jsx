@@ -389,9 +389,7 @@ export default function Addfootball() {
           </div>
         </div>
       )}
-      {page === "about" && (
-   <Page2/>
-      )}
+      {page === "about" && <Page2 />}
     </>
   );
 }

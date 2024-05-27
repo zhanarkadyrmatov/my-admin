@@ -26,7 +26,8 @@ export default function Header({
   toggled,
   setDarkMode,
   darkMode,
-  item, setFieldDelete, fieldDelete
+  setFieldDelete,
+  fieldDelete,
 }) {
   const dispatch = useDispatch();
 
@@ -39,11 +40,10 @@ export default function Header({
   const [openNotification, setOpenNotification] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
 
-
   const handleOpenModal = () => {
     setCollapsed(true);
     setOpenSetting(!openSetting);
-  }
+  };
 
   return (
     <>
@@ -117,29 +117,56 @@ export default function Header({
         </div>
       </div>
       {openSetting && (
-        <div onClick={() => handleOpenModal(false)} className="fixed z-[9999] bg-[#D9D9D94D] w-full h-full flex justify-center items-center">
-          <div oncl className="p-[20px] rounded-[15px] bg-[#fff] flex justify-start ml-auto mr-auto">
+        <div
+          onClick={() => handleOpenModal(false)}
+          onClickCapture={() => setOpenSetting(true)}
+          className="fixed z-[9999] bg-[#D9D9D94D] w-full h-full flex justify-center items-center"
+        >
+          <div className="p-[20px] rounded-[15px] bg-[#fff] flex justify-start ml-auto mr-auto">
             <div className="grid gap-y-[20px]">
-              <h4 className="text-[20px] font-semibold text-left lh-[24_2">Выберите поле</h4>
-              <div style={{ gridTemplateColumns: "repeat(3, 1fr)" }} className="grid grid-cols-3 gap-[20px] w-[100%]">
-                {[1, 2, 3, 4, 5, 7].map(item => (
+              <h4 className="text-[20px] font-semibold text-left lh-[24_2">
+                Выберите поле
+              </h4>
+              <div
+                style={{ gridTemplateColumns: "repeat(3, 1fr)" }}
+                className="grid grid-cols-3 gap-[20px] w-[100%]"
+              >
+                {[1, 2, 3, 4, 5, 7].map((item) => (
                   <div key={item.id}>
                     <div className="w-[100%] relative shadow-lg top-0 left-0 right-0 rounded-[15px]">
                       <div className="w-[100%]">
                         <div className="w-[100%]">
                           <div className="absolute top-[12px] right-[12px] flex items-center gap-[10px]">
                             <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300 hover:scale-105">
-                              <img className="w-[20px] h-[20px]" src={edit} alt="Edit" />
+                              <img
+                                className="w-[20px] h-[20px]"
+                                src={edit}
+                                alt="Edit"
+                              />
                             </div>
-                            <div onClick={() => setFieldDelete(!fieldDelete)} className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300 hover:scale-105">
-                              <img className="w-[20px] h-[20px]" src={trash} alt="Delete" />
+                            <div
+                              onClick={() => setFieldDelete(!fieldDelete)}
+                              className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300 hover:scale-105"
+                            >
+                              <img
+                                className="w-[20px] h-[20px]"
+                                src={trash}
+                                alt="Delete"
+                              />
                             </div>
                             <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300 hover:scale-105">
                               <FaPlus className="w-[20px] h-[20px] fill-white" />
                             </div>
                           </div>
-                          <NavLink className="w-[100%]" to={`/fields/${item.id}`}>
-                            <img className="w-[100%] h-[160px] object-cover rounded-t-[15px]" src={item.main_foto || blockimage} alt={item.name} />
+                          <NavLink
+                            className="w-[100%]"
+                            to={`/fields/${item.id}`}
+                          >
+                            <img
+                              className="w-[100%] h-[160px] object-cover rounded-t-[15px]"
+                              src={item.main_foto || blockimage}
+                              alt={item.name}
+                            />
                           </NavLink>
                           <div className="absolute top-[115px] left-0 z-10 bg-[#FFF] py-[6px] pl-[14px] pr-[20px] rounded-r-[6px] backdrop-blur-sm bg-opacity-30">
                             <h4 className="text-[14px] leading-[16px] font-[500] text-[#fff]">
@@ -160,7 +187,12 @@ export default function Header({
                           </div>
                           <div className="flex justify-start items-center gap-[10px]">
                             {item.advantages?.map((el, index) => (
-                              <img key={index} className="w-[20px] h-[20px]" src={el.icon} alt="" />
+                              <img
+                                key={index}
+                                className="w-[20px] h-[20px]"
+                                src={el.icon}
+                                alt=""
+                              />
                             ))}
                           </div>
                           <div className="flex justify-start items-center gap-1">
