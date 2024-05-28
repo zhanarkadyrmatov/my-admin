@@ -287,27 +287,7 @@ export default function Addfootball() {
                     />
                   </div>
                 </div>
-                <div className="grid gap-y-[8px] ">
-                  <h4>Выберите тип</h4>
-                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {selectBranchTypeList?.map((res, i) => (
-                      <button
-                        key={i}
-                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                      >
-                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res?.name}
-                        </h4>
-                        <input
-                          onChange={(e) => handleRadioChange(e, res)}
-                          name="myRadio"
-                          type="radio"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
+               
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите город </h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
@@ -449,42 +429,7 @@ export default function Addfootball() {
                     value={description}
                   />
                 </div>
-                <div className="grid gap-y-[8px]">
-                  <h4>Добавьте типы футбольных полей</h4>
-                </div>
-                <div className="grid gap-[5px]">
-                  <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] gap:[20px] rounded-[8px] flex justify-between items-center ">
-                    <select
-                      className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center "
-                      value={addFootballTypes}
-                      onChange={(e) => setAddFootballTypes(e.target.value)}
-                    >
-                      <option value="Мини поле1">Мини поле1</option>
-                      <option value="Мини поле 2">Мини поле 2</option>
-                      <option value="Фут-Зал">Фут-Зал</option>
-                    </select>
-                    <div className="flex gap-[10px] items-center">
-                      <button
-                        onClick={() =>
-                          setAddFootballTypesList([
-                            ...addFootballTypesList,
-                            addFootballTypes,
-                          ])
-                        }
-                        className="p-[8px] rounded-lg bg-blue-500 text-white"
-                      >
-                        Добавить
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-[10px] items-center flex-wrap">
-                  {addFootballTypesList?.map((item, index) => (
-                    <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
-                      {item}
-                    </button>
-                  ))}
-                </div>
+         
                 <div
                   onClick={() => goToPage("about")}
                   className="p-[8px] rounded-[8px] bg-[#7384E8]"
@@ -504,3 +449,62 @@ export default function Addfootball() {
     </>
   );
 }
+
+
+// <div className="grid gap-y-[8px] ">
+// <h4>Выберите тип</h4>
+// <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+//   {selectBranchTypeList?.map((res, i) => (
+//     <button
+//       key={i}
+//       className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+//     >
+//       <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+//         {res?.name}
+//       </h4>
+//       <input
+//         onChange={(e) => handleRadioChange(e, res)}
+//         name="myRadio"
+//         type="radio"
+//         className="w-[18px] h-[18px]"
+//       />
+//     </button>
+//   ))}
+// </div>
+// </div>
+// <div className="grid gap-y-[8px]">
+// <h4>Добавьте типы футбольных полей</h4>
+// </div>
+// <div className="grid gap-[5px]">
+// <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] gap:[20px] rounded-[8px] flex justify-between items-center ">
+//   <select
+//     className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center "
+//     value={addFootballTypes}
+//     onChange={(e) => setAddFootballTypes(e.target.value)}
+//   >
+//     <option value="Мини поле1">Мини поле1</option>
+//     <option value="Мини поле 2">Мини поле 2</option>
+//     <option value="Фут-Зал">Фут-Зал</option>
+//   </select>
+//   <div className="flex gap-[10px] items-center">
+//     <button
+//       onClick={() =>
+//         setAddFootballTypesList([
+//           ...addFootballTypesList,
+//           addFootballTypes,
+//         ])
+//       }
+//       className="p-[8px] rounded-lg bg-blue-500 text-white"
+//     >
+//       Добавить
+//     </button>
+//   </div>
+// </div>
+// </div>
+// <div className="flex gap-[10px] items-center flex-wrap">
+// {addFootballTypesList?.map((item, index) => (
+//   <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
+//     {item}
+//   </button>
+// ))}
+// </div>
