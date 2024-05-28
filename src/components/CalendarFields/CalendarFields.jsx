@@ -26,7 +26,11 @@ const events = [
 
 export default function CalendarFields() {
   return (
-    <div className={'bg-[#fff] border-[1px] border-[#E9E9E9] p-[20px] rounded-[10px]'}>
+    <div
+      className={
+        "bg-[#fff] border-[1px] border-[#E9E9E9] p-[20px] rounded-[10px]"
+      }
+    >
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin]}
         timeZone="UTC"
@@ -36,14 +40,12 @@ export default function CalendarFields() {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
-
         buttonText={{
           today: "Сегодня",
           month: "Месяц",
           week: "Неделя",
           day: "День",
           allday: "весь день",
-
         }}
         locale={"ru"}
         weekText="нед:"

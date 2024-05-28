@@ -5,13 +5,23 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { FaPlus } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
-export default function FiledList({ item, index, fieldDelete, setFieldDelete }) {
-  console.log(item)
+export default function FiledList({
+  item,
+  index,
+  fieldDelete,
+  setFieldDelete,
+}) {
+  console.log(item);
   return (
     <div>
       <nav className="grid grid-cols-11 items-center gap-1 w-full  px-[10px] py-[20px] border-b-[2px] border-gray-100">
         <div className="col-span-1 text-left">{index + 1}</div>
-        <NavLink to={`/fields/${item?.id}`} className="col-span-2 text-left hover:text-[#DF2323] duration-300">{item?.name}</NavLink>
+        <NavLink
+          to={`/fields/${item?.id}`}
+          className="col-span-2 text-left hover:text-[#DF2323] duration-300"
+        >
+          {item?.name}
+        </NavLink>
         <div className="col-span-2 text-left">Спортивное поле</div>
         <div className="col-span-2 flex items-center justify-start gap-[10px]">
           {item?.advantages?.map((el) => (
@@ -69,7 +79,10 @@ export default function FiledList({ item, index, fieldDelete, setFieldDelete }) 
               />
             </svg>
           </div>
-          <div onClick={() => setFieldDelete(!fieldDelete)} className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center bg-[#FFDEDE] hover:scale-105 duration-300 cursor-pointer">
+          <div
+            onClick={() => setFieldDelete(!fieldDelete)}
+            className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center bg-[#FFDEDE] hover:scale-105 duration-300 cursor-pointer"
+          >
             <svg
               width="20"
               height="20"
