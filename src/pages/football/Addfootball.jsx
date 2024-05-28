@@ -11,6 +11,8 @@ import {
 import YandexMaps from "../../components/yandexMaps/yandexMaps";
 import { AiOutlineClose } from "react-icons/ai";
 import Page2 from "./Pages/Page2/Page2";
+import { HiOutlinePlusSm } from "react-icons/hi";
+import { InputMask } from "@react-input/mask";
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleImageChange = (event) => {
@@ -58,21 +60,39 @@ export default function Addfootball() {
     },
   ]);
 
-  const [administratorList, setAdministratorList] = useState([
-    { name: "Erik", id: 1, type: "Менеджер " },
-    { name: "john", id: 2, type: "Админ" },
-    { name: "alex", id: 3, type: "Админ" },
-    { name: "jane", id: 4, type: "Техник" },
-    { name: "jane", id: 5, type: "Админ" },
-  ]);
+  //WhatsApp 
+  const [whatsappVlaue, setWhatsappVlaue] = useState("");
+  const [whatsappList, setWhatsappList] = useState([]);
+  const handleAddWhatsappList = () => {
+    if (whatsappVlaue?.length < 17) return;
+    setWhatsappList([...whatsappList, whatsappVlaue]);
+    setWhatsappVlaue("");
+  }
+  //telegram
+  const [telegramVlaue, setTelegramVlaue] = useState("");
+  const [telegramList, setTelegramList] = useState([]);
+  const handleAddTelegramList = () => {
+    if (telegramVlaue?.length < 17) return;
+    setTelegramList([...telegramList, telegramVlaue]);
+    setTelegramVlaue("");
+  }
 
-  const [administratorValue, setAdministratorValue] = useState(null);
+  //Номер телефона 
+  const [phoneValue, setPhoneValue] = useState("");
+  const [phoneList, setPhoneList] = useState([]);
+  const handleAddPhoneList = () => {
+    if (phoneValue?.length < 17) return;
+    setPhoneList([...phoneList, phoneValue]);
+    setPhoneValue("");
+  }
+  //ФИО администратора*
+  const [administrator, setAdministrator] = useState();
   const handlerPostCreacteFoobolField = () => {
     const data = {
       name: newName,
       advantages: advantagesValue,
       description: description,
-      administrator: administratorValue,
+      administrator: administrator,
       address: address,
       city: locationsCitiesValue,
       district: district,
@@ -168,9 +188,8 @@ export default function Addfootball() {
                     <div className="flex flex-col gap-y-[10px] items-center">
                       <div
                         style={{
-                          backgroundImage: `url(${
-                            selectedImage != null ? selectedImage : img7
-                          })`,
+                          backgroundImage: `url(${selectedImage != null ? selectedImage : img7
+                            })`,
                         }}
                         className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                       ></div>
@@ -310,27 +329,116 @@ export default function Addfootball() {
                     ))}
                   </div>
                 </div>
-                <div className="grid gap-y-[8px] ">
-                  <h4>Администратор Футбольного комплекса </h4>
-                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {administratorList?.map((res, i) => (
-                      <button
-                        key={i}
-                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                      >
-                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res?.name}
-                        </h4>
-                        <input
-                          onChange={(e) => setAdministratorValue(res.name)}
-                          name="administrator"
-                          type="radio"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </button>
-                    ))}
+                <div className="grid ">
+                  <div className="p-[10px] border-b border-custom-border">
+                    <h4 className="text-[16px] font-medium leading-5 text-left">
+                      Контакты
+                    </h4>
+                  </div>
+                  <div className="p-[10px] grid gap-y-[20px] ">
+
+                    <div className="grid gap-y-[8px]">
+                      <p className="text-base font-normal leading-4 tracking-tight text-left">
+                        ФИО администратора*
+                      </p>
+                      <input
+                        onChange={(e) => {
+                          setAdministrator(e.target.value);
+                        }}
+                        value={administrator}
+                        className="px-[10px] py-[14px] rounded-[10px] bg-[#f0f0f0]"
+                        type="text"
+                        placeholder="El-Clasico"
+                      />
+                    </div>
+                    <div className="lg:grid-cols-[1fr_1fr] gap-[10px] grid grid-cols-1">
+                      <div className="flex flex-col gap-y-[8px]">
+                        <p className="text-base font-normal leading-4 text-left">
+                          WhatsApp
+                        </p>
+                        <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
+                          <InputMask
+                            className="bg-[#f0f0f0] w-full"
+                            type="nomer"
+                            value={whatsappVlaue}
+                            placeholder="+996 (000) 000 - 000"
+                            mask="+996(___)-___-___" replacement={{ _: /\d/ }}
+                            onChange={(e) => {
+                              setWhatsappVlaue(e.target.value);
+                            }}
+                          />
+                          <HiOutlinePlusSm style={{ cursor: 'pointer' }} size={25} onClick={() => handleAddWhatsappList()} />
+                        </div>
+                        <div className={s.whatsappList}>
+                          {
+                            whatsappList?.map((item, i) => (
+                              <p key={i} className="text-base font-normal leading-4 text-left">
+                                {item}
+                              </p>
+                            ))
+                          }
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-y-[8px]">
+                        <p className="text-base font-normal leading-4 text-left">
+                          Telegram
+                        </p>
+                        <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
+                          <InputMask
+                            className="bg-[#f0f0f0] w-full"
+                            type="nomer"
+                            value={telegramVlaue}
+                            placeholder="+996 (000) 000 - 000"
+                            mask="+996(___)-___-___" replacement={{ _: /\d/ }}
+                            onChange={(e) => {
+                              setTelegramVlaue(e.target.value);
+                            }}
+                          />
+                          <HiOutlinePlusSm style={{ cursor: 'pointer' }} size={25} onClick={() => handleAddTelegramList()} />
+                        </div>
+                        <div className={s.whatsappList}>
+                          {
+                            telegramList?.map((item, i) => (
+                              <p key={i} className="text-base font-normal leading-4 text-left">
+                                {item}
+                              </p>
+                            ))
+                          }
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-y-[8px]">
+                        <p className="text-base font-normal leading-4 text-left">
+                          Номер телефона
+                        </p>
+                        <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
+                          <InputMask
+                            className="bg-[#f0f0f0] w-full"
+                            type="nomer"
+                            value={phoneValue}
+                            placeholder="+996 (000) 000 - 000"
+                            mask="+996(___)-___-___" replacement={{ _: /\d/ }}
+                            onChange={(e) => {
+                              setPhoneValue(e.target.value);
+                            }}
+
+                          />
+                          <HiOutlinePlusSm style={{ cursor: 'pointer' }} size={25} onClick={() => handleAddPhoneList()} />
+                        </div>
+                        <div className={s.whatsappList}>
+                          {
+                            phoneList?.map((item, i) => (
+                              <p key={i} className="text-base font-normal leading-4 text-left">
+                                {item}
+                              </p>
+                            ))
+                          }
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
                 <div className={s.description}>
                   <p>Описание</p>
                   <textarea
@@ -391,7 +499,7 @@ export default function Addfootball() {
         </div>
       )}
       {page === "about" && (
-   <Page2/>
+        <Page2 />
       )}
     </>
   );
