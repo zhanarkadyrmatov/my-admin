@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+
 import React, { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
@@ -21,7 +23,6 @@ const Page2 = () => {
   const [administratorValue, setAdministratorValue] = useState();
   //ФИО администратора*
   const [administrator, setAdministrator] = useState();
-
   //  location   add
   const [mapLatLon, setMapLatLon] = useState();
 
@@ -47,11 +48,9 @@ const Page2 = () => {
   const [selectedImages1, setSelectedImages1] = useState([]);
   const handleFileChange1 = (e) => {
     const files = Array.from(e.target.files);
-
     const fileUrls = files?.map((file) => URL.createObjectURL(file));
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
-
   const dataListfootball = [
     {
       name: "Стадион",
@@ -91,7 +90,7 @@ const Page2 = () => {
   const [whatsappVlaue, setWhatsappVlaue] = useState("");
   const [whatsappList, setWhatsappList] = useState([]);
   const handleAddWhatsappList = () => {
-    if(whatsappVlaue?.length < 17) return;
+    if (whatsappVlaue?.length < 17) return;
     setWhatsappList([...whatsappList, whatsappVlaue]);
     setWhatsappVlaue("");
   }
@@ -99,7 +98,7 @@ const Page2 = () => {
   const [telegramVlaue, setTelegramVlaue] = useState("");
   const [telegramList, setTelegramList] = useState([]);
   const handleAddTelegramList = () => {
-    if(telegramVlaue?.length < 17) return;
+    if (telegramVlaue?.length < 17) return;
     setTelegramList([...telegramList, telegramVlaue]);
     setTelegramVlaue("");
   }
@@ -108,9 +107,28 @@ const Page2 = () => {
   const [phoneValue, setPhoneValue] = useState("");
   const [phoneList, setPhoneList] = useState([]);
   const handleAddPhoneList = () => {
-    if(phoneValue?.length < 17) return;
+    if (phoneValue?.length < 17) return;
     setPhoneList([...phoneList, phoneValue]);
     setPhoneValue("");
+  }
+
+  const handleGetInfo = () => {
+    const data = {
+      whatsappList,
+      telegramList,
+      phoneList,
+      location,
+      administrator,
+      administratorValue,
+      priceDay,
+      priceNight,
+      workScheduleList,
+      description,
+      selectedImages1,
+      mapLatLon
+
+    }
+    console.log(data, "test1");
   }
   return (
     <div>
@@ -124,7 +142,7 @@ const Page2 = () => {
               </div>
             </div>
             <div className={s.YandexMapsStyle}>
-              <YandexMaps setMapLatLon={setMapLatLon} />
+              <YandexMaps setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} />
             </div>
           </div>
         )}
@@ -171,7 +189,7 @@ const Page2 = () => {
                         setPriceDay(e.target.value);
                       }}
                       value={priceDay}
-                      className="bg-[#F0F0F0]"
+                      className="bg-[#F0F0F0] w-fufll"
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -188,7 +206,7 @@ const Page2 = () => {
                         setPriceNight(e.target.value);
                       }}
                       value={priceNight}
-                      className="bg-[#F0F0F0]"
+                      className="bg-[#F0F0F0] w-full"
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -267,7 +285,7 @@ const Page2 = () => {
                     </p>
                     <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
                       <InputMask
-                        className="bg-[#f0f0f0]"
+                        className="bg-[#f0f0f0] w-full"
                         type="nomer"
                         value={whatsappVlaue}
                         placeholder="+996 (000) 000 - 000"
@@ -276,7 +294,7 @@ const Page2 = () => {
                           setWhatsappVlaue(e.target.value);
                         }}
                       />
-                      <HiOutlinePlusSm style={{cursor: 'pointer'}} size={25} onClick={() => handleAddWhatsappList()} />
+                      <HiOutlinePlusSm style={{ cursor: 'pointer' }} size={25} onClick={() => handleAddWhatsappList()} />
                     </div>
                     <div className={s.whatsappList}>
                       {
@@ -295,7 +313,7 @@ const Page2 = () => {
                     </p>
                     <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
                       <InputMask
-                        className="bg-[#f0f0f0]"
+                        className="bg-[#f0f0f0] w-full"
                         type="nomer"
                         value={telegramVlaue}
                         placeholder="+996 (000) 000 - 000"
@@ -304,7 +322,7 @@ const Page2 = () => {
                           setTelegramVlaue(e.target.value);
                         }}
                       />
-                      <HiOutlinePlusSm style={{cursor: 'pointer'}} size={25} onClick={() => handleAddTelegramList()} />
+                      <HiOutlinePlusSm style={{ cursor: 'pointer' }} size={25} onClick={() => handleAddTelegramList()} />
                     </div>
                     <div className={s.whatsappList}>
                       {
@@ -316,24 +334,23 @@ const Page2 = () => {
                       }
                     </div>
                   </div>
-                 <div className="flex flex-col gap-y-[8px]">
+                  <div className="flex flex-col gap-y-[8px]">
                     <p className="text-base font-normal leading-4 text-left">
-                    Номер телефона
+                      Номер телефона
                     </p>
                     <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
                       <InputMask
-                        className="bg-[#f0f0f0]"
+                        className="bg-[#f0f0f0] w-full"
                         type="nomer"
                         value={phoneValue}
                         placeholder="+996 (000) 000 - 000"
                         mask="+996(___)-___-___" replacement={{ _: /\d/ }}
                         onChange={(e) => {
-                          
                           setPhoneValue(e.target.value);
                         }}
 
                       />
-                      <HiOutlinePlusSm style={{cursor: 'pointer'}} size={25} onClick={() => handleAddPhoneList()} />
+                      <HiOutlinePlusSm style={{ cursor: 'pointer' }} size={25} onClick={() => handleAddPhoneList()} />
                     </div>
                     <div className={s.whatsappList}>
                       {
@@ -398,7 +415,8 @@ const Page2 = () => {
                         <div className="w-full h-[130px] bg-[#D9D9D9]"></div>
                         <div className="flex gap-x-[10px] ">
                           <div className="w-full h-[180px] bg-[#D9D9D9]"></div>
-                          <div className="w-full h-[180px] bg-[#D9D9D9]"></div>
+                          <div className="w-full h-[180px] bg
+                          -[#D9D9D9]"></div>
                         </div>
                       </div>
                     </div>
@@ -410,7 +428,7 @@ const Page2 = () => {
               <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
                 Предыдущая
               </button>
-              <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
+              <button onClick={() => handleGetInfo()} className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
                 Далее
               </button>
             </div>

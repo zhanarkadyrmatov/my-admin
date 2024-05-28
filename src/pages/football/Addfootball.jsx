@@ -18,7 +18,8 @@ export default function Addfootball() {
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
     }
   };
-  const [page, setPage] = useState("about");
+  //about
+  const [page, setPage] = useState("home");
   const dispatch = useDispatch();
   const { advantages, locationsCities, creacteFoobolStatus, status } =
     useSelector((state) => state.createFoobol);
@@ -104,7 +105,7 @@ export default function Addfootball() {
                   </div>
                 </div>
                 <div className={s.YandexMapsStyle}>
-                  <YandexMaps setMapLatLon={setMapLatLon} />
+                  <YandexMaps setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} />
                 </div>
               </div>
             )}
