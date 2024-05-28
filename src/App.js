@@ -17,8 +17,9 @@ import MiniFields from "./pages/miniFelds/MiniFields";
 import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
-import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
+import Wallet from "./pages/wallet/Wallet";
 import { useCollapsed } from "./hooks/useCollapsed";
+import { BalanceCard } from "./pages/wallet/BalanceCard";
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
@@ -33,7 +34,6 @@ function App({ open }) {
           setCollapsed={setCollapsed}
           toggled={toggled}
           setToggled={setToggled}
-
         />
         <main className="relative w-full">
           <Header
@@ -52,7 +52,7 @@ function App({ open }) {
                 <Route path="/calendary" element={<DataPages />} />
                 <Route path="/profil" element={<Profil />} />
                 <Route path="/payment" element={<Payment />} />
-                <Route path="/wallet" element={<BalanceCard />} />
+                <Route path="/wallet" element={<Wallet />} />
                 <Route path="/armor" element={<ArmorHistory />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />

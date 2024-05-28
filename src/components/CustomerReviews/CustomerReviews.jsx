@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function CustomerReviews() {
   const { fieldsIdList, fieldsComments } = useSelector((state) => state.fields);
-
   return (
     <div className="grid grid-cols-1  xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]">
       <div className="">
