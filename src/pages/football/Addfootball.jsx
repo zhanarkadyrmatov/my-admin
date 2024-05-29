@@ -14,7 +14,10 @@ import Page2 from "./Pages/Page2/Page2";
 const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIamgeFile, setSelectedImageFile] = useState(null);
   const handleImageChange = (event) => {
+    const files = Array.from(event.target.files);
+    setSelectedImageFile(files);
     if (event.target.files && event.target.files[0]) {
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
     }
@@ -35,11 +38,12 @@ export default function Addfootball() {
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
   const handlerImage = (event) => {
- 
-     const files = Array.from(event.target.files);
-setImageFile(files);
+
+    const files = Array.from(event.target.files);
+    setImageFile(files);
+    const url = URL.createObjectURL(event.target.files[0]);
     if (event.target.files[0]) {
-      setImageUrl(event.target.files[0]);
+      setImageUrl(url);
     }
   }
   const [mapLatLon, setMapLatLon] = useState();
@@ -100,9 +104,15 @@ setImageFile(files);
     fromData.append("district", data.district);
     fromData.append("latitude", data.latitude);
     fromData.append("longitude", data.longitude);
-    
+    // ImageFile.forEach((image, index) => {
+    //   fromData.append("image", image);
+    // })
+    // selectedIamgeFile.forEach((image, Index) => {
+    //   fromData.append("image", image);
+    // })
 
-    
+
+
     for (const [key, value] of Object.entries(data)) {
       if (!value) {
         errors[key] = "Обязательное поле  *";
@@ -115,7 +125,7 @@ setImageFile(files);
     }
     //
     console.log(data, 'data');
-    
+
     dispatch(postAdvantages(data));
   };
   const goToPage = (pageName) => {
@@ -214,9 +224,8 @@ setImageFile(files);
                     <div className="flex flex-col gap-y-[10px] items-center">
                       <div
                         style={{
-                          backgroundImage: `url(${
-                            selectedImage != null ? selectedImage : img7
-                          })`,
+                          backgroundImage: `url(${selectedImage != null ? selectedImage : img7
+                            })`,
                         }}
                         className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                       ></div>
@@ -226,12 +235,13 @@ setImageFile(files);
                     </div>
                     <div className="grid justify-items-center gap-y-[10px]">
                       <div className="w-full h-[150px]  flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
-                        <label htmlFor="upload" className="cursor-pointer">
+                        <label htmlFor="uploa1d" className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer">
                           <BiSolidCameraPlus size={30} />
                           <input
                             type="file"
-                            id="upload"
+                            id="uploa1d"
                             className="hidden"
+                            accept="image/*"
                             onChange={handleImageChange}
                           />
                         </label>
@@ -241,14 +251,24 @@ setImageFile(files);
                       </p>
                     </div>
                     <div className="grid justify-items-center gap-y-[10px]">
-                      <div className="w-full h-[150px]  flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
-                        {}
-                        <label htmlFor="upload" className="cursor-pointer">
+                      <div className="w-full overflow-hidden h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
+                        <label htmlFor="upload" className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer">
+
+                          {imageUrl && <img style={{
+                            position: 'absolute',
+                            zIndex: 1,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }} src={imageUrl} alt="" />}
+
                           <BiSolidCameraPlus size={30} />
+
                           <input
                             type="file"
                             id="upload"
                             className="hidden"
+                            accept="image/*"
                             onChange={handlerImage}
                           />
                         </label>
