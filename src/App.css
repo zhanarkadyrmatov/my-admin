@@ -61,7 +61,10 @@ input[type="radio"] {
   justify-content: center;
   align-items: center;
 }
-
+input[type="date"] {
+  position: relative;
+  width: 0;
+}
 input[type="radio"]:checked {
   background-image: url("../src/img/Vector.svg");
   background-repeat: no-repeat;
