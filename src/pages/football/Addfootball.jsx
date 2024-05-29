@@ -19,12 +19,12 @@ export default function Addfootball() {
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
     }
   };
+
   //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
   const { advantages, locationsCities, creacteFoobolStatus, status } =
     useSelector((state) => state.createFoobol);
-  const [advantagesValue, setAdvantagesValue] = useState([]);
   const [newName, setNewName] = useState();
   const [selectedValue, setSelectedValue] = useState(null);
   const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
@@ -32,7 +32,16 @@ export default function Addfootball() {
   const [district, setDistrict] = useState(null);
   const [isModalMap, setIsModalMap] = useState(false);
   const [description, setDescription] = useState();
-
+  const [imageUrl, setImageUrl] = useState();
+  const [ImageFile, setImageFile] = useState();
+  const handlerImage = (event) => {
+ 
+     const files = Array.from(event.target.files);
+setImageFile(files);
+    if (event.target.files[0]) {
+      setImageUrl(event.target.files[0]);
+    }
+  }
   const [mapLatLon, setMapLatLon] = useState();
   useEffect(() => {
     dispatch(getAdvantages());
@@ -72,9 +81,8 @@ export default function Addfootball() {
 
     const data = {
       name: newName,
-      advantages: advantagesValue,
       description: description,
-      administrator: administratorValue,
+      administrator: 1,
       address: address,
       city: locationsCitiesValue,
       district: district,
@@ -82,6 +90,19 @@ export default function Addfootball() {
       latitude: mapLatLon?.[0],
       longitude: mapLatLon?.[1],
     };
+
+    const fromData = new FormData();
+    fromData.append("name", data.name);
+    fromData.append("description", data.description);
+    fromData.append("administrator", data.administrator);
+    fromData.append("address", data.address);
+    fromData.append("city", data.city);
+    fromData.append("district", data.district);
+    fromData.append("latitude", data.latitude);
+    fromData.append("longitude", data.longitude);
+    
+
+    
     for (const [key, value] of Object.entries(data)) {
       if (!value) {
         errors[key] = "Обязательное поле  *";
@@ -92,7 +113,10 @@ export default function Addfootball() {
       console.log(errors, "errors");
       return true; // Indicate errors exist
     }
-    console.log(data, mapLatLon, "test1");
+    //
+    console.log(data, 'data');
+    
+    dispatch(postAdvantages(data));
   };
   const goToPage = (pageName) => {
     // setPage(pageName);
@@ -218,13 +242,14 @@ export default function Addfootball() {
                     </div>
                     <div className="grid justify-items-center gap-y-[10px]">
                       <div className="w-full h-[150px]  flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
+                        {}
                         <label htmlFor="upload" className="cursor-pointer">
                           <BiSolidCameraPlus size={30} />
                           <input
                             type="file"
                             id="upload"
                             className="hidden"
-                            onChange={handleImageChange}
+                            onChange={handlerImage}
                           />
                         </label>
                       </div>
@@ -261,6 +286,7 @@ export default function Addfootball() {
                       type="text"
                       placeholder="г. Москва, ул. Пушкина, д. 17"
                     />
+                    {errorList?.address && <Pe>{errorList?.address}</Pe>}
                   </div>
                 </div>
                 <div className="grid gap-y-[8px]">
@@ -275,6 +301,7 @@ export default function Addfootball() {
                       type="text"
                       placeholder="42.9797372189141,74.35650861718749"
                     />
+                    {errorList?.longitude && <Pe>{errorList?.longitude}</Pe>}
                   </div>
                 </div>
                 <div className="grid gap-y-[8px]">
@@ -289,11 +316,13 @@ export default function Addfootball() {
                       type="text"
                       placeholder="Округ 1"
                     />
+                    {errorList?.district && <Pe>{errorList?.district}</Pe>}
                   </div>
                 </div>
 
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите город </h4>
+                  {errorList?.city && <Pe>{errorList?.city}</Pe>}
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {locationsCities?.map((res, i) => (
                       <button
@@ -315,6 +344,9 @@ export default function Addfootball() {
                 </div>
                 <div className="grid gap-y-[8px] ">
                   <h4>Администратор Футбольного комплекса </h4>
+                  {errorList?.administrator && (
+                    <Pe>{errorList?.administrator}</Pe>
+                  )}
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {administratorList?.map((res, i) => (
                       <button
@@ -337,6 +369,7 @@ export default function Addfootball() {
 
                 <div className={s.description}>
                   <p>Описание</p>
+                  {errorList?.description && <Pe>{errorList?.description}</Pe>}
                   <textarea
                     className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
                     type="text"

@@ -19,27 +19,27 @@ export const getAdvantages = createAsyncThunk(
 );
 
 export const createFoobolField = createAsyncThunk(
-  "advantages/createFoobolField",
-  async (data, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        `${Api}admin_api/football_field_create/`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          data,
+    "advantages/createFoobolField",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(
+                `${Api}admin_api/football_field_create/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                    data,
+                }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
         }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
     }
-  }
 );
 
 
-export const getLocationsCities  = createAsyncThunk(
+export const getLocationsCities = createAsyncThunk(
     "advantages/getLocationsCities",
     async (_, { rejectWithValue }) => {
         try {
@@ -57,24 +57,25 @@ export const getLocationsCities  = createAsyncThunk(
 
 
 
-
 export const postAdvantages = createAsyncThunk(
     "advantages/postAdvantages",
     async (data, { rejectWithValue }) => {
         try {
-            const response = await axios.post(`${Api}admin_api/football_field_create/`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-                data
-            });
+            const response = await axios.post(
+                `${Api}admin_api/football-field/`,
+                data,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
     }
-)
-
+);
 
 
 const advantagesSlice = createSlice({
@@ -124,7 +125,7 @@ const advantagesSlice = createSlice({
                 state.error = action.payload;
                 console.error("Error fetching advantages:", action.payload);
             })
-            
+
     },
 });
 
