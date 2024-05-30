@@ -18,6 +18,7 @@ export default function Fields({ item }) {
 
   const { fields } = useSelector((state) => state.fields);
 
+  console.log(fields, 'fields')
   const [pages, setPages] = useState("home");
   const [fieldDelete, setFieldDelete] = useState(false);
 
@@ -90,8 +91,8 @@ export default function Fields({ item }) {
                 </div>
               </div>
               <div className="w-full px-[20px] pb-[20px] rounded-bl-lg rounded-br-lg bg-[#FFFFFF]">
-                {fields && fields.length > 0 ? (
-                  fields.map((res, index) => (
+                {fields && fields?.length > 0 ? (
+                  fields?.map((res, index) => (
                     <div key={index}>
                       <FiledList fieldDelete={fieldDelete} setFieldDelete={setFieldDelete} index={index} item={res} />
                     </div>

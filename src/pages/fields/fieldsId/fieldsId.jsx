@@ -144,7 +144,7 @@ export default function FieldsId() {
                   </button>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-                  {/* {fieldsIdList?.map((item) => {
+                  {fieldsIdList?.football_field_type?.map((item) => {
                     return (
                       <button onClick={() => {
                         dispatch(fetchFieldsIdDetail(item?.id))
@@ -157,7 +157,7 @@ export default function FieldsId() {
                       </button>
                     )
                   }
-                  )} */}
+                  )}
                 </div>
               </div>
               <div>

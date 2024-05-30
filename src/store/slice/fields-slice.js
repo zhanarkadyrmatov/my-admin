@@ -12,6 +12,7 @@ export const fetchFields = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      console.log(response)
       return response.data;
     } catch (error) {
       console.log(error);
@@ -23,14 +24,13 @@ export const fetchFields = createAsyncThunk(
 export const fetchFieldsIdList = createAsyncThunk(
   "fields/fetchFieldsIdList",
   async (id, { rejectWithValue, dispatch }) => {
-    console.log(id)
     try {
       const response = await axios.get(`${Api}admin_api/football_field_detail/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      // dispatch(fetchFieldsIdDetail(response.data[0].id))
+      dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id))
       return response.data;
     } catch (error) {
       console.log(error);
@@ -42,6 +42,7 @@ export const fetchFieldsIdList = createAsyncThunk(
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",
   async (id, { rejectWithValue }) => {
+    console.log(id)
     try {
       const detail = await axios.get(`${Api}admin_api/football_field_type_detail/${id}/`, {
         headers: {

@@ -1,6 +1,10 @@
 import React from 'react'
-import Icon from '../../img/star.svg'
+import Icon from '../../img/avatarNone.png'
+import Avatar from '../../img/avatarNone.png'
 import { useSelector } from 'react-redux';
+import { FaWhatsapp } from "react-icons/fa6";
+import Grass from '../../img/grass.svg';
+
 
 export default function Review() {
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
@@ -33,54 +37,34 @@ export default function Review() {
           <h4 className='text-[16px] leading-[18px] font-bold'>Описание</h4>
         </div>
         <div className='px-[20px] py-[5px] bg-white rounded-b-[12px] '>
-          {fieldsIdDetail?.advantages?.map((item) => {
+          <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
+            <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+              <img className='w-[24px] h-[24px]' src={Grass} alt="" />
+            </div>
+            <div>
+              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Тип поля</h4>
+              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70 flex items-center gap-2 '>
+                {fieldsIdDetail?.construction_type?.map((item) => {
+                  return (
+                    <span>{item}</span>
+                  )
+                })}
+              </p>
+            </div>
+          </div>
+          {fieldsIdDetail?.price?.map((item) => {
             return (
               <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
-                <div className='min-w-[40px] min-h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                  <img className='w-[24px] h-[24px]' src={item?.icon || Icon} alt="" />
+                <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+                  <img className='w-[24px] h-[24px]' src={Icon} alt="" />
                 </div>
                 <div>
-                  <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>{item?.name}</h4>
-                  <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>{item?.description}</p>
+                  <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Цена с {item?.start_time} до {item?.end_time}</h4>
+                  <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>{item?.price} сом / час</p>
                 </div>
               </div>
             )
           })}
-          <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
-            <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-              <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-            </div>
-            <div>
-              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Мяч</h4>
-              {/* <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>2 кабины</p> */}
-            </div>
-          </div>
-          <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
-            <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-              <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-            </div>
-            <div>
-              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Душ</h4>
-              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>2 кабины</p>
-            </div>
-          </div>
-          <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
-            <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-              <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-            </div>
-            <div>
-              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Раздевалка</h4>
-              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>на 24 человек</p>
-            </div>
-          </div>
-          <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
-            <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-              <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-            </div>
-            <div>
-              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Вода</h4>
-            </div>
-          </div>
           <p className='text-[15px] leading-[21px] text-[#222222] font-normal opacity-80 py-[10px] text-justify'>{fieldsIdDetail?.description}</p>
         </div>
       </div>
@@ -91,17 +75,18 @@ export default function Review() {
         <div className='px-[20px] py-[5px] bg-white rounded-b-[12px] '>
           <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
             <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-              <img className='w-[24px] h-[24px]' src={Icon} alt="" />
+              <img className='w-full h-full' src={fieldsIdDetail?.administrator?.photo || Avatar} alt="" />
             </div>
             <div>
-              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Илья Югай</h4>
+              <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>{fieldsIdDetail?.administrator?.name} {fieldsIdDetail?.administrator?.surname}</h4>
               <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>Администратор</p>
             </div>
           </div>
           <div className='flex justify-between items-center gap-[2px] py-[15px]'>
             <div className='flex flex-col items-center gap-1'>
               <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                <img className='w-[24px] h-[24px]' src={Icon} alt="" />
+                <FaWhatsapp className='w-[24px] h-[24px]' />
+                {/* <img src={Icon} alt="" /> */}
               </div>
               <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Whats’App</p>
             </div>
