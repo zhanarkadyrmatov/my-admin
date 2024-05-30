@@ -14,6 +14,7 @@ const Page2 = () => {
   ///dasdsadasd
   ///wwqeqeqweqweq
   //Дневная цена
+  ////asdasdasasdasd
   const [priceDay, setPriceDay] = useState();
   //Ночная цена
   const [priceNight, setPriceNight] = useState();
