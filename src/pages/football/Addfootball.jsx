@@ -141,7 +141,7 @@ console.log(data.sport_complex_type,"complex_type");
     dispatch(postAdvantages(fromData));
   };
   const goToPage = (pageName) => {
-     //setPage(pageName);
+     setPage(pageName);
 
     handlerPostCreacteFoobolField();
   };
