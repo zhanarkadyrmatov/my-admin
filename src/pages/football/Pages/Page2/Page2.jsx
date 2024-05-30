@@ -152,16 +152,13 @@ const Page2 = () => {
             </div>
             <div className="p-[20px] grid gap-y-[20px]">
               <div className="grid gap-y-[8px] ">
-                <p>Тип поля</p>
-                <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1fr] grid gap-[10px] ">
-                  {TypeList?.map((res, i) => (
-                    <button
-                      key={i}
-                      className="rounded-[4px] border border-solid border-gray-200 "
-                    >
-                      {res.name}
-                    </button>
-                  ))}
+                <p>Название </p>
+                <div  className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                <input
+                className="bg-[#F0F0F0] w-fufll"
+                
+                placeholder="Название"
+              />
                 </div>
               </div>
               <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1">
@@ -200,27 +197,7 @@ const Page2 = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid gap-y-[8px] ">
-                <h4>Администратор Футбольного комплекса </h4>
-                <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {administratorList?.map((res, i) => (
-                    <button
-                      key={i}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                    >
-                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                        {res?.name}
-                      </h4>
-                      <input
-                        onChange={(e) => setAdministratorValue(res.name)}
-                        name="administrator"
-                        type="radio"
-                        className="w-[18px] h-[18px]"
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
+             
               <div className="grid gap-y-[8px]">
                 <h5>Описание футбольного поля</h5>
                 <textarea
