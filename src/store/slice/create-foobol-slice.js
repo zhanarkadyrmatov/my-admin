@@ -77,6 +77,22 @@ export const postAdvantages = createAsyncThunk(
         }
     }
 );
+export const getSportComplexList = createAsyncThunk(
+    "advantages/getSportComplexList",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${Api}football_fields_api/sport-complex-types/`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    })
+
+
 
 
 const advantagesSlice = createSlice({
@@ -86,8 +102,10 @@ const advantagesSlice = createSlice({
         advantages: null,
         status: null,
         error: null,
+        isCreate: false,
         locationsCities: null,
         creacteFoobolStatus: null,
+        sportComplexList: null,
     },
     extraReducers: (builder) => {
         builder
@@ -117,12 +135,27 @@ const advantagesSlice = createSlice({
             })
             .addCase(createFoobolField.pending, (state) => {
                 state.creacteFoobolStatus = "loading";
+                state.isCreate = true;
             })
             .addCase(createFoobolField.fulfilled, (state, action) => {
                 state.creacteFoobolStatus = "fulfilled";
+                state.isCreate = false;
             })
             .addCase(createFoobolField.rejected, (state, action) => {
                 state.creacteFoobolStatus = "rejected";
+                state.error = action.payload;
+                state.isCreate = false;
+                console.error("Error fetching advantages:", action.payload);
+            })
+            .addCase(getSportComplexList.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(getSportComplexList.fulfilled, (state, action) => {
+                state.status = "fulfilled";
+                state.sportComplexList = action.payload;
+            })
+            .addCase(getSportComplexList.rejected, (state, action) => {
+                state.status = "rejected";
                 state.error = action.payload;
                 console.error("Error fetching advantages:", action.payload);
             })
