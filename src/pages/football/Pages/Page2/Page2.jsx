@@ -89,7 +89,7 @@ const Page2 = () => {
       isAcctive: false,
     },
   ];
-  
+
 
   const [administratorList, setAdministratorList] = useState([
     { name: "Erik", id: 1, type: "Менеджер " },
@@ -100,7 +100,7 @@ const Page2 = () => {
   ]);
 
   const handleGetInfo = () => {
-    const data ={
+    const data = {
       location,
       administrator,
       administratorValue,
@@ -201,26 +201,26 @@ const Page2 = () => {
                 </div>
               </div>
               <div className="grid gap-y-[8px] ">
-                  <h4>Администратор Футбольного комплекса </h4>
-                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {administratorList?.map((res, i) => (
-                      <button
-                        key={i}
-                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                      >
-                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res?.name}
-                        </h4>
-                        <input
-                          onChange={(e) => setAdministratorValue(res.name)}
-                          name="administrator"
-                          type="radio"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </button>
-                    ))}
-                  </div>
+                <h4>Администратор Футбольного комплекса </h4>
+                <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                  {administratorList?.map((res, i) => (
+                    <button
+                      key={i}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                    >
+                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                        {res?.name}
+                      </h4>
+                      <input
+                        onChange={(e) => setAdministratorValue(res.name)}
+                        name="administrator"
+                        type="radio"
+                        className="w-[18px] h-[18px]"
+                      />
+                    </button>
+                  ))}
                 </div>
+              </div>
               <div className="grid gap-y-[8px]">
                 <h5>Описание футбольного поля</h5>
                 <textarea
@@ -236,7 +236,7 @@ const Page2 = () => {
                 ></textarea>
               </div>
             </div>
-            
+
           </div>
           <div className="grid gap-y-[40px] rounded-[10px]">
             <div className="grid bg-white  ">

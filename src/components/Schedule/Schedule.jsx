@@ -4,7 +4,36 @@ import { useSelector } from "react-redux";
 export default function Schedule() {
 
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
-  const aaaa = [1, 2, 3, 4, 5, 6, 7]
+  const week = [
+    {
+      id: 1,
+      title: "Понедельник"
+    },
+    {
+      id: 2,
+      title: "Вторник"
+    },
+    {
+      id: 3,
+      title: "Среда"
+    },
+    {
+      id: 4,
+      title: "Четверг"
+    },
+    {
+      id: 5,
+      title: "Пятница"
+    },
+    {
+      id: 6,
+      title: "Суббота"
+    },
+    {
+      id: 7,
+      title: "Воскресенье"
+    },
+  ]
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[20px]">
@@ -16,8 +45,12 @@ export default function Schedule() {
         </div>
         <div className=" bg-white rounded-b-[12px] shadow-md p-[20px]">
           <div className="flex flex-col gap-[30px]">
-            {aaaa.map((item, index) => {
-              const isLastItem = index !== aaaa.length - 1;
+            {fieldsIdDetail?.schedule?.map((item, index) => {
+              const isLastItem = index !== fieldsIdDetail?.schedule?.length - 1;
+              const weekDay = week?.find((el) => el.id === item?.id)
+
+              console.log(weekDay, 'weekDay')
+
               return (
                 <div className="flex items-center gap-3 last:text-[#DF2323]">
                   <div className="w-[12px] h-[12px] bg-[#222222] rounded-full flex justify-center items-start">
@@ -26,7 +59,7 @@ export default function Schedule() {
                     }
                   </div>
                   <p className="text-[14px] leading-[16px] text-[#222222]">
-                    <span className="font-bold">Понедельник -</span> <span>07:00 - 22:00</span>
+                    <span className="font-bold">{weekDay?.title} -</span> <span>{item?.start_time} - {item?.end_time}</span>
                   </p>
                 </div>
               )

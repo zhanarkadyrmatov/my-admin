@@ -7,9 +7,10 @@ import { NavLink } from "react-router-dom";
 import vertival from "../../img/vertical.svg";
 import FiledList from "../../components/Cards/filedList/FiledList";
 import Element3 from "../../img/element3";
+import Elemnt3 from "../../img/Elemnt3";
 import FieldsDelete from "../../components/Modal/FieldsDelete";
 
-export default function Fields({ item }) {
+export default function Fields() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,33 +19,48 @@ export default function Fields({ item }) {
 
   const { fields } = useSelector((state) => state.fields);
 
+  console.log(fields, 'fields')
   const [pages, setPages] = useState("home");
   const [fieldDelete, setFieldDelete] = useState(false);
 
   return (
     <>
       {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} />}
-      <div className={"flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 lg:px-4 px-3"}>
-        <div className={"flex md:flex-row flex-col justify-between md:items-center gap-[15px]"}>
+      <div
+        className={
+          "flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 lg:px-4 px-3"
+        }
+      >
+        <div
+          className={
+            "flex md:flex-row flex-col justify-between md:items-center gap-[15px]"
+          }
+        >
           <h4 className="text-xl font-bold leading-5 text-left text-gray-700">
             Футбольные поля
           </h4>
           <div className="flex items-center gap-x-[12px]">
             <div
               onClick={() => setPages("about")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"}`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"
+              }`}
             >
               <Element3 pages={pages} />
             </div>
             <div
               onClick={() => setPages("home")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"}`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"
+              }`}
             >
-              <Element3 />
+              <Elemnt3 pages={pages} />
             </div>
             <NavLink to="/fields/football">
               <button
-                className={"px-3 py-2 bg-[#7384E8] rounded-[12px] flex justify-center items-center gap-2 "}
+                className={
+                  "px-3 py-2 bg-[#7384E8] rounded-[12px] flex justify-center items-center gap-2 "
+                }
               >
                 <GoPlus color="#fff" className="w-[24px] h-[24px]" />
                 <p className="text-[14px] font-bold leading-5 text-white">
@@ -56,13 +72,26 @@ export default function Fields({ item }) {
         </div>
         {pages === "home" ? (
           fields && fields.length > 0 ? (
-            <div className={"grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[20px] 3xl:grid-cols-4"}>
+            <div
+              className={
+                "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[20px] 3xl:grid-cols-4"
+              }
+            >
               {fields.map((item) => (
-                <BookId fieldDelete={fieldDelete} setFieldDelete={setFieldDelete} key={item.id} item={item} />
+                <BookId
+                  fieldDelete={fieldDelete}
+                  setFieldDelete={setFieldDelete}
+                  key={item.id}
+                  item={item}
+                />
               ))}
             </div>
           ) : (
-            <p className={"text-[14px] font-normal leading-5 text-[#222222] opacity-50 text-center mt-[10%]"}>
+            <p
+              className={
+                "text-[14px] font-normal leading-5 text-[#222222] opacity-50 text-center mt-[10%]"
+              }
+            >
               По вашему запросу ничего не найдено
             </p>
           )
@@ -71,7 +100,9 @@ export default function Fields({ item }) {
             <div className="w-[900px] xl:w-[100%]">
               <div className="w-full py-[20px] px-[30px] bg-[#F0F0F0] rounded-t-[15px]">
                 <div className="w-full grid grid-cols-11 items-center gap-1">
-                  <div className="col-span-1 list-none text-[16px] font-normal text-left">№</div>
+                  <div className="col-span-1 list-none text-[16px] font-normal text-left">
+                    №
+                  </div>
                   <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left">
                     Название
                   </div>
@@ -90,14 +121,23 @@ export default function Fields({ item }) {
                 </div>
               </div>
               <div className="w-full px-[20px] pb-[20px] rounded-bl-lg rounded-br-lg bg-[#FFFFFF]">
-                {fields && fields.length > 0 ? (
-                  fields.map((res, index) => (
+                {fields && fields?.length > 0 ? (
+                  fields?.map((res, index) => (
                     <div key={index}>
-                      <FiledList fieldDelete={fieldDelete} setFieldDelete={setFieldDelete} index={index} item={res} />
+                      <FiledList
+                        fieldDelete={fieldDelete}
+                        setFieldDelete={setFieldDelete}
+                        index={index}
+                        item={res}
+                      />
                     </div>
                   ))
                 ) : (
-                  <p className={"text-[14px] font-normal leading-5 text-[#222222] opacity-50 text-center mt-[10%]"}>
+                  <p
+                    className={
+                      "text-[14px] font-normal leading-5 text-[#222222] opacity-50 text-center mt-[10%]"
+                    }
+                  >
                     По вашему запросу ничего не найдено
                   </p>
                 )}

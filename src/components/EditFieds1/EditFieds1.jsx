@@ -4,7 +4,7 @@ import { MdOutlineCheck } from "react-icons/md";
 import Camera from "../../img/camera-plus.svg";
 import { FaCheck } from "react-icons/fa6";
 
-function EditFieds1({ page, setPage }) {
+function Fieds1({ page, setPage }) {
   const [accordion, setAccordion] = useState(false);
   const [select, setSelect] = useState(false);
 
@@ -247,4 +247,4 @@ function EditFieds1({ page, setPage }) {
   );
 }
 
-export default EditFieds1;
+export default Fieds1;

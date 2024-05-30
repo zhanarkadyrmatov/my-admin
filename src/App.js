@@ -17,11 +17,14 @@ import MiniFields from "./pages/miniFelds/MiniFields";
 import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
-import Wallet, { BalanceCard } from "./pages/wallet/BalanceCard";
-function App({ items }) {
-  const [collapsed, setCollapsed] = useState(false);
+import { useCollapsed } from "./hooks/useCollapsed";
+import Wallet from "./pages/wallet/Wallet";
+function App({ open }) {
+  const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
+
   return (
     <>
       <div className={`flex ${darkMode && "dark"} `}>
@@ -39,8 +42,8 @@ function App({ items }) {
             setToggled={setToggled}
             setDarkMode={setDarkMode}
             darkMode={darkMode}
+            onclick={() => setOpenSetting(!openSetting)}
           />
-
           <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
             <div className="">
               <Routes>
@@ -48,7 +51,7 @@ function App({ items }) {
                 <Route path="/calendary" element={<DataPages />} />
                 <Route path="/profil" element={<Profil />} />
                 <Route path="/payment" element={<Payment />} />
-                <Route path="/wallet" element={<BalanceCard />} />
+                <Route path="/wallet" element={<Wallet />} />
                 <Route path="/armor" element={<ArmorHistory />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />
