@@ -12,6 +12,7 @@ import { InputMask } from "@react-input/mask";
 
 const Page2 = () => {
   ///dasdsadasd
+  ///wwqeqeqweqweq
   //Дневная цена
   const [priceDay, setPriceDay] = useState();
   //Ночная цена
