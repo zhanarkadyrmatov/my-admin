@@ -11,6 +11,7 @@ import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
 
 const Page2 = () => {
+  ///dasdsadasd
   //Дневная цена
   const [priceDay, setPriceDay] = useState();
   //Ночная цена
