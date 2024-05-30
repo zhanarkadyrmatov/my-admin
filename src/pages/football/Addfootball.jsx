@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAdvantages,
   getLocationsCities,
+  getSportComplexList,
   postAdvantages,
 } from "../../store/slice/create-foobol-slice";
 import YandexMaps from "../../components/yandexMaps/yandexMaps";
@@ -26,7 +27,7 @@ export default function Addfootball() {
   //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
-  const { advantages, locationsCities, creacteFoobolStatus, status } =
+  const { advantages, locationsCities, sportComplexList, isCreate,creacteFoobolStatus, status } =
     useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
   const [selectedValue, setSelectedValue] = useState(null);
@@ -37,6 +38,7 @@ export default function Addfootball() {
   const [description, setDescription] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
+
   const handlerImage = (event) => {
 
     const files = Array.from(event.target.files);
@@ -50,6 +52,7 @@ export default function Addfootball() {
   useEffect(() => {
     dispatch(getAdvantages());
     dispatch(getLocationsCities());
+    dispatch(getSportComplexList())
   }, []);
 
   //WhatsApp
@@ -78,6 +81,11 @@ export default function Addfootball() {
     setPhoneList([...phoneList, phoneValue]);
     setPhoneValue("");
   };
+  const [advantagesList , setAdvantagesList] = useState([]);
+const [complex_type , setComplex_type] = useState();
+console.log(complex_type , 'test');
+
+
   //ФИО администратора*
   const [administratorValue, setAdministratorValue] = useState();
   const handlerPostCreacteFoobolField = () => {
@@ -93,6 +101,8 @@ export default function Addfootball() {
 
       latitude: mapLatLon?.[0],
       longitude: mapLatLon?.[1],
+      advantages: advantagesList,
+      sport_complex_type: complex_type
     };
 
     const fromData = new FormData();
@@ -104,13 +114,15 @@ export default function Addfootball() {
     fromData.append("district", data.district);
     fromData.append("latitude", data.latitude);
     fromData.append("longitude", data.longitude);
-    // ImageFile.forEach((image, index) => {
-    //   fromData.append("image", image);
-    // })
-    // selectedIamgeFile.forEach((image, Index) => {
-    //   fromData.append("image", image);
-    // })
-
+    ImageFile?.forEach((image, index) => {
+      fromData.append("back_ground_foto", image);
+    })
+    selectedIamgeFile?.forEach((image, Index) => {
+      fromData.append("main_foto", image);
+    })
+    fromData.append("advantages", data.advantages);
+    fromData.append("sport_complex_type"  , data.sport_complex_type);
+console.log(data.sport_complex_type,"complex_type");
 
 
     for (const [key, value] of Object.entries(data)) {
@@ -126,16 +138,17 @@ export default function Addfootball() {
     //
     console.log(data, 'data');
 
-    dispatch(postAdvantages(data));
+    dispatch(postAdvantages(fromData));
   };
   const goToPage = (pageName) => {
-    // setPage(pageName);
+     //setPage(pageName);
 
     handlerPostCreacteFoobolField();
   };
   const handleRadioChange = (e, res) => {
     setSelectedValue(res.name);
   };
+  console.log(advantages, "advantages");
 
   const [administratorList, setAdministratorList] = useState([
     { name: "Erik", id: 1, type: "Менеджер " },
@@ -144,6 +157,30 @@ export default function Addfootball() {
     { name: "jane", id: 4, type: "Техник" },
     { name: "jane", id: 5, type: "Админ" },
   ]);
+
+
+  const handleAdvantages = (e, res) => {
+    console.log(e.target.value,"advantagesList")
+    const uniqueSet = new Set();
+    const filteredArray = advantagesList.filter(item => {
+      if (!uniqueSet.has(item)) {  
+        uniqueSet.add(item);
+        return true;              
+      }
+      return false;                
+    });
+    if (!uniqueSet.has(res)) {
+      filteredArray.push(res);
+    }
+    setAdvantagesList(filteredArray);
+   };
+  
+  console.log(sportComplexList, "advantagesList");
+ 
+
+  if (isCreate === true) {
+    return <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi odio dolorum aliquam maiores ex corporis. Obcaecati dolore culpa, ullam ipsa, consequuntur inventore eos, consequatur illo a autem reiciendis enim quis.</div>
+  }
   return (
     <>
       {page === "home" && (
@@ -169,22 +206,14 @@ export default function Addfootball() {
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-              <div className={s.checkboxList}>
-                {advantages?.map((res, i) => {
-                  let isAcc = true;
-                  const handleCheckboxChange = (event) => {
-                    if (event.target.checked) {
-                      isAcc = true;
-                    } else {
-                      isAcc = false;
-                    }
-                  };
+               <div className={s.checkboxList}>
+                 {advantages?.map((res, i) => {
                   return (
                     <div className={s.checkbox} key={i}>
                       <div className="flex gap-[5px] w-full flex-col">
                         <div className="flex gap-[10px] w-full">
-                          <input
-                            onChange={(event) => handleCheckboxChange(event)}
+                          <input 
+                            onChange={(e) => handleAdvantages(e)}
                             name={res.id}
                             type="checkbox"
                             className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
@@ -193,19 +222,6 @@ export default function Addfootball() {
                             {res?.name}
                           </label>
                         </div>
-                        {isAcc === true &&
-                          res?.specific_advantages.map((ress) => (
-                            <div className={s.checkboxType} key={ress.id}>
-                              <input
-                                onChange={(event) =>
-                                  handleRadioChange(event, res)
-                                }
-                                name={res.id}
-                                type="radio"
-                              />
-                              {ress?.type.name}
-                            </div>
-                          ))}
                       </div>
                     </div>
                   );
@@ -339,7 +355,28 @@ export default function Addfootball() {
                     {errorList?.district && <Pe>{errorList?.district}</Pe>}
                   </div>
                 </div>
-
+                <div className="grid gap-y-[8px] ">
+                <h4>Выберите тип</h4>
+                <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                  {sportComplexList?.map((res, i) => (
+                    <button
+                      key={i}
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                    >
+                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                        {res?.title}
+                      </h4>
+                      <input
+                        onChange={(e) => setComplex_type(res.id) }
+                        name="myRadio"
+                        type="radio"
+                        className="w-[18px] h-[18px]"
+                      />
+                    </button>
+                  ))}
+                </div>
+                </div>
+               
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите город </h4>
                   {errorList?.city && <Pe>{errorList?.city}</Pe>}
@@ -417,27 +454,6 @@ export default function Addfootball() {
   );
 }
 
-// <div className="grid gap-y-[8px] ">
-// <h4>Выберите тип</h4>
-// <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-//   {selectBranchTypeList?.map((res, i) => (
-//     <button
-//       key={i}
-//       className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-//     >
-//       <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-//         {res?.name}
-//       </h4>
-//       <input
-//         onChange={(e) => handleRadioChange(e, res)}
-//         name="myRadio"
-//         type="radio"
-//         className="w-[18px] h-[18px]"
-//       />
-//     </button>
-//   ))}
-// </div>
-// </div>
 // <div className="grid gap-y-[8px]">
 // <h4>Добавьте типы футбольных полей</h4>
 // </div>
@@ -474,3 +490,4 @@ export default function Addfootball() {
 //   </button>
 // ))}
 // </div>
+
