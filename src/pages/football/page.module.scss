@@ -111,6 +111,9 @@
 width: 1000px !important;
   height: 500px !important;
   overflow: hidden;
+  @media screen and (max-width: 1310px) {
+    width: 90% !important;
+  }
 
 }
 
@@ -140,6 +143,9 @@ width: 1000px !important;
   div {
     cursor: pointer;
   }
+  @media screen and (max-width: 1310px) {
+    width: 90% !important;
+  }
 }
 
 
@@ -157,4 +163,10 @@ border: 1px solid #2222221A;
 padding: 10px;
 border-radius: 10px;
   }
+}
+
+.Pe {
+color: red ;
+
+font-size: 14px !important; 
 }
