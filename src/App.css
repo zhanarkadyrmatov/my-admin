@@ -102,18 +102,13 @@ input[type="checkbox"]:checked {
   background-color: rgb(255, 255, 255);
 }
 
-input {
-  outline: none;
+.react-select__control .react-select__indicators .react-select__indicator-icon {
+  content: "✔";
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
-
-select {
-  cursor: pointer;
-  outline: none;
-}
-
-.fc-toolbar {
-}
-
 @media screen and (max-width: 500px) {
   .fc-toolbar {
     display: grid !important;
@@ -128,4 +123,17 @@ select {
 }
 aside {
   z-index: 999 !important;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ffffff00;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff00;
+  border-radius: 1px;
+  bottom: 3px solid #d4d4d400;
 }

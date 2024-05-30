@@ -17,9 +17,8 @@ import MiniFields from "./pages/miniFelds/MiniFields";
 import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
-import Wallet from "./pages/wallet/Wallet";
 import { useCollapsed } from "./hooks/useCollapsed";
-import { BalanceCard } from "./pages/wallet/BalanceCard";
+import Wallet from "./pages/wallet/Wallet";
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);

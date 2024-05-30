@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
 import { IoCalendarOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
-import { IoCalendarClearOutline } from "react-icons/io5";
 import "react-datepicker/dist/react-datepicker.css";
 import { GoPlus } from "react-icons/go";
 import Ellipse from "../../img/Ellipse.svg";
 import Ellipse2 from "../../img/Ellipse2.svg";
+import BalanceCard from "./BalanceCard";
 export default function Wallet() {
   const [inputVALUE, setInputVALUE] = useState("");
 
@@ -22,9 +21,10 @@ export default function Wallet() {
     <>
       <div className="mt-[100px] mx-[20px]  ">
         <div className="mb-[20px]">
-          <h4>Кошелек</h4></div>
-        <div className="flex justify-between items-end">
-          <div className="w-[500px] sm:flex justify-between items-center h-min bg-[#222222] text-white p-4 rounded-lg grid gap-y-[50px] relative">
+          <h4>Кошелек</h4>
+        </div>
+        <div className="md:grid flex justify-between items-end ">
+          <div className="w-[500px] sm:flex justify-between items-center  bg-[#222222] text-white p-4 rounded-lg grid gap-y-[50px] relative">
             <div>
               <p
                 className="text-base font-normal leading-tight text-left opacity-70 text-[#FFFFFF]"
@@ -51,7 +51,7 @@ export default function Wallet() {
               alt=""
             />
           </div>
-          <button className="mt-[-40px] relative flex gap-x-[8px] py-[10px] px-[16px] bg-[#E5E5E5] items-center text-white rounded-lg text-lg z-[200]">
+          <button className="relative flex gap-x-[8px] py-[10px] px-[16px] bg-[#E5E5E5] items-center text-white rounded-lg text-lg">
             <p
               className="text-base font-normal text-left text-[#1C1C1C]"
               style={{ lineHeight: "18.38px" }}
@@ -60,96 +60,10 @@ export default function Wallet() {
             </p>
           </button>
         </div>
-        <div className="mt-[40px]">
-          <h4 className="text-base font-semibold leading-5 text-left text-[#1C1C1C]">
-            История платежей
-          </h4>
-          <div className="grid gap-y-[20px]">
-            <div className="mt-[20px] h-[86px] bg-white shadow-custom rounded-[15px] flex gap-x-[16px] items-center px-[18px]">
-              <div className="w-[80%] h-[50px] bg-[#F7F8F9] flex items-center px-[24px] rounded-[10px]">
-                <div className="flex items-center w-[70%] justify-between">
-                  <p className="text-custom font-normal leading-custom text-[#323A46]">
-                    Все операции
-                  </p>
-                  <IoMdArrowDropdown />
-                </div>
-              </div>
-              <div className="">
-                <input ref={dateInputRef} type="date"  className="w-full h-[50px] bg-[#F7F8F9] flex items-center px-[24px] rounded-[10px]"/>
-                <button onClick={handleButtonClick}
-                  className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition" >+</button>
-              </div>
-              <input type="date" className="w-full h-[50px] bg-[#F7F8F9] flex items-center px-[24px] rounded-[10px]" />
-              <button className="flex w-full justify-center items-center gap-x-[3px] py-[12px] px-[28px] bg-[#7384E8] rounded-[10px]">
-                <CiSearch size={20} color="#fff" />
-                <p className="text-custom font-semibold leading-custom text-left text-[#fff]">
-                  Поиск
-                </p>
-              </button>
-            </div>
-            <div className="w-full h-[325px] bg-[#fff] rounded-[15px]">
-              <div className="px-[20px] py-[20px] h-[62px]">
-                <ul className="grid grid-cols-[auto_auto_auto_auto_auto_auto]">
-                  <li className="text-[18px] font-[400] text-[#1C1C1C] opacity-[0.5] ">
-                    Тип операции
-                  </li>
-                  <li className="text-[18px] font-[400] text-[#1C1C1C] opacity-[0.5] text-start">
-                    Дата
-                  </li>
-                  <li className="text-[18px] font-[400] text-[#1C1C1C] opacity-[0.5] text-center">
-                    Приход
-                  </li>
-                  <li className="text-[18px] font-[400] text-[#1C1C1C] opacity-[0.5] text-end">
-                    Пользователь
-                  </li>
-                  <li className="text-[18px] font-[400] text-[#1C1C1C] opacity-[0.5] text-end">
-                    Футбольное поле
-                  </li>
-                  <li className="text-[18px] font-[400] text-[#1C1C1C] opacity-[0.5] text-end">
-                    Платеж.система
-                  </li>
-                </ul>
-              </div>
-              <hr />
-              <div className="px-[20px] py-[20px] h-[62px]">
-                <ul className="grid grid-cols-[auto_auto_auto_auto_auto_auto]">
-                  <li>Бронирование</li>
-                  <div className="grid">
-                    <li className="text-[17px] font-[400] text-left">
-                      10 Октября
-                    </li>
-                    <p className="text-[17px] font-[400] text-left text-[#1c1c1c] opacity-[0.5]">
-                      20:37
-                    </p>
-                  </div>
-                  <li className="text-[#DF2323] text-base font-normal my-custom-line-height tracking-tight text-start">
-                    -2 587 сом
-                  </li>
-                  <div className="grid justify-center">
-                    <li className="text-base font-normal text-left">
-                      ataialanov
-                    </li>
-                    <p className="text-sm font-normal text-left text-[#1C1C1C] opacity-[0.5]">
-                      Существующий
-                    </p>
-                  </div>
-                  <div className="grid justify-end">
-                    <li className="text-base font-normal text-left p-0">
-                      El-Clasico
-                    </li>
-                    <p className="text-sm font-normal leading-tight tracking-tight text-left text-[#1C1C1C] opacity-[0.5] p-0">
-                      Спортивный комплекс
-                    </p>
-                  </div>
-                  <div className="flex gap-x-[8px] justify-end">
-                    <IoCalendarClearOutline size={20} />
-                    <p>Онлайн</p>
-                  </div>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* <div className="grid gap-y-[20px] mt-[20px]">
+          <h4>История платежей</h4>
+          <BalanceCard />
+        </div> */}
       </div>
     </>
   );
