@@ -25,7 +25,7 @@ export const fetchFieldsIdList = createAsyncThunk(
   "fields/fetchFieldsIdList",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.get(`${Api}admin_api/football_field_detail/${id}/`, {
+      const response = await axios.get(`${Api}admin_api/football-field/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
