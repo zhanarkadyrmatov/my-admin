@@ -31,7 +31,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
         breakPoint="md"
         className="h-screen shadow-md bg-white dark:bg-[#212130]"
       >
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between h-full z-[999]">
           <div className="flex justify-center items-center py-3 px-4">
             <svg
               className="w-[50px] h-[50px]"
@@ -80,9 +80,10 @@ export default function Playground({ collapsed, toggled, setToggled }) {
           <div className="flex-1 mb-5 ">
             <Menu transitionDuration={1000}>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:bg-[#000]   ${isActive("/") &&
+                className={`text-[18px] text-[#737B8B] hover:bg-[#000]   ${
+                  isActive("/") &&
                   "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"
-                  }
+                }
                 }`}
                 icon={<FaHome className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/" />}
@@ -91,9 +92,10 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Главная
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${isActive("/dashboard") &&
+                className={`text-[18px] text-[#737B8B]  ${
+                  isActive("/dashboard") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
                 icon={<MdDashboard className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/dashboard" />}
@@ -102,57 +104,87 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Dashboard
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${isActive("/calendary") &&
+                className={`text-[18px] text-[#737B8B]  ${
+                  isActive("/calendary") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
-                icon={<Booking
-                  isActive={isActive("/calendary")} className=" w-[20px] h-[20px]" />}
+                icon={
+                  <Booking
+                    isActive={isActive("/calendary")}
+                    className=" w-[20px] h-[20px]"
+                  />
+                }
                 component={<NavLink to="/calendary" />}
                 onClick={() => setToggled(false)}
               >
                 Список брони
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${isActive("/wallet") &&
+                className={`text-[18px] text-[#737B8B]  ${
+                  isActive("/wallet") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
-                icon={<Wallet isActive={isActive("/wallet")} className=" w-[20px] h-[20px]" />}
+                icon={
+                  <Wallet
+                    isActive={isActive("/wallet")}
+                    className=" w-[20px] h-[20px]"
+                  />
+                }
                 component={<NavLink to="/wallet" />}
                 onClick={() => setToggled(false)}
               >
                 Кошелек
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${isActive("/fields") &&
+                className={`text-[18px] text-[#737B8B]  ${
+                  isActive("/fields") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
-                icon={<SoccerBall isActive={isActive("/fields")} className=" w-[20px] h-[20px]" />}
-                component={<NavLink to="/fields" />}    >
+                icon={
+                  <SoccerBall
+                    isActive={isActive("/fields")}
+                    className=" w-[20px] h-[20px]"
+                  />
+                }
+                component={<NavLink to="/fields" />}
+              >
                 Футбольные поля
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B] ${isActive("/login") &&
+                className={`text-[18px] text-[#737B8B] ${
+                  isActive("/login") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
-                icon={<Alt isActive={isActive("/login")} className=" w-[20px] h-[20px]" />}
+                icon={
+                  <Alt
+                    isActive={isActive("/login")}
+                    className=" w-[20px] h-[20px]"
+                  />
+                }
                 component={<NavLink to="/login" />}
                 onClick={() => setToggled(false)}
               >
                 Войти
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${isActive("/companies") &&
+                className={`text-[18px] text-[#737B8B]  ${
+                  isActive("/companies") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
-                icon={<Alt isActive={isActive("/сompanies")} className=" w-[20px] h-[20px]" />}
+                icon={
+                  <Alt
+                    isActive={isActive("/сompanies")}
+                    className=" w-[20px] h-[20px]"
+                  />
+                }
                 onClick={() => {
-                  setLogout(!logout)
-                  setToggled(false)
+                  setLogout(!logout);
+                  setToggled(false);
                 }}
               >
                 Выйти
