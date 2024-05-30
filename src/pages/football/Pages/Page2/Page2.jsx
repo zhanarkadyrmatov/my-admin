@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+
 import React, { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
@@ -6,6 +8,7 @@ import s from "../../page.module.scss";
 import Time from "../../../../components/Cards/time/Time";
 import { AiOutlineClose } from "react-icons/ai";
 import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
+import { InputMask } from "@react-input/mask";
 
 const Page2 = () => {
   //Дневная цена
@@ -20,7 +23,6 @@ const Page2 = () => {
   const [administratorValue, setAdministratorValue] = useState();
   //ФИО администратора*
   const [administrator, setAdministrator] = useState();
-
   //  location   add
   const [mapLatLon, setMapLatLon] = useState();
 
@@ -46,11 +48,9 @@ const Page2 = () => {
   const [selectedImages1, setSelectedImages1] = useState([]);
   const handleFileChange1 = (e) => {
     const files = Array.from(e.target.files);
-
     const fileUrls = files?.map((file) => URL.createObjectURL(file));
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
-
   const dataListfootball = [
     {
       name: "Стадион",
@@ -86,7 +86,31 @@ const Page2 = () => {
       isAcctive: false,
     },
   ];
+  
 
+  const [administratorList, setAdministratorList] = useState([
+    { name: "Erik", id: 1, type: "Менеджер " },
+    { name: "john", id: 2, type: "Админ" },
+    { name: "alex", id: 3, type: "Админ" },
+    { name: "jane", id: 4, type: "Техник" },
+    { name: "jane", id: 5, type: "Админ" },
+  ]);
+
+  const handleGetInfo = () => {
+    const data ={
+      location,
+      administrator,
+      administratorValue,
+      priceDay,
+      priceNight,
+      workScheduleList,
+      description,
+      selectedImages1,
+      mapLatLon
+
+    }
+    console.log(data, "test1");
+  }
   return (
     <div>
       <div>
@@ -99,7 +123,7 @@ const Page2 = () => {
               </div>
             </div>
             <div className={s.YandexMapsStyle}>
-              <YandexMaps setMapLatLon={setMapLatLon} />
+              <YandexMaps setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} />
             </div>
           </div>
         )}
@@ -146,7 +170,7 @@ const Page2 = () => {
                         setPriceDay(e.target.value);
                       }}
                       value={priceDay}
-                      className="bg-[#F0F0F0]"
+                      className="bg-[#F0F0F0] w-fufll"
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -163,7 +187,7 @@ const Page2 = () => {
                         setPriceNight(e.target.value);
                       }}
                       value={priceNight}
-                      className="bg-[#F0F0F0]"
+                      className="bg-[#F0F0F0] w-full"
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -173,18 +197,27 @@ const Page2 = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid gap-y-[8px]">
-                <h5>Локация</h5>
-                <div
-                  onClick={() => setIsModalMap(true)}
-                  className="flex justify-between items-center px-[10px] py-[14px] rounded-[10px] bg-[#f0f0f0] border border-customColor"
-                >
-                  <h5 className="font-size-[14px] font-normal leading-4 text-left text-[red]">
-                    {mapLatLon != null ? mapLatLon : "Выберите локацию"}
-                  </h5>
-                  <CiLocationOn size={20} color="red" />
+              <div className="grid gap-y-[8px] ">
+                  <h4>Администратор Футбольного комплекса </h4>
+                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                    {administratorList?.map((res, i) => (
+                      <button
+                        key={i}
+                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                      >
+                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                          {res?.name}
+                        </h4>
+                        <input
+                          onChange={(e) => setAdministratorValue(res.name)}
+                          name="administrator"
+                          type="radio"
+                          className="w-[18px] h-[18px]"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
               <div className="grid gap-y-[8px]">
                 <h5>Описание футбольного поля</h5>
                 <textarea
@@ -200,84 +233,7 @@ const Page2 = () => {
                 ></textarea>
               </div>
             </div>
-            <div className="grid ">
-              <div className="p-[20px] border-b border-custom-border">
-                <h4 className="text-[16px] font-medium leading-5 text-left">
-                  Контакты
-                </h4>
-              </div>
-              <div className="p-[20px] grid gap-y-[20px] ">
-                <div className="grid gap-y-[8px] ">
-                  <p className="text-base font-normal leading-4 tracking-tight text-left">
-                    ФИО владельца
-                  </p>
-                  <input
-                    onChange={(e) => {
-                      setAdministratorValue(e.target.value);
-                    }}
-                    value={administratorValue}
-                    className="px-[10px] py-[14px] rounded-[10px] bg-[#f0f0f0]"
-                    type="text"
-                    placeholder="Укажите цену"
-                  />
-                </div>
-                <div className="grid gap-y-[8px]">
-                  <p className="text-base font-normal leading-4 tracking-tight text-left">
-                    ФИО администратора*
-                  </p>
-                  <input
-                    onChange={(e) => {
-                      setAdministrator(e.target.value);
-                    }}
-                    value={administrator}
-                    className="px-[10px] py-[14px] rounded-[10px] bg-[#f0f0f0]"
-                    type="text"
-                    placeholder="El-Clasico"
-                  />
-                </div>
-                <div className="lg:grid-cols-[1fr_1fr] gap-[10px] grid grid-cols-1">
-                  <div className="grid gap-y-[8px]">
-                    <p className="text-base font-normal leading-4 text-left">
-                      WhatsApp
-                    </p>
-                    <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
-                      <input
-                        className="bg-[#f0f0f0]"
-                        type="nomer"
-                        placeholder="+996 (000) 000 - 000"
-                      />
-                      <HiOutlinePlusSm size={25} />
-                    </div>
-                  </div>
-                  <div className="grid gap-y-[8px]">
-                    <p className="text-base font-normal leading-4 text-left">
-                      WhatsApp
-                    </p>
-                    <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
-                      <input
-                        className="bg-[#f0f0f0]"
-                        type="nomer"
-                        placeholder="+996 (000) 000 - 000"
-                      />
-                      <HiOutlinePlusSm size={25} />
-                    </div>
-                  </div>
-                  <div className="grid gap-y-[8px] ">
-                    <p className="text-base font-normal leading-4 text-left">
-                      WhatsApp
-                    </p>
-                    <div className="flex item-center justify-between bg-[#f0f0f0] p-[10px] rounded-[10px]">
-                      <input
-                        className="bg-[#f0f0f0]"
-                        type="nomer"
-                        placeholder="+996 (000) 000 - 000"
-                      />
-                      <HiOutlinePlusSm size={25} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
           <div className="grid gap-y-[40px] rounded-[10px]">
             <div className="grid bg-white  ">
@@ -328,7 +284,8 @@ const Page2 = () => {
                         <div className="w-full h-[130px] bg-[#D9D9D9]"></div>
                         <div className="flex gap-x-[10px] ">
                           <div className="w-full h-[180px] bg-[#D9D9D9]"></div>
-                          <div className="w-full h-[180px] bg-[#D9D9D9]"></div>
+                          <div className="w-full h-[180px] bg
+                          -[#D9D9D9]"></div>
                         </div>
                       </div>
                     </div>
@@ -340,7 +297,7 @@ const Page2 = () => {
               <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
                 Предыдущая
               </button>
-              <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
+              <button onClick={() => handleGetInfo()} className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
                 Далее
               </button>
             </div>

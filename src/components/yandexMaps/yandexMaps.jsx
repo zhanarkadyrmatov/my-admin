@@ -6,8 +6,8 @@ import {
     YMaps,
     ZoomControl,
 } from "@pbe/react-yandex-maps"
-const YandexMaps = ({ setMapLatLon,  }) => {
-  const [position, setPosition] = useState(null);
+const YandexMaps = ({ setMapLatLon,mapLatLon  }) => {
+  const [position, setPosition] = useState(mapLatLon);
   const handleClick = (event) => {
     const coords = event.get("coords");
     setPosition(coords);
@@ -32,7 +32,7 @@ const YandexMaps = ({ setMapLatLon,  }) => {
           height: "100%",
         }}
         options={{ suppressMapOpenBlock: true }}
-        defaultState={{ center: [42.875969, 74.603701], zoom: 9 }}
+        defaultState={{ center: position ? position : [42.875969, 74.603701], zoom: 9 }}
         onClick={handleClick}
         lang="en_US"
       >
