@@ -7,10 +7,16 @@ const BalanceCard = () => {
   const [inputVALUE, setInputVALUE] = useState("");
 
   const dateInputRef = useRef(null);
+  const dateInputRef2 = useRef(null);
 
   const handleButtonClick = () => {
     if (dateInputRef.current) {
       dateInputRef.current.showPicker();
+    }
+  };
+  const handleButtonClick2 = () => {
+    if (dateInputRef2.current) {
+      dateInputRef2.current.showPicker();
     }
   };
   const transactions = [
@@ -65,15 +71,15 @@ const BalanceCard = () => {
   );
 
   return (
-    <div className=" grid gap-y-[30px] ">
-      <div className="gap-y-[20px] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[16px] w-full bg-[#fff] rounded-[15px] p-[18px]">
+    <div className=" grid gap-y-[30px] rounded-[15px]">
+      <div className="gap-y-[20px] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[16px] w-full rounded-[15px] bg-[#fff]  p-[18px]">
         <div className="flex items-center bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
           <RxTextAlignJustify />
-          <select className="outline-none felx justify-between w-full bg-[#F7F8F9]">
+          <select className="outline-none flex justify-between w-full bg-[#F7F8F9]">
             <option>Все операции</option>
-            <option value="">Бронирование</option>
-            <option value="">Бронирование</option>
-            <option value="">Вывод</option>
+            <option>Бронирование</option>
+            <option>Бронирование</option>
+            <option>Вывод</option>
           </select>
         </div>
         <div className="flex justify-between bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
@@ -95,20 +101,42 @@ const BalanceCard = () => {
             <div className="flex items-center space-x-1">
               <IoCalendarClearOutline />
               <input
-                ref={dateInputRef}
+                ref={dateInputRef2}
                 type="date"
                 className="h-[50px] bg-[#F7F8F9] flex items-center rounded-[10px]"
               />
               <h4>Все операции</h4>
             </div>
-            <IoMdArrowDropdown onClick={handleButtonClick} size={30} />
+            <IoMdArrowDropdown onClick={handleButtonClick2} size={30} />
           </div>
         </div>
-        <button className="bg-[#7384E8]  w-full h-[50px] text-white rounded-md ">
+        <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center">
+          <svg
+            width="17"
+            height="16"
+            viewBox="0 0 17 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8.16634 14C11.6641 14 14.4997 11.1645 14.4997 7.66671C14.4997 4.1689 11.6641 1.33337 8.16634 1.33337C4.66854 1.33337 1.83301 4.1689 1.83301 7.66671C1.83301 11.1645 4.66854 14 8.16634 14Z"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M15.1663 14.6667L13.833 13.3334"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
           Поиск
         </button>
       </div>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto rounded-[15px]">
         <table className="min-w-full bg-white rounded-[15px]">
           <thead className="bg-gray-50">
             <tr>
