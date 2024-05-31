@@ -31,8 +31,6 @@ export default function FieldsId() {
     dispatch(fetchFieldsIdList(id));
   }, [id]);
 
-  console.log(fieldsIdList);
-
   return (
     <>
       {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} />}
@@ -64,21 +62,19 @@ export default function FieldsId() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setRequest(0)}
-                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${
-                  request === 0
-                    ? "bg-[#656565] text-white"
-                    : "bg-[#fff] text-[#1C1C1C]"
-                } `}
+                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${request === 0
+                  ? "bg-[#656565] text-white"
+                  : "bg-[#fff] text-[#1C1C1C]"
+                  } `}
               >
                 Описание
               </button>
               <button
                 onClick={() => setRequest(1)}
-                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${
-                  request === 1
-                    ? "bg-[#656565] text-white"
-                    : "bg-[#fff] text-[#1C1C1C]"
-                } `}
+                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${request === 1
+                  ? "bg-[#656565] text-white"
+                  : "bg-[#fff] text-[#1C1C1C]"
+                  } `}
               >
                 Запросы
               </button>
@@ -123,41 +119,37 @@ export default function FieldsId() {
                 <div className="flex justify-center items-center gap-[20px] lg:gap-[15px] xl:gap-[20px]">
                   <button
                     onClick={() => setActive(0)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
-                      active === 0
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
-                    }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 0
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
+                      }`}
                   >
                     Обзор
                   </button>
                   <button
                     onClick={() => setActive(1)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
-                      active === 1
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
-                    }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 1
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
+                      }`}
                   >
                     Галерея
                   </button>
                   <button
                     onClick={() => setActive(2)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
-                      active === 2
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
-                    }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 2
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
+                      }`}
                   >
                     График
                   </button>
                   <button
                     onClick={() => setActive(3)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
-                      active === 3
-                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                        : "opacity-50"
-                    }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 3
+                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                      : "opacity-50"
+                      }`}
                   >
                     Отзывы
                   </button>

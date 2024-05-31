@@ -82,7 +82,7 @@ export default function BookId({ item, setFieldDelete, fieldDelete }) {
               </div>
               <div className={"flex justify-start items-center gap-1"}>
                 <p className="text-[#222222] text-[14px] leading-[16px] font-[500]">
-                  {item?.avg_rating} ({item?.rating_num})
+                  {item?.avg_rating?.toFixed(1)} ({item?.rating_num})
                 </p>
                 <Stack spacing={1}>
                   <Rating

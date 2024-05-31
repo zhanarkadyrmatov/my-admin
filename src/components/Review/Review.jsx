@@ -1,9 +1,13 @@
 import React from 'react'
 import Icon from '../../img/avatarNone.png'
+import StarTime from '../../img/wallet-money.svg'
+import StarTime2 from '../../img/wallet-money2.svg'
 import Avatar from '../../img/avatarNone.png'
 import { useSelector } from 'react-redux';
-import { FaWhatsapp } from "react-icons/fa6";
+import { FaInstagram, FaPhone, FaTelegram, FaWhatsapp } from "react-icons/fa6";
 import Grass from '../../img/grass.svg';
+import { NavLink } from 'react-router-dom'
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 
 export default function Review() {
@@ -17,7 +21,7 @@ export default function Review() {
           <h4 className='text-[16px] leading-[18px] font-bold'>Преимущества</h4>
         </div>
         <div className='px-[20px] py-[5px] bg-white rounded-b-[12px] '>
-          {fieldsIdList?.advantages?.map((item) => {
+          {fieldsIdDetail?.advantages?.map((item) => {
             return (
               <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
                 <div className='min-w-[40px] min-h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
@@ -52,11 +56,11 @@ export default function Review() {
               </p>
             </div>
           </div>
-          {fieldsIdDetail?.price?.map((item) => {
+          {fieldsIdDetail?.price && fieldsIdDetail?.price?.map((item) => {
             return (
               <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
                 <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                  <img className='w-[24px] h-[24px]' src={Icon} alt="" />
+                  <img className='w-[24px] h-[24px]' src={item?.start_time >= "18:00:00" ? StarTime2 : StarTime} alt="" />
                 </div>
                 <div>
                   <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Цена с {item?.start_time} до {item?.end_time}</h4>
@@ -65,6 +69,19 @@ export default function Review() {
               </div>
             )
           })}
+          {fieldsIdList?.address && (
+            <div className='flex items-center gap-[8px] pt-[10px] pb-[5px]'>
+              <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+                <FaMapMarkerAlt className='w-[24px] h-[24px]' />
+              </div>
+              <div>
+                <h4 className='text-[15px] leading-[17px] text-[#222222] font-bold'>Адрес</h4>
+                <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70 flex items-center gap-2 '>
+                  {fieldsIdList?.address}
+                </p>
+              </div>
+            </div>
+          )}
           <p className='text-[15px] leading-[21px] text-[#222222] font-normal opacity-80 py-[10px] text-justify'>{fieldsIdDetail?.description}</p>
         </div>
       </div>
@@ -82,32 +99,51 @@ export default function Review() {
               <p className='text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70'>Администратор</p>
             </div>
           </div>
-          <div className='flex justify-between items-center gap-[2px] py-[15px]'>
-            <div className='flex flex-col items-center gap-1'>
-              <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                <FaWhatsapp className='w-[24px] h-[24px]' />
-                {/* <img src={Icon} alt="" /> */}
-              </div>
-              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Whats’App</p>
-            </div>
-            <div className='flex flex-col items-center gap-1'>
-              <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-              </div>
-              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Whats’App</p>
-            </div>
-            <div className='flex flex-col items-center gap-1'>
-              <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-              </div>
-              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Whats’App</p>
-            </div>
-            <div className='flex flex-col items-center gap-1'>
-              <div className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
-                <img className='w-[24px] h-[24px]' src={Icon} alt="" />
-              </div>
-              <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Whats’App</p>
-            </div>
+          <div className='grid grid-cols-4 gap-[10px] py-[15px]'>
+            {fieldsIdDetail?.administrator?.whatsup &&
+              fieldsIdDetail?.administrator?.whatsup?.map((el, index) => {
+                return (
+                  <div key={index} className='flex flex-col items-center gap-1'>
+                    <NavLink target='_blank' to={`https://wa.me/${el}`} className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+                      <FaWhatsapp className='w-[24px] h-[24px]' />
+                    </NavLink>
+                    <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Whats’App</p>
+                  </div>
+                )
+              })}
+            {fieldsIdDetail?.administrator?.telegram &&
+              fieldsIdDetail?.administrator?.telegram?.map((el, index) => {
+                return (
+                  <div key={index} className='flex flex-col items-center gap-1'>
+                    <NavLink target='_blank' to={`https://t.me/${el}  `} className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+                      <FaTelegram className='w-[24px] h-[24px]' />
+                    </NavLink>
+                    <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Telegram</p>
+                  </div>
+                )
+              })}
+            {fieldsIdDetail?.administrator?.contact &&
+              fieldsIdDetail?.administrator?.contact?.map((el, index) => {
+                return (
+                  <div key={index} className='flex flex-col items-center gap-1'>
+                    <NavLink target='_blank' to={`tel:+${el}`} className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+                      <FaPhone className='w-[24px] h-[24px]' />
+                    </NavLink>
+                    <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Позвонить</p>
+                  </div>
+                )
+              })}
+            {fieldsIdDetail?.administrator?.instagram &&
+              fieldsIdDetail?.administrator?.instagram?.map((el, index) => {
+                return (
+                  <div key={index} className='flex flex-col items-center gap-1'>
+                    <NavLink target='_blank' to={`https://www.instagram.com/${el}/`} className='w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full'>
+                      <FaInstagram className='w-[24px] h-[24px]' />
+                    </NavLink>
+                    <p className='text-[13px] leading-[16px] text-[#222222]  font-normal'>Instagram</p>
+                  </div>
+                )
+              })}
           </div>
         </div>
       </div>

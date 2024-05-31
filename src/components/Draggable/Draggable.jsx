@@ -5,7 +5,6 @@ import { fetchBookings } from "../../store/slice/story";
 
 export default function Draggable({ data }) {
   const [storyId, setStoryId] = useState(null);
-  console.log(storyId, "storyId");
 
   const dispatch = useDispatch();
   const { bookings, status, error } = useSelector((state) => state.story);

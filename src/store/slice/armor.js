@@ -4,9 +4,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getFootballFieldsList = createAsyncThunk(
   "fields/getFootballFieldsList",
-  async (_, { rejectWithValue , dispatch}) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.get(`${Api}admin_api/football_fields_list/`, {
+      const response = await axios.get(`${Api}admin_api/football-field/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -33,14 +33,15 @@ export const getFootballFieldsId = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      
+
       return rejectWithValue(error.response.data);
-  }}
-) 
+    }
+  }
+)
 
 const initialState = {
   status: null,
-  footballFields: [], 
+  footballFields: [],
   fields: [],
   error: null,
 };
@@ -61,8 +62,8 @@ export const armorSlice = createSlice({
       .addCase(getFootballFieldsList.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload;
-        console.error("Error fetching football fields:", action.payload); 
-      })    
+        console.error("Error fetching football fields:", action.payload);
+      })
       .addCase(getFootballFieldsId.pending, (state) => {
         state.status = "loading";
       })
@@ -73,7 +74,7 @@ export const armorSlice = createSlice({
       .addCase(getFootballFieldsId.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload;
-        console.error("Error fetching football fields:", action.payload); 
+        console.error("Error fetching football fields:", action.payload);
       })
 
   },

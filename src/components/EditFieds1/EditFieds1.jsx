@@ -19,9 +19,8 @@ function Fieds1({ page, setPage }) {
             {[1, 2, 3, 4, 5].map((res, i) => {
               return (
                 <div
-                  className={`flex justify-start gap-[8px] ${
-                    res === 2 ? "items-start" : "items-center"
-                  }`}
+                  className={`flex justify-start gap-[8px] ${res === 2 ? "items-start" : "items-center"
+                    }`}
                 >
                   <input
                     type="checkbox"
@@ -41,9 +40,8 @@ function Fieds1({ page, setPage }) {
                             Выберите
                           </span>
                           <HiOutlineChevronDown
-                            className={`duration-300 ${
-                              accordion ? "rotate-180" : "rotate-0"
-                            }`}
+                            className={`duration-300 ${accordion ? "rotate-180" : "rotate-0"
+                              }`}
                           />
                         </div>
                         {accordion && (
@@ -167,9 +165,8 @@ function Fieds1({ page, setPage }) {
                       Добавьте типы футбольных полей
                     </p>
                     <HiOutlineChevronDown
-                      className={`duration-300 w-6 h-6 ${
-                        select ? "rotate-180 " : "rotate-0"
-                      } `}
+                      className={`duration-300 w-6 h-6 ${select ? "rotate-180 " : "rotate-0"
+                        } `}
                     />
                   </div>
                   {select && (
@@ -178,9 +175,8 @@ function Fieds1({ page, setPage }) {
                         {[1, 2, 3, 4].map((item) => {
                           return (
                             <div
-                              className={`flex items-center justify-between gap-2  py-[5px] px-[17px] rounded-[8px] ${
-                                item === 1 ? "bg-[#F3F3F3]" : ""
-                              }`}
+                              className={`flex items-center justify-between gap-2  py-[5px] px-[17px] rounded-[8px] ${item === 1 ? "bg-[#F3F3F3]" : ""
+                                }`}
                             >
                               <span className="text-[15px] leading-[26px] text-[#222222] font-normal">
                                 Мини поле

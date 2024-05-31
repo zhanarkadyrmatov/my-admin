@@ -1,10 +1,10 @@
 import axios from "axios";
-import {  createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 
 const initialState = {
   status: null,
-  bookings: null, 
+  bookings: null,
   error: null,
 };
 

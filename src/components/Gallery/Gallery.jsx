@@ -1,64 +1,33 @@
-import { Masonry } from "react-masonry";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import { useSelector } from 'react-redux';
 export default function Gallery() {
+  const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
+
   return (
-    <div className="mb:p-10">
-      <div className="columns-1 gap-[5px] lg:gap-[8px] sm:columns-1 lg:columns-2 xl:columns-3 [&>img:not(:first-child)]:mt-1 md:[&>img:not(:first-child)]:mt-3">
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/ztpUS4N1xhY"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/mPFSPqZ007s"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/uPEnxrdSKIw"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/hFKZ5-0T9Ys"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/xoTt2fjs7d0"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/Vc2dD4157og"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/hqnQWmIt3cY"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/NTGg2rtWDwg"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/uyX3qAQhZVA"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/LV-NvICA-Gg"
-          alt=""
-        />
-        <img
-          className="rounded-[10px] w-full"
-          src="https://source.unsplash.com/0anRfqnZISI"
-          alt=""
-        />
-      </div>
-    </div>
+    <>
+      {fieldsIdDetail?.gallery_f_type?.length > 0 ? (
+        <Box >
+          <ImageList variant="masonry" cols={3} gap={8}>
+            {fieldsIdDetail?.gallery_f_type?.map((item) => (
+              <ImageListItem key={item.img}>
+                <img
+                  srcSet={`${item?.img}`}
+                  src={`${item?.img}`}
+                  alt={''}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Box>
+      ) : (
+        <div className='flex items-center justify-center my-[10%]'>
+          <p className='text-[20px] font-[500] text-[#000]'>Изображения отсутствуют</p>
+        </div>
+      )}
+    </>
   );
 }

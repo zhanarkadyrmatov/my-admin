@@ -19,15 +19,18 @@ import Addfootball from "./pages/football/Addfootball";
 import FiledFoot from "./components/FiledFoot/FiledFoot";
 import { useCollapsed } from "./hooks/useCollapsed";
 import Wallet from "./pages/wallet/Wallet";
+import ReserveModal from "./components/ReserveModal/ReserveModal";
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [openSetting, setOpenSetting] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false)
+  const [reserve, setReserve] = useState(false)
 
   return (
     <>
-      <div className={`flex ${darkMode && "dark"} `}>
+      {reserve && <ReserveModal />}
+      <div className={`flex`}>
         <Playground
           collapsed={collapsed}
           setCollapsed={setCollapsed}

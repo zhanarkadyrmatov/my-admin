@@ -35,6 +35,8 @@ export default function Schedule() {
     },
   ]
 
+  console.log(fieldsIdDetail)
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[20px]">
       <div className="">
@@ -47,10 +49,8 @@ export default function Schedule() {
           <div className="flex flex-col gap-[30px]">
             {fieldsIdDetail?.schedule?.map((item, index) => {
               const isLastItem = index !== fieldsIdDetail?.schedule?.length - 1;
-              const weekDay = week?.find((el) => el.id === item?.id)
-
-              console.log(weekDay, 'weekDay')
-
+              const weekDay = week?.find((el) => el.id === item?.day_of_week)
+              console.log(weekDay)
               return (
                 <div className="flex items-center gap-3 last:text-[#DF2323]">
                   <div className="w-[12px] h-[12px] bg-[#222222] rounded-full flex justify-center items-start">

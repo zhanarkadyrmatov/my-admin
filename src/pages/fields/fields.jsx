@@ -16,10 +16,7 @@ export default function Fields() {
   useEffect(() => {
     dispatch(fetchFields());
   }, [dispatch]);
-
   const { fields } = useSelector((state) => state.fields);
-
-  console.log(fields, 'fields')
   const [pages, setPages] = useState("home");
   const [fieldDelete, setFieldDelete] = useState(false);
 
@@ -42,17 +39,15 @@ export default function Fields() {
           <div className="flex items-center gap-x-[12px]">
             <div
               onClick={() => setPages("about")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
-                pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"
-              }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"
+                }`}
             >
               <Element3 pages={pages} />
             </div>
             <div
               onClick={() => setPages("home")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
-                pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"
-              }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"
+                }`}
             >
               <Elemnt3 pages={pages} />
             </div>
@@ -77,7 +72,7 @@ export default function Fields() {
                 "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[20px] 3xl:grid-cols-4"
               }
             >
-              {fields.map((item) => (
+              {fields?.map((item) => (
                 <BookId
                   fieldDelete={fieldDelete}
                   setFieldDelete={setFieldDelete}

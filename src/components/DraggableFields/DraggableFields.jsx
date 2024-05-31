@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoPlus } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBookings } from "../../store/slice/story";
 
 export default function DraggableFields() {
+  const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
+  const dispatch = useDispatch();
+  const { bookings, status, error } = useSelector((state) => state.story);
+
+  console.log(bookings);
+  useEffect(() => {
+    dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
+  }, [])
+
 
   const redireact = () => {
     window.location.href = "/calendary/book";
   };
+
+
   return (
     <div >
       <div className={'bg-[#fff] h-[82vh] p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]'}>
@@ -15,9 +28,11 @@ export default function DraggableFields() {
               Calendar
             </h4>
             <select name="" id="">
-              <option value="">Today</option>
-              <option value="">Tomorrow</option>
-              <option value="">This Week</option>
+              {fieldsIdList?.football_field_type?.map((item) => {
+                return (
+                  <option onClick={() => dispatch(fetchBookings(item?.id))} key={item.id} value="">{item?.name}</option>
+                )
+              })}
             </select>
           </div>
         </div>
@@ -27,7 +42,7 @@ export default function DraggableFields() {
             <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">День</td>
             <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">Время</td>
           </tr>
-          {[1, 2, 3, 4, 5, 6, 7, 8, , 3, 45, 5, 6, 7, 8, 9, 0, 0, 9].map(
+          {bookings?.map(
             (res, i) => (
               <tr key={i} className={'border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 '}>
                 <td className={'text-[#404040] text-[14px] leading-[19px] font-normal col-span-2'}>John Mathew Kayne</td>

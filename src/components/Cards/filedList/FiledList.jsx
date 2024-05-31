@@ -30,7 +30,7 @@ export default function FiledList({
         </div>
         <div className="col-span-2 flex items-center gap-[2px]">
           <p className="text-base font-normal leading-4 tracking-tighter text-left whitespace-nowrap">
-            {item?.avg_rating} ({item?.rating_num})
+            {item?.avg_rating?.toFixed(1)} ({item?.rating_num})
           </p>
           <div className="flex items-center">
             {" "}
