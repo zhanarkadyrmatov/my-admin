@@ -27,7 +27,7 @@ export default function Addfootball() {
   //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
-  const { advantages, locationsCities, sportComplexList, isCreate,creacteFoobolStatus, status } =
+  const { advantages, locationsCities, sportComplexList, isCreate, creacteFoobolStatus, status } =
     useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
   const [selectedValue, setSelectedValue] = useState(null);
@@ -58,20 +58,19 @@ export default function Addfootball() {
   //WhatsApp
   const [whatsappVlaue, setWhatsappVlaue] = useState("");
   const [whatsappList, setWhatsappList] = useState([]);
+
+
   const handleAddWhatsappList = () => {
     if (whatsappVlaue?.length < 17) return;
     setWhatsappList([...whatsappList, whatsappVlaue]);
     setWhatsappVlaue("");
   };
+
+
   //telegram
   const [telegramVlaue, setTelegramVlaue] = useState("");
   const [telegramList, setTelegramList] = useState([]);
   const [errorList, setErrorList] = useState([]);
-  const handleAddTelegramList = () => {
-    if (telegramVlaue?.length < 17) return;
-    setTelegramList([...telegramList, telegramVlaue]);
-    setTelegramVlaue("");
-  };
 
   //Номер телефона
   const [phoneValue, setPhoneValue] = useState("");
@@ -81,9 +80,9 @@ export default function Addfootball() {
     setPhoneList([...phoneList, phoneValue]);
     setPhoneValue("");
   };
-  const [advantagesList , setAdvantagesList] = useState([]);
-const [complex_type , setComplex_type] = useState();
-console.log(complex_type , 'test');
+  const [advantagesList, setAdvantagesList] = useState([]);
+  const [complex_type, setComplex_type] = useState();
+
 
 
   //ФИО администратора*
@@ -121,9 +120,7 @@ console.log(complex_type , 'test');
       fromData.append("main_foto", image);
     })
     fromData.append("advantages", data.advantages);
-    fromData.append("sport_complex_type"  , data.sport_complex_type);
-console.log(data.sport_complex_type,"complex_type");
-
+    fromData.append("sport_complex_type", data.sport_complex_type);
 
     for (const [key, value] of Object.entries(data)) {
       if (!value) {
@@ -133,21 +130,17 @@ console.log(data.sport_complex_type,"complex_type");
     if (Object.keys(errors).length > 0) {
       setErrorList(errors);
       console.log(errors, "errors");
-      return true; // Indicate errors exist
+      return true;
     }
     //
-    console.log(data, 'data');
 
     dispatch(postAdvantages(fromData));
   };
   const goToPage = (pageName) => {
-     setPage(pageName);
-//asdasdasd
+
     handlerPostCreacteFoobolField();
   };
-  const handleRadioChange = (e, res) => {
-    setSelectedValue(res.name);
-  };
+
   console.log(advantages, "advantages");
 
   const [administratorList, setAdministratorList] = useState([
@@ -159,27 +152,28 @@ console.log(data.sport_complex_type,"complex_type");
   ]);
 
 
-  const handleAdvantages = (e, res) => {
-    console.log(e.target.value,"advantagesList")
-    const uniqueSet = new Set();
-    const filteredArray = advantagesList.filter(item => {
-      if (!uniqueSet.has(item)) {  
-        uniqueSet.add(item);
-        return true;              
+  const handleAdvantages = (data, isChecked) => {
+    const resId = data[1];
+    setAdvantagesList(prevList => {
+      if (isChecked) {
+        return prevList.includes(resId) ? prevList : [...prevList, resId];
+      } else {
+        return prevList.filter(id => id !== resId);
       }
-      return false;                
     });
-    if (!uniqueSet.has(res)) {
-      filteredArray.push(res);
+  };
+
+  console.log(advantagesList, "advantagesList");
+
+  useEffect(() => {
+    if (isCreate == false) {
+
+      setPage("about");
     }
-    setAdvantagesList(filteredArray);
-   };
-  
-  console.log(sportComplexList, "advantagesList");
- 
+  }, [isCreate])
 
   if (isCreate === true) {
-    return <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi odio dolorum aliquam maiores ex corporis. Obcaecati dolore culpa, ullam ipsa, consequuntur inventore eos, consequatur illo a autem reiciendis enim quis.</div>
+    return <div> test</div>
   }
   return (
     <>
@@ -206,14 +200,17 @@ console.log(data.sport_complex_type,"complex_type");
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-               <div className={s.checkboxList}>
-                 {advantages?.map((res, i) => {
+              <div className={s.checkboxList}>
+                {advantages?.map((res, i) => {
                   return (
                     <div className={s.checkbox} key={i}>
                       <div className="flex gap-[5px] w-full flex-col">
                         <div className="flex gap-[10px] w-full">
-                          <input 
-                            onChange={(e) => handleAdvantages(e)}
+                          <input
+                            onChange={(e) => {
+                              const data = [e.target.name, res.id];
+                              handleAdvantages(data, e.target.checked); // Pass checked state
+                            }}
                             name={res.id}
                             type="checkbox"
                             className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
@@ -356,27 +353,27 @@ console.log(data.sport_complex_type,"complex_type");
                   </div>
                 </div>
                 <div className="grid gap-y-[8px] ">
-                <h4>Выберите тип</h4>
-                <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {sportComplexList?.map((res, i) => (
-                    <button
-                      key={i}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                    >
-                      <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                        {res?.title}
-                      </h4>
-                      <input
-                        onChange={(e) => setComplex_type(res.id) }
-                        name="myRadio"
-                        type="radio"
-                        className="w-[18px] h-[18px]"
-                      />
-                    </button>
-                  ))}
+                  <h4>Выберите тип</h4>
+                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                    {sportComplexList?.map((res, i) => (
+                      <button
+                        key={i}
+                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
+                      >
+                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
+                          {res?.title}
+                        </h4>
+                        <input
+                          onChange={(e) => setComplex_type(res.id)}
+                          name="myRadio"
+                          type="radio"
+                          className="w-[18px] h-[18px]"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                </div>
-               
+
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите город </h4>
                   {errorList?.city && <Pe>{errorList?.city}</Pe>}

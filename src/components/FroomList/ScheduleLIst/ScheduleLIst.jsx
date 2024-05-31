@@ -49,6 +49,7 @@ const ScheduleLIst = () => {
             checkbox: false
         }
     )
+    const data = {monday, tuesday, wednesday, thursday, friday, saturday, sunday}
     return (
         <div className={s.Froom}>
             <div className={s.dya}>
@@ -91,7 +92,6 @@ const ScheduleLIst = () => {
                     <input onChange={(e) => setThursday({...thursday, checkbox: e.target.checked})} checked={thursday.checkbox} type="checkbox" />
                 </span>
             </div>
-            
             <div className={s.dya}>
                 <p>Пятница</p>
                 <span>

@@ -102,7 +102,7 @@ const advantagesSlice = createSlice({
         advantages: null,
         status: null,
         error: null,
-        isCreate: false,
+        isCreate: null,
         locationsCities: null,
         creacteFoobolStatus: null,
         sportComplexList: null,
@@ -133,15 +133,15 @@ const advantagesSlice = createSlice({
                 state.error = action.payload;
                 console.error("Error fetching advantages:", action.payload);
             })
-            .addCase(createFoobolField.pending, (state) => {
+            .addCase(postAdvantages.pending, (state) => {
                 state.creacteFoobolStatus = "loading";
                 state.isCreate = true;
             })
-            .addCase(createFoobolField.fulfilled, (state, action) => {
+            .addCase(postAdvantages.fulfilled, (state, action) => {
                 state.creacteFoobolStatus = "fulfilled";
                 state.isCreate = false;
             })
-            .addCase(createFoobolField.rejected, (state, action) => {
+            .addCase(postAdvantages.rejected, (state, action) => {
                 state.creacteFoobolStatus = "rejected";
                 state.error = action.payload;
                 state.isCreate = false;
