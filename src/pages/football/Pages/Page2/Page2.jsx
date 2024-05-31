@@ -9,6 +9,7 @@ import Time from "../../../../components/Cards/time/Time";
 import { AiOutlineClose } from "react-icons/ai";
 import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
+import ScheduleLIst from "../../../../components/FroomList/ScheduleLIst/ScheduleLIst";
 
 const Page2 = () => {
   ///dasdsadasd
@@ -72,25 +73,7 @@ const Page2 = () => {
     },
   ];
 
-  const TypeList = [
-    {
-      name: "Стадион",
-      id: "1",
-      isAcctive: true,
-    },
-    {
-      name: "Мини поле",
-      id: "2",
-      isAcctive: false,
-    },
-    {
-      name: "Площадка",
-      id: "3",
-      isAcctive: false,
-    },
-  ];
-
-
+  const  [newName, setNewName] = useState();
   const [administratorList, setAdministratorList] = useState([
     { name: "Erik", id: 1, type: "Менеджер " },
     { name: "john", id: 2, type: "Админ" },
@@ -155,8 +138,10 @@ const Page2 = () => {
                 <p>Название </p>
                 <div  className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
                 <input
-                className="bg-[#F0F0F0] w-fufll"
-                
+                onChange={(e) => setNewName(e.target.value)}
+                value={newName}
+                className="bg-[#F0F0F0] w-fill"
+                 style={{width:'100%' , border:'none' , outline:'none'}} 
                 placeholder="Название"
               />
                 </div>
@@ -171,6 +156,7 @@ const Page2 = () => {
                       }}
                       value={priceDay}
                       className="bg-[#F0F0F0] w-fufll"
+                      style={{width:'100% ', border:'none' , outline:'none'}}
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -188,6 +174,7 @@ const Page2 = () => {
                       }}
                       value={priceNight}
                       className="bg-[#F0F0F0] w-full"
+                      style={{width:'100% ', border:'none' , outline:'none'}}
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -197,7 +184,6 @@ const Page2 = () => {
                   </div>
                 </div>
               </div>
-             
               <div className="grid gap-y-[8px]">
                 <h5>Описание футбольного поля</h5>
                 <textarea
@@ -220,13 +206,7 @@ const Page2 = () => {
               <div className="p-[20px] border-b border-gray-300">
                 <h4>График работы</h4>
               </div>
-              <div className="p-[20px] grid gap-y-[8px] ">
-                {workScheduleList.map((item, i) => (
-                  <div key={i}>
-                    <Time res={item} />
-                  </div>
-                ))}
-              </div>
+              <ScheduleLIst/>
             </div>
             <div className=" bg-[#fff] rounded-[10px]">
               <div className="p-[20px]  border-b border-gray-300">
