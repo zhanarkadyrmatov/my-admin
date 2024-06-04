@@ -10,8 +10,11 @@ import { AiOutlineClose } from "react-icons/ai";
 import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
 import ScheduleLIst from "../../../../components/FroomList/ScheduleLIst/ScheduleLIst";
+import { useSelector } from "react-redux";
 
 const Page2 = () => {
+  const { advantages, } =
+    useSelector((state) => state.createFoobol);
   ///dasdsadasd
   ///wwqeqeqweqweq
   //Дневная цена
@@ -47,6 +50,8 @@ const Page2 = () => {
       endTime: "19:00",
     },
   ]);
+  //Преимущества
+  const [advantagesList, setAdvantagesList] = useState([]);
 
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImages1, setSelectedImages1] = useState([]);
@@ -73,15 +78,34 @@ const Page2 = () => {
     },
   ];
 
-  const  [newName, setNewName] = useState();
-  const [administratorList, setAdministratorList] = useState([
-    { name: "Erik", id: 1, type: "Менеджер " },
-    { name: "john", id: 2, type: "Админ" },
-    { name: "alex", id: 3, type: "Админ" },
-    { name: "jane", id: 4, type: "Техник" },
-    { name: "jane", id: 5, type: "Админ" },
-  ]);
+  const [newName, setNewName] = useState();
 
+
+
+  const handleAdvantages = (data, isChecked) => {
+    const resId = data[1];
+    setAdvantagesList(prevList => {
+      if (isChecked) {
+        // Check if the item is already in the list
+        if (!prevList.some(item => item.advantages === resId)) {
+          // Add the new item to the list with an empty description
+          return [...prevList, { advantages: resId, description: "" }];
+        }
+        return prevList;
+      } else {
+        // Remove the item from the list
+        return prevList.filter(item => item.advantages !== resId);
+      }
+    });
+  };
+
+  const updateDescription = (resId, newDescription) => {
+    setAdvantagesList(prevList =>
+      prevList.map(item =>
+        item.advantages === resId ? { ...item, description: newDescription } : item
+      )
+    );
+  };
   const handleGetInfo = () => {
     const data = {
       location,
@@ -136,14 +160,14 @@ const Page2 = () => {
             <div className="p-[20px] grid gap-y-[20px]">
               <div className="grid gap-y-[8px] ">
                 <p>Название </p>
-                <div  className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
-                <input
-                onChange={(e) => setNewName(e.target.value)}
-                value={newName}
-                className="bg-[#F0F0F0] w-fill"
-                 style={{width:'100%' , border:'none' , outline:'none'}} 
-                placeholder="Название"
-              />
+                <div className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                  <input
+                    onChange={(e) => setNewName(e.target.value)}
+                    value={newName}
+                    className="bg-[#F0F0F0] w-fill"
+                    style={{ width: '100%', border: 'none', outline: 'none' }}
+                    placeholder="Название"
+                  />
                 </div>
               </div>
               <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1">
@@ -156,7 +180,7 @@ const Page2 = () => {
                       }}
                       value={priceDay}
                       className="bg-[#F0F0F0] w-fufll"
-                      style={{width:'100% ', border:'none' , outline:'none'}}
+                      style={{ width: '100% ', border: 'none', outline: 'none' }}
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -174,7 +198,7 @@ const Page2 = () => {
                       }}
                       value={priceNight}
                       className="bg-[#F0F0F0] w-full"
-                      style={{width:'100% ', border:'none' , outline:'none'}}
+                      style={{ width: '100% ', border: 'none', outline: 'none' }}
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -199,6 +223,47 @@ const Page2 = () => {
                 ></textarea>
               </div>
             </div>
+            <div className="w-full border-b border-solid border-gray-200 p-[20px]">
+              <h4>Преимущества</h4>
+            </div>
+            <div className={`${s.checkboxList} `}
+              style={{ padding: '20px !important' }}
+            >
+              {advantages?.map((res, i) => {
+                const isChecked = advantagesList.some(item => item.advantages === res.id);
+                const currentItem = advantagesList.find(item => item.advantages === res.id) || {};
+                return (
+                  <div className={s.checkbox} key={i}>
+                    <div className="flex gap-[5px] w-full flex-col">
+                      <div className="flex gap-[10px] w-full">
+                        <input
+                          onChange={(e) => {
+                            const data = [e.target.name, res.id];
+                            handleAdvantages(data, e.target.checked); // Pass checked state
+                          }}
+                          name={res.id}
+                          type="checkbox"
+                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                        />
+                        <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
+                          {res?.name}
+                        </label>
+                      </div>
+                    </div>
+                    {isChecked && (
+                      <div className={s.checkboxInput}>
+                        <input
+                          type="text"
+                          placeholder="Добавить описание"
+                          value={currentItem.description || ""}
+                          onChange={(e) => updateDescription(res.id, e.target.value)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
           </div>
           <div className="grid gap-y-[40px] rounded-[10px]">
@@ -206,7 +271,7 @@ const Page2 = () => {
               <div className="p-[20px] border-b border-gray-300">
                 <h4>График работы</h4>
               </div>
-              <ScheduleLIst/>
+              <ScheduleLIst />
             </div>
             <div className=" bg-[#fff] rounded-[10px]">
               <div className="p-[20px]  border-b border-gray-300">
@@ -263,6 +328,7 @@ const Page2 = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
