@@ -44,7 +44,7 @@ export const fetchFieldsIdDetail = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     console.log(id)
     try {
-      const detail = await axios.get(`${Api}admin_api/football_field_type_detail/${id}/`, {
+      const detail = await axios.get(`${Api}admin_api/football-field-type/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

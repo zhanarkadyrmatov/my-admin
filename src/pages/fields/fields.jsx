@@ -4,7 +4,6 @@ import { GoPlus } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFields } from "../../store/slice/fields-slice";
 import { NavLink } from "react-router-dom";
-import vertival from "../../img/vertical.svg";
 import FiledList from "../../components/Cards/filedList/FiledList";
 import Element3 from "../../img/element3";
 import Elemnt3 from "../../img/Elemnt3";
@@ -13,9 +12,8 @@ import FieldsDelete from "../../components/Modal/FieldsDelete";
 export default function Fields() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchFields());
-  }, [dispatch]);
+
+
   const { fields } = useSelector((state) => state.fields);
   const [pages, setPages] = useState("home");
   const [fieldDelete, setFieldDelete] = useState(false);

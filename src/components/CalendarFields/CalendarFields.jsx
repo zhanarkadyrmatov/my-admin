@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const events = [
   { title: "Meeting", start: new Date() },
@@ -25,6 +27,28 @@ const events = [
 ];
 
 export default function CalendarFields() {
+
+  const { bookings, status, error } = useSelector((state) => state.story);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    if (bookings) {
+      setEvents(
+        bookings.map((item) => {
+          return {
+            title: item?.organizer_name,
+            start: item?.start_time,
+            end: item?.end_time,
+            date: item?.booking_date
+          };
+        })
+      );
+    }
+  }, [bookings]);
+
+
+  console.log(events, "events");
+
   return (
     <div
       className={
@@ -64,12 +88,7 @@ export default function CalendarFields() {
 function renderEventContent(eventInfo) {
   console.log(eventInfo);
   return (
-    <div
-      style={{
-        backgroundColor: "#fafafa",
-        color: "#fff",
-      }}
-    >
+    <div>
       <b>{eventInfo.timeText}</b>
       <i>{eventInfo.event.title}</i>
     </div>

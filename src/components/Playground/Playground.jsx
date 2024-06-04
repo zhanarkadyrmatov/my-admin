@@ -90,7 +90,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
               >
                 Главная
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 className={`text-[18px] text-[#737B8B]  ${isActive("/dashboard") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
                   }
@@ -100,7 +100,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 onClick={() => setToggled(false)}
               >
                 Dashboard
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  ${isActive("/calendary") &&
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"

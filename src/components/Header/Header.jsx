@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BiMessageDetail } from "react-icons/bi";
-import { GoBell, GoPlus } from "react-icons/go";
-import { IoIosSearch } from "react-icons/io";
+import { GoBell } from "react-icons/go";
 import { FaArrowRightLong, FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { SlSettings } from "react-icons/sl";
 import { FaBars } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../store/slice/user.slice";
-import Messages from "../Messages/Messages";
-import Notification from "../Cards/notification/Notification";
-import Setting from "../Cards/setting/Setting";
-import blockimage from "../../img/blockimage.svg";
-import edit from "../../img/edit.svg";
-import { NavLink } from "react-router-dom";
-import trash from "../../img/trash.svg";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
+
+import { fetchFields } from "../../store/slice/fields-slice";
 
 export default function Header({
   setCollapsed,
@@ -26,12 +17,16 @@ export default function Header({
   toggled,
   setDarkMode,
   darkMode,
+  setReserve,
+  reserve
 }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(fetchFields());
   }, []);
+
 
   const [open, setOpen] = useState(false);
   const [openMessages, setOpenMessages] = useState(false);
@@ -86,7 +81,7 @@ export default function Header({
           </div>
           <div className="flex items-center lg:gap-5 gap-3">
             <button
-              onClick={() => handleOpenModal()}
+              onClick={() => setReserve(!reserve)}
               className="flex items-center gap-2 px-3 py-2  bg-[#1C1C1C0D] rounded-[8px] duration-300 hover:bg-[#b3b1b1] "
             >
               <span className="font-normal hidden sm:block  text-[14px] leading-[20px] text-[#1C1C1C]">
