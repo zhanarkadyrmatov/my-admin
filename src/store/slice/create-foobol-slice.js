@@ -55,28 +55,40 @@ export const getLocationsCities = createAsyncThunk(
     }
 );
 
-
-
 export const postAdvantages = createAsyncThunk(
     "advantages/postAdvantages",
     async (data, { rejectWithValue }) => {
+        console.log(data ,'datatwtat');
+
         try {
             const response = await axios.post(
                 `${Api}admin_api/football-field/`,
-                data,
-                {
+              data.formData,
+                {  
                     headers: {
-                        "Content-Type": "multipart/form-data",
+                        "Content-Type": "multipart/form-data", // Используем application/json, если не загружаем файлы
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 }
             );
+        
+            console.log(response.data, "response.data");
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            if (error.response) {
+                console.error("Ошибка сервера:", error.response.data);
+                return rejectWithValue(error.response.data);
+            } else if (error.request) {
+                console.error("Запрос не отправлен:", error.request);
+                return rejectWithValue({ error: "Network error" });
+            } else {
+                console.error("Ошибка:", error.message);
+                return rejectWithValue({ error: error.message });
+            }
         }
     }
 );
+
 export const getSportComplexList = createAsyncThunk(
     "advantages/getSportComplexList",
     async (_, { rejectWithValue }) => {

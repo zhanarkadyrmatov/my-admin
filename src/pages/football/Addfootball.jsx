@@ -59,7 +59,6 @@ export default function Addfootball() {
   const [whatsappVlaue, setWhatsappVlaue] = useState("");
   const [whatsappList, setWhatsappList] = useState([]);
 
-
   const handleAddWhatsappList = () => {
     if (whatsappVlaue?.length < 17) return;
     setWhatsappList([...whatsappList, whatsappVlaue]);
@@ -68,18 +67,9 @@ export default function Addfootball() {
 
 
   //telegram
-  const [telegramVlaue, setTelegramVlaue] = useState("");
-  const [telegramList, setTelegramList] = useState([]);
   const [errorList, setErrorList] = useState([]);
 
-  //Номер телефона
-  const [phoneValue, setPhoneValue] = useState("");
-  const [phoneList, setPhoneList] = useState([]);
-  const handleAddPhoneList = () => {
-    if (phoneValue?.length < 17) return;
-    setPhoneList([...phoneList, phoneValue]);
-    setPhoneValue("");
-  };
+ 
   const [advantagesList, setAdvantagesList] = useState([]);
   const [complex_type, setComplex_type] = useState();
 
@@ -90,52 +80,74 @@ export default function Addfootball() {
   const handlerPostCreacteFoobolField = () => {
     const errors = {};
 
-    const data = {
-      name: newName,
-      description: description,
-      administrator: 1,
-      address: address,
-      city: locationsCitiesValue,
-      district: district,
+    // Обработка advantagesList для удаления пустых описаний
+    const processedAdvantagesList = advantagesList?.map(item => {
+        if (item.description === "") {
+            return { advantages: item.name }; 
+        }
+        return item; 
+    });
 
-      latitude: mapLatLon?.[0],
-      longitude: mapLatLon?.[1],
-      advantages: advantagesList,
-      sport_complex_type: complex_type
+   
+    const data = {
+        name: newName,
+        description: description,
+        administrator: 1,
+        address: address,
+        city: locationsCitiesValue,
+        district: district,
+        latitude: mapLatLon?.[0],
+        longitude: mapLatLon?.[1],
+        advantages: processedAdvantagesList,
+        sport_complex_type: complex_type
     };
 
-    const fromData = new FormData();
-    fromData.append("name", data.name);
-    fromData.append("description", data.description);
-    fromData.append("administrator", data.administrator);
-    fromData.append("address", data.address);
-    fromData.append("city", data.city);
-    fromData.append("district", data.district);
-    fromData.append("latitude", data.latitude);
-    fromData.append("longitude", data.longitude);
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("administrator", data.administrator);
+    formData.append("address", data.address);
+    formData.append("city", data.city);
+    formData.append("district", data.district);
+    formData.append("latitude", data.latitude);
+    formData.append("longitude", data.longitude);
+
     ImageFile?.forEach((image, index) => {
-      fromData.append("back_ground_foto", image);
-    })
-    selectedIamgeFile?.forEach((image, Index) => {
-      fromData.append("main_foto", image);
-    })
-    fromData.append("advantages", data.advantages);
-    fromData.append("sport_complex_type", data.sport_complex_type);
+        formData.append("back_ground_foto", image);
+    });
 
+    selectedIamgeFile?.forEach((image, index) => {
+        formData.append("main_foto", image);
+    });
+    // Обработка advantages:
+    advantagesList.forEach((item, index) => {
+      formData.append(`advantages[${index}][advantages]`, item.advantages);
+      formData.append(`advantages[${index}][description]`, item.description);
+    });
+
+
+    formData.append("sport_complex_type", data.sport_complex_type);
+
+    // Валидация данных
     for (const [key, value] of Object.entries(data)) {
-      if (!value) {
-        errors[key] = "Обязательное поле  *";
-      }
+        if (!value && value !== 0 && key !== 'advantages') { // Исключаем advantages из валидации
+            errors[key] = "Обязательное поле *";
+        }
     }
-    if (Object.keys(errors).length > 0) {
-      setErrorList(errors);
-      console.log(errors, "errors");
-      return true;
-    }
-    //
 
-    dispatch(postAdvantages(fromData));
+    if (Object.keys(errors).length > 0) {
+        setErrorList(errors);
+        console.log(errors, "errors");
+        return; // Останавливаем выполнение, если есть ошибки
+    }
+
+    const newData = {
+      data: data,
+      formData:formData
+    }
+    dispatch(postAdvantages(newData));
   };
+  
   const goToPage = (pageName) => {
 
     handlerPostCreacteFoobolField();
@@ -156,27 +168,35 @@ export default function Addfootball() {
     const resId = data[1];
     setAdvantagesList(prevList => {
       if (isChecked) {
-        return prevList.includes(resId) ? prevList : [...prevList, resId];
+        // Check if the item is already in the list
+        if (!prevList.some(item => item.advantages === resId)) {
+          // Add the new item to the list with an empty description
+          return [...prevList, { advantages: resId, description: "" }];
+        }
+        return prevList;
       } else {
-        return prevList.filter(id => id !== resId);
+        // Remove the item from the list
+        return prevList.filter(item => item.advantages !== resId);
       }
     });
+  };
+  
+  const updateDescription = (resId, newDescription) => {
+    setAdvantagesList(prevList =>
+      prevList.map(item =>
+        item.advantages === resId ? { ...item, description: newDescription } : item
+      )
+    );
   };
 
   console.log(advantagesList, "advantagesList");
 
-  useEffect(() => {
-    if (isCreate == false) {
-
-      setPage("about");
-    }
-  }, [isCreate])
 
   if (isCreate === true) {
     return <div> test</div>
   }
   return (
-    <>
+    <div className="mx-[20px] mt-[90px]">
       {page === "home" && (
         <div className="mt-[50px]">
           <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
@@ -202,13 +222,19 @@ export default function Addfootball() {
               </div>
               <div className={s.checkboxList}>
                 {advantages?.map((res, i) => {
+                  const isChecked = advantagesList.some(item => item.advantages === res.id);
+                  const currentItem = advantagesList.find(item => item.advantages === res.id) || {};
+            
+                  
                   return (
+
                     <div className={s.checkbox} key={i}>
                       <div className="flex gap-[5px] w-full flex-col">
                         <div className="flex gap-[10px] w-full">
                           <input
                             onChange={(e) => {
                               const data = [e.target.name, res.id];
+
                               handleAdvantages(data, e.target.checked); // Pass checked state
                             }}
                             name={res.id}
@@ -218,8 +244,19 @@ export default function Addfootball() {
                           <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                             {res?.name}
                           </label>
+                       
                         </div>
                       </div>
+                      {isChecked && (
+                        <div className={s.checkboxInput}>
+                          <input
+                            type="text"
+                            placeholder="Добавить описание"
+                            value={currentItem.description || ""}
+                            onChange={(e) => updateDescription(res.id, e.target.value)}
+                          />
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -447,7 +484,7 @@ export default function Addfootball() {
         </div>
       )}
       {page === "about" && <Page2 />}
-    </>
+    </div>
   );
 }
 
