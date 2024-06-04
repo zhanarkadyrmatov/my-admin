@@ -5,7 +5,6 @@ import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 
 import s from "../../page.module.scss";
-import Time from "../../../../components/Cards/time/Time";
 import { AiOutlineClose } from "react-icons/ai";
 import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
