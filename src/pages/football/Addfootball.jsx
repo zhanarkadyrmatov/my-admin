@@ -25,9 +25,9 @@ export default function Addfootball() {
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
     }
   };
-  
-  
-  
+
+
+
   //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
@@ -42,23 +42,22 @@ export default function Addfootball() {
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
 
-  const [foodbolId , setFoodbolId ] = useState(null)
-  
+  const [foodbolId, setFoodbolId] = useState(null)
+
 
   const handlerImage = (event) => {
-
     const files = Array.from(event.target.files);
     setImageFile(files);
     const url = URL.createObjectURL(event.target.files[0]);
     if (event.target.files[0]) {
       setImageUrl(url);
     }
-  }
+  };
   const [mapLatLon, setMapLatLon] = useState();
   useEffect(() => {
     dispatch(getAdvantages());
     dispatch(getLocationsCities());
-    dispatch(getSportComplexList())
+    dispatch(getSportComplexList());
   }, []);
 
   //WhatsApp
@@ -71,7 +70,6 @@ export default function Addfootball() {
     setWhatsappVlaue("");
   };
 
-
   //telegram
   const [errorList, setErrorList] = useState([]);
 
@@ -79,9 +77,6 @@ export default function Addfootball() {
   const [advantagesList, setAdvantagesList] = useState([]);
   const [complex_type, setComplex_type] = useState();
 
-
-
-  //ФИО администратора*
   const [administratorValue, setAdministratorValue] = useState();
   const handlerPostCreacteFoobolField = () => {
     const errors = {};
@@ -124,14 +119,14 @@ export default function Addfootball() {
     });
     formData.append("sport_complex_type", data.sport_complex_type);
     for (const [key, value] of Object.entries(data)) {
-      if (!value && value !== 0 && key !== 'advantages') { 
+      if (!value && value !== 0 && key !== 'advantages') {
         errors[key] = "Обязательное поле *";
       }
     }
     if (Object.keys(errors).length > 0) {
       setErrorList(errors);
       console.log(errors, "errors");
-      return; 
+      return;
     }
 
     const newData = {
@@ -142,7 +137,6 @@ export default function Addfootball() {
   };
 
   const goToPage = (pageName) => {
-
     handlerPostCreacteFoobolField();
   };
 
@@ -156,10 +150,9 @@ export default function Addfootball() {
     { name: "jane", id: 5, type: "Админ" },
   ]);
 
-
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
-    setAdvantagesList(prevList => {
+    setAdvantagesList((prevList) => {
       if (isChecked) {
         // Check if the item is already in the list
         if (!prevList.some(item => item.advantages === resId)) {
@@ -190,7 +183,7 @@ export default function Addfootball() {
     }
   }, [isCreate]);
   if (isCreate === true) {
-    return <div> test</div>
+    return <div> test</div>;
   }
   return (
     <div className="mx-[20px] mt-[90px]">
@@ -282,7 +275,10 @@ export default function Addfootball() {
                     </div>
                     <div className="grid justify-items-center gap-y-[10px]">
                       <div className="w-full h-[150px]  flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
-                        <label htmlFor="uploa1d" className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer">
+                        <label
+                          htmlFor="uploa1d"
+                          className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer"
+                        >
                           <BiSolidCameraPlus size={30} />
                           <input
                             type="file"
@@ -299,15 +295,23 @@ export default function Addfootball() {
                     </div>
                     <div className="grid justify-items-center gap-y-[10px]">
                       <div className="w-full overflow-hidden h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
-                        <label htmlFor="upload" className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer">
-
-                          {imageUrl && <img style={{
-                            position: 'absolute',
-                            zIndex: 1,
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                          }} src={imageUrl} alt="" />}
+                        <label
+                          htmlFor="upload"
+                          className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer"
+                        >
+                          {imageUrl && (
+                            <img
+                              style={{
+                                position: "absolute",
+                                zIndex: 1,
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                              src={imageUrl}
+                              alt=""
+                            />
+                          )}
 
                           <BiSolidCameraPlus size={30} />
 
@@ -521,4 +525,3 @@ export default function Addfootball() {
 //   </button>
 // ))}
 // </div>
-

@@ -21,8 +21,8 @@ function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [openSetting, setOpenSetting] = useState(false)
-  const [reserve, setReserve] = useState(false)
+  const [openSetting, setOpenSetting] = useState(false);
+  const [reserve, setReserve] = useState(false);
 
 
   return (

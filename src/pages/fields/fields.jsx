@@ -18,6 +18,7 @@ export default function Fields() {
   const [pages, setPages] = useState("home");
   const [fieldDelete, setFieldDelete] = useState(false);
 
+  
   return (
     <>
       {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} />}
@@ -37,15 +38,17 @@ export default function Fields() {
           <div className="flex items-center gap-x-[12px]">
             <div
               onClick={() => setPages("about")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"
-                }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"
+              }`}
             >
               <Element3 pages={pages} />
             </div>
             <div
               onClick={() => setPages("home")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"
-                }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"
+              }`}
             >
               <Elemnt3 pages={pages} />
             </div>

@@ -2,16 +2,15 @@ import React from "react";
 import Icon from "../../img/star.svg";
 import { MdOutlineStar } from "react-icons/md";
 import { useSelector } from "react-redux";
-import moment from 'moment';
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
+import moment from "moment";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 
 export default function CustomerReviews() {
   const { fieldsIdList, fieldsComments } = useSelector((state) => state.fields);
   const formattedDate = (date) => {
-    return moment(date).format('DD.MM.YYYY   HH:mm')
-  }
-
+    return moment(date).format("DD.MM.YYYY   HH:mm");
+  };
 
   const totalApples = fieldsIdList?.rating_num;
   const oneRate = (fieldsIdList?.one_rate / totalApples) * 100;
@@ -19,10 +18,6 @@ export default function CustomerReviews() {
   const threeRate = (fieldsIdList?.three_rate / totalApples) * 100;
   const fourRate = (fieldsIdList?.four_rate / totalApples) * 100;
   const fiveRate = (fieldsIdList?.five_rate / totalApples) * 100;
-
-
-
-
 
   return (
     <div className="grid grid-cols-1  xl:grid-cols-3 gap-y-[20px] xl:gap-[20px]">
@@ -40,7 +35,11 @@ export default function CustomerReviews() {
             </p>
           </div>
           <div className={"flex flex-col gap-[2px]"}>
-            <div className={"grid grid-cols-[5fr_7fr] justify-between items-center md:gap-x-[20px] gap-x-[10px]"}>
+            <div
+              className={
+                "grid grid-cols-[5fr_7fr] justify-between items-center md:gap-x-[20px] gap-x-[10px]"
+              }
+            >
               <div className="flex flex-col gap-[2px]">
                 <div className="flex items-center gap-[1px]">
                   {[1, 2, 3, 4, 5].map((item, index) => {
@@ -48,7 +47,7 @@ export default function CustomerReviews() {
                       <>
                         <img className="w-[18px] h-[18px]" src={Icon} alt="" />
                       </>
-                    )
+                    );
                   })}
                 </div>
                 <div className="flex items-center gap-[1px]">
@@ -57,7 +56,7 @@ export default function CustomerReviews() {
                       <>
                         <img className="w-[18px] h-[18px]" src={Icon} alt="" />
                       </>
-                    )
+                    );
                   })}
                 </div>
                 <div className="flex items-center gap-[1px]">
@@ -66,7 +65,7 @@ export default function CustomerReviews() {
                       <>
                         <img className="w-[18px] h-[18px]" src={Icon} alt="" />
                       </>
-                    )
+                    );
                   })}
                 </div>
                 <div className="flex items-center gap-[1px]">
@@ -75,7 +74,7 @@ export default function CustomerReviews() {
                       <>
                         <img className="w-[18px] h-[18px]" src={Icon} alt="" />
                       </>
-                    )
+                    );
                   })}
                 </div>
                 <div className="flex items-center gap-[1px]">
@@ -84,7 +83,7 @@ export default function CustomerReviews() {
                       <>
                         <img className="w-[18px] h-[18px]" src={Icon} alt="" />
                       </>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -139,7 +138,6 @@ export default function CustomerReviews() {
                     ></div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

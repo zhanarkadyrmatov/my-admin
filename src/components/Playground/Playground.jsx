@@ -92,8 +92,9 @@ export default function Playground({ collapsed, toggled, setToggled }) {
               </MenuItem>
               {/* <MenuItem
                 className={`text-[18px] text-[#737B8B]  ${isActive("/dashboard") &&
+
                   "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                }
                 }`}
                 icon={<MdDashboard className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/dashboard" />}
