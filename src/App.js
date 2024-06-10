@@ -14,6 +14,7 @@ import Addfootball from "./pages/football/Addfootball";
 import { useCollapsed } from "./hooks/useCollapsed";
 import Wallet from "./pages/wallet/Wallet";
 import ReserveModal from "./components/ReserveModal/ReserveModal";
+import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
@@ -53,6 +54,7 @@ function App({ open }) {
                 <Route path="/fields" element={<Fields />} />
                 <Route path="/editFields" element={<EditFieds />} />
                 <Route path="/fields/football" element={<Addfootball />} />
+                <Route path="/fields/football/:id" element={<FootballCreate />} />
                 <Route path="/fields/:id" element={<FieldsId />} />
                 <Route path="/reserve" element={<Reserve />} />
               </Routes>
