@@ -19,7 +19,7 @@ function Reserve() {
 
   useEffect(() => {
     dispatch(fetchReverse({ footballId, startDate }))
-  }, [footballId])
+  }, [footballId, startDate])
 
   const dayOfWeek = fieldsIdDetail?.schedule?.find((el) => el?.day_of_week === startDate.getDay());
 
@@ -40,7 +40,6 @@ function Reserve() {
     });
   }
 
-  console.log(reverse, 'reverse')
 
   return (
     <div className="my-[85px] md:my-[90px] flex flex-col gap-[20px] xl:px-5 lg:px-4 px-3">
