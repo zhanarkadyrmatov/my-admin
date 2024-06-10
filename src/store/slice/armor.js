@@ -13,7 +13,6 @@ export const getFootballFieldsList = createAsyncThunk(
       });
       const id = response.data[0].id;
       dispatch(getFootballFieldsId(id))
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

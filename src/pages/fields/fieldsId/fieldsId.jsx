@@ -22,9 +22,9 @@ export default function FieldsId() {
   const { id } = useParams();
   const [active, setActive] = useState(0);
   const [fieldDelete, setFieldDelete] = useState(false);
+  const [fieldValue, setFieldValue] = useState(false);
   const [request, setRequest] = useState(0);
   const dispatch = useDispatch();
-  const [fieldValue, setFieldValue] = useState(false);
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
 
   useEffect(() => {
@@ -194,7 +194,7 @@ export default function FieldsId() {
           )}
         </div>
       </div>
-      {fieldValue && <FieldsModal setFieldValue={setFieldValue} />}
+      {fieldValue && <FieldsModal id={id} setFieldValue={setFieldValue} />}
     </>
   );
 }

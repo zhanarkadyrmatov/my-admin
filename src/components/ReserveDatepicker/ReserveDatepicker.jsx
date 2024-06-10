@@ -5,8 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import ru from 'date-fns/locale/ru';
 
 
-export default function ReserveDatepicker() {
-  const [startDate, setStartDate] = useState(new Date());
+export default function ReserveDatepicker({ setStartDate, startDate }) {
   return (
     <div>
       <DatePicker className=''

@@ -37,7 +37,6 @@ export default function BookId({ item, setFieldDelete, fieldDelete }) {
                     alt=""
                   />
                 </div>
-
                 <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
                   <FaPlus className={"w-[20px] h-[20px] fill-white "}
                   />
@@ -77,7 +76,7 @@ export default function BookId({ item, setFieldDelete, fieldDelete }) {
               </div>
               <div className={"flex justify-start items-center gap-[10px]"}>
                 {item?.advantages?.map((el) => (
-                  <img className={"w-[20px] h-[20px]"} src={el?.icon} alt="" />
+                  <img className={"w-[20px] h-[20px]"} src={el?.advantages?.icon} alt="" />
                 ))}
               </div>
               <div className={"flex justify-start items-center gap-1"}>

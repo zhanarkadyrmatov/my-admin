@@ -14,12 +14,14 @@ import Addfootball from "./pages/football/Addfootball";
 import { useCollapsed } from "./hooks/useCollapsed";
 import Wallet from "./pages/wallet/Wallet";
 import ReserveModal from "./components/ReserveModal/ReserveModal";
+import FieldsModal from "./components/Modal/FieldsModal";
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
   const [toggled, setToggled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [openSetting, setOpenSetting] = useState(false)
   const [reserve, setReserve] = useState(false)
+
 
   return (
     <>
@@ -54,7 +56,7 @@ function App({ open }) {
                 <Route path="/editFields" element={<EditFieds />} />
                 <Route path="/fields/football" element={<Addfootball />} />
                 <Route path="/fields/:id" element={<FieldsId />} />
-                <Route path="/reserve" element={<Reserve />} />
+                <Route path="/reserve/:id" element={<Reserve />} />
               </Routes>
             </div>
           </div>

@@ -118,7 +118,6 @@ const Page2 = () => {
       mapLatLon
 
     }
-    console.log(data, "test1");
   }
   return (
     <div>

@@ -1,15 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import { useLocation } from "react-router-dom";
-import Calendar from "react-calendar";
-import DatePicker from "react-datepicker";
+import { useLocation, useParams } from "react-router-dom";
 import ReserveDatepicker from "../../components/ReserveDatepicker/ReserveDatepicker";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFieldsIdDetail, setFootballId, setSelectValue } from "../../store/slice/fields-slice";
+import { fetchReverse } from "../../store/slice/reserve-slice";
+import moment from 'moment';
+import { differenceInMinutes, parse, format, addDays } from 'date-fns';
 
 function Reserve() {
+  const { id } = useParams();
   const { state } = useLocation();
-  const [value, onChange] = useState(new Date());
+  const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
+  const { footballId, fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields)
+  const { reverse } = useSelector((state) => state.reserveSlice);
+
+  useEffect(() => {
+    dispatch(fetchReverse({ footballId, startDate }))
+  }, [footballId])
+
+  const dayOfWeek = fieldsIdDetail?.schedule?.find((el) => el?.day_of_week === startDate.getDay());
+
+  const startTime = dayOfWeek?.start_time?.slice(0, 5) || '06:00';
+  const endTime = dayOfWeek?.end_time?.slice(0, 5) || '06:00';
+  const start = parse(startTime, 'HH:mm', startDate);
+  const end = addDays(parse(endTime, 'HH:mm', startDate), 1);
+  const minutesDifference = differenceInMinutes(end, start);
+  const intervals = minutesDifference / 30;
+  const intervalsArray = [];
+
+  for (let i = 0; i < intervals; i++) {
+    const intervalStart = new Date(start.getTime() + i * 30 * 60 * 1000);
+    const intervalEnd = new Date(intervalStart.getTime() + 30 * 60 * 1000);
+    intervalsArray.push({
+      start: format(intervalStart, 'HH:mm'),
+      end: format(intervalEnd, 'HH:mm')
+    });
+  }
+
+  console.log(reverse, 'reverse')
 
   return (
     <div className="my-[85px] md:my-[90px] flex flex-col gap-[20px] xl:px-5 lg:px-4 px-3">
@@ -19,26 +50,19 @@ function Reserve() {
         }
       >
         <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-          <button
-            className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-          >
-            Мини поле
-          </button>
-          <button
-            className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-          >
-            Стандарт
-          </button>
-          <button
-            className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-          >
-            Фут-Зал
-          </button>
-          <button
-            className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-          >
-            Описание
-          </button>
+          {fieldsIdList?.football_field_type?.map((item) => (
+            <button
+              onClick={() => {
+                dispatch(fetchFieldsIdDetail(item?.id))
+                dispatch(setFootballId(item?.id))
+              }}
+              className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${footballId === item?.id ? "opacity-100 border-[2px]" : "opacity-80 border-[1px]"
+                }`
+              }
+            >
+              {item?.name}
+            </button>
+          ))}
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-[20px] lg:gap-[20px]">
@@ -49,12 +73,12 @@ function Reserve() {
             </p>
           </div>
           <div>
-            <ReserveDatepicker />
+            <ReserveDatepicker setStartDate={setStartDate} startDate={startDate} />
           </div>
           <div className="p-[20px] rounded-b-[10px] bg-[#fff] flex flex-col gap-[10px] overflow-y-auto h-[65vh]">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((res, i) => {
+            {intervalsArray?.map((res, i) => {
               return (
-                <div
+                <div key={i}
                   className={`px-[20px] py-[10px] rounded-[10px] ${true
                     ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
                     : "bg-[#F5F5F5]"
@@ -66,7 +90,7 @@ function Reserve() {
                         Время:
                       </p>
                       <p className="text-[15px] text-[#222222] font-normal leading-[18px]">
-                        10:00 - 10:30{" "}
+                        {res?.start} - {res?.end}{" "}
                       </p>
                     </div>
                     {true ? (

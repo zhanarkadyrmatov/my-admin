@@ -27,10 +27,6 @@ export default function DraggableFields() {
     return moment(date).format('DD.MM.YYYY')
   }
 
-  const formattedTime = (date) => {
-    return moment(date).format('HH:mm')
-  }
-
 
   return (
     <div >

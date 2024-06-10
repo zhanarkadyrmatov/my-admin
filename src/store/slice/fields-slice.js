@@ -1,18 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
+import { fetchBookings } from "./story";
 
 
 export const fetchFields = createAsyncThunk(
   "fields/fetchFields",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.get(`${Api}admin_api/football-field/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(response)
+      dispatch(setFieldsId(response.data[0].id))
+      dispatch(fetchFieldsIdList(response.data[0].id))
       return response.data;
     } catch (error) {
       console.log(error);
@@ -24,6 +26,7 @@ export const fetchFields = createAsyncThunk(
 export const fetchFieldsIdList = createAsyncThunk(
   "fields/fetchFieldsIdList",
   async (id, { rejectWithValue, dispatch }) => {
+    console.log(id, 'id');
     try {
       const response = await axios.get(`${Api}admin_api/football-field/${id}/`, {
         headers: {
@@ -31,6 +34,10 @@ export const fetchFieldsIdList = createAsyncThunk(
         },
       });
       dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id))
+      dispatch(fetchBookings(response?.data?.football_field_type[0]?.id))
+      dispatch(setFootballId(response?.data?.football_field_type[0]?.id))
+      dispatch(setSelectValue(response?.data?.football_field_type[0]?.name))
+
       return response.data;
     } catch (error) {
       console.log(error);
@@ -42,7 +49,6 @@ export const fetchFieldsIdList = createAsyncThunk(
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",
   async (id, { rejectWithValue }) => {
-    console.log(id)
     try {
       const detail = await axios.get(`${Api}admin_api/football-field-type/${id}/`, {
         headers: {
@@ -68,20 +74,32 @@ export const fetchFieldsIdDetail = createAsyncThunk(
 )
 
 
-
-
-
 export const fieldsSlice = createSlice({
   name: "fields",
   initialState: {
     loading: false,
     error: null,
     fields: null,
+    fieldsId: null,
+    selectValue: null,
+    footballId: null,
     fieldsIdList: null,
     fieldsIdDetail: null,
     fieldsComments: null,
   },
-  reducers: {},
+
+  reducers: {
+    setFieldsId: (state, action) => {
+      state.fieldsId = action.payload;
+    },
+    setSelectValue: (state, action) => {
+      state.selectValue = action.payload;
+    },
+    setFootballId: (state, action) => {
+      state.footballId = action.payload;
+    },
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFields.pending, (state) => {
@@ -122,4 +140,5 @@ export const fieldsSlice = createSlice({
   },
 });
 
+export const { setFieldsId, setSelectValue, setFootballId } = fieldsSlice.actions;
 export default fieldsSlice.reducer;

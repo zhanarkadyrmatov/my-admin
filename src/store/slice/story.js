@@ -29,7 +29,9 @@ export const fetchBookings = createAsyncThunk(
 const bookingSlice = createSlice({
   name: "booking",
   initialState,
-  reducers: {},
+  reducers: {
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchBookings.pending, (state) => {
@@ -46,6 +48,5 @@ const bookingSlice = createSlice({
       });
   },
 });
-
 
 export default bookingSlice.reducer;
