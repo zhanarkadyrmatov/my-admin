@@ -18,6 +18,22 @@ export const getAdvantages = createAsyncThunk(
     }
 );
 
+export const getBranchGetId = createAsyncThunk(
+    "advantages/getBranchGetId",
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${Api}admin_api/football-field/${id}/`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
+
 export const createFoobolField = createAsyncThunk(
     "advantages/createFoobolField",
     async (data, { rejectWithValue }) => {
@@ -57,21 +73,29 @@ export const getLocationsCities = createAsyncThunk(
 
 export const postAdvantages = createAsyncThunk(
     "advantages/postAdvantages",
-    async (data, { rejectWithValue }) => {
-        console.log(data ,'datatwtat');
+    async (data, { rejectWithValue, dispatch }) => {
+        console.log(data, 'datatwtat');
 
         try {
             const response = await axios.post(
                 `${Api}admin_api/football-field/`,
-              data.formData,
-                {  
+                data.formData,
+                {
                     headers: {
-                        "Content-Type": "multipart/form-data", // Используем application/json, если не загружаем файлы
+                        "Content-Type": "multipart/form-data",
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 }
             );
-        
+            const id = await response.data.id;
+            const advantages = await data.data;
+            const PATCHAdvantagesData = {
+                id,
+                advantages
+            }
+            dispatch(PATCHAdvantages(PATCHAdvantagesData))
+
+
             console.log(response.data, "response.data");
             return response.data;
         } catch (error) {
@@ -88,6 +112,28 @@ export const postAdvantages = createAsyncThunk(
         }
     }
 );
+export const PATCHAdvantages = createAsyncThunk(
+    "advantages/PATCHAdvantages",
+    async (data, { rejectWithValue }) => {
+
+        try {
+            const response = await axios.patch(
+                `${Api}admin_api/football-field/${data.id}/`,
+                {
+                    advantages: data.advantages
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 
 export const getSportComplexList = createAsyncThunk(
     "advantages/getSportComplexList",
@@ -105,7 +151,27 @@ export const getSportComplexList = createAsyncThunk(
     })
 
 
+export const postCreacteFieldType = createAsyncThunk(
+    "advantages/postCreacteFieldType",
+    async (data, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(
+                `${Api}admin_api/football-field-type/`,
+                data, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+)
 
+export 
 
 const advantagesSlice = createSlice({
     name: "advantages",
@@ -118,6 +184,9 @@ const advantagesSlice = createSlice({
         locationsCities: null,
         creacteFoobolStatus: null,
         sportComplexList: null,
+        isCreateType: null,
+        idFields: null,
+        fieldsIdInfo:null
     },
     extraReducers: (builder) => {
         builder
@@ -152,6 +221,7 @@ const advantagesSlice = createSlice({
             .addCase(postAdvantages.fulfilled, (state, action) => {
                 state.creacteFoobolStatus = "fulfilled";
                 state.isCreate = false;
+                state.idFields = action.payload.id
             })
             .addCase(postAdvantages.rejected, (state, action) => {
                 state.creacteFoobolStatus = "rejected";
@@ -171,6 +241,35 @@ const advantagesSlice = createSlice({
                 state.error = action.payload;
                 console.error("Error fetching advantages:", action.payload);
             })
+            .addCase(postCreacteFieldType.pending, (state) => {
+                state.creacteFoobolStatus = "loading";
+                state.isCreateType = true;
+            })
+            .addCase(postCreacteFieldType.fulfilled, (state, action) => {
+                state.creacteFoobolStatus = "fulfilled";
+                state.isCreateType = false;
+            })
+            .addCase(postCreacteFieldType.rejected, (state, action) => {
+                state.creacteFoobolStatus = "rejected";
+                state.error = action.payload;
+                state.isCreateType = false;
+                console.error("Error fetching advantages:", action.payload);
+            })
+            .addCase(getBranchGetId.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(getBranchGetId.fulfilled, (state, action) => {
+                state.status = "fulfilled";
+                state.fieldsIdInfo = action.payload;
+            })
+            .addCase(getBranchGetId.rejected, (state, action) => {
+                state.status = "rejected";
+                state.error = action.payload;
+                console.error("Error fetching advantages:", action.payload);
+            })
+
+
+
 
     },
 });

@@ -11,11 +11,13 @@ import {
 } from "../../store/slice/create-foobol-slice";
 import YandexMaps from "../../components/yandexMaps/yandexMaps";
 import { AiOutlineClose } from "react-icons/ai";
-import Page2 from "./Pages/Page2/Page2";
+import Page2 from "./Pages/Page2/footballCreate";
+import { Navigate, useNavigate } from "react-router-dom";
 const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedIamgeFile, setSelectedImageFile] = useState(null);
+  const navigate = useNavigate();
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
     setSelectedImageFile(files);
@@ -23,14 +25,15 @@ export default function Addfootball() {
       setSelectedImage(URL.createObjectURL(event.target.files[0]));
     }
   };
-
+  
+  
+  
   //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
-  const { advantages, locationsCities, sportComplexList, isCreate, creacteFoobolStatus, status } =
+  const { advantages, locationsCities, sportComplexList, isCreate, idFields, creacteFoobolStatus, status } =
     useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
-  const [selectedValue, setSelectedValue] = useState(null);
   const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
   const [address, setAddress] = useState(null);
   const [district, setDistrict] = useState(null);
@@ -38,6 +41,9 @@ export default function Addfootball() {
   const [description, setDescription] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
+
+  const [foodbolId , setFoodbolId ] = useState(null)
+  
 
   const handlerImage = (event) => {
 
@@ -69,7 +75,7 @@ export default function Addfootball() {
   //telegram
   const [errorList, setErrorList] = useState([]);
 
- 
+
   const [advantagesList, setAdvantagesList] = useState([]);
   const [complex_type, setComplex_type] = useState();
 
@@ -82,26 +88,25 @@ export default function Addfootball() {
 
     // Обработка advantagesList для удаления пустых описаний
     const processedAdvantagesList = advantagesList?.map(item => {
-        if (item.description === "") {
-            return { advantages: item.name }; 
-        }
-        return item; 
+      if (item.description === "") {
+        return { advantages: item.name };
+      }
+      return item;
     });
 
-   
-    const data = {
-        name: newName,
-        description: description,
-        administrator: 1,
-        address: address,
-        city: locationsCitiesValue,
-        district: district,
-        latitude: mapLatLon?.[0],
-        longitude: mapLatLon?.[1],
-        advantages: processedAdvantagesList,
-        sport_complex_type: complex_type
-    };
 
+    const data = {
+      name: newName,
+      description: description,
+      administrator: 1,
+      address: address,
+      city: locationsCitiesValue,
+      district: district,
+      latitude: mapLatLon?.[0],
+      longitude: mapLatLon?.[1],
+      advantages: processedAdvantagesList,
+      sport_complex_type: complex_type
+    };
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
@@ -111,43 +116,31 @@ export default function Addfootball() {
     formData.append("district", data.district);
     formData.append("latitude", data.latitude);
     formData.append("longitude", data.longitude);
-
     ImageFile?.forEach((image, index) => {
-        formData.append("back_ground_foto", image);
+      formData.append("back_ground_foto", image);
     });
-
     selectedIamgeFile?.forEach((image, index) => {
-        formData.append("main_foto", image);
+      formData.append("main_foto", image);
     });
-    // Обработка advantages:
-    advantagesList.forEach((item, index) => {
-      formData.append(`advantages[${index}][advantages]`, item.advantages);
-      formData.append(`advantages[${index}][description]`, item.description);
-    });
-
-
     formData.append("sport_complex_type", data.sport_complex_type);
-
-    // Валидация данных
     for (const [key, value] of Object.entries(data)) {
-        if (!value && value !== 0 && key !== 'advantages') { // Исключаем advantages из валидации
-            errors[key] = "Обязательное поле *";
-        }
+      if (!value && value !== 0 && key !== 'advantages') { 
+        errors[key] = "Обязательное поле *";
+      }
     }
-
     if (Object.keys(errors).length > 0) {
-        setErrorList(errors);
-        console.log(errors, "errors");
-        return; // Останавливаем выполнение, если есть ошибки
+      setErrorList(errors);
+      console.log(errors, "errors");
+      return; 
     }
 
     const newData = {
-      data: data,
-      formData:formData
+      data: processedAdvantagesList,
+      formData: formData
     }
     dispatch(postAdvantages(newData));
   };
-  
+
   const goToPage = (pageName) => {
 
     handlerPostCreacteFoobolField();
@@ -180,7 +173,7 @@ export default function Addfootball() {
       }
     });
   };
-  
+
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList(prevList =>
       prevList.map(item =>
@@ -189,9 +182,13 @@ export default function Addfootball() {
     );
   };
 
-  console.log(advantagesList, "advantagesList");
 
 
+  useEffect(() => {
+    if (isCreate === false) {
+      navigate(`/fields/football/${idFields}`);
+    }
+  }, [isCreate]);
   if (isCreate === true) {
     return <div> test</div>
   }
@@ -224,8 +221,8 @@ export default function Addfootball() {
                 {advantages?.map((res, i) => {
                   const isChecked = advantagesList.some(item => item.advantages === res.id);
                   const currentItem = advantagesList.find(item => item.advantages === res.id) || {};
-            
-                  
+
+
                   return (
 
                     <div className={s.checkbox} key={i}>
@@ -244,7 +241,7 @@ export default function Addfootball() {
                           <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                             {res?.name}
                           </label>
-                       
+
                         </div>
                       </div>
                       {isChecked && (

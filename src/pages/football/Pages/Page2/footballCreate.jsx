@@ -9,15 +9,20 @@ import { AiOutlineClose } from "react-icons/ai";
 import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
 import ScheduleLIst from "../../../../components/FroomList/ScheduleLIst/ScheduleLIst";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBranchGetId, postCreacteFieldType } from "../../../../store/slice/create-foobol-slice";
+import { useParams } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
+import { useEffect } from "react";
 
-const Page2 = () => {
-  const { advantages, } =
+const FootballCreate = () => {
+  const { id } = useParams()
+  const { advantages, fieldsIdInfo } =
     useSelector((state) => state.createFoobol);
-  ///dasdsadasd
-  ///wwqeqeqweqweq
   //Дневная цена
-  ////asdasdasasdasd
+
+  const dispatch = useDispatch()
+
   const [priceDay, setPriceDay] = useState();
   //Ночная цена
   const [priceNight, setPriceNight] = useState();
@@ -52,52 +57,30 @@ const Page2 = () => {
   //Преимущества
   const [advantagesList, setAdvantagesList] = useState([]);
 
-  const [selectedImages, setSelectedImages] = useState([]);
   const [selectedImages1, setSelectedImages1] = useState([]);
+
+  const [selectedIamgeFile, setSelectedImageFile] = useState(null);
   const handleFileChange1 = (e) => {
     const files = Array.from(e.target.files);
+    setSelectedImageFile(files);
     const fileUrls = files?.map((file) => URL.createObjectURL(file));
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
-  const dataListfootball = [
-    {
-      name: "Стадион",
-      id: "1",
-      isAcctive: true,
-    },
-    {
-      name: "Мини поле",
-      id: "2",
-      isAcctive: false,
-    },
-    {
-      name: "Площадка",
-      id: "3",
-      isAcctive: false,
-    },
-  ];
 
   const [newName, setNewName] = useState();
-
-
-
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
     setAdvantagesList(prevList => {
       if (isChecked) {
-        // Check if the item is already in the list
         if (!prevList.some(item => item.advantages === resId)) {
-          // Add the new item to the list with an empty description
           return [...prevList, { advantages: resId, description: "" }];
         }
         return prevList;
       } else {
-        // Remove the item from the list
         return prevList.filter(item => item.advantages !== resId);
       }
     });
   };
-
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList(prevList =>
       prevList.map(item =>
@@ -105,6 +88,12 @@ const Page2 = () => {
       )
     );
   };
+
+
+
+
+
+
   const handleGetInfo = () => {
     const data = {
       location,
@@ -116,11 +105,38 @@ const Page2 = () => {
       description,
       selectedImages1,
       mapLatLon
-
     }
+
+
+    const formData = new FormData();
+
+    formData.append("football_f", id);
+    formData.append("description", description);
+    formData.append("name", newName)
+    selectedIamgeFile?.forEach((file) => {
+      formData.append("images", file)
+    })
+    dispatch(postCreacteFieldType(formData))
+    console.log(data, "test1");
+  }
+
+  useEffect(() => {
+    dispatch(getBranchGetId(id))
+  },
+    [])
+
+  console.log(fieldsIdInfo);
+  const newFoobolField = () => {
+    setMapLatLon([])
+    setNewName("")
+    setDescription("")
+    setAdministratorValue("")
+    setAdministrator("")
+    setPriceDay("")
+    setPriceNight("")
   }
   return (
-    <div>
+    <div className="mx-[20px] mt-[90px]">
       <div>
         {isModalMap && (
           <div className={s.Map}>
@@ -141,13 +157,15 @@ const Page2 = () => {
           }
         >
           <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-            {dataListfootball?.map((res) => (
+            {fieldsIdInfo?.football_field_type?.map((res) => (
               <button
                 className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
               >
                 {res.name}
               </button>
             ))}
+            <button onClick={() => newFoobolField()} className={`w-full h-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+            > <BiPlus /></button>
           </div>
         </div>
         <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
@@ -332,4 +350,4 @@ const Page2 = () => {
   );
 };
 
-export default Page2;
+export default FootballCreate;
