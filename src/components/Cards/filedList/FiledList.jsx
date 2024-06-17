@@ -25,7 +25,7 @@ export default function FiledList({
         <div className="col-span-2 text-left">Спортивное поле</div>
         <div className="col-span-2 flex items-center justify-start gap-[10px]">
           {item?.advantages?.map((el) => (
-            <img className={"w-[20px] h-[20px]"} src={el?.icon} alt="" />
+            <img className={"w-[20px] h-[20px]"} src={el?.advantages?.icon} alt="" />
           ))}
         </div>
         <div className="col-span-2 flex items-center gap-[2px]">

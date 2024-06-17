@@ -1,30 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
 import { useLocation, useParams } from "react-router-dom";
 import ReserveDatepicker from "../../components/ReserveDatepicker/ReserveDatepicker";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFieldsIdDetail, setFootballId, setSelectValue } from "../../store/slice/fields-slice";
-import { fetchReverse } from "../../store/slice/reserve-slice";
-import moment from 'moment';
+import { fetchReverse, fetchbookingCreate } from "../../store/slice/reserve-slice";
 import { differenceInMinutes, parse, format, addDays } from 'date-fns';
+import { fetchArbitrators } from '../../store/slice/arbitrators';
+import Arbitrators from "../../components/Arbitrators/Arbitrators";
+import AddUser from "../../components/AddUser/AddUser";
+import NewUser from "../../components/NewUser/NewUser";
 
 function Reserve() {
   const { id } = useParams();
   const { state } = useLocation();
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
-  const { footballId, fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields)
+  const { footballId, fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
   const { reverse } = useSelector((state) => state.reserveSlice);
+  const [phone, setPhone] = useState(null);
+  const [name, setName] = useState(null);
+  const [repeat, setRepeat] = useState(null);
+  const [time, setTime] = useState(null);
+  const [user, setUser] = useState(null);
+  const [arbitrator, setArbitrator] = useState(null);
+  const [payment, setPayment] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchReverse({ footballId, startDate }))
-  }, [footballId, startDate])
+    dispatch(fetchArbitrators());
+  }, []);
+
+  console.log(time)
+
+  useEffect(() => {
+    dispatch(fetchReverse({ footballId, startDate }));
+  }, [footballId, startDate]);
+
 
   const dayOfWeek = fieldsIdDetail?.schedule?.find((el) => el?.day_of_week === startDate.getDay());
 
-  const startTime = dayOfWeek?.start_time?.slice(0, 5) || '06:00';
-  const endTime = dayOfWeek?.end_time?.slice(0, 5) || '06:00';
+  const startTime = dayOfWeek?.start_time?.slice(0, 5) || '';
+  const endTime = dayOfWeek?.end_time?.slice(0, 5) || '';
   const start = parse(startTime, 'HH:mm', startDate);
   const end = addDays(parse(endTime, 'HH:mm', startDate), 1);
   const minutesDifference = differenceInMinutes(end, start);
@@ -36,9 +51,38 @@ function Reserve() {
     const intervalEnd = new Date(intervalStart.getTime() + 30 * 60 * 1000);
     intervalsArray.push({
       start: format(intervalStart, 'HH:mm'),
-      end: format(intervalEnd, 'HH:mm')
+      end: format(intervalEnd, 'HH:mm'),
+      dayStart: format(intervalStart, 'dd.MM.yyyy HH:mm'),
+      dayEnd: format(intervalEnd, 'dd.MM.yyyy HH:mm'),
     });
   }
+
+  const isPastInterval = (intervalStart) => {
+    const currentTime = new Date();
+    const intervalDate = new Date(startDate);
+    const [hours, minutes] = intervalStart.split(':');
+    intervalDate.setHours(hours, minutes, 0, 0);
+    return intervalDate < currentTime;
+  };
+
+  const handleClick = () => {
+    dispatch(fetchbookingCreate({
+      booking: state?.reserve,
+      data: {
+        phone: phone,
+        name: name,
+        repeat: repeat,
+        status: '',
+        start_time: time?.start,
+        end_time: time?.end,
+        day_of_week: dayOfWeek?.day_of_week,
+        booking_date: startDate,
+        field_type: footballId,
+        duration: '',
+        football_field_cost: ''
+      }
+    }))
+  };
 
 
   return (
@@ -74,95 +118,86 @@ function Reserve() {
           <div>
             <ReserveDatepicker setStartDate={setStartDate} startDate={startDate} />
           </div>
-          <div className="p-[20px] rounded-b-[10px] bg-[#fff] flex flex-col gap-[10px] overflow-y-auto h-[65vh]">
-            {intervalsArray?.map((res, i) => {
-              return (
-                <div key={i}
-                  className={`px-[20px] py-[10px] rounded-[10px] ${true
-                    ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
-                    : "bg-[#F5F5F5]"
-                    } `}
-                >
-                  <div className="flex justify-between items-center gap-2">
-                    <div className="flex flex-col gap-[6px]">
-                      <p className="text-[12px] text-[#222222 font-normal leading-[14px] opacity-70">
-                        Время:
-                      </p>
-                      <p className="text-[15px] text-[#222222] font-normal leading-[18px]">
-                        {res?.start} - {res?.end}{" "}
-                      </p>
-                    </div>
-                    {true ? (
-                      <p className="text-[14px] text-[#222222] font-normal leading-[16px]">
-                        Занято
-                      </p>
-                    ) : (
-                      <div className="flex flex-col gap-[6px]">
-                        <p className="text-[12px] text-[#222222 font-normal leading-[14px] opacity-70">
-                          Цена:
-                        </p>
-                        <p className="text-[15px] text-[#222222] font-normal leading-[18px]">
-                          1000 сом
-                        </p>
+          <div className="p-[20px] rounded-b-[10px] bg-[#fff] flex flex-col gap-[10px] overflow-y-auto max-h-[500px]">
+            {intervalsArray?.length > 0 ?
+              <>
+                {intervalsArray?.map((res, i) => {
+                  const isReserved = reverse?.some((el) => el?.start_time === res?.start);
+                  const isReservedPast = reverse?.some((el) => el?.end_time === res?.end);
+                  const activeTimeStart = time?.start === res?.start;
+                  const isActive = time?.start <= res?.start && time?.end >= res?.end;
+                  const finds = reverse?.find((el) => el?.start_time <= res?.start && el?.end_time >= res?.end)
+
+                  console.log(finds, 'finds')
+
+                  const isPast = finds?.start_time <= res?.start && finds?.end_time >= res?.end;
+
+
+                  console.log(isPast, 'isPast')
+
+                  return (
+                    <div key={i}
+                      onClick={() => {
+                        if (isPastInterval(res?.start) || isReserved || isReservedPast) {
+
+                        } else {
+                          if (time && time.start < res?.start) {
+                            setTime({ ...time, end: res?.end });
+                          } else {
+                            setTime({ start: res?.start });
+                          }
+                        }
+                      }}
+                      className={`px-[20px] py-[10px] rounded-[10px] ${isPastInterval(res?.start) || isPast
+                        ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
+                        : activeTimeStart || isActive ? "bg-[#1ec219]" : "bg-[#F5F5F5] cursor-pointer hover:bg-[#cccbcb] duration-300 hover:shadow-md"
+                        } `}
+                    >
+                      <div className="flex justify-between items-center gap-2">
+                        <div className="flex flex-col gap-[6px]">
+                          <p className="text-[12px] text-[#222222 font-normal leading-[14px] opacity-70">
+                            Время:
+                          </p>
+                          <p className="text-[15px] text-[#222222] font-normal leading-[18px]">
+                            {res?.start} - {res?.end}
+                          </p>
+                        </div>
+                        {isPastInterval(res?.start) ? (
+                          <p className="text-[14px] text-[#222222] font-normal leading-[16px]">
+                            Занято
+                          </p>
+                        ) : (
+                          <>
+                            {isPast ? (
+                              <p className="text-[14px] text-[#222222] font-normal leading-[16px]">
+                                Занято
+                              </p>
+                            ) : (
+                              <div className="flex flex-col gap-[6px]">
+                                <p className="text-[12px] text-[#222222 font-normal leading-[14px] opacity-70">
+                                  Цена:
+                                </p>
+                                <p className="text-[15px] text-[#222222] font-normal leading-[18px]">
+                                  1000 сом
+                                </p>
+                              </div>
+                            )}
+                          </>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                    </div>
+                  );
+                })}</>
+              :
+              <p className="text-[15px] text-center text-[#1C1C1C] font-normal leading-[18px]">Нет доступного времени</p>
+            }
           </div>
         </div>
         <div className="flex flex-col gap-[20px]">
-          {state?.reserve ? (
+          {state?.reserve === "existing" ? (
             <>
-              <div className="p-[20px] rounded-[10px] bg-[#fff] flex flex-col gap-[10px]">
-                <p className="text-[15px] text-[#1C1C1C] font-normal leading-[18px] opacity-70">
-                  Добавить пользователя
-                </p>
-                <div className="px-[8px] flex items-center gap-x-[4px] bg-[#F3F3F3] rounded-[8px] w-full border-[1px] border-[#F3F3F3] focus-within:border-[2px] focus-within:border-[green]">
-                  <FaSearch className="w-[16px] h-[16px] opacity-40" />
-                  <input
-                    className="w-full p-[8px]  outline-none  bg-transparent "
-                    type="Search"
-                    placeholder="Поиск"
-                  />
-                </div>
-                <div>
-                  <div className="p-[10px] bg-[#F3F3F3] rounded-[8px] flex justify-between items-center">
-                    <div className="flex items-center gap-[10px]">
-                      <img
-                        className="w-[40px] h-[40px] object-cover rounded-full"
-                        src="https://picsum.photos/200"
-                        alt=""
-                      />
-                      <p className="text-[#222222] text-[15px] font-normal leading-[20px]">
-                        ataialanov
-                      </p>
-                    </div>
-                    <FaPlus className="w-6 h-6 cursor-pointer" />
-                  </div>
-                </div>
-              </div>
-              <div className="p-[20px] rounded-[10px] bg-[#fff] flex flex-col gap-[10px]">
-                <p className="text-[15px] text-[#1C1C1C] font-normal leading-[18px] opacity-70">
-                  Добавить арбитра
-                </p>
-                <div>
-                  <div className="p-[10px] bg-[#F3F3F3] rounded-[8px] flex justify-between items-center">
-                    <div className="flex items-center gap-[10px]">
-                      <img
-                        className="w-[40px] h-[40px] object-cover rounded-full"
-                        src="https://picsum.photos/200"
-                        alt=""
-                      />
-                      <p className="text-[#222222] text-[15px] font-normal leading-[20px]">
-                        Добавить
-                      </p>
-                    </div>
-                    <FaPlus className="w-6 h-6 cursor-pointer" />
-                  </div>
-                </div>
-              </div>
+              <AddUser user={user} setUser={setUser} />
+              <Arbitrators setArbitrator={setArbitrator} arbitrator={arbitrator} />
               <div className="p-[20px]  rounded-[10px] bg-[#fff] flex justify-between items-center gap-2">
                 <p className="text-[15px] text-[#1C1C1C] font-normal leading-[18px]">
                   Повтор
@@ -171,39 +206,18 @@ function Reserve() {
                   className="text-[15px] text-[#1C1C1C] font-normal leading-[18px] outline-none "
                   name=""
                   id=""
+                  onChange={(e) => setRepeat(e.target.value)}
                 >
-                  <option value="">Каждую неделю</option>
-                  <option value="">Каждые месяц недели </option>
-                  <option value="">Каждые год недели</option>
+                  <option value="0">Никогда</option>
+                  <option value="1">Каждую неделю</option>
+                  <option value="2">Каждые месяц недели </option>
+                  <option value="3">Каждые год недели</option>
                 </select>
               </div>
             </>
           ) : (
             <>
-              <div className="p-[20px] rounded-[10px] bg-[#fff] flex flex-col gap-[10px]">
-                <p className="text-[15px] text-[#1C1C1C] font-normal leading-[18px] opacity-70">
-                  Добавить пользователя
-                </p>
-                <div className="px-[8px] flex items-center gap-x-[4px] bg-[#F3F3F3] rounded-[8px] w-full border-[1px] border-[#F3F3F3] focus-within:border-[2px] focus-within:border-[green]">
-                  <input
-                    className="w-full p-[8px]  outline-none  bg-transparent "
-                    type="text"
-                    placeholder="ФИО"
-                  />
-                </div>
-              </div>
-              <div className="p-[20px] rounded-[10px] bg-[#fff] flex flex-col gap-[10px]">
-                <p className="text-[15px] text-[#1C1C1C] font-normal leading-[18px] opacity-70">
-                  Номер телефона
-                </p>
-                <div className="px-[8px] flex items-center gap-x-[4px] bg-[#F3F3F3] rounded-[8px] w-full border-[1px] border-[#F3F3F3] focus-within:border-[2px] focus-within:border-[green]">
-                  <input
-                    className="w-full p-[8px] outline-none  bg-transparent "
-                    type="text"
-                    placeholder="Номер телефона"
-                  />
-                </div>
-              </div>
+              <NewUser setPhone={setPhone} setName={setName} />
             </>
           )}
           <div className="p-[20px] rounded-[10px] bg-[#fff] flex flex-col gap-[10px]">
@@ -212,25 +226,25 @@ function Reserve() {
             </p>
             <div className="flex items-center gap-x-[30px]">
               <div className="flex items-center gap-x-[10px]">
-                <input type="radio" name="radio" />
+                <input type="radio" name="radio" value={"наличные"} onChange={(e) => setPayment(e.target.value)} />
                 <label className="font-normal text-[16px] leading-[19px] text-[#222222]">
                   Наличными
                 </label>
               </div>
               <div className="flex items-center gap-x-[10px]">
-                <input type="radio" name="radio" />
+                <input type="radio" name="radio" value={"онлайн"} onChange={(e) => setPayment(e.target.value)} />
                 <label className="font-normal text-[16px] leading-[19px] text-[#222222]">
                   Онлайн
                 </label>
               </div>
             </div>
           </div>
-          <button className="w-full p-[8px] rounded-[8px]  border bg-[#7384E8] hover:bg-[#304add] duration-300 font-normal text-white text-[16px] leading-[19px]">
+          <button onClick={() => handleClick()} className="w-full p-[8px] rounded-[8px]  border bg-[#7384E8] hover:bg-[#304add] duration-300 font-normal text-white text-[16px] leading-[19px]">
             Забронировать поле
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

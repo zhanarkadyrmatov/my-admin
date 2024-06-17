@@ -8,12 +8,10 @@ export const fetchReverse = createAsyncThunk(
   "reserve/fetchReverse",
   async ({ footballId, startDate }, { rejectWithValue }) => {
 
-    console.log(footballId, startDate)
-
+    console.log(footballId, startDate, 'footballId, startDate');
     const formattedDate = (date) => {
       return moment(date).format('YYYY-MM-DD')
     }
-
     const date = formattedDate(startDate)
 
     try {
@@ -30,6 +28,28 @@ export const fetchReverse = createAsyncThunk(
     }
   }
 )
+
+export const fetchbookingCreate = createAsyncThunk(
+  "reserve/fetchbookingCreate",
+  async (data, { rejectWithValue }) => {
+
+    console.log(data, 'data');
+    try {
+      const response = await axios.post(`${Api}admin_api/admin-booking-field/?bookings=${data?.booking}/`, data?.data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      console.log(response, 'response');
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+)
+
 
 
 
