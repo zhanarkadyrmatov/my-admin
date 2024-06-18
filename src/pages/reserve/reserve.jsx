@@ -29,7 +29,6 @@ function Reserve() {
     dispatch(fetchArbitrators());
   }, []);
 
-  console.log(time)
 
   useEffect(() => {
     dispatch(fetchReverse({ footballId, startDate }));
@@ -64,11 +63,23 @@ function Reserve() {
     intervalDate.setHours(hours, minutes, 0, 0);
     return intervalDate < currentTime;
   };
+  const price = fieldsIdDetail?.price?.find((el) => el?.start_time === time?.start);
 
+
+  console.log(price, 'price');
   const handleClick = () => {
     dispatch(fetchbookingCreate({
       booking: state?.reserve,
-      data: {
+      data: state?.reserve === 'existing' ? {
+        field_type: 1,
+        start_time: time?.start,
+        end_time: time?.end,
+        booking_date: startDate,
+        duration: 1,
+        football_field_cost: fieldsIdDetail?.price.find((el) => el?.start_time === time?.start),
+        organizer: user?.id,
+        arbitrator: arbitrator?.id,
+      } : {
         phone: phone,
         name: name,
         repeat: repeat,
@@ -124,16 +135,12 @@ function Reserve() {
                 {intervalsArray?.map((res, i) => {
                   const isReserved = reverse?.some((el) => el?.start_time === res?.start);
                   const isReservedPast = reverse?.some((el) => el?.end_time === res?.end);
-                  const activeTimeStart = time?.start === res?.start;
-                  const isActive = time?.start <= res?.start && time?.end >= res?.end;
+                  const activeTimeStart = time?.start === res?.dayStart;
+                  const isActive = time?.start <= res?.dayStart && time?.end >= res?.dayEnd;
                   const finds = reverse?.find((el) => el?.start_time <= res?.start && el?.end_time >= res?.end)
 
-                  console.log(finds, 'finds')
 
                   const isPast = finds?.start_time <= res?.start && finds?.end_time >= res?.end;
-
-
-                  console.log(isPast, 'isPast')
 
                   return (
                     <div key={i}
@@ -141,10 +148,10 @@ function Reserve() {
                         if (isPastInterval(res?.start) || isReserved || isReservedPast) {
 
                         } else {
-                          if (time && time.start < res?.start) {
-                            setTime({ ...time, end: res?.end });
+                          if (time && time.start < res?.dayStart) {
+                            setTime({ ...time, end: res?.dayEnd });
                           } else {
-                            setTime({ start: res?.start });
+                            setTime({ start: res?.dayStart });
                           }
                         }
                       }}
@@ -239,7 +246,7 @@ function Reserve() {
               </div>
             </div>
           </div>
-          <button onClick={() => handleClick()} className="w-full p-[8px] rounded-[8px]  border bg-[#7384E8] hover:bg-[#304add] duration-300 font-normal text-white text-[16px] leading-[19px]">
+          <button onClick={() => handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${user && time ? "bg-[#304add] " : "bg-[#7384E8]"}`}>
             Забронировать поле
           </button>
         </div>

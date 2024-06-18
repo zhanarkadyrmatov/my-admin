@@ -35,7 +35,7 @@ export const fetchbookingCreate = createAsyncThunk(
 
     console.log(data, 'data');
     try {
-      const response = await axios.post(`${Api}admin_api/admin-booking-field/?bookings=${data?.booking}/`, data?.data, {
+      const response = await axios.post(`${Api}admin_api/admin-booking-field/?user_type=${data?.booking}`, data?.data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,

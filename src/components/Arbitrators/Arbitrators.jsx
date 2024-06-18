@@ -16,7 +16,7 @@ export default function Arbitrators({ arbitrator, setArbitrator }) {
         </p>
         <div className='relative'>
           {arbitrator ? (
-            <div onClick={() => setModal(!modal)} className="p-[10px] bg-[#F3F3F3] rounded-[8px] flex justify-between items-center cursor-pointer hover:bg-[#b3b2b2] duration-300">
+            <div onClick={() => setArbitrator(null)} className="p-[10px] bg-[#F3F3F3] rounded-[8px] flex justify-between items-center cursor-pointer hover:bg-[#b3b2b2] duration-300">
               <div className="flex items-center gap-[10px]">
                 <img
                   className="w-[40px] h-[40px] object-cover rounded-full"

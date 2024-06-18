@@ -15,10 +15,10 @@ export default function Fields() {
 
 
   const { fields } = useSelector((state) => state.fields);
-  const [pages, setPages] = useState("home");
+  const [pages, setPages] = useState("about");
   const [fieldDelete, setFieldDelete] = useState(false);
 
-  
+
   return (
     <>
       {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} />}
@@ -38,17 +38,15 @@ export default function Fields() {
           <div className="flex items-center gap-x-[12px]">
             <div
               onClick={() => setPages("about")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
-                pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5]"
-              }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+                }`}
             >
               <Element3 pages={pages} />
             </div>
             <div
               onClick={() => setPages("home")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
-                pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5]"
-              }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+                }`}
             >
               <Elemnt3 pages={pages} />
             </div>
@@ -66,7 +64,7 @@ export default function Fields() {
             </NavLink>
           </div>
         </div>
-        {pages === "home" ? (
+        {pages === "about" ? (
           fields && fields.length > 0 ? (
             <div
               className={
