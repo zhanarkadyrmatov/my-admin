@@ -21,7 +21,7 @@ export default function Wallet() {
           <h4>Кошелек</h4>
         </div>
         <div className="grid grid-cols-1 gap-y-[20px] sm:flex justify-between items-start  ">
-          <div className="w-full sm:flex items-center md:w-[500px] bg-[#222222] text-white p-4 rounded-lg grid gap-y-[50px] relative ">
+          <div className=" w-full sm:flex items-center md:w-[500px] bg-[#222222] text-white p-4 rounded-lg grid gap-y-[50px] relative">
             <div>
               <p
                 className="text-base font-normal leading-tight text-left opacity-70 text-[#FFFFFF]"
@@ -36,10 +36,13 @@ export default function Wallet() {
                 15 000 сом
               </h1>
             </div>
-
-            <div class="custom-background text-white">
-              <div class="circle1"></div>
-              <div class="circle2"></div>
+            <div class=" absolute justify-end left-[270px] hidden sm:flex">
+              <img
+                className="relative right-[-50px] top-[20px] rotate-[-180deg]"
+                src={Ellipse}
+                alt=""
+              />
+              <img className="realative right-[20px]" src={Ellipse2} alt="" />
             </div>
           </div>
           <button className="relative h-[44px] px-[25px] flex justify-center bg-[#E5E5E5] items-center text-white rounded-[12px] text-lg">

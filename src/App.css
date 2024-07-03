@@ -40,12 +40,8 @@ p {
   }
 }
 
-.fc-event-main div {
-  padding: 10px;
-  background-color: red !important;
-}
-.fc-daygrid-dot-event div {
-  background-color: red !important;
+.fc-button-group button {
+  background: red;
 }
 
 input[type="radio"] {
@@ -160,12 +156,17 @@ aside {
   right: -50px;
 }
 
-.custom-background .circle1 {
-  bottom: -50px;
-  left: -50px;
+.fc-button-primary {
+  background-color: #ffffff !important;
+  border-color: #555 !important;
+  color: #555 !important;
 }
-
-.custom-background .circle2 {
-  bottom: -50px;
-  right: -50px;
+.fc-direction-ltr .fc-toolbar > * > :not(:first-child) {
+  background-color: #f93a0b !important;
+  color: #ffffff !important;
+  border-color: #f93a0b !important;
+}
+.fc-button-primary:hover {
+  background: #f93a0b !important;
+  color: #ffffff !important;
 }
