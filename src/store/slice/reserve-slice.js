@@ -31,9 +31,7 @@ export const fetchReverse = createAsyncThunk(
 
 export const fetchbookingCreate = createAsyncThunk(
   "reserve/fetchbookingCreate",
-  async (data, { rejectWithValue }) => {
-
-    console.log(data, 'data');
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.post(`${Api}admin_api/admin-booking-field/?user_type=${data?.booking}`, data?.data, {
         headers: {
@@ -41,7 +39,6 @@ export const fetchbookingCreate = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(response, 'response');
       return response.data;
     } catch (error) {
       console.log(error);
@@ -58,6 +55,7 @@ export const reserveSlice = createSlice({
   initialState: {
     loading: false,
     reverse: null,
+    booking: null,
     error: null,
   },
   reducers: {},
@@ -73,7 +71,19 @@ export const reserveSlice = createSlice({
       .addCase(fetchReverse.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
-      });
+      })
+      .addCase(fetchbookingCreate.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchbookingCreate.fulfilled, (state, action) => {
+        state.booking = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchbookingCreate.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+
   },
 });
 

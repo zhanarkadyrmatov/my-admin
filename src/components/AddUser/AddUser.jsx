@@ -45,7 +45,7 @@ export default function AddUser({ user, setUser }) {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
-            <div onClick={() => dispatch(fetchSearch(search))} className='w-[80px] h-[40px] bg-[#F3F3F3] rounded-[8px] flex justify-center items-center cursor-pointer hover:bg-[#bfbdbd] duration-300'>
+            <div onClick={() => search && dispatch(fetchSearch(search))} className={`w-[80px] h-[40px]  rounded-[8px] flex justify-center items-center cursor-pointer ${search ? 'bg-[#bfbdbd]' : 'bg-[#F3F3F3]' }`}>
               <FaSearch className="w-[16px] h-[16px]" />
             </div>
           </div>
