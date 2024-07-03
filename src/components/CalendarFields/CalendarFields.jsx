@@ -27,7 +27,6 @@ const events = [
 ];
 
 export default function CalendarFields() {
-
   const { bookings, status, error } = useSelector((state) => state.story);
   const [events, setEvents] = useState([]);
 
@@ -39,13 +38,12 @@ export default function CalendarFields() {
             title: item?.organizer_name,
             start: item?.start_time,
             end: item?.end_time,
-            date: item?.booking_date
+            date: item?.booking_date,
           };
         })
       );
     }
   }, [bookings]);
-
 
   console.log(events, "events");
 
