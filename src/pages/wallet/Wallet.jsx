@@ -37,9 +37,9 @@ export default function Wallet() {
               </h1>
             </div>
 
-            <div class="custom-background text-white">
-              <div class="circle1"></div>
-              <div class="circle2"></div>
+            <div className="custom-background text-white">
+              <div className="circle1"></div>
+              <div className="circle2"></div>
             </div>
           </div>
           <button className="relative h-[44px] px-[25px] flex justify-center bg-[#E5E5E5] items-center text-white rounded-[12px] text-lg">

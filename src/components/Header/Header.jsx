@@ -45,7 +45,7 @@ export default function Header({
             width: "-webkit-fill-available",
             boxShadow: "5px 1px 10px -5px #000",
           }}
-          class="fixed top-0 px-3 py-[14px] md:py-4 md:px-4 z-10 flex justify-between items-center bg-white dark:bg-[#212130]"
+          className="fixed top-0 px-3 py-[14px] md:py-4 md:px-4 z-10 flex justify-between items-center bg-white dark:bg-[#212130]"
         >
           <div className="">
             <div className="flex items-center gap-2 lg:gap-5">
