@@ -16,6 +16,10 @@ import Wallet from "./pages/wallet/Wallet";
 import ReserveModal from "./components/ReserveModal/ReserveModal";
 import FieldsModal from "./components/Modal/FieldsModal";
 import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
@@ -26,6 +30,18 @@ function App({ open }) {
 
   return (
     <>
+    <ToastContainer
+      autoClose={3000}
+      limit={1}
+      hideProgressBar
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
       {reserve && <ReserveModal setReserve={setReserve} />}
       <div className={`flex`}>
         <Playground

@@ -35,7 +35,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
           <div className="flex justify-center items-center py-3 px-4">
             <svg
               className="w-[50px] h-[50px]"
-              class="logo-abbr"
+              className="logo-abbr"
               xmlns="http://www.w3.org/2000/svg"
               width="62.074"
               height="65.771"
@@ -47,7 +47,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 transform="translate(12.731 12.199)"
               >
                 <rect
-                  class="rect-primary-rect"
+                  className="rect-primary-rect"
                   id="Rectangle_1"
                   data-name="Rectangle 1"
                   width="60"
@@ -63,7 +63,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   transform="translate(1 0)"
                   fill="#fff"
                   stroke="#fff"
-                  stroke-width="1"
+                  strokeWidth="1"
                 ></path>
                 <path
                   id="Path_2002"
@@ -72,7 +72,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   transform="translate(-168.591 -98.178)"
                   fill="#fff"
                   stroke="#fff"
-                  stroke-width="1"
+                  strokeWidth="1"
                 ></path>
               </g>
             </svg>
