@@ -1,25 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
-import moment from 'moment';
-
+import moment from "moment";
 
 export const fetchReverse = createAsyncThunk(
   "reserve/fetchReverse",
   async ({ footballId, startDate }, { rejectWithValue }) => {
-
-    console.log(footballId, startDate, 'footballId, startDate');
+    console.log(footballId, startDate, "footballId, startDate");
     const formattedDate = (date) => {
-      return moment(date).format('YYYY-MM-DD')
-    }
-    const date = formattedDate(startDate)
+      return moment(date).format("YYYY-MM-DD");
+    };
+    const date = formattedDate(startDate);
 
     try {
-      const response = await axios.get(`${Api}football_fields_api/field-booked-hours/${date}/${footballId}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        `${Api}football_fields_api/field-booked-hours/${date}/${footballId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -27,31 +28,31 @@ export const fetchReverse = createAsyncThunk(
       return rejectWithValue(error.response.data);
     }
   }
-)
+);
 
 export const fetchbookingCreate = createAsyncThunk(
   "reserve/fetchbookingCreate",
   async (data, { rejectWithValue }) => {
-
-    console.log(data, 'data');
+    console.log(data, "data");
     try {
-      const response = await axios.post(`${Api}admin_api/admin-booking-field/?user_type=${data?.booking}`, data?.data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      console.log(response, 'response');
+      const response = await axios.post(
+        `${Api}admin_api/admin-booking-field/?user_type=${data?.booking}`,
+        data?.data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response, "response");
       return response.data;
     } catch (error) {
       console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
-
-
-
+);
 
 export const reserveSlice = createSlice({
   name: "reserve",
