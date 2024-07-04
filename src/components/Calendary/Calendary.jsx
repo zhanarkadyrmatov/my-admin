@@ -3,8 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import s from "./Calendary.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBookings } from "../../store/slice/story";
+import { useSelector } from "react-redux";
 const events = [
   { title: "Meeting", start: new Date() },
   {
@@ -35,35 +34,33 @@ export default function Calendar() {
   });
   console.log(newData, "newData");
   return (
-    status === "fulfilled" && (
-      <div className={`${s.calendar} dark:bg-[#212130] dark:text-[#fff]`}>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin]}
-          timeZone="UTC"
-          initialView="dayGridMonth"
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          buttonText={{
-            today: "Сегодня",
-            month: "Месяц",
-            week: "Неделя",
-            day: "День",
-            allday: "весь день",
-          }}
-          locale={"ru"}
-          weekText="нед:"
-          allDayText="Весь день"
-          weekNumbers={false}
-          navLinks={true}
-          editable={true}
-          events={newData}
-          eventContent={renderEventContent}
-        />
-      </div>
-    )
+    <div className={`${s.calendar} dark:bg-[#212130] dark:text-[#fff]`}>
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin]}
+        timeZone="UTC"
+        initialView="dayGridMonth"
+        headerToolbar={{
+          left: "prev,next today",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay",
+        }}
+        buttonText={{
+          today: "Сегодня",
+          month: "Месяц",
+          week: "Неделя",
+          day: "День",
+          allday: "весь день",
+        }}
+        locale={"ru"}
+        weekText="нед:"
+        allDayText="Весь день"
+        weekNumbers={false}
+        navLinks={true}
+        editable={true}
+        events={newData}
+        eventContent={renderEventContent}
+      />
+    </div>
   );
 }
 
