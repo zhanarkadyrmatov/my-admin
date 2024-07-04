@@ -5,6 +5,8 @@ import { IoCalendarClearOutline } from "react-icons/io5";
 import { RxTextAlignJustify } from "react-icons/rx";
 const BalanceCard = () => {
   const [inputVALUE, setInputVALUE] = useState("");
+  const [testValue, setTestValue] = useState(null);
+  const [open, setOpen] = useState(null);
 
   const dateInputRef = useRef(null);
   const dateInputRef2 = useRef(null);
@@ -61,7 +63,7 @@ const BalanceCard = () => {
       <td className="px-6 py-4 whitespace-nowrap">{transaction.field}</td>
       <td className="px-6 py-4 whitespace-nowrap">
         <span className="flex items-center gap-x-[5px] px-2 py-1 rounded">
-          <IoCalendarClearOutline />{" "}
+          <IoCalendarClearOutline />
           {transaction.paymentSystem === "Онлайн"
             ? "Онлайн"
             : transaction.paymentSystem}
@@ -83,31 +85,43 @@ const BalanceCard = () => {
           </select>
         </div>
         <div className="flex justify-between bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
-          <div className="flex items-center justify-between w-full">
+          <div
+            className="flex items-center justify-between w-full"
+            onClick={handleButtonClick}
+          >
             <div className="flex items-center space-x-1">
-              <IoCalendarClearOutline />
+              <IoCalendarClearOutline className="text-[#B8C0CC]" />
               <input
                 ref={dateInputRef}
                 type="date"
+                onChange={(e) => setTestValue(e.target.value)}
                 className="h-[50px] bg-[#F7F8F9] flex items-center rounded-[10px]"
               />
-              <h4>Все операции</h4>
+              <h4 className="text-[#B8C0CC]">
+                {testValue !== null ? testValue : "Все операции"}
+              </h4>
             </div>
-            <IoMdArrowDropdown onClick={handleButtonClick} size={30} />
+            <IoMdArrowDropdown size={30} />
           </div>
         </div>
         <div className="bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
-          <div className="flex items-center justify-between w-full">
+          <div
+            className="flex items-center justify-between w-full"
+            onClick={handleButtonClick2}
+          >
             <div className="flex items-center space-x-1">
-              <IoCalendarClearOutline />
+              <IoCalendarClearOutline className="text-[#B8C0CC]" />
               <input
                 ref={dateInputRef2}
                 type="date"
+                onChange={(e) => setOpen(e.target.value)}
                 className="h-[50px] bg-[#F7F8F9] flex items-center rounded-[10px]"
               />
-              <h4>Все операции</h4>
+              <h4 className="text-[#B8C0CC]">
+                {open !== null ? open : "Все операции"}
+              </h4>
             </div>
-            <IoMdArrowDropdown onClick={handleButtonClick2} size={30} />
+            <IoMdArrowDropdown size={30} />
           </div>
         </div>
         <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center">

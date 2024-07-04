@@ -28,7 +28,6 @@ function App({ open }) {
   const [openSetting, setOpenSetting] = useState(false);
   const [reserve, setReserve] = useState(false);
 
-
   return (
     <>
     <ToastContainer
@@ -73,7 +72,10 @@ function App({ open }) {
                 <Route path="/fields" element={<Fields />} />
                 <Route path="/editFields" element={<EditFieds />} />
                 <Route path="/fields/football" element={<Addfootball />} />
-                <Route path="/fields/football/:id" element={<FootballCreate />} />
+                <Route
+                  path="/fields/football/:id"
+                  element={<FootballCreate />}
+                />
                 <Route path="/fields/:id" element={<FieldsId />} />
                 <Route path="/reserve/:id" element={<Reserve />} />
               </Routes>
