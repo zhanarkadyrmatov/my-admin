@@ -82,8 +82,6 @@ function Reserve() {
         payment_type: payment,
         booking_type: repeat,
       } : {
-        phone: phone,
-        name: name,
         start_time: format(time?.start, 'HH:mm'),
         end_time: format(time?.end, 'HH:mm'),
         day_of_week: dayOfWeek?.day_of_week,
@@ -92,6 +90,10 @@ function Reserve() {
         duration: 1,
         football_field_cost: price?.price,
         payment_type: payment,
+        not_registered_user: {
+          phone: phone,
+         name: name,
+        }
       }
     }))
     setUser(null);
@@ -270,7 +272,7 @@ function Reserve() {
                   Забронировать поле
                 </button> 
                 : 
-                <button onClick={() => payment && phone && name && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && user && time ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
+                <button onClick={() => payment && phone && name && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && phone && name ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
                   Забронировать поле
                 </button>}   
               </div>
