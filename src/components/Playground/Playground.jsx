@@ -23,9 +23,6 @@ export default function Playground({ collapsed, toggled, setToggled }) {
   const [logout, setLogout] = useState(false);
   const isLogin = localStorage.getItem("token");
 
-  console.log("====================================");
-  console.log(isLogin, "test");
-  console.log("====================================");
   return (
     <>
       {logout && <Logout setLogout={setLogout} />}
@@ -40,7 +37,6 @@ export default function Playground({ collapsed, toggled, setToggled }) {
           <div className="flex justify-center items-center py-3 px-4">
             <svg
               className="w-[50px] h-[50px]"
-              // className="logo-abbr"
               xmlns="http://www.w3.org/2000/svg"
               width="62.074"
               height="65.771"
