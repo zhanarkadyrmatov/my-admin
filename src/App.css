@@ -170,3 +170,6 @@ aside {
   background: #f93a0b !important;
   color: #ffffff !important;
 }
+.fc-button-primary:disabled {
+  display: none !important;
+}
