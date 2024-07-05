@@ -1,30 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import s from "./Calendary.module.scss";
-const events = [
-  { title: "Meeting", start: new Date() },
-  {
-    title: "Meetings",
-    start: new Date("Tue Feb 13 2024 11:30:43 GMT+0600 (Киргизия)"),
-  },
-  {
-    title: "Asan",
-    start: new Date("Tue Feb 5 2024 11:30:43 GMT+0600 (Киргизия)"),
-  },
-  {
-    title: "Acan",
-    start: new Date("Tue Feb 5 2024 12:00:43 GMT+0600 (Киргизия)"),
-  },
-  {
-    title: "Bekmyrza",
-    start: new Date("Tue Feb 9 2024 11:16:43 GMT+0600 (Киргизия)"),
-    end: new Date("Tue Feb 10 2024 11:16:43 GMT+0600 (Киргизия)"),
-  },
-];
+import { useSelector } from "react-redux";
+
 
 export default function Calendar() {
+  const { bookings, status, error } = useSelector((state) => state.story);
+  const newData = bookings?.map((item) => {
+    return {
+      title: item?.organizer_name,
+      start: item?.booking_date,
+    };
+  });
+
+  console.log(newData, "newData");
+  
   return (
     <div className={`${s.calendar} dark:bg-[#212130] dark:text-[#fff]`}>
       <FullCalendar
@@ -49,6 +41,7 @@ export default function Calendar() {
         weekNumbers={false}
         navLinks={true}
         editable={true}
+        events={newData}
         eventContent={renderEventContent}
       />
     </div>
@@ -58,14 +51,11 @@ export default function Calendar() {
 function renderEventContent(eventInfo) {
   console.log(eventInfo);
   return (
-    <div
-      style={{
-        backgroundColor: "#fafafa",
-        color: "#fff",
-      }}
-    >
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
+    <div>
+      <div className="bg-[red] text-[#fff] p-[10px] rounded-md">
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
+      </div>
     </div>
   );
 }

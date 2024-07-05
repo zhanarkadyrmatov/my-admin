@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 import moment from 'moment';
+import { toast, ToastContainer } from "react-toastify";
+
 
 
 export const fetchReverse = createAsyncThunk(
@@ -20,7 +22,6 @@ export const fetchReverse = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
       return response.data;
     } catch (error) {
       console.log(error);
@@ -39,9 +40,12 @@ export const fetchbookingCreate = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      toast.success("Запись успешно создана");
+
       return response.data;
     } catch (error) {
-      console.log(error);
+      toast.error('Запись не создана');
+      console.log(error?.response.data);
       return rejectWithValue(error.response.data);
     }
   }

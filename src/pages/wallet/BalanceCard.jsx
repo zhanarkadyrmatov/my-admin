@@ -124,7 +124,7 @@ const BalanceCard = () => {
             <IoMdArrowDropdown size={30} />
           </div>
         </div>
-        <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center">
+        <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center">
           <svg
             width="17"
             height="16"
@@ -135,16 +135,16 @@ const BalanceCard = () => {
             <path
               d="M8.16634 14C11.6641 14 14.4997 11.1645 14.4997 7.66671C14.4997 4.1689 11.6641 1.33337 8.16634 1.33337C4.66854 1.33337 1.83301 4.1689 1.83301 7.66671C1.83301 11.1645 4.66854 14 8.16634 14Z"
               stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M15.1663 14.6667L13.833 13.3334"
               stroke="white"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           Поиск

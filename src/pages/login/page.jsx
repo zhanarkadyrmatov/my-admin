@@ -11,7 +11,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState({ value: "", error: "" });
   const dispatch = useDispatch();
-  const {status, error } = useSelector((state) => state.user);
+  const { status, error } = useSelector((state) => state.user);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!email.value) {

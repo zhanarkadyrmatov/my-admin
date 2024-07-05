@@ -2,11 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 
-
 export const fetchArbitrators = createAsyncThunk(
   "arbitrators/fetchArbitrators",
   async (_, { rejectWithValue }) => {
-
     try {
       const response = await axios.get(`${Api}user_api/arbitrators/`, {
         headers: {
@@ -20,9 +18,7 @@ export const fetchArbitrators = createAsyncThunk(
       return rejectWithValue(error.response.data);
     }
   }
-)
-
-
+);
 
 export const arbitratorSlice = createSlice({
   name: "arbitrator",

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import blockimage from "../../../img/blockimage.svg";
-import edit from "../../../img/edit.svg";
 import { NavLink } from "react-router-dom";
-import trash from "../../../img/trash.svg";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { FaPlus } from "react-icons/fa6";
+import { MdOutlineRemoveRedEye, MdDeleteOutline } from "react-icons/md";
 
 export default function BookId({ item, setFieldDelete, fieldDelete }) {
   return (
@@ -24,22 +23,19 @@ export default function BookId({ item, setFieldDelete, fieldDelete }) {
                 }
               >
                 <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
-                  <img
+                  {/* <img
                     className={"w-[20px] h-[20px] "}
                     src={edit}
                     alt=""
-                  />
+                  /> */}
+                  <MdOutlineRemoveRedEye className="w-[20px] h-[20px] fill-white "/>
+
                 </div>
                 <div onClick={() => setFieldDelete(!fieldDelete)} className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
-                  <img
-                    className={"w-[20px] h-[20px] "}
-                    src={trash}
-                    alt=""
-                  />
+                <MdDeleteOutline className="w-[20px] h-[20px] fill-white "/>
                 </div>
                 <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
-                  <FaPlus className={"w-[20px] h-[20px] fill-white "}
-                  />
+                  <FaPlus className={"w-[20px] h-[20px] fill-white "}/>
                 </div>
               </div>
               <NavLink className={"w-[100%]"} to={`/fields/${item?.id}`}>

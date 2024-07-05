@@ -6,6 +6,7 @@ import { GoPlus } from "react-icons/go";
 import Ellipse from "../../img/Ellipse.svg";
 import Ellipse2 from "../../img/Ellipse2.svg";
 import BalanceCard from "./BalanceCard";
+
 export default function Wallet() {
   const [inputVALUE, setInputVALUE] = useState("");
   const dateInputRef = useRef(null);
