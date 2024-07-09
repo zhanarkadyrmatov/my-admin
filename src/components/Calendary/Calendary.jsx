@@ -3,10 +3,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useSelector } from "react-redux";
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/aziret
 
 export default function Calendar() {
   const { bookings, status, error } = useSelector((state) => state.story);
@@ -27,7 +23,6 @@ export default function Calendar() {
   return (
     <div className={`bg-[#fff] border-[1px] border-[#E9E9E9] lg:p-[20px] p-[5px] rounded-[10px]`}>
       <FullCalendar
-<<<<<<< HEAD
         plugins={[timeGridPlugin]}
         initialView='timeGridWeek'
         headerToolbar={{
@@ -36,26 +31,12 @@ export default function Calendar() {
           right: "timeGridWeek,timeGridDay"
         }}
         buttonText={{
-          today: "Сегодня",
           week: "Неделя",
           day: "День",
-          allday: "весь день",
         }}
-=======
-        plugins={[dayGridPlugin, timeGridPlugin]}
-        timeZone="UTC"
-        initialView="dayGridMonth"
-        headerToolbar={
-          {
-            // left: "prev,next today",
-            // center: "title",
-            // right: "timeGridWeek",
-          }
-        }
->>>>>>> origin/aziret
         locale={"ru"}
-        // weekText="нед:"
-        // allDayText="Весь день"
+        weekText="нед:"
+        allDayText="Весь день"
         weekNumbers={false}
         events={data}
         eventContent={renderEventContent}
