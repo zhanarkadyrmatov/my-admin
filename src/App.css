@@ -110,6 +110,7 @@ input[type="checkbox"]:checked {
     display: grid !important;
     row-gap: 10px;
   }
+
   .fc-toolbar-title {
     font-size: 23px !important;
   }
@@ -117,9 +118,11 @@ input[type="checkbox"]:checked {
 .css-j204z7-MuiFormControlLabel-root {
   margin: 0 !important;
 }
+
 aside {
   z-index: 999 !important;
 }
+
 ::-webkit-scrollbar {
   width: 0px;
 }

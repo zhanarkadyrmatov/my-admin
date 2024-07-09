@@ -27,9 +27,10 @@ export default function Calendar() {
             // right: "timeGridWeek",
           }
         }
+        buttonText={{
+          today: "Сегодня",
+        }}
         locale={"ru"}
-        // weekText="нед:"
-        // allDayText="Весь день"
         weekNumbers={false}
         navLinks={true}
         editable={true}
@@ -39,7 +40,6 @@ export default function Calendar() {
     </div>
   );
 }
-
 function renderEventContent(eventInfo) {
   console.log(eventInfo);
   return (
