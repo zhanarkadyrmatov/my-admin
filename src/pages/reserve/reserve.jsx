@@ -71,6 +71,19 @@ function Reserve() {
 
 
   const handleClick = () => {
+    console.log({
+      field_type: footballId,
+        start_time: format(time?.start, 'HH:mm'),
+        end_time: format(time?.end, 'HH:mm'),
+        booking_date: startDate,
+        duration: 1,
+        football_field_cost: price?.price,
+        organizer: user?.id,
+        arbitrator: arbitrator?.id,
+        payment_type: payment,
+        booking_type: repeat,
+    })
+    
     dispatch(fetchbookingCreate({
       booking: state?.reserve,
       data: state?.reserve === 'existing' ? {
@@ -109,19 +122,6 @@ function Reserve() {
     setPrice(null);
 
   };
-
-  // const aaaaaa = {
-  //   field_type: footballId,
-  //   start_time: format(time?.start, 'HH:mm'),
-  //   end_time: format(time?.end, 'HH:mm'),
-  //   booking_date: startDate,
-  //   duration: 1,
-  //   football_field_cost: price?.price,
-  //   organizer: user?.id,
-  //   arbitrator: arbitrator?.id,
-  //   payment_type: payment,
-  //   booking_type: repeat,
-  // }
 
   return (
     <>
