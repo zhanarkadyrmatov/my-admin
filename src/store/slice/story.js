@@ -12,7 +12,7 @@ export const fetchBookings = createAsyncThunk(
   "booking/fetchBookings",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.get(`${Api}admin_api/bookings_of_field/${id}/`, {
+      const response = await axios.get(`${Api}admin_api/admin-booking-field/?field_type=${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

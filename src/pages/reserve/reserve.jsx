@@ -30,7 +30,7 @@ function Reserve() {
     dispatch(fetchArbitrators());
   }, []);
 
-  console.log(footballId, 'footballId');
+  console.log(startDate, 'startDate');
 
   useEffect(() => {
     dispatch(fetchReverse({ footballId, startDate }));
@@ -65,7 +65,10 @@ function Reserve() {
     return intervalDate < currentTime;
   };
 
-  console.log(repeat, 'repeat');
+  const formatTime = (time) => {
+    return format(time, 'HH:mm');
+  };
+
 
   const handleClick = () => {
     dispatch(fetchbookingCreate({
@@ -92,7 +95,7 @@ function Reserve() {
         payment_type: payment,
         not_registered_user: {
           phone: phone,
-         name: name,
+          name: name,
         }
       }
     }))
@@ -107,6 +110,18 @@ function Reserve() {
 
   };
 
+  // const aaaaaa = {
+  //   field_type: footballId,
+  //   start_time: format(time?.start, 'HH:mm'),
+  //   end_time: format(time?.end, 'HH:mm'),
+  //   booking_date: startDate,
+  //   duration: 1,
+  //   football_field_cost: price?.price,
+  //   organizer: user?.id,
+  //   arbitrator: arbitrator?.id,
+  //   payment_type: payment,
+  //   booking_type: repeat,
+  // }
 
   return (
     <>
@@ -268,13 +283,13 @@ function Reserve() {
                   </div>
                 </div>
                 {state?.reserve === 'existing' ?
-                 <button onClick={() => payment && user && time && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && user && time ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
-                  Забронировать поле
-                </button> 
-                : 
-                <button onClick={() => payment && phone && name && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && phone && name ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
-                  Забронировать поле
-                </button>}   
+                  <button onClick={() => payment && user && time && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && user && time ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
+                    Забронировать поле
+                  </button>
+                  :
+                  <button onClick={() => payment && phone && name && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && phone && name ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
+                    Забронировать поле
+                  </button>}
               </div>
             </div>
           </div >

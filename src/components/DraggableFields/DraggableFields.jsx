@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBookings } from "../../store/slice/story";
 import { FaAngleDown } from "react-icons/fa6";
 import moment from 'moment';
+import { format } from "date-fns";
 
 export default function DraggableFields() {
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
@@ -22,11 +23,6 @@ export default function DraggableFields() {
   const redireact = () => {
     window.location.href = "/calendary/book";
   };
-
-  const formattedDate = (date) => {
-    return moment(date).format('DD.MM.YYYY')
-  }
-
 
   return (
     <div >
@@ -66,15 +62,26 @@ export default function DraggableFields() {
             <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">День</td>
             <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">Время</td>
           </tr>
-          {bookings?.map(
-            (res, i) => (
-              <tr key={i} className={'border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 '}>
-                <td className={'text-[#404040] text-[14px] leading-[19px] font-normal col-span-2'}>{res?.organizer_name}</td>
-                <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{formattedDate(res?.booking_date)}</td>
-                <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{res?.start_time?.slice(0, 5)}-{res?.end_time?.slice(0, 5)}</td>
-              </tr>
-            )
-          )}
+          {bookings?.length > 0
+            ?
+            <>
+              {bookings?.map(
+                (res, i) => {
+                  return (
+                    <tr key={i} className={'border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 '}>
+                      <td className={'text-[#404040] text-[14px] leading-[19px] font-normal col-span-2'}>{res?.name}</td>
+                      <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{format(res?.create_date, 'dd.MM.yyyy')}</td>
+                      <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{format(res?.start_time, 'HH:mm')}-{format(res?.end_time, 'HH:mm')}</td>
+                    </tr>
+                  )
+                })}
+            </>
+            :
+            <p className={'text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2'}>
+              Нет записей
+            </p>
+          }
+
         </table>
         <div className={''}>
           <button className="flex justify-center items-center gap-2 w-full py-[10px] px-4 rounded-xl  border bg-[#f93a0b] hover:bg-[#a43418] duration-300" onClick={() => redireact()} >

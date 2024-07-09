@@ -1,36 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import s from "./Calendary.module.scss";
 import { useSelector } from "react-redux";
 
 
 export default function Calendar() {
   const { bookings, status, error } = useSelector((state) => state.story);
-  const newData = bookings?.map((item) => {
-    return {
-      title: item?.organizer_name,
-      start: item?.booking_date,
-    };
-  });
+  const [data, setData] = useState([]);
 
-  console.log(newData, "newData");
-  
+  useEffect(() => {
+    if (bookings) {
+      setData(
+        bookings.map((item) => ({
+          title: item?.name,
+          start: item?.start_time,
+          end: item?.end_time,
+        }))
+      );
+    }
+  }, [bookings]);
+
   return (
-    <div className={`${s.calendar} dark:bg-[#212130] dark:text-[#fff]`}>
+    <div className={`bg-[#fff] border-[1px] border-[#E9E9E9] lg:p-[20px] p-[5px] rounded-[10px]`}>
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin]}
-        timeZone="UTC"
-        initialView="dayGridMonth"
+        plugins={[timeGridPlugin]}
+        initialView='timeGridWeek'
         headerToolbar={{
-          left: "prev,next today",
+          left: "prev,next",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+          right: "timeGridWeek,timeGridDay"
         }}
         buttonText={{
           today: "Сегодня",
-          month: "Месяц",
           week: "Неделя",
           day: "День",
           allday: "весь день",
@@ -39,9 +41,7 @@ export default function Calendar() {
         weekText="нед:"
         allDayText="Весь день"
         weekNumbers={false}
-        navLinks={true}
-        editable={true}
-        events={newData}
+        events={data}
         eventContent={renderEventContent}
       />
     </div>
@@ -49,13 +49,9 @@ export default function Calendar() {
 }
 
 function renderEventContent(eventInfo) {
-  console.log(eventInfo);
   return (
-    <div>
-      <div className="bg-[red] text-[#fff] p-[10px] rounded-md">
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-      </div>
+    <div className="w-full text-[#fff] text-[8px] lg:text-[10px] p-[1px]  rounded-md">
+      <i>{eventInfo.event.title}</i>
     </div>
   );
 }
