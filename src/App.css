@@ -162,6 +162,7 @@ aside {
   background: #f93a0b !important;
   color: #ffffff !important;
 }
+<<<<<<< HEAD
 
 @media screen and (max-width: 600px) {
   .fc-toolbar-title {
@@ -186,4 +187,8 @@ aside {
     font-size: 14px !important;
 
   }
+=======
+.fc-button-primary:disabled {
+  display: none !important;
+>>>>>>> origin/aziret
 }
