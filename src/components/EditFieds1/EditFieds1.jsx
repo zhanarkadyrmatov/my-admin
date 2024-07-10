@@ -3,11 +3,25 @@ import { HiOutlineChevronDown } from "react-icons/hi";
 import { MdOutlineCheck } from "react-icons/md";
 import Camera from "../../img/camera-plus.svg";
 import { FaCheck } from "react-icons/fa6";
+import img7 from "../../img/img7.svg";
 
 function Fieds1({ page, setPage }) {
   const [accordion, setAccordion] = useState(false);
   const [select, setSelect] = useState(false);
+  const [coverImage, setCoverImage] = useState(null);
+  const [cardImage, setCardImage] = useState(null);
 
+  const handleCoverImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setCoverImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const handleCardImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setCardImage(URL.createObjectURL(e.target.files[0]));
+    }
+  };
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-y-[20px] xl:gap-x-[20px]">
       <div className="">
@@ -19,8 +33,9 @@ function Fieds1({ page, setPage }) {
             {[1, 2, 3, 4, 5].map((res, i) => {
               return (
                 <div
-                  className={`flex justify-start gap-[8px] ${res === 2 ? "items-start" : "items-center"
-                    }`}
+                  className={`flex justify-start gap-[8px] ${
+                    res === 2 ? "items-start" : "items-center"
+                  }`}
                 >
                   <input
                     type="checkbox"
@@ -40,8 +55,9 @@ function Fieds1({ page, setPage }) {
                             Выберите
                           </span>
                           <HiOutlineChevronDown
-                            className={`duration-300 ${accordion ? "rotate-180" : "rotate-0"
-                              }`}
+                            className={`duration-300 ${
+                              accordion ? "rotate-180" : "rotate-0"
+                            }`}
                           />
                         </div>
                         {accordion && (
@@ -77,14 +93,15 @@ function Fieds1({ page, setPage }) {
         <div className="flex flex-col gap-[30px]">
           <div className="p-[15px] md:p-[20px] bg-white rounded-b-[12px]">
             <div className="flex flex-col gap-[20px]">
-              <div className="grid grid-cols-2  md:grid-cols-3 gap-[10px]">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-[10px]">
                 <div className="flex flex-col gap-[10px]">
                   <div
                     style={{
-                      backgroundImage:
-                        "url(https://s3-alpha-sig.figma.com/img/696a/d53f/f12d7954e04dc1366cf76d70a5e06d46?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=q3O6ugDoMHiC0OYuHKIJov0Fc711R3yniaCD8HOT94sOaZPZYJhG5vkKkeJURD0b~MxoJWh7O7mqtNhhFk~qO3JPl8hGEkECLXOj4F6DIJ3~r7yg8lgVP8ikEbYXkTYUOKjEZHt-WIhhK5JzXyuOUJCx24LbfksBNX1ZGDfZqqDAod1rBgNLy2Cb75WAvJ186X2W62S~K3rAKzNqgnlHA8sYoVOq9AU704ELMpD8wi4as3L~2ErTaC-3suXfHGfjRMEWgWsoDnZ5uAyhKP-QA9poqusGT5ZemH17aMTAO8z-RX13-foFvj-hbItPrvAViIAsHhkWY9myqyKRJZkWxw__)",
+                      backgroundImage: `url(${
+                        coverImage != null ? coverImage : img7
+                      })`,
                     }}
-                    className="w-full h-[100px]  md:h-[130px] flex justify-center items-center rounded-[10px] bg-no-repeat bg-cover bg-center"
+                    className="w-full h-[100px] md:h-[130px] flex justify-center items-center rounded-[10px] bg-no-repeat bg-cover bg-center"
                   >
                     <MdOutlineCheck className="w-[32px] h-[32px] text-white" />
                   </div>
@@ -93,18 +110,46 @@ function Fieds1({ page, setPage }) {
                   </p>
                 </div>
                 <div className="flex flex-col gap-[10px]">
-                  <div className="w-full h-[100px]  md:h-[130px] flex justify-center items-center rounded-[10px] cursor-pointer bg-[#F0F0F0] hover:bg-[#D9D9D9] duration-300">
-                    <input type="file" name="" id="" hidden />
-                    <img src={Camera} alt="" />
+                  <div
+                    className="w-full h-[100px] md:h-[130px] flex justify-center items-center rounded-[10px] cursor-pointer bg-[#F0F0F0] hover:bg-[#D9D9D9] duration-300"
+                    onClick={() =>
+                      document.getElementById("coverImageInput").click()
+                    }
+                  >
+                    <input
+                      type="file"
+                      id="coverImageInput"
+                      hidden
+                      onChange={handleCoverImageChange}
+                    />
+                    <img src={Camera} alt="camera icon" />
                   </div>
                   <p className="text-[12px] md:text-[13px] leading-[15px] text-[#222222] font-[500] text-center px-1">
                     Коснитесь, чтобы загрузить обложку
                   </p>
                 </div>
                 <div className="flex flex-col gap-[10px]">
-                  <div className="w-full h-[100px]  md:h-[130px] flex justify-center items-center rounded-[10px] cursor-pointer bg-[#F0F0F0] hover:bg-[#D9D9D9] duration-300">
-                    <input type="file" name="" id="" hidden />
-                    <img src={Camera} alt="" />
+                  <div
+                    className="w-full h-[100px] md:h-[130px] flex justify-center items-center rounded-[10px] cursor-pointer bg-[#F0F0F0] hover:bg-[#D9D9D9] duration-300"
+                    onClick={() =>
+                      document.getElementById("cardImageInput").click()
+                    }
+                  >
+                    <input
+                      type="file"
+                      id="cardImageInput"
+                      hidden
+                      onChange={handleCardImageChange}
+                    />
+                    {cardImage ? (
+                      <img
+                        src={cardImage}
+                        alt="card"
+                        className="w-full h-full object-cover rounded-[10px]"
+                      />
+                    ) : (
+                      <img src={Camera} alt="camera icon" />
+                    )}
                   </div>
                   <p className="text-[12px] md:text-[13px] leading-[15px] text-[#222222] font-[500] text-center px-1">
                     Коснитесь, чтобы загрузить фото карточки
@@ -165,8 +210,9 @@ function Fieds1({ page, setPage }) {
                       Добавьте типы футбольных полей
                     </p>
                     <HiOutlineChevronDown
-                      className={`duration-300 w-6 h-6 ${select ? "rotate-180 " : "rotate-0"
-                        } `}
+                      className={`duration-300 w-6 h-6 ${
+                        select ? "rotate-180 " : "rotate-0"
+                      } `}
                     />
                   </div>
                   {select && (
@@ -175,8 +221,9 @@ function Fieds1({ page, setPage }) {
                         {[1, 2, 3, 4].map((item) => {
                           return (
                             <div
-                              className={`flex items-center justify-between gap-2  py-[5px] px-[17px] rounded-[8px] ${item === 1 ? "bg-[#F3F3F3]" : ""
-                                }`}
+                              className={`flex items-center justify-between gap-2  py-[5px] px-[17px] rounded-[8px] ${
+                                item === 1 ? "bg-[#F3F3F3]" : ""
+                              }`}
                             >
                               <span className="text-[15px] leading-[26px] text-[#222222] font-normal">
                                 Мини поле

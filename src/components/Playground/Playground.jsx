@@ -139,6 +139,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   />
                 }
                 component={<NavLink to="/fields" />}
+                onClick={() => setToggled(false)}
               >
                 Футбольные поля
               </MenuItem>
