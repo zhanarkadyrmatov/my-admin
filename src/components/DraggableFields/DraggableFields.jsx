@@ -71,7 +71,7 @@ export default function DraggableFields() {
                     <tr key={i} className={'border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 '}>
                       <td className={'text-[#404040] text-[14px] leading-[19px] font-normal col-span-2'}>{res?.name}</td>
                       <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{format(res?.create_date, 'dd.MM.yyyy')}</td>
-                      <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{format(res?.start_time, 'HH:mm')}-{format(res?.end_time, 'HH:mm')}</td>
+                      <td className={'text-[#AEAEAE] text-[14px] leading-[19px] font-normal'}>{format(res?.start_date, 'HH:mm')}-{format(res?.end_date, 'HH:mm')}</td>
                     </tr>
                   )
                 })}

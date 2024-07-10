@@ -36,7 +36,6 @@ export const fetchFieldsIdList = createAsyncThunk(
       dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id))
       dispatch(fetchBookings(response?.data?.football_field_type[0]?.id))
       dispatch(setSelectValue(response?.data?.football_field_type[0]?.name))
-
       return response.data;
     } catch (error) {
       console.log(error);

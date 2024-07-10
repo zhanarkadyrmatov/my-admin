@@ -16,6 +16,8 @@ export default function Draggable() {
     dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
   }, []);
 
+  console.log(bookings, "bookings");
+
 
   return (
     <div>
@@ -109,7 +111,7 @@ export default function Draggable() {
                       "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
                     }
                   >
-                    {format(res?.start_time, "HH:mm")}-{format(res?.end_time, "HH:mm")}
+                    {format(res?.start_date, "HH:mm")}-{format(res?.end_date, "HH:mm")}
                   </td>
                 </tr>
               ))}</>

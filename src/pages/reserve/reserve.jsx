@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ReserveDatepicker from "../../components/ReserveDatepicker/ReserveDatepicker";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFieldsIdDetail, setFootballId } from "../../store/slice/fields-slice";
+import { fetchFields, fetchFieldsIdDetail, fetchFieldsIdList, setFootballId } from "../../store/slice/fields-slice";
 import { fetchReverse, fetchbookingCreate } from "../../store/slice/reserve-slice";
 import { differenceInMinutes, parse, format, addDays } from 'date-fns';
 import { fetchArbitrators } from '../../store/slice/arbitrators';
@@ -12,6 +12,7 @@ import NewUser from "../../components/NewUser/NewUser";
 import Loader from "../../components/Loader/Loader";
 
 function Reserve() {
+  const { id } = useParams();
   const { state } = useLocation();
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
@@ -19,7 +20,7 @@ function Reserve() {
   const { reverse, booking, loading } = useSelector((state) => state.reserveSlice);
   const [phone, setPhone] = useState(null);
   const [name, setName] = useState(null);
-  const [repeat, setRepeat] = useState(0);
+  const [repeat, setRepeat] = useState(null);
   const [time, setTime] = useState(null);
   const [user, setUser] = useState(null);
   const [arbitrator, setArbitrator] = useState(null);
@@ -30,7 +31,10 @@ function Reserve() {
     dispatch(fetchArbitrators());
   }, []);
 
-  console.log(startDate, 'startDate');
+  useEffect(() => {
+    dispatch(fetchFieldsIdList(id));
+  }, [id]);
+
 
   useEffect(() => {
     dispatch(fetchReverse({ footballId, startDate }));
@@ -54,6 +58,8 @@ function Reserve() {
       end: format(intervalEnd, 'HH:mm'),
       dayStart: format(intervalStart, 'dd.MM.yyyy HH:mm'),
       dayEnd: format(intervalEnd, 'dd.MM.yyyy HH:mm'),
+      startDate: format(intervalStart, "yyyy-MM-dd'T'HH:mm:ssxxx"),
+      endDate: format(intervalEnd, "yyyy-MM-dd'T'HH:mm:ssxxx"),
     });
   }
 
@@ -65,38 +71,27 @@ function Reserve() {
     return intervalDate < currentTime;
   };
 
-  const formatTime = (time) => {
-    return format(time, 'HH:mm');
-  };
-
 
   const handleClick = () => {
+    const bookingDateISO = format(startDate, "yyyy-MM-dd'T'HH:mm:ssxxx");
     dispatch(fetchbookingCreate({
       booking: state?.reserve,
-      data: state?.reserve === 'existing' ? {
+      data: {
         field_type: footballId,
-        start_time: format(time?.start, 'HH:mm'),
-        end_time: format(time?.end, 'HH:mm'),
-        booking_date: startDate,
+        start_date: time?.startTime,
+        end_date: time?.endTime,
+        booking_date: bookingDateISO,
         duration: 1,
         football_field_cost: price?.price,
         organizer: user?.id,
         arbitrator: arbitrator?.id,
         payment_type: payment,
-        booking_type: repeat,
-      } : {
-        start_time: format(time?.start, 'HH:mm'),
-        end_time: format(time?.end, 'HH:mm'),
-        day_of_week: dayOfWeek?.day_of_week,
-        booking_date: startDate,
-        field_type: footballId,
-        duration: 1,
-        football_field_cost: price?.price,
-        payment_type: payment,
+        booking_type: repeat || 0,
         not_registered_user: {
           phone: phone,
           name: name,
         }
+        
       }
     }))
     setUser(null);
@@ -159,7 +154,8 @@ function Reserve() {
                         const activeTimeStart = time?.start === res?.dayStart;
                         const isActive = time?.start <= res?.dayStart && time?.end >= res?.dayEnd;
                         const finds = reverse?.find((el) => el?.start_time <= res?.start && el?.end_time >= res?.end)
-                        const isPast = finds?.booking_date_start <= res?.dayStart && finds?.booking_date_end >= res?.dayEnd;
+                        const isPast = finds?.start_datetime <= res?.dayStart && finds?.end_datetime >= res?.dayEnd;
+
                         return (
                           <div key={i}
                             onClick={() => {
@@ -173,9 +169,9 @@ function Reserve() {
 
                               } else {
                                 if (time && time.start < res?.dayStart) {
-                                  setTime({ ...time, end: res?.dayEnd });
+                                  setTime({ ...time, end: res?.dayEnd, endTime: res?.endDate});
                                 } else {
-                                  setTime({ start: res?.dayStart });
+                                  setTime({ start: res?.dayStart, startTime: res?.startDate });
                                 }
                               }
                             }}

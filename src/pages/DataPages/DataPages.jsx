@@ -10,8 +10,6 @@ export default function DataPages() {
     (state) => state.fields
   );
 
-  const { bookings, status, error } = useSelector((state) => state.story);
-
   const getFootballFields = (id) => {
     dispatch(fetchFieldsIdList(id));
     dispatch(setFieldsId(id));

@@ -10,7 +10,6 @@ export const fetchReverse = createAsyncThunk(
   "reserve/fetchReverse",
   async ({ footballId, startDate }, { rejectWithValue }) => {
 
-    console.log(footballId, startDate, 'footballId, startDate');
     const formattedDate = (date) => {
       return moment(date).format('YYYY-MM-DD')
     }

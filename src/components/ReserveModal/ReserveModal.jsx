@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import { FaPlus } from "react-icons/fa6";
 import img6 from "../../img/img6.svg";
 import { MdOutlineRemoveRedEye, MdDeleteOutline } from "react-icons/md";
+import { useDispatch } from 'react-redux';
 
 
 export default function ReserveModal({ setReserve, setFieldValue, fieldValue }) {
@@ -14,6 +15,12 @@ export default function ReserveModal({ setReserve, setFieldValue, fieldValue }) 
   const [fieldDelete, setFieldDelete] = useState(false);
   const [modalValue, setModalValue] = useState(true);
   const [page, setPage] = useState(null);
+  const dispatch = useDispatch()
+
+
+  const handleClose = () => {
+    setReserve(false);
+  };
 
 
   return (
@@ -126,15 +133,15 @@ export default function ReserveModal({ setReserve, setFieldValue, fieldValue }) 
               </p>
               <div className="flex flex-col md:flex-row  justify-center items-center gap-[12px]">
                 <NavLink to={`/reserve/${page}/`}
-                  state={{ reserve: false }}
-                  onClick={() => setReserve(false)}
+                  state={{ reserve: "new" }}
+                  onClick={() => handleClose()}
                   className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gray-300 text-base font-medium leading-6 text-center"
                 >
                   Несуществующий
                 </NavLink>
                 <NavLink to={`/reserve/${page}/`}
-                  state={{ reserve: true }}
-                  onClick={() => setReserve(false)}
+                  state={{ reserve: "existing" }}
+                  onClick={() => handleClose()}
                   className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gradient-to-br from-purple-700 to-purple-600 text-white bg-opacity-90 whitespace-nowrap">
                   Существующий пользователь
                 </NavLink>
@@ -142,7 +149,6 @@ export default function ReserveModal({ setReserve, setFieldValue, fieldValue }) 
             </div>
           </div>
         )}
-
       </div>
     </>
   )

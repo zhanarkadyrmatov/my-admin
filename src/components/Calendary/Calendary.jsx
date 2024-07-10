@@ -13,8 +13,8 @@ export default function Calendar() {
       setData(
         bookings.map((item) => ({
           title: item?.name,
-          start: item?.start_time,
-          end: item?.end_time,
+          start: item?.start_date,
+          end: item?.end_date, 
         }))
       );
     }
