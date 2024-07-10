@@ -176,6 +176,7 @@ export default function Addfootball() {
       )
     );
   };
+
   useEffect(() => {
     if (isCreate === false) {
       navigate(`/fields/football/${idFields}`);

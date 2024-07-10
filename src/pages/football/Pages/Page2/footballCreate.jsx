@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-
 import React, { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
@@ -10,18 +8,23 @@ import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
 import ScheduleLIst from "../../../../components/FroomList/ScheduleLIst/ScheduleLIst";
 import { useDispatch, useSelector } from "react-redux";
-import { getBranchGetId, postCreacteFieldType } from "../../../../store/slice/create-foobol-slice";
+import {
+  getAdvantages,
+  getBranchGetId,
+  postCreacteFieldType,
+} from "../../../../store/slice/create-foobol-slice";
 import { useParams } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
 import { useEffect } from "react";
 
 const FootballCreate = () => {
-  const { id } = useParams()
-  const { advantages, fieldsIdInfo } =
-    useSelector((state) => state.createFoobol);
+  const { id } = useParams();
+  const { advantages, fieldsIdInfo } = useSelector(
+    (state) => state.createFoobol
+  );
   //Дневная цена
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [priceDay, setPriceDay] = useState();
   //Ночная цена
@@ -40,20 +43,7 @@ const FootballCreate = () => {
   const [isModalMap, setIsModalMap] = useState(false);
 
   //График работы
-  const [workScheduleList, setWorkScheduleList] = useState([
-    {
-      id: 6,
-      day: "Суббота",
-      startTime: "10:00 ",
-      endTime: "19:00",
-    },
-    {
-      id: 7,
-      day: "Воскресенье",
-      startTime: "10:00 ",
-      endTime: "19:00",
-    },
-  ]);
+  const [schedule, setSchedule] = useState();
   //Преимущества
   const [advantagesList, setAdvantagesList] = useState([]);
 
@@ -67,32 +57,30 @@ const FootballCreate = () => {
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
+  console.log(schedule, "test1");
   const [newName, setNewName] = useState();
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
-    setAdvantagesList(prevList => {
+    setAdvantagesList((prevList) => {
       if (isChecked) {
-        if (!prevList.some(item => item.advantages === resId)) {
+        if (!prevList.some((item) => item.advantages === resId)) {
           return [...prevList, { advantages: resId, description: "" }];
         }
         return prevList;
       } else {
-        return prevList.filter(item => item.advantages !== resId);
+        return prevList.filter((item) => item.advantages !== resId);
       }
     });
   };
   const updateDescription = (resId, newDescription) => {
-    setAdvantagesList(prevList =>
-      prevList.map(item =>
-        item.advantages === resId ? { ...item, description: newDescription } : item
+    setAdvantagesList((prevList) =>
+      prevList.map((item) =>
+        item.advantages === resId
+          ? { ...item, description: newDescription }
+          : item
       )
     );
   };
-
-
-
-
-
 
   const handleGetInfo = () => {
     const data = {
@@ -101,40 +89,40 @@ const FootballCreate = () => {
       administratorValue,
       priceDay,
       priceNight,
-      workScheduleList,
+      schedule,
       description,
       selectedImages1,
-      mapLatLon
-    }
-
+      mapLatLon,
+    };
 
     const formData = new FormData();
+    const dataPUT = {};
 
     formData.append("football_f", id);
     formData.append("description", description);
-    formData.append("name", newName)
+    formData.append("name", newName);
     selectedIamgeFile?.forEach((file) => {
-      formData.append("images", file)
-    })
-    dispatch(postCreacteFieldType(formData))
+      formData.append("images", file);
+    });
+    dispatch(postCreacteFieldType(formData));
     console.log(data, "test1");
-  }
+  };
 
   useEffect(() => {
-    dispatch(getBranchGetId(id))
-  },
-    [])
+    dispatch(getBranchGetId(id));
+    dispatch(getAdvantages());
+  }, []);
 
   console.log(fieldsIdInfo);
   const newFoobolField = () => {
-    setMapLatLon([])
-    setNewName("")
-    setDescription("")
-    setAdministratorValue("")
-    setAdministrator("")
-    setPriceDay("")
-    setPriceNight("")
-  }
+    setMapLatLon([]);
+    setNewName("");
+    setDescription("");
+    setAdministratorValue("");
+    setAdministrator("");
+    setPriceDay("");
+    setPriceNight("");
+  };
   return (
     <div className="mx-[20px] mt-[90px]">
       <div>
@@ -164,8 +152,13 @@ const FootballCreate = () => {
                 {res.name}
               </button>
             ))}
-            <button onClick={() => newFoobolField()} className={`w-full h-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-            > <BiPlus /></button>
+            <button
+              onClick={() => newFoobolField()}
+              className={`w-full h-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+            >
+              {" "}
+              <BiPlus />
+            </button>
           </div>
         </div>
         <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
@@ -181,7 +174,7 @@ const FootballCreate = () => {
                     onChange={(e) => setNewName(e.target.value)}
                     value={newName}
                     className="bg-[#F0F0F0] w-fill"
-                    style={{ width: '100%', border: 'none', outline: 'none' }}
+                    style={{ width: "100%", border: "none", outline: "none" }}
                     placeholder="Название"
                   />
                 </div>
@@ -196,7 +189,11 @@ const FootballCreate = () => {
                       }}
                       value={priceDay}
                       className="bg-[#F0F0F0] w-fufll"
-                      style={{ width: '100% ', border: 'none', outline: 'none' }}
+                      style={{
+                        width: "100% ",
+                        border: "none",
+                        outline: "none",
+                      }}
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -214,7 +211,11 @@ const FootballCreate = () => {
                       }}
                       value={priceNight}
                       className="bg-[#F0F0F0] w-full"
-                      style={{ width: '100% ', border: 'none', outline: 'none' }}
+                      style={{
+                        width: "100% ",
+                        border: "none",
+                        outline: "none",
+                      }}
                       type="number"
                       placeholder="Укажите цену"
                     />
@@ -242,12 +243,17 @@ const FootballCreate = () => {
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
               <h4>Преимущества</h4>
             </div>
-            <div className={`${s.checkboxList} `}
-              style={{ padding: '20px !important' }}
+            <div
+              className={`${s.checkboxList} `}
+              style={{ padding: "20px !important" }}
             >
               {advantages?.map((res, i) => {
-                const isChecked = advantagesList.some(item => item.advantages === res.id);
-                const currentItem = advantagesList.find(item => item.advantages === res.id) || {};
+                const isChecked = advantagesList.some(
+                  (item) => item.advantages === res.id
+                );
+                const currentItem =
+                  advantagesList.find((item) => item.advantages === res.id) ||
+                  {};
                 return (
                   <div className={s.checkbox} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
@@ -272,7 +278,9 @@ const FootballCreate = () => {
                           type="text"
                           placeholder="Добавить описание"
                           value={currentItem.description || ""}
-                          onChange={(e) => updateDescription(res.id, e.target.value)}
+                          onChange={(e) =>
+                            updateDescription(res.id, e.target.value)
+                          }
                         />
                       </div>
                     )}
@@ -280,14 +288,13 @@ const FootballCreate = () => {
                 );
               })}
             </div>
-
           </div>
           <div className="grid gap-y-[40px] rounded-[10px]">
             <div className="grid bg-white  ">
               <div className="p-[20px] border-b border-gray-300">
                 <h4>График работы</h4>
               </div>
-              <ScheduleLIst />
+              <ScheduleLIst setSchedule={setSchedule} />
             </div>
             <div className=" bg-[#fff] rounded-[10px]">
               <div className="p-[20px]  border-b border-gray-300">
@@ -325,8 +332,10 @@ const FootballCreate = () => {
                         <div className="w-full h-[130px] bg-[#D9D9D9]"></div>
                         <div className="flex gap-x-[10px] ">
                           <div className="w-full h-[180px] bg-[#D9D9D9]"></div>
-                          <div className="w-full h-[180px] bg
-                          -[#D9D9D9]"></div>
+                          <div
+                            className="w-full h-[180px] bg
+                          -[#D9D9D9]"
+                          ></div>
                         </div>
                       </div>
                     </div>
@@ -338,13 +347,15 @@ const FootballCreate = () => {
               <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
                 Предыдущая
               </button>
-              <button onClick={() => handleGetInfo()} className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
+              <button
+                onClick={() => handleGetInfo()}
+                className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]"
+              >
                 Далее
               </button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

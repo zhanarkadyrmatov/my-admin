@@ -1,129 +1,103 @@
-import React, { useState } from 'react'
-import s from './page.module.scss'
-const ScheduleLIst = () => {
-    //понидельник
-    const [monday, setMonday] = useState(
-        {
-            endime: "",
-            startTime: "",
-            checkbox: false
-        }
-    )
-    //вторник
-    const [tuesday, setTuesday] = useState(
-        {
-            endime: "",
-            startTime: "",
-            checkbox: false
-        }
-    )
-    //среда
-    const [wednesday, setWednesday] = useState({
-        endime: "",
-        startTime: "",
-        checkbox: false
-    })
-    //четверг
-    const [thursday, setThursday] = useState({
-        endime: "",
-        startTime: "",
-        checkbox: false
-    })
-    //пятница
-    const [friday, setFriday] = useState({
-        endime: "",
-        startTime: "",
-        checkbox: false
-    })
-    //суббота
-    const [saturday, setSaturday] = useState({
-        endime: "",
-        startTime: "",
-        checkbox: false
-    })
-    //воскресенье
-    const [sunday, setSunday] = useState(
-        {
-            endime: "",
-            startTime: "",
-            checkbox: false
-        }
-    )
-    const data = { monday, tuesday, wednesday, thursday, friday, saturday, sunday }
-    return (
-        <div className={s.Froom}>
-            <div className={s.dya}>
-                <p>Понедельник</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={monday.startTime} onChange={(e) => setMonday({ ...monday, startTime: e.target.value })} />
-                        <input type="time" value={monday.endime} onChange={(e) => setMonday({ ...monday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setMonday({ ...monday, checkbox: e.target.checked })} checked={monday.checkbox} type="checkbox" />
-                </span>
-            </div>
-            <div className={s.dya}>
-                <p>Вторник</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={tuesday.startTime} onChange={(e) => setTuesday({ ...tuesday, startTime: e.target.value })} />
-                        <input type="time" value={tuesday.endime} onChange={(e) => setTuesday({ ...tuesday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setTuesday({ ...tuesday, checkbox: e.target.checked })} checked={tuesday.checkbox} type="checkbox" />
-                </span>
-            </div>
-            <div className={s.dya}>
-                <p>Среда</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={wednesday.startTime} onChange={(e) => setWednesday({ ...wednesday, startTime: e.target.value })} />
-                        <input type="time" value={wednesday.endime} onChange={(e) => setWednesday({ ...wednesday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setWednesday({ ...wednesday, checkbox: e.target.checked })} checked={wednesday.checkbox} type="checkbox" />
-                </span>
-            </div>
-            <div className={s.dya}>
-                <p>Четверг</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={thursday.startTime} onChange={(e) => setThursday({ ...thursday, startTime: e.target.value })} />
-                        <input type="time" value={thursday.endime} onChange={(e) => setThursday({ ...thursday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setThursday({ ...thursday, checkbox: e.target.checked })} checked={thursday.checkbox} type="checkbox" />
-                </span>
-            </div>
-            <div className={s.dya}>
-                <p>Пятница</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={friday.startTime} onChange={(e) => setFriday({ ...friday, startTime: e.target.value })} />
-                        <input type="time" value={friday.endime} onChange={(e) => setFriday({ ...friday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setFriday({ ...friday, checkbox: e.target.checked })} checked={friday.checkbox} type="checkbox" />
-                </span>
-            </div>
-            <div className={s.dya}>
-                <p>Суббота</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={saturday.startTime} onChange={(e) => setSaturday({ ...saturday, startTime: e.target.value })} />
-                        <input type="time" value={saturday.endime} onChange={(e) => setSaturday({ ...saturday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setSaturday({ ...saturday, checkbox: e.target.checked })} checked={saturday.checkbox} type="checkbox" />
-                </span>
-            </div>
-            <div className={s.dya}>
-                <p>Воскресенье</p>
-                <span>
-                    <div className={s.time}>
-                        <input type="time" value={sunday.startTime} onChange={(e) => setSunday({ ...sunday, startTime: e.target.value })} />
-                        <input type="time" value={sunday.endime} onChange={(e) => setSunday({ ...sunday, endime: e.target.value })} />
-                    </div>
-                    <input onChange={(e) => setSunday({ ...sunday, checkbox: e.target.checked })} checked={sunday.checkbox} type="checkbox" />
-                </span>
-            </div>
-        </div>
-    )
-}
+import React, { useState, useEffect } from "react";
+import s from "./page.module.scss";
 
-export default ScheduleLIst
+const DaySchedule = ({ day, dayState, setDayState }) => {
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setDayState((prev) => ({
+      ...prev,
+      [day]: {
+        ...prev[day],
+        [name]: type === "checkbox" ? checked : value,
+      },
+    }));
+  };
+
+  return (
+    <div className={s.dya}>
+      <p>{day.charAt(0).toUpperCase() + day.slice(1)}</p>
+      <span>
+        <div className={s.time}>
+          <input
+            type="time"
+            name="startTime"
+            value={dayState[day].startTime}
+            onChange={handleChange}
+          />
+          <input
+            type="time"
+            name="endime"
+            value={dayState[day].endime}
+            onChange={handleChange}
+          />
+        </div>
+        <input
+          type="checkbox"
+          name="checkbox"
+          checked={dayState[day].checkbox}
+          onChange={handleChange}
+        />
+      </span>
+    </div>
+  );
+};
+
+const ScheduleList = ({ setSchedule }) => {
+  const [dayState, setDayState] = useState({
+    monday: { day_of_week: 1, endime: "", startTime: "", checkbox: false },
+    tuesday: { day_of_week: 2, endime: "", startTime: "", checkbox: false },
+    wednesday: { day_of_week: 3, endime: "", startTime: "", checkbox: false },
+    thursday: { day_of_week: 4, endime: "", startTime: "", checkbox: false },
+    friday: { day_of_week: 5, endime: "", startTime: "", checkbox: false },
+    saturday: { day_of_week: 6, endime: "", startTime: "", checkbox: false },
+    sunday: { day_of_week: 7, endime: "", startTime: "", checkbox: false },
+  });
+
+  useEffect(() => {
+    const newData = {};
+    for (const day in dayState) {
+      if (dayState[day].checkbox && dayState[day].endime !== "") {
+        if (dayState[day].startTime !== "") {
+          newData[day] = { ...dayState[day] };
+          delete newData[day].checkbox;
+        }
+      }
+    }
+    const schedule = Object.values(newData)
+      .map((entry) => {
+        let [startHour, startMinute] = entry.startTime.split(":").map(Number);
+        let [endHour, endMinute] = entry.endime.split(":").map(Number);
+
+        if (
+          startHour > endHour ||
+          (startHour === endHour && startMinute > endMinute)
+        ) {
+          endHour += 24;
+        }
+
+        return {
+          day_of_week: entry.day_of_week,
+          start_time: entry.startTime,
+          end_time: entry.endime,
+        };
+      })
+      .sort((a, b) => a.day_of_week - b.day_of_week);
+    console.log(schedule, "tests1");
+    setSchedule(schedule);
+  }, [dayState, setSchedule]);
+
+  return (
+    <div className={s.Froom}>
+      {Object.keys(dayState).map((day) => (
+        <DaySchedule
+          key={day}
+          day={day}
+          dayState={dayState}
+          setDayState={setDayState}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default ScheduleList;
