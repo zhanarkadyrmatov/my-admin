@@ -5,30 +5,10 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-const events = [
-  { title: "Meeting", start: new Date() },
-  {
-    title: "Meetings",
-    start: new Date("Tue Feb 13 2024 11:30:43 GMT+0600 (Киргизия)"),
-  },
-  {
-    title: "Asan",
-    start: new Date("Tue Feb 5 2024 11:30:43 GMT+0600 (Киргизия)"),
-  },
-  {
-    title: "Acan",
-    start: new Date("Tue Feb 5 2024 12:00:43 GMT+0600 (Киргизия)"),
-  },
-  {
-    title: "Bekmyrza",
-    start: new Date("Tue Feb 9 2024 11:16:43 GMT+0600 (Киргизия)"),
-    end: new Date("Tue Feb 10 2024 11:16:43 GMT+0600 (Киргизия)"),
-  },
-];
-
 export default function CalendarFields() {
   const { bookings, status, error } = useSelector((state) => state.story);
   const [events, setEvents] = useState([]);
+  console.log(events, "events");
 
   useEffect(() => {
     if (bookings) {

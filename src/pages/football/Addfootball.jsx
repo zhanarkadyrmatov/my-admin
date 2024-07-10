@@ -156,9 +156,7 @@ export default function Addfootball() {
     const resId = data[1];
     setAdvantagesList((prevList) => {
       if (isChecked) {
-        // Check if the item is already in the list
         if (!prevList.some((item) => item.advantages === resId)) {
-          // Add the new item to the list with an empty description
           return [...prevList, { advantages: resId, description: "" }];
         }
         return prevList;

@@ -26,9 +26,19 @@ const FootballCreate = () => {
 
   const dispatch = useDispatch();
 
-  const [priceDay, setPriceDay] = useState();
+  const [priceDay, setPriceDay] = useState({
+    start_time: "",
+    end_time: "",
+    period_day: "evening",
+    price: 0,
+  });
   //Ночная цена
-  const [priceNight, setPriceNight] = useState();
+  const [priceNight, setPriceNight] = useState({
+    start_time: "",
+    end_time: "",
+    period_day: "evening",
+    price: 0,
+  });
   //Локация
   const [location, setLocation] = useState();
   //Описание футбольного поля
@@ -39,16 +49,12 @@ const FootballCreate = () => {
   const [administrator, setAdministrator] = useState();
   //  location   add
   const [mapLatLon, setMapLatLon] = useState();
-
   const [isModalMap, setIsModalMap] = useState(false);
-
   //График работы
   const [schedule, setSchedule] = useState();
   //Преимущества
   const [advantagesList, setAdvantagesList] = useState([]);
-
   const [selectedImages1, setSelectedImages1] = useState([]);
-
   const [selectedIamgeFile, setSelectedImageFile] = useState(null);
   const handleFileChange1 = (e) => {
     const files = Array.from(e.target.files);
@@ -57,7 +63,6 @@ const FootballCreate = () => {
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
-  console.log(schedule, "test1");
   const [newName, setNewName] = useState();
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
@@ -81,6 +86,7 @@ const FootballCreate = () => {
       )
     );
   };
+  console.log(schedule, advantagesList, "advantagesList");
 
   const handleGetInfo = () => {
     const data = {
@@ -96,18 +102,22 @@ const FootballCreate = () => {
     };
 
     const formData = new FormData();
-    const dataPUT = {};
-
+    const dataPUT = [schedule, advantagesList];
+    const price = [schedule, advantagesList];
+    const newData = [formData, dataPUT];
     formData.append("football_f", id);
     formData.append("description", description);
     formData.append("name", newName);
     selectedIamgeFile?.forEach((file) => {
       formData.append("images", file);
     });
-    dispatch(postCreacteFieldType(formData));
+
+    dataPUT["price"] = price;
+    dataPUT["advantagesList"] = advantagesList;
+    dataPUT["schedule"] = schedule;
+    dispatch(postCreacteFieldType(newData));
     console.log(data, "test1");
   };
-
   useEffect(() => {
     dispatch(getBranchGetId(id));
     dispatch(getAdvantages());
@@ -120,8 +130,18 @@ const FootballCreate = () => {
     setDescription("");
     setAdministratorValue("");
     setAdministrator("");
-    setPriceDay("");
-    setPriceNight("");
+    setPriceDay({
+      start_time: "",
+      end_time: "",
+      period_day: "evening",
+      price: 0,
+    });
+    setPriceNight({
+      start_time: "",
+      end_time: "",
+      period_day: "evening",
+      price: 0,
+    });
   };
   return (
     <div className="mx-[20px] mt-[90px]">
@@ -179,15 +199,15 @@ const FootballCreate = () => {
                   />
                 </div>
               </div>
-              <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1">
+              <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1 gap-4">
                 <div className=" w-full grid gap-y-[8px]">
                   <h5>Дневная цена</h5>
                   <div className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
                     <input
-                      onChange={(e) => {
-                        setPriceDay(e.target.value);
+                      onChange={(event) => {
+                        const newPrice = parseFloat(event.target.value);
+                        setPriceDay({ ...priceDay, price: newPrice });
                       }}
-                      value={priceDay}
                       className="bg-[#F0F0F0] w-fufll"
                       style={{
                         width: "100% ",
@@ -201,15 +221,46 @@ const FootballCreate = () => {
                       Сом
                     </p>
                   </div>
+                  <div className="flex justify-between px-[14px]  gap-4 py-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                    <input
+                      className="bg-[#F0F0F0] w-full"
+                      style={{
+                        width: "50% ",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      onChange={(e) => {
+                        setPriceDay({
+                          ...priceDay,
+                          start_time: e.target.value,
+                        });
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+
+                    <input
+                      className="bg-[#F0F0F0] w-full"
+                      style={{
+                        width: "50% ",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      onChange={(e) => {
+                        setPriceDay({ ...priceDay, end_time: e.target.value });
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+                  </div>
                 </div>
                 <div className=" w-full grid gap-y-[8px]">
                   <h5>Ночная цена</h5>
                   <div className="flex justify-between px-[14px]  py-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
                     <input
                       onChange={(e) => {
-                        setPriceNight(e.target.value);
+                        setPriceNight({ ...priceNight, price: e.target.value });
                       }}
-                      value={priceNight}
                       className="bg-[#F0F0F0] w-full"
                       style={{
                         width: "100% ",
@@ -222,6 +273,42 @@ const FootballCreate = () => {
                     <p className=" text-base font-normal leading-6 tracking-tight text-left">
                       Сом
                     </p>
+                  </div>
+
+                  <div className="flex justify-between px-[14px]  gap-4 py-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                    <input
+                      className="bg-[#F0F0F0] w-full"
+                      style={{
+                        width: "50% ",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      onChange={(e) => {
+                        setPriceNight({
+                          ...priceNight,
+                          start_time: e.target.value,
+                        });
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+
+                    <input
+                      className="bg-[#F0F0F0] w-full"
+                      style={{
+                        width: "50% ",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      onChange={(e) => {
+                        setPriceNight({
+                          ...priceNight,
+                          end_time: e.target.value,
+                        });
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
                   </div>
                 </div>
               </div>

@@ -95,7 +95,6 @@ export const postAdvantages = createAsyncThunk(
         id,
         advantages,
       };
-      dispatch(PATCHAdvantages(PATCHAdvantagesData));
 
       console.log(response.data, "response.data");
       return response.data;
@@ -156,11 +155,11 @@ export const getSportComplexList = createAsyncThunk(
 
 export const postCreacteFieldType = createAsyncThunk(
   "advantages/postCreacteFieldType",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field-type/`,
-        data,
+        data[0],
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -169,6 +168,13 @@ export const postCreacteFieldType = createAsyncThunk(
         }
       );
 
+      const id = await response.data.id;
+      const advantages = await data[1];
+      const newData = await [id, advantages];
+
+      dispatch(punchAdvantagesCreate(newData));
+
+      console.log(response.data, "1000");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -176,6 +182,26 @@ export const postCreacteFieldType = createAsyncThunk(
   }
 );
 
+export const punchAdvantagesCreate = createAsyncThunk(
+  "advantages/punchAdvantagesCreate",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${Api}admin_api/football-field/${data[0]}`,
+        data[1],
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 export const advantagesSlice = createSlice({
   name: "advantages",
 
