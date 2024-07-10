@@ -3,11 +3,8 @@
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-
-padding: 10px;
-    display: grid;
-    gap: 10px;
-
+  display: grid;
+  gap: 10px;
   .checkbox {
     display: flex;
     gap: 10px;
@@ -112,25 +109,22 @@ padding: 10px;
   gap: 30px;
 }
 .YandexMapsStyle {
-width: 1000px !important;
+  width: 1000px !important;
   height: 500px !important;
   overflow: hidden;
   @media screen and (max-width: 1310px) {
     width: 90% !important;
   }
-
 }
 
-.MdClose{
+.MdClose {
   position: fixed;
   z-index: 1211;
-
 }
 
-.InfoTitel{
+.InfoTitel {
   width: 1000px;
   padding: 10px;
-
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -147,46 +141,46 @@ width: 1000px !important;
   div {
     cursor: pointer;
   }
+
   @media screen and (max-width: 1310px) {
     width: 90% !important;
   }
 }
 
-
-.whatsappList{
+.whatsappList {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  p{
+  p {
     font-family: Ubuntu;
-font-size: 15px;
-font-weight: 400;
-line-height: 17.24px;
-text-align: left;
-border: 1px solid #2222221A;
-padding: 10px;
-border-radius: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 17.24px;
+    text-align: left;
+    border: 1px solid #2222221a;
+    padding: 10px;
+    border-radius: 10px;
   }
 }
 
 .Pe {
-color: red ;
+  color: red;
 
-font-size: 14px !important; 
+  font-size: 14px !important;
 }
-.checkboxInput{
+.checkboxInput {
   display: flex;
   gap: 10px;
-  input{
+  input {
     width: 100% !important;
     padding-bottom: 5px;
-font-size: 14px;
-font-weight: 400;
-line-height: 16.09px;
-letter-spacing: -0.5px;
-text-align: left;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.09px;
+    letter-spacing: -0.5px;
+    text-align: left;
 
-    border-bottom: 1px solid var(--black-10, #1C1C1C1A);
+    border-bottom: 1px solid var(--black-10, #1c1c1c1a);
     outline: none;
   }
 }

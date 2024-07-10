@@ -26,13 +26,18 @@ export default function Addfootball() {
     }
   };
 
-
-
   //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
-  const { advantages, locationsCities, sportComplexList, isCreate, idFields, creacteFoobolStatus, status } =
-    useSelector((state) => state.createFoobol);
+  const {
+    advantages,
+    locationsCities,
+    sportComplexList,
+    isCreate,
+    idFields,
+    creacteFoobolStatus,
+    status,
+  } = useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
   const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
   const [address, setAddress] = useState(null);
@@ -42,8 +47,7 @@ export default function Addfootball() {
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
 
-  const [foodbolId, setFoodbolId] = useState(null)
-
+  const [foodbolId, setFoodbolId] = useState(null);
 
   const handlerImage = (event) => {
     const files = Array.from(event.target.files);
@@ -73,7 +77,6 @@ export default function Addfootball() {
   //telegram
   const [errorList, setErrorList] = useState([]);
 
-
   const [advantagesList, setAdvantagesList] = useState([]);
   const [complex_type, setComplex_type] = useState();
 
@@ -82,13 +85,12 @@ export default function Addfootball() {
     const errors = {};
 
     // Обработка advantagesList для удаления пустых описаний
-    const processedAdvantagesList = advantagesList?.map(item => {
+    const processedAdvantagesList = advantagesList?.map((item) => {
       if (item.description === "") {
         return { advantages: item.name };
       }
       return item;
     });
-
 
     const data = {
       name: newName,
@@ -100,7 +102,7 @@ export default function Addfootball() {
       latitude: mapLatLon?.[0],
       longitude: mapLatLon?.[1],
       advantages: processedAdvantagesList,
-      sport_complex_type: complex_type
+      sport_complex_type: complex_type,
     };
     const formData = new FormData();
     formData.append("name", data.name);
@@ -119,7 +121,7 @@ export default function Addfootball() {
     });
     formData.append("sport_complex_type", data.sport_complex_type);
     for (const [key, value] of Object.entries(data)) {
-      if (!value && value !== 0 && key !== 'advantages') {
+      if (!value && value !== 0 && key !== "advantages") {
         errors[key] = "Обязательное поле *";
       }
     }
@@ -131,8 +133,8 @@ export default function Addfootball() {
 
     const newData = {
       data: processedAdvantagesList,
-      formData: formData
-    }
+      formData: formData,
+    };
     dispatch(postAdvantages(newData));
   };
 
@@ -149,41 +151,38 @@ export default function Addfootball() {
     { name: "jane", id: 4, type: "Техник" },
     { name: "jane", id: 5, type: "Админ" },
   ]);
-
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
     setAdvantagesList((prevList) => {
       if (isChecked) {
         // Check if the item is already in the list
-        if (!prevList.some(item => item.advantages === resId)) {
+        if (!prevList.some((item) => item.advantages === resId)) {
           // Add the new item to the list with an empty description
           return [...prevList, { advantages: resId, description: "" }];
         }
         return prevList;
       } else {
         // Remove the item from the list
-        return prevList.filter(item => item.advantages !== resId);
+        return prevList.filter((item) => item.advantages !== resId);
       }
     });
   };
-
   const updateDescription = (resId, newDescription) => {
-    setAdvantagesList(prevList =>
-      prevList.map(item =>
-        item.advantages === resId ? { ...item, description: newDescription } : item
+    setAdvantagesList((prevList) =>
+      prevList.map((item) =>
+        item.advantages === resId
+          ? { ...item, description: newDescription }
+          : item
       )
     );
   };
-
-
-
   useEffect(() => {
     if (isCreate === false) {
       navigate(`/fields/football/${idFields}`);
     }
   }, [isCreate]);
   if (isCreate === true) {
-    return <div> test</div>;
+    return <div>test</div>;
   }
   return (
     <div className="mx-[20px] mt-[90px]">
@@ -212,12 +211,13 @@ export default function Addfootball() {
               </div>
               <div className={s.checkboxList}>
                 {advantages?.map((res, i) => {
-                  const isChecked = advantagesList.some(item => item.advantages === res.id);
-                  const currentItem = advantagesList.find(item => item.advantages === res.id) || {};
-
-
+                  const isChecked = advantagesList.some(
+                    (item) => item.advantages === res.id
+                  );
+                  const currentItem =
+                    advantagesList.find((item) => item.advantages === res.id) ||
+                    {};
                   return (
-
                     <div className={s.checkbox} key={i}>
                       <div className="flex gap-[5px] w-full flex-col">
                         <div className="flex gap-[10px] w-full">
@@ -234,7 +234,6 @@ export default function Addfootball() {
                           <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                             {res?.name}
                           </label>
-
                         </div>
                       </div>
                       {isChecked && (
@@ -243,7 +242,9 @@ export default function Addfootball() {
                             type="text"
                             placeholder="Добавить описание"
                             value={currentItem.description || ""}
-                            onChange={(e) => updateDescription(res.id, e.target.value)}
+                            onChange={(e) =>
+                              updateDescription(res.id, e.target.value)
+                            }
                           />
                         </div>
                       )}
@@ -264,8 +265,9 @@ export default function Addfootball() {
                     <div className="flex flex-col gap-y-[10px] items-center">
                       <div
                         style={{
-                          backgroundImage: `url(${selectedImage != null ? selectedImage : img7
-                            })`,
+                          backgroundImage: `url(${
+                            selectedImage != null ? selectedImage : img7
+                          })`,
                         }}
                         className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                       ></div>
@@ -297,24 +299,21 @@ export default function Addfootball() {
                       <div className="w-full overflow-hidden h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
                         <label
                           htmlFor="upload"
-                          className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer"
+                          className="relative w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer"
                         >
                           {imageUrl && (
                             <img
                               style={{
                                 position: "absolute",
-                                zIndex: 1,
-                                width: "100%",
-                                height: "100%",
+                                height: "150px",
                                 objectFit: "cover",
+                                borderRadius: "5px",
                               }}
                               src={imageUrl}
                               alt=""
                             />
                           )}
-
                           <BiSolidCameraPlus size={30} />
-
                           <input
                             type="file"
                             id="upload"
@@ -411,7 +410,6 @@ export default function Addfootball() {
                     ))}
                   </div>
                 </div>
-
                 <div className="grid gap-y-[8px] ">
                   <h4>Выберите город </h4>
                   {errorList?.city && <Pe>{errorList?.city}</Pe>}

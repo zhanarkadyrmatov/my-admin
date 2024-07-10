@@ -10,7 +10,7 @@ function EditFieds2() {
           "p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex justify-between items-center gap-[10px] "
         }
       >
-        <div className="flex flex-col  items-center gap-[10px] w-full lg:w-auto">
+        <div className="flex flex-wrap  items-center gap-[10px] w-full lg:w-auto">
           <button
             className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${
               active === 0 ? "opacity-100" : "opacity-70"

@@ -109,9 +109,11 @@ input[type="checkbox"]:checked {
 .css-j204z7-MuiFormControlLabel-root {
   margin: 0 !important;
 }
+
 aside {
   z-index: 999 !important;
 }
+
 ::-webkit-scrollbar {
   width: 0px;
 }
@@ -124,18 +126,6 @@ aside {
   background: #ffffff00;
   border-radius: 1px;
   bottom: 3px solid #d4d4d400;
-}
-
-.custom-background::before,
-.custom-background::after,
-.custom-background .circle1,
-.custom-background .circle2 {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .custom-background::before {
@@ -187,4 +177,13 @@ aside {
 
   }
 
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("./img/arrow-up.svg") no-repeat right center;
+  background-size: 1em;
+  padding-right: 2em;
 }

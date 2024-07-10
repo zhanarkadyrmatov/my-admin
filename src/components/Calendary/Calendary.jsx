@@ -44,7 +44,6 @@ export default function Calendar() {
     </div>
   );
 }
-
 function renderEventContent(eventInfo) {
   return (
     <div className="w-full text-[#fff] text-[8px] lg:text-[10px] p-[1px]  rounded-md">
