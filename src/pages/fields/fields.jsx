@@ -11,13 +11,9 @@ import FieldsDelete from "../../components/Modal/FieldsDelete";
 
 export default function Fields() {
   const dispatch = useDispatch();
-
-
-
   const { fields } = useSelector((state) => state.fields);
   const [pages, setPages] = useState("about");
   const [fieldDelete, setFieldDelete] = useState(false);
-
 
   return (
     <>

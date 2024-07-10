@@ -76,7 +76,7 @@ const BalanceCard = () => {
     <div className=" grid gap-y-[30px] rounded-[15px]">
       <div className="gap-y-[20px] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[16px] w-full rounded-[15px] bg-[#fff]  p-[18px]">
         <div className="flex items-center bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
-          <RxTextAlignJustify />
+          {/* <RxTextAlignJustify /> */}
           <select className="outline-none flex justify-between w-full bg-[#F7F8F9]">
             <option>Все операции</option>
             <option>Бронирование</option>
