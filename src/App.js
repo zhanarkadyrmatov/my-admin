@@ -18,6 +18,7 @@ import FieldsModal from "./components/Modal/FieldsModal";
 import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import EditFieds3 from "./components/EditFieds3/EditFieds3";
 
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
