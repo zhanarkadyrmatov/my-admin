@@ -34,15 +34,17 @@ export default function Fields() {
           <div className="flex items-center gap-x-[12px]">
             <div
               onClick={() => setPages("about")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
-                }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+              }`}
             >
               <Element3 pages={pages} />
             </div>
             <div
               onClick={() => setPages("home")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
-                }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+              }`}
             >
               <Elemnt3 pages={pages} />
             </div>

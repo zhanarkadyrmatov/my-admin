@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlinePlusSm } from "react-icons/hi";
 
-import s from "../../page.module.scss";
+import s from "./page.module.scss";
 import { AiOutlineClose } from "react-icons/ai";
-import YandexMaps from "../../../../components/yandexMaps/yandexMaps";
 import { InputMask } from "@react-input/mask";
-import ScheduleLIst from "../../../../components/FroomList/ScheduleLIst/ScheduleLIst";
 import { useDispatch, useSelector } from "react-redux";
+
+import { useParams } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
+import { useEffect } from "react";
 import {
   getAdvantages,
   getBranchGetId,
   postCreacteFieldType,
-} from "../../../../store/slice/create-foobol-slice";
-import { useParams } from "react-router-dom";
-import { BiPlus } from "react-icons/bi";
-import { useEffect } from "react";
+} from "../../../store/slice/create-foobol-slice";
+import YandexMaps from "../../../components/yandexMaps/yandexMaps";
+import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
 
 const FootballCreate = () => {
   const { id } = useParams();
@@ -388,7 +389,7 @@ const FootballCreate = () => {
               <div className="p-[20px] border-b border-gray-300">
                 <h4>График работы</h4>
               </div>
-              <ScheduleLIst setSchedule={setSchedule} />
+              <ScheduleList setSchedule={setSchedule} />
             </div>
             <div className=" bg-[#fff] rounded-[10px]">
               <div className="p-[20px]  border-b border-gray-300">

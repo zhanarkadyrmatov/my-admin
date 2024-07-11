@@ -9,7 +9,6 @@ import DataPages from "./pages/DataPages/DataPages";
 import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
 import Reserve from "./pages/reserve/reserve";
-import EditFieds from "./pages/editFields/editFieds";
 import Addfootball from "./pages/football/Addfootball";
 import { useCollapsed } from "./hooks/useCollapsed";
 import Wallet from "./pages/wallet/Wallet";
@@ -18,7 +17,7 @@ import FieldsModal from "./components/Modal/FieldsModal";
 import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import EditFieds3 from "./components/EditFieds3/EditFieds3";
+import EditFied from "./pages/fields/editFied/editFied";
 
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
@@ -69,7 +68,7 @@ function App({ open }) {
                 <Route path="/wallet" element={<Wallet />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />
-                <Route path="/editFields" element={<EditFieds />} />
+                <Route path="/fields/edit/:id" element={<EditFied />} />
                 <Route path="/fields/football" element={<Addfootball />} />
                 <Route
                   path="/fields/football/:id"
