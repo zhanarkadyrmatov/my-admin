@@ -5,20 +5,10 @@ import { IoCalendarClearOutline } from "react-icons/io5";
 import { RxTextAlignJustify } from "react-icons/rx";
 const BalanceCard = () => {
   const [inputVALUE, setInputVALUE] = useState("");
-  const [testValue, setTestValue] = useState(null);
-  const [open, setOpen] = useState(null);
-
-  const dateInputRef = useRef(null);
-  const dateInputRef2 = useRef(null);
 
   const handleButtonClick = () => {
     if (dateInputRef.current) {
       dateInputRef.current.showPicker();
-    }
-  };
-  const handleButtonClick2 = () => {
-    if (dateInputRef2.current) {
-      dateInputRef2.current.showPicker();
     }
   };
   const transactions = [
@@ -47,6 +37,10 @@ const BalanceCard = () => {
       paymentSystem: "FreedomPay",
     },
   ];
+  const [testValue, setTestValue] = useState(null);
+  const dateInputRef = useRef(null);
+
+  const isDateSelected = testValue !== null;
 
   const renderTransaction = (transaction) => (
     <tr key={transaction.type + transaction.date}>
@@ -76,7 +70,6 @@ const BalanceCard = () => {
     <div className=" grid gap-y-[30px] rounded-[15px]">
       <div className="gap-y-[20px] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[16px] w-full rounded-[15px] bg-[#fff]  p-[18px]">
         <div className="flex items-center bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
-          {/* <RxTextAlignJustify /> */}
           <select className="outline-none flex justify-between w-full bg-[#F7F8F9]">
             <option>Все операции</option>
             <option>Бронирование</option>
@@ -90,40 +83,49 @@ const BalanceCard = () => {
             onClick={handleButtonClick}
           >
             <div className="flex items-center space-x-1">
-              <IoCalendarClearOutline className="text-[#B8C0CC]" />
+              <IoCalendarClearOutline
+                className={`text-${isDateSelected ? "black" : "[#B8C0CC]"}`}
+              />
               <input
                 ref={dateInputRef}
                 type="date"
                 onChange={(e) => setTestValue(e.target.value)}
                 className="h-[50px] bg-[#F7F8F9] flex items-center rounded-[10px]"
               />
-              <h4 className="text-[#B8C0CC]">
+              <h4 className={`text-${isDateSelected ? "black" : "[#B8C0CC]"}`}>
                 {testValue !== null ? testValue : "Все операции"}
               </h4>
             </div>
-            <IoMdArrowDropdown size={30} />
+            <IoMdArrowDropdown
+              size={30}
+              onChange={(e) => setTestValue(e.target.value)}
+            />
           </div>
         </div>
-        <div className="bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
+        {/* <div className="bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
           <div
             className="flex items-center justify-between w-full"
-            onClick={handleButtonClick2}
+            onClick={handleButtonClick}
           >
             <div className="flex items-center space-x-1">
-              <IoCalendarClearOutline className="text-[#B8C0CC]" />
+              <IoCalendarClearOutline
+                className={`text-${isDateSelected ? "black" : "[#B8C0CC]"}`}
+              />
               <input
-                ref={dateInputRef2}
+                ref={dateInputRef}
                 type="date"
-                onChange={(e) => setOpen(e.target.value)}
                 className="h-[50px] bg-[#F7F8F9] flex items-center rounded-[10px]"
               />
-              <h4 className="text-[#B8C0CC]">
-                {open !== null ? open : "Все операции"}
+              <h4 className={`text-${isDateSelected ? "black" : "[#B8C0CC]"}`}>
+                {testValue !== null ? testValue : "Все операции"}
               </h4>
             </div>
-            <IoMdArrowDropdown size={30} />
+            <IoMdArrowDropdown
+              size={30}
+              onChange={(e) => setTestValue(e.target.value)}
+            />
           </div>
-        </div>
+        </div> */}
         <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center">
           <svg
             width="17"
