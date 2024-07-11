@@ -15,6 +15,8 @@ import SoccerBall from "../../img/SoccerBall";
 import Alt from "../../img/alt";
 import Logout from "../Logout/Logout";
 import Login from "../../pages/login/page";
+import { ImExit } from "react-icons/im";
+
 
 export default function Playground({ collapsed, toggled, setToggled }) {
   const location = useLocation();
@@ -170,7 +172,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                   }
                 }`}
                   icon={
-                    <Alt
+                    <ImExit
                       isActive={isActive("/сompanies")}
                       className=" w-[20px] h-[20px]"
                     />

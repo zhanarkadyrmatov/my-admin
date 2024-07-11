@@ -1,8 +1,13 @@
 import React from 'react'
 import img6 from '../../img/img6.svg'
+import { useDispatch } from 'react-redux'
+import { fetchFieldsDelete } from '../../store/slice/fields-slice'
 
 
-export default function FieldsDelete({ setFieldDelete }) {
+export default function FieldsDelete({ setFieldDelete, deleteValue }) {
+
+  const dispatch = useDispatch()
+
   return (
     <div>
       <div>
@@ -19,7 +24,7 @@ export default function FieldsDelete({ setFieldDelete }) {
               >
                 Нет, не хочу
               </button>
-              <button
+              <button onClick={() => dispatch(fetchFieldsDelete(deleteValue))}
                 className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gradient-to-br from-purple-700 to-purple-600 text-white bg-opacity-90 whitespace-nowrap">
                 Да, хочу
               </button>

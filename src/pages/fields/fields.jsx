@@ -14,10 +14,13 @@ export default function Fields() {
   const { fields } = useSelector((state) => state.fields);
   const [pages, setPages] = useState("about");
   const [fieldDelete, setFieldDelete] = useState(false);
+  const [deleteValue, setDeleteValue] = useState(null);
+
+  console.log(deleteValue);
 
   return (
     <>
-      {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} />}
+      {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} deleteValue={deleteValue} />}
       <div
         className={
           "flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 lg:px-4 px-3"
@@ -71,6 +74,7 @@ export default function Fields() {
                 <BookId
                   fieldDelete={fieldDelete}
                   setFieldDelete={setFieldDelete}
+                  setDeleteValue={setDeleteValue}
                   key={item.id}
                   item={item}
                 />

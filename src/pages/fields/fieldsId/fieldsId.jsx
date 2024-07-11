@@ -37,9 +37,11 @@ export default function FieldsId() {
       <div className="my-[65px] flex flex-col gap-[20px]">
         <div
           style={{
-            backgroundImage: `url(${fieldsIdList?.main_foto})`,
+            backgroundImage: `url(${fieldsIdList?.main_foto || 'https://meta-ratings.kz/upload/sprint.editor/da6/da6c51af03a854558f2e6ffa8cc8d013.jpg'})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
           }}
-          className="h-[200px] w-[100%]  "
+          className="h-[200px] w-[100%]"
         >
           <div className="flex flex-col items-center justify-center h-full gap-[10px]">
             <img className="w-[50px] " src={Icon} alt="" />

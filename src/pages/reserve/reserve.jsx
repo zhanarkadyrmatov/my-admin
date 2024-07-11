@@ -42,6 +42,8 @@ function Reserve() {
 
   const dayOfWeek = fieldsIdDetail?.schedule?.find((el) => el?.day_of_week === startDate.getDay());
 
+  console.log(time);
+
   const startTime = dayOfWeek?.start_time?.slice(0, 5) || '';
   const endTime = dayOfWeek?.end_time?.slice(0, 5) || '';
   const start = parse(startTime, 'HH:mm', startDate);
@@ -91,7 +93,7 @@ function Reserve() {
           phone: phone,
           name: name,
         }
-        
+
       }
     }))
     setUser(null);
@@ -168,16 +170,22 @@ function Reserve() {
                               if (isPastInterval(res?.start) || isReserved || isReservedPast) {
 
                               } else {
-                                if (time && time.start < res?.dayStart) {
-                                  setTime({ ...time, end: res?.dayEnd, endTime: res?.endDate});
+                                if (time && time?.start < res?.dayStart) {
+                                  setTime({ ...time, end: res?.dayEnd, endTime: res?.endDate });
                                 } else {
-                                  setTime({ start: res?.dayStart, startTime: res?.startDate });
+                                  if (time?.start && !time?.end) {
+                                    setTime(null);
+
+                                  }else{
+                                    setTime({ start: res?.dayStart, startTime: res?.startDate });
+                                  }
+
                                 }
                               }
                             }}
                             className={`px-[20px] py-[10px] rounded-[10px] ${isPastInterval(res?.start) || isPast
                               ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
-                              : activeTimeStart || isActive ? "bg-[#1ec219]" : "bg-[#F5F5F5] cursor-pointer hover:bg-[#cccbcb] duration-300 hover:shadow-md"
+                              : activeTimeStart || isActive ? "bg-[#1ec219] cursor-pointer" : "bg-[#F5F5F5] cursor-pointer hover:bg-[#cccbcb] duration-300 hover:shadow-md"
                               } `}
                           >
                             <div className="flex justify-between items-center gap-2">
