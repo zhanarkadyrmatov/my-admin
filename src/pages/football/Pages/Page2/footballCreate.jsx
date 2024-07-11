@@ -19,9 +19,10 @@ import { useEffect } from "react";
 
 const FootballCreate = () => {
   const { id } = useParams();
-  const { advantages, fieldsIdInfo } = useSelector(
+  const { advantages, fieldsIdInfo, status, creacteFoobolStatus } = useSelector(
     (state) => state.createFoobol
   );
+  console.log(creacteFoobolStatus, "staus");
   //Дневная цена
 
   const dispatch = useDispatch();
@@ -123,6 +124,9 @@ const FootballCreate = () => {
     setPriceDay("");
     setPriceNight("");
   };
+  if (creacteFoobolStatus === "loading") {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="mx-[20px] mt-[90px]">
       <div>
