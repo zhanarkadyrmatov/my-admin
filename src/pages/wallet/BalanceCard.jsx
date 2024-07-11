@@ -11,6 +11,7 @@ const BalanceCard = () => {
       dateInputRef.current.showPicker();
     }
   };
+
   const transactions = [
     {
       type: "Бронирование",
@@ -41,6 +42,15 @@ const BalanceCard = () => {
   const dateInputRef = useRef(null);
 
   const isDateSelected = testValue !== null;
+  const handleButtonClick2 = () => {
+    if (dateInputRef2.current) {
+      dateInputRef2.current.showPicker();
+    }
+  };
+  const [testValue2, setTestValue2] = useState(null);
+  const dateInputRef2 = useRef(null);
+
+  const isDateSelected2 = testValue2 !== null;
 
   const renderTransaction = (transaction) => (
     <tr key={transaction.type + transaction.date}>
@@ -102,30 +112,31 @@ const BalanceCard = () => {
             />
           </div>
         </div>
-        {/* <div className="bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
+        <div className="bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px] ">
           <div
             className="flex items-center justify-between w-full"
-            onClick={handleButtonClick}
+            onClick={handleButtonClick2}
           >
             <div className="flex items-center space-x-1">
               <IoCalendarClearOutline
-                className={`text-${isDateSelected ? "black" : "[#B8C0CC]"}`}
+                className={`text-${isDateSelected2 ? "black" : "[#B8C0CC]"}`}
               />
               <input
-                ref={dateInputRef}
+                ref={dateInputRef2}
+                onChange={(e) => setTestValue2(e.target.value)}
                 type="date"
                 className="h-[50px] bg-[#F7F8F9] flex items-center rounded-[10px]"
               />
-              <h4 className={`text-${isDateSelected ? "black" : "[#B8C0CC]"}`}>
-                {testValue !== null ? testValue : "Все операции"}
+              <h4 className={`text-${isDateSelected2 ? "black" : "[#B8C0CC]"}`}>
+                {testValue2 !== null ? testValue2 : "Все операции"}
               </h4>
             </div>
             <IoMdArrowDropdown
               size={30}
-              onChange={(e) => setTestValue(e.target.value)}
+              onChange={(e) => setTestValue2(e.target.value)}
             />
           </div>
-        </div> */}
+        </div>
         <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center">
           <svg
             width="17"
