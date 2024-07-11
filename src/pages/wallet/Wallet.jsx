@@ -21,7 +21,7 @@ export default function Wallet() {
         <div className="mb-[20px]">
           <h4>Кошелек</h4>
         </div>
-        <div className="grid grid-cols-1 gap-y-[20px] sm:flex justify-between items-start  ">
+        <div className="grid grid-cols-1 gap-y-[20px] gap-x-[20px] sm:flex justify-between items-start  ">
           <div className=" w-full sm:flex items-center md:w-[500px] bg-[#222222] text-white p-4 rounded-lg grid gap-y-[50px] relative">
             <div>
               <p

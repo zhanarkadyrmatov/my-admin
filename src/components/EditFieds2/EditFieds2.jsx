@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import ScheduleList from "../FroomList/ScheduleLIst/ScheduleLIst";
+import { NavLink } from "react-router-dom";
 
-function EditFieds2() {
+function EditFieds2(page, setPage) {
   const [selectedImages1, setSelectedImages1] = useState([]);
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
   const week = [
@@ -38,7 +39,7 @@ function EditFieds2() {
   ];
   console.log(fieldsIdDetail);
   const [schedule, setSchedule] = useState();
-  const [active, setActive] = useState(0);
+  const [active, setAcive] = useState(0);
   return (
     <div className="flex flex-col gap-[20px]">
       <div
@@ -59,21 +60,22 @@ function EditFieds2() {
               active === 1 ? "opacity-100" : "opacity-70"
             }`}
           >
-            Стандарт
+            Мини поле2
           </button>
           <button
             className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${
               active === 2 ? "opacity-100" : "opacity-70"
             }`}
           >
-            Фут-Зал
+            Стандарт
           </button>
           <button
+            onClick={() => setPage(3)}
             className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] ${
               active === 3 ? "opacity-100" : "opacity-70"
             }`}
           >
-            Описание
+            Фут-Зал
           </button>
         </div>
       </div>
