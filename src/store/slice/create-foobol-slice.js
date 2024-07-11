@@ -156,11 +156,11 @@ export const getSportComplexList = createAsyncThunk(
 
 export const postCreacteFieldType = createAsyncThunk(
   "advantages/postCreacteFieldType",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field-type/`,
-        data,
+        data[0],
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -169,6 +169,37 @@ export const postCreacteFieldType = createAsyncThunk(
         }
       );
 
+      const id = await response.data.id;
+
+      console.log(response.data.id, "response.data");
+      const advantages = await data[1];
+      const PATCHAdvantagesData = {
+        advantages,
+        id,
+      };
+      dispatch(postCreacteFoobolField(PATCHAdvantagesData));
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const postCreacteFoobolField = createAsyncThunk(
+  "advantages/postCreacteFoobolField",
+  async (data = {}, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `${Api}admin_api/football-field-type/${data.id}/`,
+        data.advantages,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
