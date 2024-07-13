@@ -23,6 +23,7 @@ export default function ReserveModal({
 
   const handleClose = () => {
     setReserve(false);
+    
   };
 
   return (

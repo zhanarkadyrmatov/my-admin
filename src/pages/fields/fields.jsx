@@ -16,8 +16,6 @@ export default function Fields() {
   const [fieldDelete, setFieldDelete] = useState(false);
   const [deleteValue, setDeleteValue] = useState(null);
 
-  console.log(deleteValue);
-
   return (
     <>
       {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} deleteValue={deleteValue} />}

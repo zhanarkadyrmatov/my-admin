@@ -27,11 +27,32 @@ export const fetchFieldsDelete = createAsyncThunk(
   "fields/fetchFieldsDelete",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.delete(`${Api}admin_api/football-field/${id}`, {
+      const response = await axios.delete(`${Api}admin_api/football-field/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      dispatch(fetchFields())
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+)
+
+export const fetchFieldsTypeDelete = createAsyncThunk(
+  "fields/fetchFieldsTypeDelete",
+  async (data, { rejectWithValue, dispatch }) => {
+
+    console.log(data);
+    try {
+      const response = await axios.delete(`${Api}admin_api/football-field-type/${data?.footballId}/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      dispatch(fetchFieldsIdList(data?.id))
       return response.data;
     } catch (error) {
       console.log(error);
