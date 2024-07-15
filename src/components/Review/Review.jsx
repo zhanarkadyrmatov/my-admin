@@ -12,6 +12,9 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 export default function Review() {
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
 
+  console.log(fieldsIdDetail);
+  console.log(fieldsIdList);
+
  
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[20px]">
@@ -20,9 +23,9 @@ export default function Review() {
           <h4 className="text-[16px] leading-[18px] font-bold">Преимущества</h4>
         </div>
         <div className="px-[20px] py-[5px] bg-white rounded-b-[12px] ">
-          {fieldsIdDetail?.advantages?.map((item) => {
+          {fieldsIdDetail?.advantages?.map((item, index) => {
             return (
-              <div className="flex items-center gap-[8px] pt-[10px] pb-[5px]">
+              <div key={index} className="flex items-center gap-[8px] pt-[10px] pb-[5px]">
                 <div className="min-w-[40px] min-h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full">
                   <img
                     className="w-[24px] h-[24px]"
@@ -59,16 +62,16 @@ export default function Review() {
                   Тип поля
                 </h4>
                 <p className="text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70 flex items-center gap-2 ">
-                  {fieldsIdDetail?.construction_type?.map((item) => {
-                    return <span>{item}</span>;
+                  {fieldsIdDetail?.construction_type?.map((item, index) => {
+                    return <span key={index} >{item?.name}</span>;
                   })}
                 </p>
               </div>
             </div>
             {fieldsIdDetail?.price &&
-              fieldsIdDetail?.price?.map((item) => {
+              fieldsIdDetail?.price?.map((item, index) => {
                 return (
-                  <div className="flex items-center gap-[8px] pt-[10px] pb-[5px]">
+                  <div  key={index} className="flex items-center gap-[8px] pt-[10px] pb-[5px]">
                     <div className="w-[40px] h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full">
                       <img
                         className="w-[24px] h-[24px]"
@@ -138,6 +141,7 @@ export default function Review() {
            <div className="grid grid-cols-4 gap-[10px] py-[15px]">
              {fieldsIdDetail?.administrator?.whatsup &&
                fieldsIdDetail?.administrator?.whatsup?.map((el, index) => {
+                console.log(el)
                  return (
                    <div key={index} className="flex flex-col items-center gap-1">
                      <NavLink
@@ -170,7 +174,7 @@ export default function Review() {
                    </div>
                  );
                })}
-             {fieldsIdDetail?.administrator?.contact &&
+             {
                fieldsIdDetail?.administrator?.contact?.map((el, index) => {
                  return (
                    <div key={index} className="flex flex-col items-center gap-1">

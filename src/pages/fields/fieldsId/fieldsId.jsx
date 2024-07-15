@@ -34,6 +34,8 @@ export default function FieldsId() {
   }, [id]);
 
 
+console.log(fieldsIdList);
+
 
   console.log(footballId);
 
@@ -195,8 +197,9 @@ export default function FieldsId() {
                 </div>
                 <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
                   {fieldsIdList?.football_field_type?.map((item) => {
+
                     return (
-                      <button
+                      <button key={item?.id}
                         onClick={() => {
                           dispatch(fetchFieldsIdDetail(item?.id));
                           setTypeValue(item?.id);

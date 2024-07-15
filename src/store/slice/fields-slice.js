@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 import { fetchBookings } from "./story";
+import { toast, ToastContainer } from "react-toastify";
 
 
 export const fetchFields = createAsyncThunk(
@@ -32,6 +33,7 @@ export const fetchFieldsDelete = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      toast.success("Поле успешно удалена");
       dispatch(fetchFields())
       return response.data;
     } catch (error) {
@@ -52,6 +54,7 @@ export const fetchFieldsTypeDelete = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      toast.success("Тип полей успешно удален");
       dispatch(fetchFieldsIdList(data?.id))
       return response.data;
     } catch (error) {
