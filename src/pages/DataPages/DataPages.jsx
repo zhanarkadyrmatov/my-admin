@@ -16,9 +16,8 @@ export default function DataPages() {
   };
 
   useEffect(() => {
-    dispatch(fetchFieldsIdList(fields[0]?.id));
+    dispatch(fetchFieldsIdList(fieldsId));
   }, []);
-
 
   return (
     <>
