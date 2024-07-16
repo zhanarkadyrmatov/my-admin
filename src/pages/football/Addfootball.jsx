@@ -46,7 +46,6 @@ export default function Addfootball() {
   const [description, setDescription] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
-
   const [foodbolId, setFoodbolId] = useState(null);
 
   const handlerImage = (event) => {

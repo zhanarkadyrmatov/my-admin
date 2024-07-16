@@ -18,6 +18,22 @@ export const getAdvantages = createAsyncThunk(
   }
 );
 
+export const getConstructionType = createAsyncThunk(
+  "advantages/getConstructionType",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${Api}admin_api/construction-type/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const getBranchGetId = createAsyncThunk(
   "advantages/getBranchGetId",
   async (id, { rejectWithValue }) => {
@@ -177,6 +193,7 @@ export const postCreacteFieldType = createAsyncThunk(
         advantages,
         id,
       };
+      console.log(PATCHAdvantagesData, "PATCHAdvantagesData");
       dispatch(postCreacteFoobolField(PATCHAdvantagesData));
 
       return response.data;
@@ -188,14 +205,21 @@ export const postCreacteFieldType = createAsyncThunk(
 
 export const postCreacteFoobolField = createAsyncThunk(
   "advantages/postCreacteFoobolField",
-  async (data = {}, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
+      console.log(data.advantages.price, "advantages");
+
+      const newData = {
+        price: data.advantages.price,
+        schedule: data.advantages.schedule,
+        advantages: data.advantages.advantages,
+        construction_type: data.advantages.construction_type,
+      };
       const response = await axios.put(
         `${Api}admin_api/football-field-type/${data.id}/`,
-        data.advantages,
+        newData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -221,6 +245,7 @@ export const advantagesSlice = createSlice({
     isCreateType: null,
     idFields: null,
     fieldsIdInfo: null,
+    construction: null,
   },
   extraReducers: (builder) => {
     builder
@@ -297,6 +322,18 @@ export const advantagesSlice = createSlice({
         state.fieldsIdInfo = action.payload;
       })
       .addCase(getBranchGetId.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+        console.error("Error fetching advantages:", action.payload);
+      })
+      .addCase(getConstructionType.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getConstructionType.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.construction = action.payload;
+      })
+      .addCase(getConstructionType.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload;
         console.error("Error fetching advantages:", action.payload);

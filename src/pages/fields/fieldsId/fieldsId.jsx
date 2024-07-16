@@ -145,7 +145,8 @@ export default function FieldsId() {
                 </span>
               </button>
               <NavLink
-                to={`/editFields`}
+                to={`/fields/edit/${id}`}
+                v
                 className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300"
               >
                 <CiEdit className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
