@@ -2,16 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 
-const initialState = {
-    
-};
+const initialState = {};
 
 export const fetchUser = createAsyncThunk(
   "user/fetchUser",
   async (credentials, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.post(`${Api}user_api/login/`, credentials);
-      await localStorage.setItem("token", response.data.access_token);
+      await localStorage.setItem("token", response?.data.access_token);
       await dispatch(getUser());
       console.log(response.data.access_token);
       return response;

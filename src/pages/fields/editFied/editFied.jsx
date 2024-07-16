@@ -18,7 +18,7 @@ import {
 import YandexMaps from "../../../components/yandexMaps/yandexMaps";
 import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
 
-const FootballCreate = () => {
+const EditFieds = () => {
   const { id } = useParams();
   const { advantages, fieldsIdInfo, status, creacteFoobolStatus } = useSelector(
     (state) => state.createFoobol
@@ -158,28 +158,7 @@ const FootballCreate = () => {
             </div>
           </div>
         )}
-        <div
-          className={
-            "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] "
-          }
-        >
-          <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-            {fieldsIdInfo?.football_field_type?.map((res) => (
-              <button
-                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-              >
-                {res.name}
-              </button>
-            ))}
-            <button
-              onClick={() => newFoobolField()}
-              className={`w-full h-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
-            >
-              {" "}
-              <BiPlus />
-            </button>
-          </div>
-        </div>
+
         <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
           <div className="rounded-[10px] h-min bg-[#ffffff]">
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
@@ -456,4 +435,4 @@ const FootballCreate = () => {
   );
 };
 
-export default FootballCreate;
+export default EditFieds;

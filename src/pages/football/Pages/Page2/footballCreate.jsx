@@ -11,18 +11,24 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAdvantages,
   getBranchGetId,
+  getConstructionType,
   postCreacteFieldType,
 } from "../../../../store/slice/create-foobol-slice";
 import { useParams } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
+import cm from "classnames";
 import { useEffect } from "react";
 
 const FootballCreate = () => {
   const { id } = useParams();
-  const { advantages, fieldsIdInfo, status, creacteFoobolStatus } = useSelector(
-    (state) => state.createFoobol
-  );
-  console.log(creacteFoobolStatus, "staus");
+  const {
+    advantages,
+    fieldsIdInfo,
+    status,
+    creacteFoobolStatus,
+    construction,
+  } = useSelector((state) => state.createFoobol);
+  console.log(construction, "staus");
   //Дневная цена
 
   const dispatch = useDispatch();
@@ -61,6 +67,18 @@ const FootballCreate = () => {
   const [selectedImages1, setSelectedImages1] = useState([]);
 
   const [selectedIamgeFile, setSelectedImageFile] = useState(null);
+  const [constructionListAcc, setConstructionListAcc] = useState([]);
+  console.log(constructionListAcc, "constructionListAcc");
+  const handlerConstruction = (event) => {
+    const newValue = event;
+    if (!constructionListAcc?.includes(newValue)) {
+      setConstructionListAcc([...constructionListAcc, newValue]);
+    } else {
+      setConstructionListAcc(
+        constructionListAcc.filter((item) => item !== newValue)
+      );
+    }
+  };
   const handleFileChange1 = (e) => {
     const files = Array.from(e.target.files);
     setSelectedImageFile(files);
@@ -109,9 +127,11 @@ const FootballCreate = () => {
     let dataPUT = [];
     // advantagesList, [(priceDay, priceNight)]
     formData.append("football_f", id);
-    const schedule = [priceDay, priceNight];
+    const price = [priceDay, priceNight];
     dataPUT["advantages"] = advantagesList;
     dataPUT["schedule"] = schedule;
+    dataPUT["price"] = price;
+    dataPUT["construction_type"] = constructionListAcc;
     formData.append("description", description);
     formData.append("name", newName);
     selectedIamgeFile?.forEach((file) => {
@@ -126,6 +146,7 @@ const FootballCreate = () => {
   useEffect(() => {
     dispatch(getBranchGetId(id));
     dispatch(getAdvantages());
+    dispatch(getConstructionType());
   }, []);
 
   console.log(fieldsIdInfo);
@@ -137,12 +158,24 @@ const FootballCreate = () => {
     setAdministrator("");
     setPriceDay("");
     setPriceNight("");
+    setConstructionListAcc([]);
+    setSelectedImageFile([]);
+    setSelectedImages1([]);
+    setIsModalMap(false);
   };
+  useEffect(() => {
+    if (creacteFoobolStatus === "fulfilled") {
+      newFoobolField();
+      dispatch(getBranchGetId(id));
+      dispatch(getAdvantages());
+      dispatch(getConstructionType());
+    }
+  }, [creacteFoobolStatus]);
   if (creacteFoobolStatus === "loading") {
     return <div>Loading...</div>;
   }
   return (
-    <div className="mx-[20px] mt-[90px]">
+    <div className="mx-[20px] mt-[90px] mb-7   uh">
       <div>
         {isModalMap && (
           <div className={s.Map}>
@@ -174,7 +207,6 @@ const FootballCreate = () => {
               onClick={() => newFoobolField()}
               className={`w-full h-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
             >
-              {" "}
               <BiPlus />
             </button>
           </div>
@@ -319,6 +351,28 @@ const FootballCreate = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="grid gap-y-[8px]">
+                <h5>Тип поля</h5>
+                <div className={s.constructionList}>
+                  {construction?.map((res, i) => {
+                    const isAcc = constructionListAcc?.find(
+                      (el) => el.name === res.name
+                    );
+                    return (
+                      <div
+                        onClick={() => handlerConstruction(res)}
+                        key={i}
+                        className={cm(s.construction, {
+                          [s.activeIsAcc]: !!isAcc,
+                        })}
+                      >
+                        {res.name}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
               <div className="grid gap-y-[8px]">
                 <h5>Описание футбольного поля</h5>
                 <textarea
@@ -337,6 +391,7 @@ const FootballCreate = () => {
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
               <h4>Преимущества</h4>
             </div>
+
             <div
               className={`${s.checkboxList} `}
               style={{ padding: "20px !important" }}
