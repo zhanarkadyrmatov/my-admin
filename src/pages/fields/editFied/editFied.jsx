@@ -228,7 +228,6 @@ const EditFieds = () => {
                       }}
                       style={{
                         width: "100% ",
-
                         backgroundColor: "transparent",
                         border: "none",
                         outline: "none",
@@ -273,7 +272,6 @@ const EditFieds = () => {
                         width: "100% ",
                         border: "none",
                         outline: "none",
-
                         backgroundColor: "transparent",
                       }}
                       type="time"
