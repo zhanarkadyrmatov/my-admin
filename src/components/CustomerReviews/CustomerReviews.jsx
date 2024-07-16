@@ -27,11 +27,11 @@ export default function CustomerReviews() {
         </div>
         <div className="p-[20px] bg-white rounded-b-[12px] flex justify-center items-center gap-[14px] md:gap-[20px] xl:gap-[14px] ">
           <div>
-            <h4 className="text-[53px] leading-[60px] text-[#222222] font-bold">
-              {fieldsIdList?.avg_rating?.toFixed(1)}
+            <h4 className="text-[53px] leading-[60px] text-[#222222] text-center font-bold">
+              {fieldsIdList?.avg_rating?.toFixed(1) || 0}
             </h4>
             <p className="text-[14px] leading-[16px] text-[#222222]  font-normal opacity-50 flex items-center gap-1">
-              <span>{fieldsIdList?.rating_num}</span> <span>оценок</span>
+              <span>{fieldsIdList?.rating_num || 0}</span> <span>оценок</span>
             </p>
           </div>
           <div className={"flex flex-col gap-[2px]"}>

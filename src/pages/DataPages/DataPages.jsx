@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "../../components/Calendary/Calendary";
 import Draggable from "../../components/Draggable/Draggable";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,11 @@ export default function DataPages() {
     dispatch(fetchFieldsIdList(id));
     dispatch(setFieldsId(id));
   };
+
+  useEffect(() => {
+    dispatch(fetchFieldsIdList(fields[0]?.id));
+  }, []);
+
 
   return (
     <>

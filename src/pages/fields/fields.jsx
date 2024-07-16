@@ -16,11 +16,14 @@ export default function Fields() {
   const [fieldDelete, setFieldDelete] = useState(false);
   const [deleteValue, setDeleteValue] = useState(null);
 
-  console.log(deleteValue);
-
   return (
     <>
-      {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} deleteValue={deleteValue} />}
+      {fieldDelete && (
+        <FieldsDelete
+          setFieldDelete={setFieldDelete}
+          deleteValue={deleteValue}
+        />
+      )}
       <div
         className={
           "flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 lg:px-4 px-3"
@@ -37,17 +40,15 @@ export default function Fields() {
           <div className="flex items-center gap-x-[12px]">
             <div
               onClick={() => setPages("about")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
-                pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
-              }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+                }`}
             >
               <Element3 pages={pages} />
             </div>
             <div
               onClick={() => setPages("home")}
-              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
-                pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
-              }`}
+              className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+                }`}
             >
               <Elemnt3 pages={pages} />
             </div>
@@ -92,54 +93,58 @@ export default function Fields() {
             </p>
           )
         ) : (
-          <div className="w-full overflow-x-auto">
-            <div className="w-[900px] xl:w-[100%]">
-              <div className="w-full py-[20px] px-[30px] bg-[#F0F0F0] rounded-t-[15px]">
-                <div className="w-full grid grid-cols-11 items-center gap-1">
-                  <div className="col-span-1 list-none text-[16px] font-normal text-left">
-                    №
+          <>
+            {fields?.length > 0 ? (
+              <div className="w-full overflow-x-auto">
+                <div className="w-[900px] xl:w-[100%]">
+                  <div className="w-full py-[20px] px-[30px] bg-[#F0F0F0] rounded-t-[15px]">
+                    <div className="w-full grid grid-cols-11 items-center gap-1">
+                      <div className="col-span-1 list-none text-[16px] font-normal text-left">
+                        №
+                      </div>
+                      <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left">
+                        Название
+                      </div>
+                      <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left text-[#1C1C1C]">
+                        Тип
+                      </div>
+                      <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left text-[#1C1C1C]">
+                        Преимущества
+                      </div>
+                      <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left text-[#1C1C1C]">
+                        Оценка
+                      </div>
+                      <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-center text-[#1C1C1C]">
+                        Действие
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left">
-                    Название
-                  </div>
-                  <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left text-[#1C1C1C]">
-                    Тип
-                  </div>
-                  <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left text-[#1C1C1C]">
-                    Преимущества
-                  </div>
-                  <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-left text-[#1C1C1C]">
-                    Оценка
-                  </div>
-                  <div className="col-span-2 list-none text-[14px] font-normal leading-5 text-center text-[#1C1C1C]">
-                    Действие
+                  <div className="w-full px-[20px] pb-[20px] rounded-bl-lg rounded-br-lg bg-[#FFFFFF]">
+                    {fields?.map((res, index) => (
+                      <div key={index}>
+                        <FiledList
+                          fieldDelete={fieldDelete}
+                          setFieldDelete={setFieldDelete}
+                          setDeleteValue={setDeleteValue}
+                          index={index}
+                          item={res}
+                        />
+                      </div>
+                    ))
+                    }
                   </div>
                 </div>
               </div>
-              <div className="w-full px-[20px] pb-[20px] rounded-bl-lg rounded-br-lg bg-[#FFFFFF]">
-                {fields && fields?.length > 0 ? (
-                  fields?.map((res, index) => (
-                    <div key={index}>
-                      <FiledList
-                        fieldDelete={fieldDelete}
-                        setFieldDelete={setFieldDelete}
-                        index={index}
-                        item={res}
-                      />
-                    </div>
-                  ))
-                ) : (
-                  <p
-                    className={
-                      "text-[14px] font-normal leading-5 text-[#222222] opacity-50 text-center mt-[10%]"
-                    }
-                  >
-                    По вашему запросу ничего не найдено
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
+            ) : (
+              <p
+                className={
+                  "text-[14px] font-normal leading-5 text-[#222222] opacity-50 text-center mt-[10%]"
+                }
+              >
+                По вашему запросу ничего не найдено
+              </p>
+            )}
+          </>
         )}
       </div>
     </>

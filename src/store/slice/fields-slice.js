@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 import { fetchBookings } from "./story";
+import { toast, ToastContainer } from "react-toastify";
 
 
 export const fetchFields = createAsyncThunk(
@@ -14,7 +15,7 @@ export const fetchFields = createAsyncThunk(
         },
       });
       dispatch(setFieldsId(response.data[0].id))
-      // dispatch(fetchFieldsIdList(response.data[0].id))
+      dispatch(fetchFieldsIdList(response.data[0].id))
       return response.data;
     } catch (error) {
       console.log(error);
@@ -27,11 +28,34 @@ export const fetchFieldsDelete = createAsyncThunk(
   "fields/fetchFieldsDelete",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.delete(`${Api}admin_api/football-field/${id}`, {
+      const response = await axios.delete(`${Api}admin_api/football-field/${id}/`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      toast.success("Поле успешно удалена");
+      dispatch(fetchFields())
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+)
+
+export const fetchFieldsTypeDelete = createAsyncThunk(
+  "fields/fetchFieldsTypeDelete",
+  async (data, { rejectWithValue, dispatch }) => {
+
+    console.log(data);
+    try {
+      const response = await axios.delete(`${Api}admin_api/football-field-type/${data?.footballId}/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      toast.success("Тип полей успешно удален");
+      dispatch(fetchFieldsIdList(data?.id))
       return response.data;
     } catch (error) {
       console.log(error);

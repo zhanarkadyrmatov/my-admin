@@ -1,10 +1,17 @@
-import * as React from 'react';
+import React, { useEffect } from 'react'; 
 import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useSelector } from 'react-redux';
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
 export default function Gallery() {
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
+
+  useEffect(() => {
+    Fancybox.bind("[data-fancybox='gallery']", {});
+  }, []);
 
   return (
     <>
@@ -12,13 +19,15 @@ export default function Gallery() {
         <Box >
           <ImageList variant="masonry" cols={3} gap={8}>
             {fieldsIdDetail?.gallery_f_type?.map((item) => (
-              <ImageListItem key={item.img}>
-                <img
-                  srcSet={`${item?.img}`}
-                  src={`${item?.img}`}
-                  alt={''}
-                  loading="lazy"
-                />
+              <ImageListItem key={item.id}>
+                <a href={item.img} data-fancybox="gallery">
+                  <img
+                    srcSet={`${item?.img}`}
+                    src={`${item?.img}`}
+                    alt={''}
+                    loading="lazy"
+                  />
+                </a>
               </ImageListItem>
             ))}
           </ImageList>

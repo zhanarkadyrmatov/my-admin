@@ -8,6 +8,7 @@ export default function FieldsDelete({ setFieldDelete, deleteValue }) {
 
   const dispatch = useDispatch()
 
+
   return (
     <div>
       <div>
@@ -24,7 +25,10 @@ export default function FieldsDelete({ setFieldDelete, deleteValue }) {
               >
                 Нет, не хочу
               </button>
-              <button onClick={() => dispatch(fetchFieldsDelete(deleteValue))}
+              <button onClick={() => {
+                dispatch(fetchFieldsDelete(deleteValue))
+                setFieldDelete(false)
+              }}
                 className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gradient-to-br from-purple-700 to-purple-600 text-white bg-opacity-90 whitespace-nowrap">
                 Да, хочу
               </button>

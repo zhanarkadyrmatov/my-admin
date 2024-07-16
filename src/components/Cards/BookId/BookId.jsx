@@ -23,11 +23,6 @@ export default function BookId({ item, setFieldDelete, fieldDelete, setDeleteVal
                 }
               >
                 <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
-                  {/* <img
-                    className={"w-[20px] h-[20px] "}
-                    src={edit}
-                    alt=""
-                  /> */}
                   <MdOutlineRemoveRedEye className="w-[20px] h-[20px] fill-white " />
                 </div>
                 <div onClick={() => {
