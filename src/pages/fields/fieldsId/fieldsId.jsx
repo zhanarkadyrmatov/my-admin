@@ -16,6 +16,7 @@ import {
   fetchFieldsIdDetail,
   fetchFieldsIdList,
   fetchFieldsTypeDelete,
+  setFootballId,
 } from "../../../store/slice/fields-slice";
 import img6 from "../../../img/img6.svg";
 
@@ -202,7 +203,7 @@ console.log(fieldsIdList);
                       <button key={item?.id}
                         onClick={() => {
                           dispatch(fetchFieldsIdDetail(item?.id));
-                          setTypeValue(item?.id);
+                          dispatch(setFootballId(item?.id));
                         }}
                         className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${fieldsIdDetail?.id === item?.id
                           ? "opacity-100 border-[2px]"

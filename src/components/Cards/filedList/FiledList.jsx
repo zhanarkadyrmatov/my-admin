@@ -10,6 +10,7 @@ export default function FiledList({
   index,
   fieldDelete,
   setFieldDelete,
+  setDeleteValue
 }) {
   console.log(item);
   return (
@@ -80,7 +81,10 @@ export default function FiledList({
             </svg>
           </div>
           <div
-            onClick={() => setFieldDelete(!fieldDelete)}
+            onClick={() => {
+              setFieldDelete(!fieldDelete)
+              setDeleteValue(item?.id)
+            }}
             className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center bg-[#FFDEDE] hover:scale-105 duration-300 cursor-pointer"
           >
             <svg
