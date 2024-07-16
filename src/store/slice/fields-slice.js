@@ -15,7 +15,7 @@ export const fetchFields = createAsyncThunk(
         },
       });
       dispatch(setFieldsId(response.data[0].id))
-      // dispatch(fetchFieldsIdList(response.data[0].id))
+      dispatch(fetchFieldsIdList(response.data[0].id))
       return response.data;
     } catch (error) {
       console.log(error);

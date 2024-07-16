@@ -16,8 +16,6 @@ export default function Draggable() {
     dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
   }, []);
 
-  console.log(bookings, "bookings");
-
 
   return (
     <div>
