@@ -19,8 +19,6 @@ export default function DataPages() {
     dispatch(fetchFieldsIdList(fields[0]?.id));
   }, []);
 
-  console.log();
-
 
   return (
     <>
