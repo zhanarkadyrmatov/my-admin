@@ -10,7 +10,7 @@ export default function FiledList({
   index,
   fieldDelete,
   setFieldDelete,
-  setDeleteValue
+  setDeleteValue,
 }) {
   console.log(item);
   return (
@@ -90,8 +90,8 @@ export default function FiledList({
           </div>
           <div
             onClick={() => {
-              setFieldDelete(!fieldDelete)
-              setDeleteValue(item?.id)
+              setFieldDelete(!fieldDelete);
+              setDeleteValue(item?.id);
             }}
             className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center bg-[#FFDEDE] hover:scale-105 duration-300 cursor-pointer"
           >
