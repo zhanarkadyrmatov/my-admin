@@ -18,7 +18,12 @@ export default function Fields() {
 
   return (
     <>
-      {fieldDelete && <FieldsDelete setFieldDelete={setFieldDelete} deleteValue={deleteValue} />}
+      {fieldDelete && (
+        <FieldsDelete
+          setFieldDelete={setFieldDelete}
+          deleteValue={deleteValue}
+        />
+      )}
       <div
         className={
           "flex flex-col gap-[20px] my-[85px] lg:my-[95px] xl:px-5 lg:px-4 px-3"

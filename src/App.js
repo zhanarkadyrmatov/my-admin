@@ -69,6 +69,7 @@ function App({ open }) {
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />
                 <Route path="/fields/edit/:id" element={<EditFied />} />
+                <Route path="/fields/edit/:id" element={<EditFied />} />
                 <Route path="/fields/football" element={<Addfootball />} />
                 <Route
                   path="/fields/football/:id"

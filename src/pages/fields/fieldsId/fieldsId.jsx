@@ -27,24 +27,27 @@ export default function FieldsId() {
 
   const [request, setRequest] = useState(0);
   const dispatch = useDispatch();
-  const { fieldsIdList, fieldsIdDetail, footballId } = useSelector((state) => state.fields);
+  const { fieldsIdList, fieldsIdDetail, footballId } = useSelector(
+    (state) => state.fields
+  );
   const [typeValue, setTypeValue] = useState(null);
   useEffect(() => {
     dispatch(fetchFieldsIdList(id));
   }, [id]);
 
-
-console.log(fieldsIdList);
-
+  console.log(fieldsIdList);
 
   console.log(footballId);
 
   return (
     <>
-      {fieldDelete &&
+      {fieldDelete && (
         <div>
           <div>
-            <div onClick={() => setFieldDelete(false)} className="fixed top-0 left-0 h-full w-full flex items-center justify-center flex-col bg-gray-200 opacity-70 z-50"></div>
+            <div
+              onClick={() => setFieldDelete(false)}
+              className="fixed top-0 left-0 h-full w-full flex items-center justify-center flex-col bg-gray-200 opacity-70 z-50"
+            ></div>
             <div className="fixed  w-[90%] md:w-[521px] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]  z-[150] bg-white rounded-lg shadow-lg p-[20px]">
               <div className="flex flex-col gap-[20px]">
                 <img className="mx-auto" src={img6} alt="" />
@@ -52,19 +55,24 @@ console.log(fieldsIdList);
                   Вы действительно хотите удалить поле?
                 </h4>
                 <div className="flex flex-col md:flex-row  justify-center items-center gap-[12px]">
-                  <button onClick={() => setFieldDelete(false)}
+                  <button
+                    onClick={() => setFieldDelete(false)}
                     className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gray-300 text-base font-medium leading-6 text-center"
                   >
                     Нет, не хочу
                   </button>
-                  <button onClick={() => {
-                    dispatch(fetchFieldsTypeDelete(
-                      { footballId: footballId, id: id }
-                    ))
-                    setFieldDelete(false)
-                  }
-                  }
-                    className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gradient-to-br from-purple-700 to-purple-600 text-white bg-opacity-90 whitespace-nowrap">
+                  <button
+                    onClick={() => {
+                      dispatch(
+                        fetchFieldsTypeDelete({
+                          footballId: footballId,
+                          id: id,
+                        })
+                      );
+                      setFieldDelete(false);
+                    }}
+                    className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gradient-to-br from-purple-700 to-purple-600 text-white bg-opacity-90 whitespace-nowrap"
+                  >
                     Да, хочу
                   </button>
                 </div>
@@ -72,11 +80,14 @@ console.log(fieldsIdList);
             </div>
           </div>
         </div>
-      }
+      )}
       <div className="my-[65px] flex flex-col gap-[20px]">
         <div
           style={{
-            backgroundImage: `url(${fieldsIdList?.main_foto || 'https://meta-ratings.kz/upload/sprint.editor/da6/da6c51af03a854558f2e6ffa8cc8d013.jpg'})`,
+            backgroundImage: `url(${
+              fieldsIdList?.main_foto ||
+              "https://meta-ratings.kz/upload/sprint.editor/da6/da6c51af03a854558f2e6ffa8cc8d013.jpg"
+            })`,
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
@@ -103,19 +114,21 @@ console.log(fieldsIdList);
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setRequest(0)}
-                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${request === 0
-                  ? "bg-[#656565] text-white"
-                  : "bg-[#fff] text-[#1C1C1C]"
-                  } `}
+                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${
+                  request === 0
+                    ? "bg-[#656565] text-white"
+                    : "bg-[#fff] text-[#1C1C1C]"
+                } `}
               >
                 Описание
               </button>
               <button
                 onClick={() => setRequest(1)}
-                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${request === 1
-                  ? "bg-[#656565] text-white"
-                  : "bg-[#fff] text-[#1C1C1C]"
-                  } `}
+                className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${
+                  request === 1
+                    ? "bg-[#656565] text-white"
+                    : "bg-[#fff] text-[#1C1C1C]"
+                } `}
               >
                 Запросы
               </button>
@@ -160,54 +173,59 @@ console.log(fieldsIdList);
                 <div className="flex justify-center items-center gap-[20px] lg:gap-[15px] xl:gap-[20px]">
                   <button
                     onClick={() => setActive(0)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 0
-                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                      : "opacity-50"
-                      }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                      active === 0
+                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                        : "opacity-50"
+                    }`}
                   >
                     Обзор
                   </button>
                   <button
                     onClick={() => setActive(1)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 1
-                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                      : "opacity-50"
-                      }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                      active === 1
+                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                        : "opacity-50"
+                    }`}
                   >
                     Галерея
                   </button>
                   <button
                     onClick={() => setActive(2)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 2
-                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                      : "opacity-50"
-                      }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                      active === 2
+                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                        : "opacity-50"
+                    }`}
                   >
                     График
                   </button>
                   <button
                     onClick={() => setActive(3)}
-                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 3
-                      ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
-                      : "opacity-50"
-                      }`}
+                    className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                      active === 3
+                        ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
+                        : "opacity-50"
+                    }`}
                   >
                     Отзывы
                   </button>
                 </div>
                 <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
                   {fieldsIdList?.football_field_type?.map((item) => {
-
                     return (
-                      <button key={item?.id}
+                      <button
+                        key={item?.id}
                         onClick={() => {
                           dispatch(fetchFieldsIdDetail(item?.id));
                           setTypeValue(item?.id);
                         }}
-                        className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${fieldsIdDetail?.id === item?.id
-                          ? "opacity-100 border-[2px]"
-                          : "opacity-70 border-[1px]"
-                          }`}
+                        className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${
+                          fieldsIdDetail?.id === item?.id
+                            ? "opacity-100 border-[2px]"
+                            : "opacity-70 border-[1px]"
+                        }`}
                       >
                         {item?.name}
                       </button>
