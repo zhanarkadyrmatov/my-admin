@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBookings } from "../../store/slice/story";
+import { fetchBookings, setBookings } from "../../store/slice/story";
 import { FaAngleDown } from "react-icons/fa6";
 import moment from "moment";
 import { format } from "date-fns";
@@ -11,23 +11,23 @@ export default function DraggableFields() {
   const dispatch = useDispatch();
   const { bookings, status, error } = useSelector((state) => state.story);
   const [selectValue, setSelectValue] = useState(
-    fieldsIdList?.football_field_type[0]?.name
+    fieldsIdList?.football_field_type[0]?.name || null
   );
   const [selectOptions, setSelectOptions] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
+    if (fieldsIdList?.football_field_type?.length > 0) {
+      dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
+    }else{
+      dispatch(setBookings(null));
+    }
   }, []);
-
-  const redireact = () => {
-    window.location.href = "/calendary/book";
-  };
 
   return (
     <div>
       <div
         className={
-          "bg-[#fff] h-[82vh] p-[16px] md:p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]"
+          "bg-[#fff] h-[auto] p-[16px] md:p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]"
         }
       >
         <div className={""}>
@@ -37,34 +37,36 @@ export default function DraggableFields() {
             >
               Calendar
             </h4>
-            <div className="relative">
-              <div
-                onClick={() => setSelectOptions(!selectOptions)}
-                className=" text-[16px] p-[10px] w-full rounded-[12px] text-[#000] flex items-center justify-between gap-3 cursor-pointer"
-              >
-                <p className="">{selectValue}</p>
-                <FaAngleDown className="w-4 h-4" />
-              </div>
-              {selectOptions && (
-                <div className="absolute top-[-30%] left-0 w-full bg-[#656565] rounded-[8px] z-50 py-[7px] shadow-lg">
-                  {fieldsIdList?.football_field_type?.map((item) => {
-                    return (
-                      <div
-                        key={item?.id}
-                        onClick={() => {
-                          setSelectOptions(!selectOptions);
-                          setSelectValue(item?.name);
-                          dispatch(fetchBookings(item?.id));
-                        }}
-                        className="text-[16px] text-[#fff] py-[6px] px-[12px] lg:px-[16px] hover:bg-[#4d4c4c] duration-300 cursor-pointer "
-                      >
-                        {item?.name}
-                      </div>
-                    );
-                  })}
+            {fieldsIdList?.football_field_type?.length > 0 && (
+              <div className="relative">
+                <div
+                  onClick={() => setSelectOptions(!selectOptions)}
+                  className=" text-[16px] p-[10px] w-full rounded-[12px] text-[#000] flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <p className="">{selectValue}</p>
+                  <FaAngleDown className="w-4 h-4" />
                 </div>
-              )}
-            </div>
+                {selectOptions && (
+                  <div className="absolute top-[-30%] left-0 w-full bg-[#656565] rounded-[8px] z-50 py-[7px] shadow-lg">
+                    {fieldsIdList?.football_field_type?.map((item) => {
+                      return (
+                        <div
+                          key={item?.id}
+                          onClick={() => {
+                            setSelectOptions(!selectOptions);
+                            setSelectValue(item?.name);
+                            dispatch(fetchBookings(item?.id));
+                          }}
+                          className="text-[16px] text-[#fff] py-[6px] px-[12px] lg:px-[16px] hover:bg-[#4d4c4c] duration-300 cursor-pointer "
+                        >
+                          {item?.name}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
         <table
@@ -133,7 +135,7 @@ export default function DraggableFields() {
             </p>
           )}
         </table>
-        <div className={""}>
+        {/* <div className={""}>
           <button
             className="flex justify-center items-center gap-2 w-full py-[10px] px-4 rounded-xl  border bg-[#f93a0b] hover:bg-[#a43418] duration-300"
             onClick={() => redireact()}
@@ -143,7 +145,7 @@ export default function DraggableFields() {
               Create New
             </span>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBookings } from "../../store/slice/story";
+import { fetchBookings, setBookings } from "../../store/slice/story";
 import { FaAngleDown } from "react-icons/fa6";
 import { setSelectValue } from "../../store/slice/fields-slice";
 import { format } from "date-fns";
@@ -13,7 +13,11 @@ export default function Draggable() {
   const [selectOptions, setSelectOptions] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
+    if (fieldsIdList?.football_field_type?.length > 0) {
+      dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
+    }else{
+      dispatch(setBookings(null));
+    }
   }, []);
 
 
@@ -31,7 +35,8 @@ export default function Draggable() {
             >
               Calendar
             </h4>
-            <div className="relative">
+            {fieldsIdList?.football_field_type?.length > 0 && (
+              <div className="relative">
               <div
                 onClick={() => setSelectOptions(!selectOptions)}
                 className=" text-[16px] p-[10px] w-full rounded-[12px] text-[#000] flex items-center justify-between gap-3 cursor-pointer"
@@ -59,6 +64,8 @@ export default function Draggable() {
                 </div>
               )}
             </div>
+            )}
+            
           </div>
         </div>
         <table

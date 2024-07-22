@@ -27,9 +27,9 @@ export default function BookId({
                   "absolute top-[12px] right-[12px] flex items-center gap-[10px] "
                 }
               >
-                <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
+                <NavLink to={`/fields/${item?.id}`} className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
                   <MdOutlineRemoveRedEye className="w-[20px] h-[20px] fill-white " />
-                </div>
+                </NavLink>
                 <div
                   onClick={() => {
                     setFieldDelete(!fieldDelete);
@@ -40,7 +40,7 @@ export default function BookId({
                   <MdDeleteOutline className="w-[20px] h-[20px] fill-white " />
                 </div>
                 <div className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
-                  <NavLink to={`/editFields`}>
+                  <NavLink to={`/fields/editType/${item?.id}`}>
                     <svg
                       width="20"
                       height="20"
@@ -71,7 +71,6 @@ export default function BookId({
                       />
                     </svg>
                   </NavLink>{" "}
-                  {/* <FaPlus className={"w-[20px] h-[20px] fill-white "} /> */}
                 </div>
               </div>
               <NavLink className={"w-[100%]"} to={`/fields/${item?.id}`}>

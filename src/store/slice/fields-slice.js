@@ -76,10 +76,14 @@ export const fetchFieldsIdList = createAsyncThunk(
           },
         }
       );
-      dispatch(setFootballId(response?.data?.football_field_type[0]?.id));
-      dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id));
-      dispatch(fetchBookings(response?.data?.football_field_type[0]?.id));
-      dispatch(setSelectValue(response?.data?.football_field_type[0]?.name));
+      if (response.data?.football_field_type?.length > 0) { 
+        dispatch(setFootballId(response?.data?.football_field_type[0]?.id));
+        dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id));
+        dispatch(fetchBookings(response?.data?.football_field_type[0]?.id));
+        dispatch(setSelectValue(response?.data?.football_field_type[0]?.name));
+      }else{
+        dispatch(setFieldsIdDetail(null));
+      }
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -98,7 +102,7 @@ export const setFieldsId1 = createAsyncThunk(
           },
         }
       );
-      return response.data; // Вернуть данные ответа
+      return response.data; 
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
@@ -107,6 +111,7 @@ export const setFieldsId1 = createAsyncThunk(
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",
   async (id, { rejectWithValue }) => {
+    console.log(id);
     try {
       const detail = await axios.get(
         `${Api}admin_api/football-field-type/${id}/`,
@@ -161,6 +166,11 @@ export const fieldsSlice = createSlice({
     setFootballId: (state, action) => {
       state.footballId = action.payload;
     },
+
+    setFieldsIdDetail: (state, action) => {
+      state.fieldsIdDetail = action.payload;
+      state.fieldsComments = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -214,6 +224,6 @@ export const fieldsSlice = createSlice({
   },
 });
 
-export const { setFieldsId, setSelectValue, setFootballId } =
+export const { setFieldsId, setSelectValue, setFootballId, setFieldsIdDetail } =
   fieldsSlice.actions;
 export default fieldsSlice.reducer;

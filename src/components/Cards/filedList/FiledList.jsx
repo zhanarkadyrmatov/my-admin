@@ -55,7 +55,7 @@ export default function FiledList({
             </NavLink>
           </div>
           <div className="w-[36px] h-[36px] rounded-[12px] flex justify-center items-center  bg-[#E5E5E5] hover:scale-105 duration-300 cursor-pointer">
-            <NavLink to={`/editFields`}>
+            <NavLink to={`/fields/editType/${item?.id}`}>
               <svg
                 width="20"
                 height="20"

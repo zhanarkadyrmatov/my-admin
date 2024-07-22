@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Calendar from "../../components/Calendary/Calendary";
 import Draggable from "../../components/Draggable/Draggable";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFieldsIdList, setFieldsId } from "../../store/slice/fields-slice";
+import { fetchFields, fetchFieldsIdList, setFieldsId } from "../../store/slice/fields-slice";
 import Loader from '../../components/Loader/Loader';
 export default function DataPages() {
   const dispatch = useDispatch();
@@ -15,7 +15,9 @@ export default function DataPages() {
     dispatch(setFieldsId(id));
   };
 
+
   useEffect(() => {
+    dispatch(fetchFields());  
     dispatch(fetchFieldsIdList(fieldsId));
   }, []);
 

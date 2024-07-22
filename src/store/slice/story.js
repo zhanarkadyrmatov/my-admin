@@ -31,6 +31,10 @@ const bookingSlice = createSlice({
   initialState,
   reducers: {
 
+    setBookings: (state, action) => {
+      state.bookings = action.payload;
+    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -49,4 +53,6 @@ const bookingSlice = createSlice({
   },
 });
 
+
+export const { setBookings } = bookingSlice.actions;
 export default bookingSlice.reducer;

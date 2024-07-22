@@ -24,7 +24,7 @@ export default function Header({
 
   useEffect(() => {
     dispatch(getUser());
-    dispatch(fetchFields());
+    
   }, []);
 
 
