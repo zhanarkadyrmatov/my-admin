@@ -18,6 +18,7 @@ import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditFied from "./pages/fields/editFied/editFied";
+import EditType from "./pages/fields/editType/editType";
 
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
@@ -69,7 +70,7 @@ function App({ open }) {
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />
                 <Route path="/fields/edit/:id" element={<EditFied />} />
-                <Route path="/fields/edit/:id" element={<EditFied />} />
+                <Route path="/fields/editType/:id" element={<EditType />} />
                 <Route path="/fields/football" element={<Addfootball />} />
                 <Route
                   path="/fields/football/:id"

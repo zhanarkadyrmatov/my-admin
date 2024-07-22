@@ -92,8 +92,6 @@ export const getLocationsCities = createAsyncThunk(
 export const postAdvantages = createAsyncThunk(
   "advantages/postAdvantages",
   async (data, { rejectWithValue, dispatch }) => {
-    console.log(data, "datatwtat");
-
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field/`,
@@ -113,17 +111,13 @@ export const postAdvantages = createAsyncThunk(
       };
       dispatch(PATCHAdvantages(PATCHAdvantagesData));
 
-      console.log(response.data, "response.data");
       return response.data;
     } catch (error) {
       if (error.response) {
-        console.error("Ошибка сервера:", error.response.data);
         return rejectWithValue(error.response.data);
       } else if (error.request) {
-        console.error("Запрос не отправлен:", error.request);
         return rejectWithValue({ error: "Network error" });
       } else {
-        console.error("Ошибка:", error.message);
         return rejectWithValue({ error: error.message });
       }
     }
@@ -187,13 +181,12 @@ export const postCreacteFieldType = createAsyncThunk(
 
       const id = await response.data.id;
 
-      console.log(response.data.id, "response.data");
       const advantages = await data[1];
       const PATCHAdvantagesData = {
         advantages,
         id,
       };
-      console.log(PATCHAdvantagesData, "PATCHAdvantagesData");
+
       dispatch(postCreacteFoobolField(PATCHAdvantagesData));
 
       return response.data;
@@ -207,8 +200,6 @@ export const postCreacteFoobolField = createAsyncThunk(
   "advantages/postCreacteFoobolField",
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data.advantages.price, "advantages");
-
       const newData = {
         price: data.advantages.price,
         schedule: data.advantages.schedule,

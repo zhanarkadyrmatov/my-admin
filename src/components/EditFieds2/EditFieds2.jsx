@@ -37,7 +37,7 @@ function EditFieds2(page, setPage) {
       title: "Воскресенье",
     },
   ];
-  console.log(fieldsIdDetail);
+
   const [schedule, setSchedule] = useState();
   const [active, setAcive] = useState(0);
   return (

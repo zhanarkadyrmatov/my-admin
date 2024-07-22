@@ -20,9 +20,6 @@ export default function CalendarFields() {
     }
   }, [bookings]);
 
-  console.log(data, "data");
-
-
   return (
     <div
       className={
@@ -31,11 +28,11 @@ export default function CalendarFields() {
     >
       <FullCalendar
         plugins={[timeGridPlugin]}
-        initialView='timeGridWeek'
+        initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next",
           center: "title",
-          right: "timeGridWeek,timeGridDay"
+          right: "timeGridWeek,timeGridDay",
         }}
         buttonText={{
           today: "Сегодня",

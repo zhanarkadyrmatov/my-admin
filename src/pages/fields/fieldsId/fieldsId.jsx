@@ -31,14 +31,11 @@ export default function FieldsId() {
   const { fieldsIdList, fieldsIdDetail, footballId } = useSelector(
     (state) => state.fields
   );
+
   const [typeValue, setTypeValue] = useState(null);
   useEffect(() => {
     dispatch(fetchFieldsIdList(id));
   }, [id]);
-
-  console.log(fieldsIdList);
-
-  console.log(footballId);
 
   return (
     <>
@@ -145,7 +142,7 @@ export default function FieldsId() {
                 </span>
               </button>
               <NavLink
-                to={`/fields/edit/${id}`}
+                to={`/fields/editType/${id}`}
                 v
                 className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300"
               >

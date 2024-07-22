@@ -13,20 +13,48 @@ import { useEffect } from "react";
 import {
   getAdvantages,
   getBranchGetId,
+  getConstructionType,
   postCreacteFieldType,
 } from "../../../store/slice/create-foobol-slice";
 import YandexMaps from "../../../components/yandexMaps/yandexMaps";
 import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
+import cm from "classnames";
+import { fetchFieldsIdList } from "../../../store/slice/fields-slice";
 
 const EditFieds = () => {
   const { id } = useParams();
-  const { advantages, fieldsIdInfo, status, creacteFoobolStatus } = useSelector(
-    (state) => state.createFoobol
-  );
-  console.log(creacteFoobolStatus, "staus");
+  const {
+    advantages,
+    fieldsIdInfo,
+    status,
+    creacteFoobolStatus,
+    construction,
+  } = useSelector((state) => state.createFoobol);
+
+  const { fieldsIdDetail } = useSelector((state) => state.fields);
+  const [constructionListAcc, setConstructionListAcc] = useState([]);
+  const handlerConstruction = (event) => {
+    const newValue = event;
+    if (!constructionListAcc?.includes(newValue)) {
+      setConstructionListAcc([...constructionListAcc, newValue]);
+    } else {
+      setConstructionListAcc(
+        constructionListAcc.filter((item) => item !== newValue)
+      );
+    }
+  };
+
   //Дневная цена
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBranchGetId(id));
+    dispatch(getAdvantages());
+
+    dispatch(getConstructionType());
+    dispatch(fetchFieldsIdList(id));
+  }, []);
 
   const [priceDay, setPriceDay] = useState({
     start_time: "",
@@ -69,8 +97,8 @@ const EditFieds = () => {
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
-  console.log(schedule, "test1");
   const [newName, setNewName] = useState();
+
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
     setAdvantagesList((prevList) => {
@@ -121,15 +149,8 @@ const EditFieds = () => {
 
     const newData = [formData, dataPUT];
     dispatch(postCreacteFieldType(newData));
-    console.log(data, "test1");
   };
 
-  useEffect(() => {
-    dispatch(getBranchGetId(id));
-    dispatch(getAdvantages());
-  }, []);
-
-  console.log(fieldsIdInfo);
   const newFoobolField = () => {
     setMapLatLon([]);
     setNewName("");
@@ -139,9 +160,34 @@ const EditFieds = () => {
     setPriceDay("");
     setPriceNight("");
   };
+  useEffect(() => {
+    setNewName(fieldsIdDetail?.name);
+    setDescription(fieldsIdDetail?.description);
+    setAdministratorValue(fieldsIdDetail?.administratorValue);
+    setAdministrator(fieldsIdDetail?.administrator);
+    setPriceDay(fieldsIdDetail?.schedule[0]);
+    setPriceNight(fieldsIdDetail?.schedule[1]);
+    setMapLatLon(fieldsIdDetail?.location);
+    setPriceDay({
+      start_time: fieldsIdDetail?.price[0].start_time,
+      end_time: fieldsIdDetail?.price[0].end_time,
+      period_day: "day",
+      price: fieldsIdDetail?.price[0].price,
+    });
+    setPriceNight({
+      start_time: fieldsIdDetail?.price[1].start_time,
+      end_time: fieldsIdDetail?.price[1].end_time,
+      period_day: "evening",
+      price: fieldsIdDetail?.price[1].price,
+    });
+    const imageUrls = fieldsIdDetail?.gallery_f_type.map((item) => item.img);
+    setSelectedImages1(imageUrls);
+    setConstructionListAcc(fieldsIdDetail?.construction_type);
+  }, [fieldsIdDetail]);
   if (creacteFoobolStatus === "loading") {
     return <div>Loading...</div>;
   }
+  console.log(fieldsIdDetail, "fieldsIdDetail");
   return (
     <div className="mx-[20px] mt-[90px]">
       <div>
@@ -177,6 +223,27 @@ const EditFieds = () => {
                   />
                 </div>
               </div>
+              <div className="grid gap-y-[8px]">
+                <h5>Тип поля</h5>
+                <div className={s.constructionList}>
+                  {construction?.map((res, i) => {
+                    const isAcc = constructionListAcc?.find(
+                      (el) => el.name === res.name
+                    );
+                    return (
+                      <div
+                        onClick={() => handlerConstruction(res)}
+                        key={i}
+                        className={cm(s.construction, {
+                          [s.activeIsAcc]: !!isAcc,
+                        })}
+                      >
+                        {res.name}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
               <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1">
                 <div className=" w-full grid gap-y-[8px]">
                   <h5>Дневная цена</h5>
@@ -188,6 +255,7 @@ const EditFieds = () => {
                           price: e.target.value,
                         }));
                       }}
+                      value={priceDay.price}
                       className="bg-[#F0F0F0] w-fufll"
                       style={{
                         width: "100% ",
@@ -209,6 +277,7 @@ const EditFieds = () => {
                           start_time: e.target.value,
                         }));
                       }}
+                      value={priceDay.start_time}
                       style={{
                         width: "100% ",
                         border: "none",
@@ -226,6 +295,7 @@ const EditFieds = () => {
                           end_time: e.target.value,
                         }));
                       }}
+                      value={priceDay.end_time}
                       style={{
                         width: "100% ",
                         backgroundColor: "transparent",
@@ -254,12 +324,14 @@ const EditFieds = () => {
                         outline: "none",
                       }}
                       type="number"
+                      value={priceNight.price}
                       placeholder="Укажите цену"
                     />
                     <p className=" text-base font-normal leading-6 tracking-tight text-left">
                       Сом
                     </p>
                   </div>
+
                   <div className="flex justify-between p-[10px] gap-5 bg-[#F0F0F0] border border-customColor rounded-[10px]">
                     <input
                       onChange={(e) => {
@@ -268,6 +340,7 @@ const EditFieds = () => {
                           start_time: e.target.value,
                         }));
                       }}
+                      value={priceNight.start_time}
                       style={{
                         width: "100% ",
                         border: "none",
@@ -284,6 +357,7 @@ const EditFieds = () => {
                           end_time: e.target.value,
                         }));
                       }}
+                      value={priceNight.end_time}
                       style={{
                         width: "100% ",
 

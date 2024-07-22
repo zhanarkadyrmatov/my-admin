@@ -12,7 +12,6 @@ export default function FiledList({
   setFieldDelete,
   setDeleteValue,
 }) {
-  console.log(item);
   return (
     <div>
       <nav className="grid grid-cols-11 items-center gap-1 w-full  px-[10px] py-[20px] border-b-[2px] border-gray-100">

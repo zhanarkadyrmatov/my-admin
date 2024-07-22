@@ -2,15 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
 
-
 export const fetchSearch = createAsyncThunk(
   "search/fetchSearch",
   async (search, { rejectWithValue }) => {
-
-    const params = {}
+    const params = {};
 
     if (search) {
-      params.search = search
+      params.search = search;
     }
 
     try {
@@ -18,18 +16,15 @@ export const fetchSearch = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        params
+        params,
       });
 
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
-
-
+);
 
 export const searchSlice = createSlice({
   name: "search",
@@ -40,8 +35,8 @@ export const searchSlice = createSlice({
   },
   reducers: {
     setUsers: (state, action) => {
-      state.users = action.payload
-    }
+      state.users = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder

@@ -82,7 +82,7 @@ const ScheduleList = ({ setSchedule }) => {
         };
       })
       .sort((a, b) => a.day_of_week - b.day_of_week);
-    console.log(schedule, "tests1");
+
     setSchedule(schedule);
   }, [dayState, setSchedule]);
 

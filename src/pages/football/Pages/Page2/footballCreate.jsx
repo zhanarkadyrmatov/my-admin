@@ -28,7 +28,6 @@ const FootballCreate = () => {
     creacteFoobolStatus,
     construction,
   } = useSelector((state) => state.createFoobol);
-  console.log(construction, "staus");
   //Дневная цена
 
   const dispatch = useDispatch();
@@ -68,7 +67,7 @@ const FootballCreate = () => {
 
   const [selectedIamgeFile, setSelectedImageFile] = useState(null);
   const [constructionListAcc, setConstructionListAcc] = useState([]);
-  console.log(constructionListAcc, "constructionListAcc");
+
   const handlerConstruction = (event) => {
     const newValue = event;
     if (!constructionListAcc?.includes(newValue)) {
@@ -86,7 +85,6 @@ const FootballCreate = () => {
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
-  console.log(schedule, "test1");
   const [newName, setNewName] = useState();
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
@@ -140,7 +138,6 @@ const FootballCreate = () => {
 
     const newData = [formData, dataPUT];
     dispatch(postCreacteFieldType(newData));
-    console.log(data, "test1");
   };
 
   useEffect(() => {
@@ -149,7 +146,6 @@ const FootballCreate = () => {
     dispatch(getConstructionType());
   }, []);
 
-  console.log(fieldsIdInfo);
   const newFoobolField = () => {
     setMapLatLon([]);
     setNewName("");

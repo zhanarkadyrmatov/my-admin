@@ -17,7 +17,6 @@ import Logout from "../Logout/Logout";
 import Login from "../../pages/login/page";
 import { ImExit } from "react-icons/im";
 
-
 export default function Playground({ collapsed, toggled, setToggled }) {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;

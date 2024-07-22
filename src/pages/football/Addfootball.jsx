@@ -126,7 +126,7 @@ export default function Addfootball() {
     }
     if (Object.keys(errors).length > 0) {
       setErrorList(errors);
-      console.log(errors, "errors");
+
       return;
     }
 
@@ -140,8 +140,6 @@ export default function Addfootball() {
   const goToPage = (pageName) => {
     handlerPostCreacteFoobolField();
   };
-
-  console.log(advantages, "advantages");
 
   const [administratorList, setAdministratorList] = useState([
     { name: "Erik", id: 1, type: "Менеджер " },
