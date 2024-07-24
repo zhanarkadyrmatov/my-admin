@@ -12,6 +12,9 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 export default function Review() {
   const { fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
 
+  // console.log("fieldsIdDetail", fieldsIdDetail);
+  // console.log("fieldsIdList", fieldsIdList);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-[20px]">
       {fieldsIdDetail?.advantages?.length > 0 ? (
@@ -23,6 +26,7 @@ export default function Review() {
           </div>
           <div className="px-[20px] py-[5px] bg-white rounded-b-[12px] ">
             {fieldsIdDetail?.advantages?.map((item, index) => {
+              console.log("item", item.advantages);
               return (
                 <div
                   key={index}
@@ -31,16 +35,16 @@ export default function Review() {
                   <div className="min-w-[40px] min-h-[40px] border-[1px] border-[#2222221A] flex justify-center items-center rounded-full">
                     <img
                       className="w-[24px] h-[24px]"
-                      src={item?.icon || Icon}
+                      src={item?.advantages?.icon || Icon}
                       alt=""
                     />
                   </div>
                   <div>
                     <h4 className="text-[15px] leading-[17px] text-[#222222] font-bold">
-                      {item?.name}
+                      {item?.advantages?.name}
                     </h4>
                     <p className="text-[13px] leading-[16px] text-[#222222]  font-normal opacity-70">
-                      {item?.description}
+                      {item?.advantages?.description}
                     </p>
                   </div>
                 </div>

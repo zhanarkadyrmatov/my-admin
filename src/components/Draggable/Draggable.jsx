@@ -15,17 +15,16 @@ export default function Draggable() {
   useEffect(() => {
     if (fieldsIdList?.football_field_type?.length > 0) {
       dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
-    }else{
+    } else {
       dispatch(setBookings(null));
     }
   }, []);
-
 
   return (
     <div>
       <div
         className={
-          "bg-[#fff] h-[82vh] p-[16px] md:p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]"
+          "bg-[#fff] h-[auto] p-[16px] md:p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]"
         }
       >
         <div className={""}>
@@ -37,35 +36,34 @@ export default function Draggable() {
             </h4>
             {fieldsIdList?.football_field_type?.length > 0 && (
               <div className="relative">
-              <div
-                onClick={() => setSelectOptions(!selectOptions)}
-                className=" text-[16px] p-[10px] w-full rounded-[12px] text-[#000] flex items-center justify-between gap-3 cursor-pointer"
-              >
-                <p className="">{selectValue}</p>
-                <FaAngleDown className="w-4 h-4" />
-              </div>
-              {selectOptions && (
-                <div className="absolute top-[-30%] left-0 w-full bg-[#656565] rounded-[8px] z-50 py-[7px] shadow-lg">
-                  {fieldsIdList?.football_field_type?.map((item) => {
-                    return (
-                      <div
-                        key={item?.id}
-                        onClick={() => {
-                          setSelectOptions(!selectOptions);
-                          dispatch(setSelectValue(item?.name));
-                          dispatch(fetchBookings(item?.id));
-                        }}
-                        className="text-[16px] text-[#fff] py-[6px] px-[12px] lg:px-[16px] hover:bg-[#4d4c4c] duration-300 cursor-pointer "
-                      >
-                        {item?.name}
-                      </div>
-                    );
-                  })}
+                <div
+                  onClick={() => setSelectOptions(!selectOptions)}
+                  className=" text-[16px] p-[10px] w-full rounded-[12px] text-[#000] flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <p className="">{selectValue}</p>
+                  <FaAngleDown className="w-4 h-4" />
                 </div>
-              )}
-            </div>
+                {selectOptions && (
+                  <div className="absolute top-[-30%] left-0 w-full bg-[#656565] rounded-[8px] z-50 py-[7px] shadow-lg">
+                    {fieldsIdList?.football_field_type?.map((item) => {
+                      return (
+                        <div
+                          key={item?.id}
+                          onClick={() => {
+                            setSelectOptions(!selectOptions);
+                            dispatch(setSelectValue(item?.name));
+                            dispatch(fetchBookings(item?.id));
+                          }}
+                          className="text-[16px] text-[#fff] py-[6px] px-[12px] lg:px-[16px] hover:bg-[#4d4c4c] duration-300 cursor-pointer "
+                        >
+                          {item?.name}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             )}
-            
           </div>
         </div>
         <table
@@ -109,34 +107,29 @@ export default function Draggable() {
                       "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
                     }
                   >
-                    {format(res?.create_date, 'dd.MM.yyyy')}
+                    {format(res?.create_date, "dd.MM.yyyy")}
                   </td>
                   <td
                     className={
                       "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
                     }
                   >
-                    {format(res?.start_date, "HH:mm")}-{format(res?.end_date, "HH:mm")}
+                    {format(res?.start_date, "HH:mm")}-
+                    {format(res?.end_date, "HH:mm")}
                   </td>
                 </tr>
-              ))}</>
+              ))}
+            </>
           ) : (
-            <p className={'text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2'}>
+            <p
+              className={
+                "text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2"
+              }
+            >
               Нет записей
             </p>
           )}
-
         </table>
-        <div className={""}>
-          <button
-            className="flex justify-center items-center gap-2 w-full py-[10px] px-4 rounded-xl  border bg-[#f93a0b] hover:bg-[#a43418] duration-300"
-          >
-            <GoPlus className="w-[24px] h-[24px] fill-white" />
-            <span className="font-medium border-[#f93a0b] text-base  text-white">
-              Create New
-            </span>
-          </button>
-        </div>
       </div>
     </div>
   );

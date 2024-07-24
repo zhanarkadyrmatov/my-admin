@@ -27,7 +27,10 @@ export default function BookId({
                   "absolute top-[12px] right-[12px] flex items-center gap-[10px] "
                 }
               >
-                <NavLink to={`/fields/${item?.id}`} className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105">
+                <NavLink
+                  to={`/fields/${item?.id}`}
+                  className="w-[36px] h-[36px] cursor-pointer bg-[#fff] backdrop-blur-sm rounded-full flex justify-center items-center bg-opacity-30 duration-300	hover:scale-105"
+                >
                   <MdOutlineRemoveRedEye className="w-[20px] h-[20px] fill-white " />
                 </NavLink>
                 <div
@@ -100,10 +103,10 @@ export default function BookId({
           <div className="px-[14px] py-[10px]">
             <div className={"flex flex-col gap-[10px]"}>
               <div className={""}>
-                <h4 className="text-[16px] leading-[19px] font-[500] text-[#222222]">
+                <h4 className="text-[16px] leading-[19px] font-[500] text-[#222222] dark:text-[#fff]">
                   {item?.name}
                 </h4>
-                <p className="text-[#222222] text-[12px] leading-[16px] font-[500] opacity-70">
+                <p className="text-[#222222] text-[12px] leading-[16px] font-[500] opacity-70 dark:text-[#fff]">
                   Спортивный комплекс
                 </p>
               </div>
@@ -111,7 +114,7 @@ export default function BookId({
                 <div className={"flex justify-start items-center gap-[10px]"}>
                   {item?.advantages?.map((el) => (
                     <img
-                      className={"w-[20px] h-[20px]"}
+                      className={"w-[20px] h-[20px] dark:full-[#fff]"}
                       src={el?.advantages?.icon}
                       alt=""
                     />

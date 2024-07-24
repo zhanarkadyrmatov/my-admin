@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
-import { MdDashboard } from "react-icons/md";
-import { FaWallet, FaHistory, FaMinus, FaChevronDown } from "react-icons/fa";
+import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { NavLink, useLocation } from "react-router-dom";
-import { RiLoginBoxLine } from "react-icons/ri";
-import { CiCalendar } from "react-icons/ci";
-import { ImProfile } from "react-icons/im";
-import { FaThLarge } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import Booking from "../../img/Booking";
 import Wallet from "../../img/Wallet";
-import IconSet from "../../img/IconSet";
 import SoccerBall from "../../img/SoccerBall";
 import Alt from "../../img/alt";
 import Logout from "../Logout/Logout";
-import Login from "../../pages/login/page";
 import { ImExit } from "react-icons/im";
 
 export default function Playground({ collapsed, toggled, setToggled }) {
@@ -32,7 +24,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
         onBackdropClick={() => setToggled(false)}
         toggled={toggled}
         breakPoint="md"
-        className="h-screen shadow-md bg-white dark:bg-[#212130]"
+        className="h-screen bg-white dark:bg-[#212130]"
       >
         <div className="flex flex-col justify-between h-full z-[999]">
           <div className="flex justify-center items-center py-3 px-4">
@@ -80,12 +72,20 @@ export default function Playground({ collapsed, toggled, setToggled }) {
             </svg>
           </div>
           <div className="flex-1 mb-5 ">
-            <Menu transitionDuration={1000}>
+            <Menu
+              menuItemStyles={{
+                button: {
+                  [`&.active`]: {
+                    backgroundColor: "rgba(28, 28, 28, 0.05)",
+                    color: "#f73a0b",
+                    borderRight: "3px solid #f73a0b",
+                  },
+                },
+              }}
+              transitionDuration={1000}
+            >
               <MenuItem
-                className={`text-[18px] text-[#737B8B] hover:bg-[#000]   ${
-                  isActive("/") &&
-                  "bg-[#feeae7] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b] dark:bg-[#37232d]"
-                }
+                className={`text-[18px] text-[#737B8B]  leading-5 font-normal 
                 }`}
                 icon={<FaHome className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/" />}
@@ -94,10 +94,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Главная
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${
-                  isActive("/calendary") &&
-                  "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                className={`text-[18px] text-[#737B8B]  leading-5 font-normal }
                 }`}
                 icon={
                   <Booking
@@ -111,10 +108,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Список брони
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${
-                  isActive("/wallet") &&
-                  "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                className={`text-[18px] text-[#737B8B]  leading-5 font-normal
                 }`}
                 icon={
                   <Wallet
@@ -128,10 +122,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 Кошелек
               </MenuItem>
               <MenuItem
-                className={`text-[18px] text-[#737B8B]  ${
-                  isActive("/fields") &&
-                  "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                }
+                className={`text-[18px] text-[#737B8B]  leading-5 font-normal 
                 }`}
                 icon={
                   <SoccerBall
@@ -147,11 +138,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
 
               {isLogin == null ? (
                 <MenuItem
-                  className={`text-[18px] text-[#737B8B] ${
-                    isActive("/login")
-                      ? "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-r-[3px] border-[#f73a0b]"
-                      : ""
-                  }`}
+                  className={`text-[18px] text-[#737B8B]  leading-5 font-normal `}
                   icon={
                     <Alt
                       isActive={isActive("/login")}
@@ -165,10 +152,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 </MenuItem>
               ) : (
                 <MenuItem
-                  className={`text-[18px] text-[#737B8B]  ${
-                    isActive("/companies") &&
-                    "bg-[#feeae7] dark:bg-[#37232d] text-[#f73a0b] border-collapse border-r-[3px] border-[#f73a0b]"
-                  }
+                  className={`text-[18px] text-[#737B8B]  leading-5 font-normal
                 }`}
                   icon={
                     <ImExit
