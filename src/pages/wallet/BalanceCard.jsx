@@ -2,10 +2,7 @@ import React, { useRef } from "react";
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoCalendarClearOutline } from "react-icons/io5";
-import { RxTextAlignJustify } from "react-icons/rx";
 const BalanceCard = () => {
-  const [inputVALUE, setInputVALUE] = useState("");
-
   const handleButtonClick = () => {
     if (dateInputRef.current) {
       dateInputRef.current.showPicker();
@@ -52,8 +49,8 @@ const BalanceCard = () => {
 
   const isDateSelected2 = testValue2 !== null;
 
-  const renderTransaction = (transaction) => (
-    <tr key={transaction.type + transaction.date}>
+  const renderTransaction = (transaction, index) => (
+    <tr key={transaction.type + transaction.date + index}>
       <td className="px-6 py-[4px] whitespace-nowrap">{transaction.type}</td>
       <td className="px-6 py-4 whitespace-nowrap">{transaction.date}</td>
       <td
@@ -188,7 +185,9 @@ const BalanceCard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {transactions.map(renderTransaction)}
+            {transactions.map((transaction, index) =>
+              renderTransaction(transaction, index)
+            )}
           </tbody>
         </table>
       </div>

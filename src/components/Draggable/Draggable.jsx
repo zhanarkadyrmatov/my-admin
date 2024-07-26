@@ -71,64 +71,71 @@ export default function Draggable() {
             "flex flex-col gap-2 overflow-y-auto webkit-scrollbar webkit-scrollbar-track:[#423e3e1a] webkit-scrollbar-thumb"
           }
         >
-          <tr className={"grid grid-cols-4 gap-1"}>
-            <td
-              className={
-                "col-span-2 text-[#AEAEAE] text-[16px] leading-[19px] font-normal"
-              }
-            >
-              Имя
-            </td>
-            <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
-              День
-            </td>
-            <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
-              Время
-            </td>
-          </tr>
-          {bookings?.length > 0 ? (
-            <>
-              {bookings?.map((res, i) => (
-                <tr
-                  key={i}
+          <thead>
+            <tr className={"grid grid-cols-4 gap-1"}>
+              <td
+                className={
+                  "col-span-2 text-[#AEAEAE] text-[16px] leading-[19px] font-normal"
+                }
+              >
+                Имя
+              </td>
+              <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
+                День
+              </td>
+              <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
+                Время
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {bookings?.length > 0 ? (
+              <>
+                {bookings?.map((res, i) => (
+                  <tr
+                    key={i}
+                    className={
+                      "border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 "
+                    }
+                  >
+                    <td
+                      className={
+                        "text-[#404040] text-[14px] leading-[19px] font-normal col-span-2"
+                      }
+                    >
+                      {res?.name}
+                    </td>
+                    <td
+                      className={
+                        "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
+                      }
+                    >
+                      {format(res?.create_date, "dd.MM.yyyy")}
+                    </td>
+                    <td
+                      className={
+                        "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
+                      }
+                    >
+                      {format(res?.start_date, "HH:mm")}-
+                      {format(res?.end_date, "HH:mm")}
+                    </td>
+                  </tr>
+                ))}
+              </>
+            ) : (
+              <tr>
+                <td
+                  colSpan={4}
                   className={
-                    "border-b-[1px] border-[#423e3e1a] py-[13px] grid grid-cols-4 "
+                    "text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2"
                   }
                 >
-                  <td
-                    className={
-                      "text-[#404040] text-[14px] leading-[19px] font-normal col-span-2"
-                    }
-                  >
-                    {res?.name}
-                  </td>
-                  <td
-                    className={
-                      "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
-                    }
-                  >
-                    {format(res?.create_date, "dd.MM.yyyy")}
-                  </td>
-                  <td
-                    className={
-                      "text-[#AEAEAE] text-[14px] leading-[19px] font-normal"
-                    }
-                  >
-                    {format(res?.start_date, "HH:mm")}-
-                    {format(res?.end_date, "HH:mm")}
-                  </td>
-                </tr>
-              ))}
-            </>
-          ) : (
-            <p
-              className={
-                "text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2"
-              }
-            >
-              Нет записей
-            </p>
-          )}
+                  Нет записей
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
     </div>

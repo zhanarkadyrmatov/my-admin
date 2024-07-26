@@ -4,8 +4,8 @@ import "./App.css";
 import Playground from "./components/Playground/Playground";
 import Header from "./components/Header/Header";
 import Login from "./pages/login/page";
-import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import DataPages from "./pages/DataPages/DataPages";
+import Home from "./pages/home/home";
+import Booking from "./pages/booking/booking";
 import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
 import Reserve from "./pages/reserve/reserve";
@@ -13,7 +13,6 @@ import Addfootball from "./pages/football/Addfootball";
 import { useCollapsed } from "./hooks/useCollapsed";
 import Wallet from "./pages/wallet/Wallet";
 import ReserveModal from "./components/ReserveModal/ReserveModal";
-import FieldsModal from "./components/Modal/FieldsModal";
 import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +25,7 @@ function App({ open }) {
   const [darkMode, setDarkMode] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
   const [reserve, setReserve] = useState(false);
+  const [title, setTitle] = useState("Главная");
 
   return (
     <>
@@ -48,6 +48,7 @@ function App({ open }) {
           setCollapsed={setCollapsed}
           toggled={toggled}
           setToggled={setToggled}
+          setTitle={setTitle}
         />
         <main className="relative w-full">
           <Header
@@ -60,12 +61,13 @@ function App({ open }) {
             onclick={() => setOpenSetting(!openSetting)}
             setReserve={setReserve}
             reserve={reserve}
+            title={title}
           />
           <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
             <div className="">
               <Routes>
-                <Route path="/" element={<DashboardPage />} />
-                <Route path="/calendary" element={<DataPages />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/booking" element={<Booking />} />
                 <Route path="/wallet" element={<Wallet />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />

@@ -18,7 +18,7 @@ export default function DraggableFields() {
   useEffect(() => {
     if (fieldsIdList?.football_field_type?.length > 0) {
       dispatch(fetchBookings(fieldsIdList?.football_field_type[0]?.id));
-    }else{
+    } else {
       dispatch(setBookings(null));
     }
   }, []);
@@ -74,25 +74,27 @@ export default function DraggableFields() {
             "flex flex-col gap-2 overflow-y-auto webkit-scrollbar webkit-scrollbar-track:[#423e3e1a] webkit-scrollbar-thumb"
           }
         >
-          <tr className={"grid grid-cols-4 gap-1"}>
-            <td
-              className={
-                "col-span-2 text-[#AEAEAE] text-[16px] leading-[19px] font-normal"
-              }
-            >
-              Имя
-            </td>
-            <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
-              День
-            </td>
-            <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
-              Время
-            </td>
-          </tr>
-          {bookings?.length > 0 ? (
-            <>
-              {bookings?.map((res, i) => {
-                return (
+          <thead>
+            <tr className={"grid grid-cols-4 gap-1"}>
+              <td
+                className={
+                  "col-span-2 text-[#AEAEAE] text-[16px] leading-[19px] font-normal"
+                }
+              >
+                Имя
+              </td>
+              <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
+                День
+              </td>
+              <td className="text-[#AEAEAE] text-[16px] leading-[19px] font-normal">
+                Время
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {bookings?.length > 0 ? (
+              <>
+                {bookings?.map((res, i) => (
                   <tr
                     key={i}
                     className={
@@ -122,30 +124,22 @@ export default function DraggableFields() {
                       {format(res?.end_date, "HH:mm")}
                     </td>
                   </tr>
-                );
-              })}
-            </>
-          ) : (
-            <p
-              className={
-                "text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2"
-              }
-            >
-              Нет записей
-            </p>
-          )}
+                ))}
+              </>
+            ) : (
+              <tr>
+                <td
+                  colSpan={4}
+                  className={
+                    "text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2"
+                  }
+                >
+                  Нет записей
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
-        {/* <div className={""}>
-          <button
-            className="flex justify-center items-center gap-2 w-full py-[10px] px-4 rounded-xl  border bg-[#f93a0b] hover:bg-[#a43418] duration-300"
-            onClick={() => redireact()}
-          >
-            <GoPlus className="w-[24px] h-[24px] fill-white" />
-            <span className="font-medium border-[#f93a0b] text-base  text-white">
-              Create New
-            </span>
-          </button>
-        </div> */}
       </div>
     </div>
   );

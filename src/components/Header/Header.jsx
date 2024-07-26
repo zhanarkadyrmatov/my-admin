@@ -18,15 +18,14 @@ export default function Header({
   setDarkMode,
   darkMode,
   setReserve,
-  reserve
+  reserve,
+  title,
 }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUser());
-    
   }, []);
-
 
   const [open, setOpen] = useState(false);
   const [openMessages, setOpenMessages] = useState(false);
@@ -75,7 +74,7 @@ export default function Header({
                 <FaBars className="w-[20px] h-[20px] dark:fill-[#b3b3b3]" />
               </button>
               <h4 className="hidden md:block dark:text-white text-black text-[16px] lg:text-lg font-bold">
-                Dashboard
+                {title}
               </h4>
             </div>
           </div>

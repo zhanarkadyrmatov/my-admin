@@ -54,7 +54,10 @@ export default function Schedule() {
                   );
 
                   return (
-                    <div className="flex items-center gap-3 last:text-[#DF2323]">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 last:text-[#DF2323]"
+                    >
                       <div className="w-[12px] h-[12px] bg-[#222222] rounded-full flex justify-center items-start">
                         {isLastItem && (
                           <div className="w-[2px] h-[50px] bg-[#222222] rounded-full" />

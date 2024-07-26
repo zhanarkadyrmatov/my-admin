@@ -179,6 +179,7 @@ export default function Addfootball() {
       navigate(`/fields/football/${idFields}`);
     }
   }, [isCreate]);
+
   if (isCreate === true) {
     return <div>test</div>;
   }
@@ -223,7 +224,7 @@ export default function Addfootball() {
                             onChange={(e) => {
                               const data = [e.target.name, res.id];
 
-                              handleAdvantages(data, e.target.checked); // Pass checked state
+                              handleAdvantages(data, e.target.checked);
                             }}
                             name={res.id}
                             type="checkbox"

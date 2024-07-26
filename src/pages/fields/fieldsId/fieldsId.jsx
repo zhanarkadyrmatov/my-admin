@@ -85,9 +85,10 @@ export default function FieldsId() {
         <div className="my-[65px] flex flex-col gap-[20px]">
           <div
             style={{
-              backgroundImage: `url(${fieldsIdList?.main_foto ||
+              backgroundImage: `url(${
+                fieldsIdList?.main_foto ||
                 "https://meta-ratings.kz/upload/sprint.editor/da6/da6c51af03a854558f2e6ffa8cc8d013.jpg"
-                })`,
+              })`,
               backgroundPosition: "center",
               backgroundSize: "cover",
             }}
@@ -114,34 +115,36 @@ export default function FieldsId() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setRequest(0)}
-                  className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${request === 0
+                  className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white duration-300 ${
+                    request === 0
                       ? "bg-[#656565] text-white"
                       : "bg-[#fff] text-[#1C1C1C]"
-                    } `}
+                  } `}
                 >
                   Описание
                 </button>
                 <button
                   onClick={() => setRequest(1)}
-                  className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${request === 1
+                  className={`w-[50%] lg:w-[auto]  text-[16px] leading-[20px] border-[#2222221A] border-[1px] rounded-[8px] px-[16px] py-[8px]  hover:bg-[#656565] hover:text-white   duration-300 ${
+                    request === 1
                       ? "bg-[#656565] text-white"
                       : "bg-[#fff] text-[#1C1C1C]"
-                    } `}
+                  } `}
                 >
                   Запросы
                 </button>
               </div>
               <div className={"flex flex-col lg:flex-row items-center gap-3"}>
                 {fieldsIdDetail?.schedule?.length > 0 && (
-                   <button
-                   onClick={() => setFieldValue(true)}
-                   className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#7384E8] rounded-[8px] hover:bg-[#4a60e0] duration-300"
-                 >
-                   <FaPlus className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px]  fill-white" />
-                   <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#fff]">
-                     Забронировать поле
-                   </span>
-                 </button>
+                  <button
+                    onClick={() => setFieldValue(true)}
+                    className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#7384E8] rounded-[8px] hover:bg-[#4a60e0] duration-300"
+                  >
+                    <FaPlus className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px]  fill-white" />
+                    <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#fff]">
+                      Забронировать поле
+                    </span>
+                  </button>
                 )}
                 <NavLink
                   to={`/fields/editType/${id}`}
@@ -155,14 +158,14 @@ export default function FieldsId() {
                 </NavLink>
                 {fieldsIdList?.football_field_type.length > 0 && (
                   <button
-                  onClick={() => setFieldDelete(!fieldDelete)}
-                  className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#FFDEDE] rounded-[8px] hover:bg-[#cb8181] duration-300"
-                >
-                  <MdDelete className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
-                  <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">
-                    Удалить поле
-                  </span>
-                </button>
+                    onClick={() => setFieldDelete(!fieldDelete)}
+                    className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#FFDEDE] rounded-[8px] hover:bg-[#cb8181] duration-300"
+                  >
+                    <MdDelete className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />
+                    <span className="font-normal text-[14px] lg:text-[12px] xl:text-[14px] leading-[20px] text-[#1C1C1C]">
+                      Удалить поле
+                    </span>
+                  </button>
                 )}
               </div>
             </div>
@@ -176,37 +179,41 @@ export default function FieldsId() {
                   <div className="flex justify-center items-center gap-[20px] lg:gap-[15px] xl:gap-[20px]">
                     <button
                       onClick={() => setActive(0)}
-                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 0
+                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                        active === 0
                           ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
                           : "opacity-50"
-                        }`}
+                      }`}
                     >
                       Обзор
                     </button>
                     <button
                       onClick={() => setActive(1)}
-                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 1
+                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                        active === 1
                           ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
                           : "opacity-50"
-                        }`}
+                      }`}
                     >
                       Галерея
                     </button>
                     <button
                       onClick={() => setActive(2)}
-                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 2
+                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                        active === 2
                           ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
                           : "opacity-50"
-                        }`}
+                      }`}
                     >
                       График
                     </button>
                     <button
                       onClick={() => setActive(3)}
-                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${active === 3
+                      className={`font-[600] text-[14px] leading-[20px] text-[#1C1C1C]  hover:text-[red] hover:opacity-100  duration-300 pb-[2px] px-1 ${
+                        active === 3
                           ? "opacity-100 border-[#1C1C1C] border-b-[1px] "
                           : "opacity-50"
-                        }`}
+                      }`}
                     >
                       Отзывы
                     </button>
@@ -220,10 +227,11 @@ export default function FieldsId() {
                             dispatch(fetchFieldsIdDetail(item?.id));
                             dispatch(setFootballId(item?.id));
                           }}
-                          className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${fieldsIdDetail?.id === item?.id
+                          className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${
+                            fieldsIdDetail?.id === item?.id
                               ? "opacity-100 border-[2px]"
                               : "opacity-70 border-[1px]"
-                            }`}
+                          }`}
                         >
                           {item?.name}
                         </button>

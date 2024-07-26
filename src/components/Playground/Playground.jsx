@@ -9,9 +9,13 @@ import Alt from "../../img/alt";
 import Logout from "../Logout/Logout";
 import { ImExit } from "react-icons/im";
 
-export default function Playground({ collapsed, toggled, setToggled }) {
+export default function Playground({
+  collapsed,
+  toggled,
+  setToggled,
+  setTitle,
+}) {
   const location = useLocation();
-  const isActive = (path) => location.pathname === path;
 
   const [logout, setLogout] = useState(false);
   const isLogin = localStorage.getItem("token");
@@ -89,49 +93,46 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 }`}
                 icon={<FaHome className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/" />}
-                onClick={() => setToggled(false)}
+                onClick={() => {
+                  setToggled(false);
+                  setTitle("Главная");
+                }}
               >
                 Главная
               </MenuItem>
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  leading-5 font-normal }
                 }`}
-                icon={
-                  <Booking
-                    isActive={isActive("/calendary")}
-                    className=" w-[20px] h-[20px]"
-                  />
-                }
-                component={<NavLink to="/calendary" />}
-                onClick={() => setToggled(false)}
+                icon={<Booking className=" w-[20px] h-[20px]" />}
+                component={<NavLink to="/booking" />}
+                onClick={() => {
+                  setToggled(false);
+                  setTitle("Список брони");
+                }}
               >
                 Список брони
               </MenuItem>
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  leading-5 font-normal
                 }`}
-                icon={
-                  <Wallet
-                    isActive={isActive("/wallet")}
-                    className=" w-[20px] h-[20px]"
-                  />
-                }
+                icon={<Wallet className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/wallet" />}
-                onClick={() => setToggled(false)}
+                onClick={() => {
+                  setToggled(false);
+                  setTitle("Кошелек");
+                }}
               >
                 Кошелек
               </MenuItem>
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  leading-5 font-normal 
                 }`}
-                icon={
-                  <SoccerBall
-                    isActive={isActive("/fields")}
-                    className=" w-[20px] h-[20px]"
-                  />
-                }
+                icon={<SoccerBall className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/fields" />}
-                onClick={() => setToggled(false)}
+                onClick={() => {
+                  setToggled(false);
+                  setTitle("Футбольные поля");
+                }}
               >
                 Футбольные поля
               </MenuItem>
@@ -139,12 +140,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
               {isLogin == null ? (
                 <MenuItem
                   className={`text-[18px] text-[#737B8B]  leading-5 font-normal `}
-                  icon={
-                    <Alt
-                      isActive={isActive("/login")}
-                      className="w-[20px] h-[20px]"
-                    />
-                  }
+                  icon={<Alt className="w-[20px] h-[20px]" />}
                   component={<NavLink to="/login" />}
                   onClick={() => setToggled(false)}
                 >
@@ -154,12 +150,7 @@ export default function Playground({ collapsed, toggled, setToggled }) {
                 <MenuItem
                   className={`text-[18px] text-[#737B8B]  leading-5 font-normal
                 }`}
-                  icon={
-                    <ImExit
-                      isActive={isActive("/сompanies")}
-                      className=" w-[20px] h-[20px]"
-                    />
-                  }
+                  icon={<ImExit className=" w-[20px] h-[20px]" />}
                   onClick={() => {
                     setLogout(!logout);
                     setToggled(false);

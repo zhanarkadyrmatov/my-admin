@@ -8,7 +8,7 @@ import FiledList from "../../components/Cards/filedList/FiledList";
 import Element3 from "../../img/element3";
 import Elemnt3 from "../../img/Elemnt3";
 import FieldsDelete from "../../components/Modal/FieldsDelete";
-import Loader from '../../components/Loader/Loader';
+import Loader from "../../components/Loader/Loader";
 
 export default function Fields() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function Fields() {
   const [deleteValue, setDeleteValue] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchFields())
+    dispatch(fetchFields());
   }, []);
 
   return (
@@ -49,15 +49,19 @@ export default function Fields() {
             <div className="flex items-center gap-x-[12px]">
               <div
                 onClick={() => setPages("about")}
-                className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "about" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
-                  }`}
+                className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                  pages === "about"
+                    ? "bg-[#000]"
+                    : "bg-[#E5E5E5] cursor-pointer"
+                }`}
               >
                 <Element3 pages={pages} />
               </div>
               <div
                 onClick={() => setPages("home")}
-                className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
-                  }`}
+                className={`w-[36px] h-[36px] rounded-[12px] p-[8px] ${
+                  pages === "home" ? "bg-[#000]" : "bg-[#E5E5E5] cursor-pointer"
+                }`}
               >
                 <Elemnt3 pages={pages} />
               </div>
@@ -156,7 +160,6 @@ export default function Fields() {
           )}
         </div>
       )}
-
     </>
   );
 }

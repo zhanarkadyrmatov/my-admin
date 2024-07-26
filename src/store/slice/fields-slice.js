@@ -76,12 +76,14 @@ export const fetchFieldsIdList = createAsyncThunk(
           },
         }
       );
-      if (response.data?.football_field_type?.length > 0) { 
+      if (response.data?.football_field_type?.length > 0) {
         dispatch(setFootballId(response?.data?.football_field_type[0]?.id));
-        dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id));
+        dispatch(
+          fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id)
+        );
         dispatch(fetchBookings(response?.data?.football_field_type[0]?.id));
         dispatch(setSelectValue(response?.data?.football_field_type[0]?.name));
-      }else{
+      } else {
         dispatch(setFieldsIdDetail(null));
       }
       return response.data;
@@ -102,7 +104,7 @@ export const setFieldsId1 = createAsyncThunk(
           },
         }
       );
-      return response.data; 
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

@@ -27,6 +27,7 @@ function Reserve() {
   const { footballId, fieldsIdList, fieldsIdDetail } = useSelector(
     (state) => state.fields
   );
+
   const { reverse, booking, loading } = useSelector(
     (state) => state.reserveSlice
   );
@@ -52,7 +53,8 @@ function Reserve() {
   }, [footballId, startDate, booking]);
 
   const dayOfWeek = fieldsIdDetail?.schedule?.find(
-    (el) => el?.day_of_week === startDate.getDay()
+    (el) =>
+      el?.day_of_week === (startDate.getDay() === 0 ? 7 : startDate.getDay())
   );
 
   const startTime = dayOfWeek?.start_time?.slice(0, 5) || "";
@@ -132,8 +134,9 @@ function Reserve() {
               }
             >
               <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-                {fieldsIdList?.football_field_type?.map((item) => (
+                {fieldsIdList?.football_field_type?.map((item, index) => (
                   <button
+                    key={index}
                     onClick={() => {
                       dispatch(fetchFieldsIdDetail(item?.id));
                       dispatch(setFootballId(item?.id));
