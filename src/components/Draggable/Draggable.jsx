@@ -124,11 +124,11 @@ export default function Draggable() {
                 ))}
               </>
             ) : (
-              <tr>
+              <tr className={"flex items-center justify-center mt-[16px]"}>
                 <td
                   colSpan={4}
                   className={
-                    "text-[#404040] text-[14px] leading-[19px] text-center font-normal mt-2"
+                    "text-[#404040] text-[14px] leading-[19px] text-center font-normal "
                   }
                 >
                   Нет записей

@@ -8,6 +8,9 @@ import SoccerBall from "../../img/SoccerBall";
 import Alt from "../../img/alt";
 import Logout from "../Logout/Logout";
 import { ImExit } from "react-icons/im";
+import { FaWallet } from "react-icons/fa6";
+import { FaAddressCard } from "react-icons/fa";
+
 
 export default function Playground({
   collapsed,
@@ -83,6 +86,12 @@ export default function Playground({
                     backgroundColor: "rgba(28, 28, 28, 0.05)",
                     color: "#f73a0b",
                     borderRight: "3px solid #f73a0b",
+
+                    svg: {
+                      path: {
+                        fill: "#f73a0b",
+                      }
+                    },
                   },
                 },
               }}
@@ -91,7 +100,7 @@ export default function Playground({
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  leading-5 font-normal 
                 }`}
-                icon={<FaHome className=" w-[20px] h-[20px]" />}
+                icon={<FaHome className="w-[20px] h-[20px]" />}
                 component={<NavLink to="/" />}
                 onClick={() => {
                   setToggled(false);
@@ -103,7 +112,7 @@ export default function Playground({
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  leading-5 font-normal }
                 }`}
-                icon={<Booking className=" w-[20px] h-[20px]" />}
+                icon={<FaAddressCard className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/booking" />}
                 onClick={() => {
                   setToggled(false);
@@ -115,7 +124,7 @@ export default function Playground({
               <MenuItem
                 className={`text-[18px] text-[#737B8B]  leading-5 font-normal
                 }`}
-                icon={<Wallet className=" w-[20px] h-[20px]" />}
+                icon={<FaWallet className=" w-[20px] h-[20px]" />}
                 component={<NavLink to="/wallet" />}
                 onClick={() => {
                   setToggled(false);
