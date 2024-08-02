@@ -4,7 +4,6 @@ import img7 from "../../../img/img7.svg";
 import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AiOutlineClose } from "react-icons/ai";
 import Page2 from "../../football/Pages/Page2/footballCreate";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import {
@@ -13,11 +12,11 @@ import {
   getSportComplexList,
   postAdvantages,
 } from "../../../store/slice/create-foobol-slice";
-import YandexMaps from "../../../components/yandexMaps/yandexMaps";
 import {
   fetchFieldsIdList,
   setFieldsId1,
 } from "../../../store/slice/fields-slice";
+import YandexMap from "../../../components/YandexMap/YandexMap";
 const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
 export default function EditType() {
   const { id } = useParams();
@@ -32,7 +31,6 @@ export default function EditType() {
     }
   };
 
-  //about
   const [page, setPage] = useState("home");
   const dispatch = useDispatch();
   const {
@@ -63,37 +61,24 @@ export default function EditType() {
     }
   };
   const [mapLatLon, setMapLatLon] = useState();
+
   useEffect(() => {
     dispatch(getAdvantages());
     dispatch(getLocationsCities());
-    dispatch(setFieldsId1(id));
+    dispatch(fetchFieldsIdList(id));
     dispatch(getSportComplexList());
   }, []);
-  const { fieldsId1, fieldsIdDetail, footballId } = useSelector(
+  const { fieldsIdList, fieldsIdDetail, footballId } = useSelector(
     (state) => state.fields
   );
 
-  console.log(fieldsId1, "test1");
-  //WhatsApp
-  const [whatsappVlaue, setWhatsappVlaue] = useState("");
-  const [whatsappList, setWhatsappList] = useState([]);
-
-  const handleAddWhatsappList = () => {
-    if (whatsappVlaue?.length < 17) return;
-    setWhatsappList([...whatsappList, whatsappVlaue]);
-    setWhatsappVlaue("");
-  };
-
-  //telegram
   const [errorList, setErrorList] = useState([]);
 
   const [advantagesList, setAdvantagesList] = useState([]);
   const [complex_type, setComplex_type] = useState();
-
-  const [administratorValue, setAdministratorValue] = useState();
+  const [administratorValue, setAdministratorValue] = useState(null);
   const handlerPostCreacteFoobolField = () => {
     const errors = {};
-
     // Обработка advantagesList для удаления пустых описаний
     const processedAdvantagesList = advantagesList?.map((item) => {
       if (item.description === "") {
@@ -149,17 +134,21 @@ export default function EditType() {
   };
 
   useEffect(() => {
-    if (fieldsId1 !== null) {
-      setNewName(fieldsId1?.name);
-      setDescription(fieldsId1?.description);
-      setMapLatLon([fieldsId1?.latitude, fieldsId1?.longitude]);
-      setLocationsCitiesValue(fieldsId1?.city);
-      setDistrict(fieldsId1?.district);
-      setAdministratorValue(fieldsId1?.administrator);
-      setAddress(fieldsId1?.address);
-      setComplex_type(fieldsId1?.sport_complex_type);
+    if (fieldsIdList !== null) {
+      setNewName(fieldsIdList?.name);
+      setDescription(fieldsIdList?.description);
+      setMapLatLon([fieldsIdList?.latitude, fieldsIdList?.longitude]);
+      setLocationsCitiesValue(fieldsIdList?.city);
+      setDistrict(fieldsIdList?.district);
+      setAdministratorValue(fieldsIdList?.administrator?.name);
+      setAddress(fieldsIdList?.address);
+      setComplex_type(fieldsIdList?.sport_complex_type);
+      setSelectedImage(fieldsIdList?.main_foto);
+      setAdvantagesList(fieldsIdList?.advantages);
     }
-  }, [fieldsId1]);
+  }, [fieldsIdList]);
+
+  console.log(fieldsIdList)
 
   const goToPage = (pageName) => {
     handlerPostCreacteFoobolField();
@@ -172,6 +161,7 @@ export default function EditType() {
     { name: "jane", id: 4, type: "Техник" },
     { name: "jane", id: 5, type: "Админ" },
   ]);
+
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
     setAdvantagesList((prevList) => {
@@ -185,6 +175,9 @@ export default function EditType() {
       }
     });
   };
+
+  console.log(advantagesList);
+
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
       prevList.map((item) =>
@@ -205,25 +198,12 @@ export default function EditType() {
   }
 
   return (
-    <div className="mx-[20px] mt-[90px]">
+    <div className="mx-[20px] mt-[90px] mb-[20px]">
       {page === "home" && (
         <div className="mt-[50px]">
           <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
             {isModalMap && (
-              <div className={s.Map}>
-                <div className={s.InfoTitel}>
-                  <p>Нужно выбрать местоположение</p>
-                  <div onClick={() => setIsModalMap(false)}>
-                    <AiOutlineClose />
-                  </div>
-                </div>
-                <div className={s.YandexMapsStyle}>
-                  <YandexMaps
-                    setMapLatLon={setMapLatLon}
-                    mapLatLon={mapLatLon}
-                  />
-                </div>
-              </div>
+              <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap}  />
             )}
             <div className="h-min w-full rounded-[10px] bg-white">
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
@@ -231,12 +211,14 @@ export default function EditType() {
               </div>
               <div className={s.checkboxList}>
                 {advantages?.map((res, i) => {
-                  const isChecked = advantagesList.some(
+                  const isChecked = advantagesList?.some(
                     (item) => item.advantages === res.id
                   );
-                  const currentItem =
-                    advantagesList.find((item) => item.advantages === res.id) ||
-                    {};
+                  const currentItem = advantagesList?.find((item) => item?.advantages === res?.id) || {};
+
+                  const checked = advantagesList?.find((item) => console.log(item))
+                  console.log(res)
+                  console.log(advantages)
                   return (
                     <div className={s.checkbox} key={i}>
                       <div className="flex gap-[5px] w-full flex-col">
@@ -244,8 +226,7 @@ export default function EditType() {
                           <input
                             onChange={(e) => {
                               const data = [e.target.name, res.id];
-
-                              handleAdvantages(data, e.target.checked); // Pass checked state
+                              handleAdvantages(data, e.target.checked);
                             }}
                             name={res.id}
                             type="checkbox"
@@ -273,8 +254,8 @@ export default function EditType() {
                 })}
               </div>
             </div>
-            <div className="bg-[#fff]">
-              <div className="p-[20px] rounded-t-[10px] bg-white border-b-[1px] border-[#E8E8E8]">
+            <div className="bg-[#fff] rounded-[10px]">
+              <div className="p-[20px] bg-white border-b-[1px] border-[#E8E8E8]">
                 <h4 className="text-[16px] font-normal leading-[18px] text-[#222]">
                   Информация
                 </h4>
@@ -285,9 +266,8 @@ export default function EditType() {
                     <div className="flex flex-col gap-y-[10px] items-center">
                       <div
                         style={{
-                          backgroundImage: `url(${
-                            selectedImage != null ? selectedImage : img7
-                          })`,
+                          backgroundImage: `url(${selectedImage != null ? selectedImage : img7
+                            })`,
                         }}
                         className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                       ></div>
@@ -357,7 +337,7 @@ export default function EditType() {
                     <input
                       value={newName}
                       onChange={(e) => setNewName(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full outline-none focus-within:border-[green] focus-within:border-[2px]"
                       type="text"
                       placeholder="El-Clasico"
                     />
@@ -372,7 +352,7 @@ export default function EditType() {
                     <input
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full  outline-none focus-within:border-[green] focus-within:border-[2px]"
                       type="text"
                       placeholder="г. Москва, ул. Пушкина, д. 17"
                     />
@@ -402,7 +382,7 @@ export default function EditType() {
                     <input
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full outline-none focus-within:border-[green] focus-within:border-[2px]"
                       type="text"
                       placeholder="Округ 1"
                     />
@@ -410,7 +390,7 @@ export default function EditType() {
                   </div>
                 </div>
                 <div className="grid gap-y-[8px] ">
-                  <h4>Выберите тип</h4>
+                  <h4 className="text-base font-normal leading-normal text-left">Выберите тип</h4>
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {sportComplexList?.map((res, i) => (
                       <button
@@ -425,6 +405,7 @@ export default function EditType() {
                           onChange={(e) => setComplex_type(res.id)}
                           name="myRadio"
                           type="radio"
+                          checked={complex_type === res?.title}
                           className="w-[18px] h-[18px]"
                         />
                       </button>
@@ -432,7 +413,7 @@ export default function EditType() {
                   </div>
                 </div>
                 <div className="grid gap-y-[8px] ">
-                  <h4>Выберите город </h4>
+                  <h4 className="text-base font-normal leading-normal text-left">Выберите город </h4>
                   {errorList?.city && <Pe>{errorList?.city}</Pe>}
                   <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                     {locationsCities?.map((res, i) => (
@@ -447,6 +428,7 @@ export default function EditType() {
                           onChange={(e) => setLocationsCitiesValue(res.slug)}
                           name="locationsCities"
                           type="radio"
+                          checked={locationsCitiesValue === res?.slug}
                           className="w-[18px] h-[18px]"
                         />
                       </button>
@@ -454,7 +436,7 @@ export default function EditType() {
                   </div>
                 </div>
                 <div className="grid gap-y-[8px] ">
-                  <h4>Администратор Футбольного комплекса </h4>
+                  <h4 className="text-base font-normal leading-normal text-left">Администратор Футбольного комплекса </h4>
                   {errorList?.administrator && (
                     <Pe>{errorList?.administrator}</Pe>
                   )}
@@ -471,33 +453,30 @@ export default function EditType() {
                           onChange={(e) => setAdministratorValue(res.name)}
                           name="administrator"
                           type="radio"
+                          checked={administratorValue === res?.name}
                           className="w-[18px] h-[18px]"
                         />
                       </button>
                     ))}
                   </div>
                 </div>
-
-                <div className={s.description}>
-                  <p>Описание</p>
+                <div className={"flex flex-col gap-y-[8px]"}>
+                  <p className="text-base font-normal leading-6 tracking-tight text-left">Описание</p>
                   {errorList?.description && <Pe>{errorList?.description}</Pe>}
                   <textarea
-                    className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                    className="bg-[#F0F0F0] min-h-[180px]  p-[16px]  rounded-[10px] w-full text-[14px] text-[#222222] leading-normal font-normal outline-none focus-within:border-[2px] focus-within:border-[green]"
                     type="text"
-                    placeholder="Описание"
+                    placeholder="Напишите сюда..."
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
                   />
                 </div>
-
-                <div
+                <button
                   onClick={() => goToPage("about")}
-                  className="p-[8px] rounded-[8px] bg-[#7384E8]"
+                  className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${newName && locationsCitiesValue && district && description && mapLatLon && address ? "opacity-100 сursor-pointer hover:shadow-lg" : "opacity-50"}`}
                 >
-                  <p className="text-base font-medium leading-5 text-center text-[#fff]">
-                    Далее
-                  </p>
-                </div>
+                  Далее
+                </button>
               </div>
             </div>
           </div>
@@ -507,40 +486,3 @@ export default function EditType() {
     </div>
   );
 }
-
-// <div className="grid gap-y-[8px]">
-// <h4>Добавьте типы футбольных полей</h4>
-// </div>
-// <div className="grid gap-[5px]">
-// <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] gap:[20px] rounded-[8px] flex justify-between items-center ">
-//   <select
-//     className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center "
-//     value={addFootballTypes}
-//     onChange={(e) => setAddFootballTypes(e.target.value)}
-//   >
-//     <option value="Мини поле1">Мини поле1</option>
-//     <option value="Мини поле 2">Мини поле 2</option>
-//     <option value="Фут-Зал">Фут-Зал</option>
-//   </select>
-//   <div className="flex gap-[10px] items-center">
-//     <button
-//       onClick={() =>
-//         setAddFootballTypesList([
-//           ...addFootballTypesList,
-//           addFootballTypes,
-//         ])
-//       }
-//       className="p-[8px] rounded-lg bg-blue-500 text-white"
-//     >
-//       Добавить
-//     </button>
-//   </div>
-// </div>
-// </div>
-// <div className="flex gap-[10px] items-center flex-wrap">
-// {addFootballTypesList?.map((item, index) => (
-//   <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
-//     {item}
-//   </button>
-// ))}
-// </div>

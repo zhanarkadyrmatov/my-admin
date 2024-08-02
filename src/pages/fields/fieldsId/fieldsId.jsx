@@ -101,7 +101,7 @@ export default function FieldsId() {
                   {fieldsIdList?.name}
                 </h4>
                 <p className="text-white text-[13px] leading-[15px] font-normal opacity-70">
-                  Спортивный комплекс
+                  {fieldsIdList?.sport_complex_type}
                 </p>
               </div>
             </div>

@@ -95,7 +95,7 @@ export const postAdvantages = createAsyncThunk(
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field/`,
-        data.formData,
+        data?.formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -109,10 +109,14 @@ export const postAdvantages = createAsyncThunk(
         id,
         advantages,
       };
-      dispatch(PATCHAdvantages(PATCHAdvantagesData));
+
+      if (id) {
+        dispatch(PATCHAdvantages(PATCHAdvantagesData));
+      }
 
       return response.data;
     } catch (error) {
+
       if (error.response) {
         return rejectWithValue(error.response.data);
       } else if (error.request) {
@@ -164,9 +168,29 @@ export const getSportComplexList = createAsyncThunk(
   }
 );
 
+export const getFieldsTypeName = createAsyncThunk(
+  "typeName/getFieldsTypeName",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${Api}admin_api/field-type-name/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postCreacteFieldType = createAsyncThunk(
   "advantages/postCreacteFieldType",
   async (data, { rejectWithValue, dispatch }) => {
+    console.log(data);
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field-type/`,
@@ -180,7 +204,6 @@ export const postCreacteFieldType = createAsyncThunk(
       );
 
       const id = await response.data.id;
-
       const advantages = await data[1];
       const PATCHAdvantagesData = {
         advantages,
@@ -224,7 +247,6 @@ export const postCreacteFoobolField = createAsyncThunk(
 
 export const advantagesSlice = createSlice({
   name: "advantages",
-
   initialState: {
     advantages: null,
     status: null,
@@ -237,6 +259,12 @@ export const advantagesSlice = createSlice({
     idFields: null,
     fieldsIdInfo: null,
     construction: null,
+    typeName: null,
+  },
+  reducers: {
+    setIsCreate: (state, action) => {
+      state.isCreate = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -328,8 +356,20 @@ export const advantagesSlice = createSlice({
         state.status = "rejected";
         state.error = action.payload;
         console.error("Error fetching advantages:", action.payload);
+      })
+      .addCase(getFieldsTypeName.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFieldsTypeName.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.typeName = action.payload;
+      })
+      .addCase(getFieldsTypeName.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
       });
   },
 });
 
+export const { setIsCreate } = advantagesSlice.actions;
 export default advantagesSlice.reducer;

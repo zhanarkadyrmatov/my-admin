@@ -65,7 +65,7 @@ export default function Fields() {
               >
                 <Elemnt3 pages={pages} />
               </div>
-              <NavLink to="/fields/football">
+              <NavLink to="/fields/add">
                 <button
                   className={
                     "px-3 py-2 bg-[#7384E8] rounded-[12px] flex justify-center items-center gap-2 "

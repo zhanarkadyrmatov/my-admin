@@ -73,9 +73,9 @@ function App({ open }) {
                 <Route path="/fields" element={<Fields />} />
                 <Route path="/fields/edit/:id" element={<EditFied />} />
                 <Route path="/fields/editType/:id" element={<EditType />} />
-                <Route path="/fields/football" element={<Addfootball />} />
+                <Route path="/fields/add" element={<Addfootball />} />
                 <Route
-                  path="/fields/football/:id"
+                  path="/fields/add/:id"
                   element={<FootballCreate />}
                 />
                 <Route path="/fields/:id" element={<FieldsId />} />

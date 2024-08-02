@@ -92,24 +92,24 @@ export const fetchFieldsIdList = createAsyncThunk(
     }
   }
 );
-export const setFieldsId1 = createAsyncThunk(
-  "fields/setFieldsId",
-  async (id, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(
-        `${Api}admin_api/football-field/${id}/`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+// export const setFieldsId1 = createAsyncThunk(
+//   "fields/setFieldsId",
+//   async (id, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(
+//         `${Api}admin_api/football-field/${id}/`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//           },
+//         }
+//       );
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",
   async (id, { rejectWithValue }) => {
@@ -155,7 +155,6 @@ export const fieldsSlice = createSlice({
     fieldsIdList: null,
     fieldsIdDetail: null,
     fieldsComments: null,
-    fieldsId1: null,
   },
 
   reducers: {
@@ -207,19 +206,6 @@ export const fieldsSlice = createSlice({
         state.fieldsComments = action.payload.comments;
       })
       .addCase(fetchFieldsIdDetail.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
-
-    builder
-      .addCase(setFieldsId1.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(setFieldsId1.fulfilled, (state, action) => {
-        state.loading = false;
-        state.fieldsId1 = action.payload;
-      })
-      .addCase(setFieldsId1.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

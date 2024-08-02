@@ -16,10 +16,10 @@ import {
   getConstructionType,
   postCreacteFieldType,
 } from "../../../store/slice/create-foobol-slice";
-import YandexMaps from "../../../components/yandexMaps/yandexMaps";
 import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
 import cm from "classnames";
 import { fetchFieldsIdList } from "../../../store/slice/fields-slice";
+import YandexMap from "../../../components/YandexMap/YandexMap";
 
 const EditFieds = () => {
   const { id } = useParams();
@@ -192,17 +192,7 @@ const EditFieds = () => {
     <div className="mx-[20px] mt-[90px]">
       <div>
         {isModalMap && (
-          <div className={s.Map}>
-            <div className={s.InfoTitel}>
-              <p>Нужно выбрать местоположение</p>
-              <div onClick={() => setIsModalMap(false)}>
-                <AiOutlineClose />
-              </div>
-            </div>
-            <div className={s.YandexMapsStyle}>
-              <YandexMaps setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} />
-            </div>
-          </div>
+         <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap}  />
         )}
 
         <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">

@@ -9,11 +9,12 @@ import {
   getSportComplexList,
   postAdvantages,
 } from "../../store/slice/create-foobol-slice";
-import YandexMaps from "../../components/yandexMaps/yandexMaps";
-import { AiOutlineClose } from "react-icons/ai";
 import Page2 from "./Pages/Page2/footballCreate";
 import { Navigate, useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader/Loader";
+import YandexMap from "../../components/YandexMap/YandexMap";
 const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
+
 export default function Addfootball() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedIamgeFile, setSelectedImageFile] = useState(null);
@@ -48,6 +49,8 @@ export default function Addfootball() {
   const [ImageFile, setImageFile] = useState();
   const [foodbolId, setFoodbolId] = useState(null);
 
+  console.log(locationsCitiesValue, newName, address, district, description);
+
   const handlerImage = (event) => {
     const files = Array.from(event.target.files);
     setImageFile(files);
@@ -57,6 +60,8 @@ export default function Addfootball() {
     }
   };
   const [mapLatLon, setMapLatLon] = useState();
+
+
   useEffect(() => {
     dispatch(getAdvantages());
     dispatch(getLocationsCities());
@@ -103,6 +108,7 @@ export default function Addfootball() {
       advantages: processedAdvantagesList,
       sport_complex_type: complex_type,
     };
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
@@ -126,7 +132,6 @@ export default function Addfootball() {
     }
     if (Object.keys(errors).length > 0) {
       setErrorList(errors);
-
       return;
     }
 
@@ -134,6 +139,7 @@ export default function Addfootball() {
       data: processedAdvantagesList,
       formData: formData,
     };
+
     dispatch(postAdvantages(newData));
   };
 
@@ -152,14 +158,11 @@ export default function Addfootball() {
     const resId = data[1];
     setAdvantagesList((prevList) => {
       if (isChecked) {
-        // Check if the item is already in the list
         if (!prevList.some((item) => item.advantages === resId)) {
-          // Add the new item to the list with an empty description
           return [...prevList, { advantages: resId, description: "" }];
         }
         return prevList;
       } else {
-        // Remove the item from the list
         return prevList.filter((item) => item.advantages !== resId);
       }
     });
@@ -174,35 +177,25 @@ export default function Addfootball() {
     );
   };
 
+
   useEffect(() => {
     if (isCreate === false) {
-      navigate(`/fields/football/${idFields}`);
+      navigate(`/fields/add/${idFields}`);
     }
   }, [isCreate]);
 
   if (isCreate === true) {
-    return <div>test</div>;
+    return <div>
+      <Loader />
+    </div>;
   }
   return (
-    <div className="mx-[20px] mt-[90px]">
+    <div className="mx-[20px] mt-[90px] mb-[20px]">
       {page === "home" && (
         <div className="mt-[50px]">
-          <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
+          <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px]">
             {isModalMap && (
-              <div className={s.Map}>
-                <div className={s.InfoTitel}>
-                  <p>Нужно выбрать местоположение</p>
-                  <div onClick={() => setIsModalMap(false)}>
-                    <AiOutlineClose />
-                  </div>
-                </div>
-                <div className={s.YandexMapsStyle}>
-                  <YandexMaps
-                    setMapLatLon={setMapLatLon}
-                    mapLatLon={mapLatLon}
-                  />
-                </div>
-              </div>
+             <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap}  />
             )}
             <div className="h-min w-full rounded-[10px] bg-white">
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
@@ -252,7 +245,7 @@ export default function Addfootball() {
                 })}
               </div>
             </div>
-            <div className="bg-[#fff]">
+            <div className="bg-[#fff] h-min w-full rounded-[10px]">
               <div className="p-[20px] rounded-t-[10px] bg-white border-b-[1px] border-[#E8E8E8]">
                 <h4 className="text-[16px] font-normal leading-[18px] text-[#222]">
                   Информация
@@ -264,9 +257,8 @@ export default function Addfootball() {
                     <div className="flex flex-col gap-y-[10px] items-center">
                       <div
                         style={{
-                          backgroundImage: `url(${
-                            selectedImage != null ? selectedImage : img7
-                          })`,
+                          backgroundImage: `url(${selectedImage != null ? selectedImage : img7
+                            })`,
                         }}
                         className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                       ></div>
@@ -336,7 +328,7 @@ export default function Addfootball() {
                     <input
                       value={newName}
                       onChange={(e) => setNewName(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] border-[2px] border-[#1C1C1C0D] outline-none w-full focus-within:border-[green] focus-within:border-[2px]"
                       type="text"
                       placeholder="El-Clasico"
                     />
@@ -351,7 +343,7 @@ export default function Addfootball() {
                     <input
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] border-[2px] border-[#1C1C1C0D] outline-none w-full focus-within:border-[green] focus-within:border-[2px]"
                       type="text"
                       placeholder="г. Москва, ул. Пушкина, д. 17"
                     />
@@ -366,7 +358,7 @@ export default function Addfootball() {
                     <input
                       value={mapLatLon}
                       onClick={(e) => setIsModalMap(!isModalMap)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] border-[2px] border-[#1C1C1C0D] outline-none w-full focus-within:border-[green] focus-within:border-[2px]"
                       type="text"
                       placeholder="42.9797372189141,74.35650861718749"
                     />
@@ -381,9 +373,9 @@ export default function Addfootball() {
                     <input
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
+                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] border-[2px] border-[#1C1C1C0D] outline-none w-full focus-within:border-[green] focus-within:border-[2px]"  
                       type="text"
-                      placeholder="Округ 1"
+                      placeholder="Округ"
                     />
                     {errorList?.district && <Pe>{errorList?.district}</Pe>}
                   </div>
@@ -468,14 +460,12 @@ export default function Addfootball() {
                   />
                 </div>
 
-                <div
+                <button
                   onClick={() => goToPage("about")}
-                  className="p-[8px] rounded-[8px] bg-[#7384E8]"
+                  className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${newName && locationsCitiesValue && district && description && mapLatLon && address ? "opacity-100 сursor-pointer hover:shadow-lg" : "opacity-50"}`}
                 >
-                  <p className="text-base font-medium leading-5 text-center text-[#fff]">
-                    Далее
-                  </p>
-                </div>
+                  Далее
+                </button>
               </div>
             </div>
           </div>
@@ -485,40 +475,3 @@ export default function Addfootball() {
     </div>
   );
 }
-
-// <div className="grid gap-y-[8px]">
-// <h4>Добавьте типы футбольных полей</h4>
-// </div>
-// <div className="grid gap-[5px]">
-// <div className="w-full bg-[#F0F0F0] py-[5px] px-[5px] gap:[20px] rounded-[8px] flex justify-between items-center ">
-//   <select
-//     className="w-[fill] h-[40px] bg-[#F0F0F0] py-[5px] px-[5px] rounded-[8px] flex justify-between items-center "
-//     value={addFootballTypes}
-//     onChange={(e) => setAddFootballTypes(e.target.value)}
-//   >
-//     <option value="Мини поле1">Мини поле1</option>
-//     <option value="Мини поле 2">Мини поле 2</option>
-//     <option value="Фут-Зал">Фут-Зал</option>
-//   </select>
-//   <div className="flex gap-[10px] items-center">
-//     <button
-//       onClick={() =>
-//         setAddFootballTypesList([
-//           ...addFootballTypesList,
-//           addFootballTypes,
-//         ])
-//       }
-//       className="p-[8px] rounded-lg bg-blue-500 text-white"
-//     >
-//       Добавить
-//     </button>
-//   </div>
-// </div>
-// </div>
-// <div className="flex gap-[10px] items-center flex-wrap">
-// {addFootballTypesList?.map((item, index) => (
-//   <button className="px-[10px] py-[6px] rounded-[6px] border border-solid border-gray-300 text-base font-normal leading-5 text-left">
-//     {item}
-//   </button>
-// ))}
-// </div>
