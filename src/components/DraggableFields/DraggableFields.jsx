@@ -27,7 +27,7 @@ export default function DraggableFields() {
     <div>
       <div
         className={
-          "bg-[#fff] h-[auto] p-[16px] md:p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]"
+          "bg-[#fff] max-h-[640px] p-[16px] md:p-[30px] rounded-[10px] flex flex-col gap-[20px] border-[1px] border-[#E9E9E9]"
         }
       >
         <div className={""}>

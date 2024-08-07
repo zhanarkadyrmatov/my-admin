@@ -9,15 +9,16 @@ import Booking from "./pages/booking/booking";
 import Fields from "./pages/fields/fields";
 import FieldsId from "./pages/fields/fieldsId/fieldsId";
 import Reserve from "./pages/reserve/reserve";
-import Addfootball from "./pages/football/Addfootball";
 import { useCollapsed } from "./hooks/useCollapsed";
 import Wallet from "./pages/wallet/Wallet";
 import ReserveModal from "./components/ReserveModal/ReserveModal";
-import FootballCreate from "./pages/football/Pages/Page2/footballCreate";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import EditFied from "./pages/fields/editFied/editFied";
+import AddFootballFieldType from "./pages/addFootballField/addFootballFieldType/addFootballFieldType";
+import AddFootballField from "./pages/addFootballField/addFootballField";
 import EditType from "./pages/fields/editType/editType";
+import EditField from "./pages/fields/editField/editField";
+
 
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
@@ -71,12 +72,12 @@ function App({ open }) {
                 <Route path="/wallet" element={<Wallet />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/fields" element={<Fields />} />
-                <Route path="/fields/edit/:id" element={<EditFied />} />
+                <Route path="/fields/edit/:id" element={<EditField />} />
                 <Route path="/fields/editType/:id" element={<EditType />} />
-                <Route path="/fields/add" element={<Addfootball />} />
+                <Route path="/fields/add" element={<AddFootballField />} />
                 <Route
                   path="/fields/add/:id"
-                  element={<FootballCreate />}
+                  element={<AddFootballFieldType />}
                 />
                 <Route path="/fields/:id" element={<FieldsId />} />
                 <Route path="/reserve/:id" element={<Reserve />} />

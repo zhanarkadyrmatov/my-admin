@@ -89,6 +89,23 @@ export const getLocationsCities = createAsyncThunk(
   }
 );
 
+
+export const fetchAdministrators = createAsyncThunk(
+  "advantages/fetchAdministrator",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${Api}admin_api/administrator/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postAdvantages = createAsyncThunk(
   "advantages/postAdvantages",
   async (data, { rejectWithValue, dispatch }) => {
@@ -260,6 +277,7 @@ export const advantagesSlice = createSlice({
     fieldsIdInfo: null,
     construction: null,
     typeName: null,
+    administrators: null,
   },
   reducers: {
     setIsCreate: (state, action) => {
@@ -367,7 +385,20 @@ export const advantagesSlice = createSlice({
       .addCase(getFieldsTypeName.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload;
-      });
+      })
+
+      .addCase(fetchAdministrators.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAdministrators.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.administrators = action.payload;
+      })
+      .addCase(fetchAdministrators.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      })
+      
   },
 });
 

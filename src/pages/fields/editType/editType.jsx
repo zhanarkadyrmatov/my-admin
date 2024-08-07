@@ -1,166 +1,103 @@
-import React, { useState, useEffect } from "react";
-import { BiSolidCameraPlus } from "react-icons/bi";
-import img7 from "../../../img/img7.svg";
+import React, { useState } from "react";
+import { CiLocationOn } from "react-icons/ci";
+import { HiOutlinePlusSm } from "react-icons/hi";
+
 import s from "./page.module.scss";
+import { AiOutlineClose } from "react-icons/ai";
+import { InputMask } from "@react-input/mask";
 import { useDispatch, useSelector } from "react-redux";
 
-import Page2 from "../../football/Pages/Page2/footballCreate";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
+import { useEffect } from "react";
 import {
   getAdvantages,
-  getLocationsCities,
-  getSportComplexList,
-  postAdvantages,
+  getBranchGetId,
+  getConstructionType,
+  postCreacteFieldType,
 } from "../../../store/slice/create-foobol-slice";
-import {
-  fetchFieldsIdList,
-  setFieldsId1,
-} from "../../../store/slice/fields-slice";
+import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
+import cm from "classnames";
+import { fetchFieldsIdList } from "../../../store/slice/fields-slice";
 import YandexMap from "../../../components/YandexMap/YandexMap";
-const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
-export default function EditType() {
-  const { id } = useParams();
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedIamgeFile, setSelectedImageFile] = useState(null);
-  const navigate = useNavigate();
-  const handleImageChange = (event) => {
-    const files = Array.from(event.target.files);
-    setSelectedImageFile(files);
-    if (event.target.files && event.target.files[0]) {
-      setSelectedImage(URL.createObjectURL(event.target.files[0]));
-    }
-  };
 
-  const [page, setPage] = useState("home");
-  const dispatch = useDispatch();
+const EditType = () => {
+  const { id } = useParams();
   const {
     advantages,
-    locationsCities,
-    sportComplexList,
-    isCreate,
-    idFields,
-    creacteFoobolStatus,
+    fieldsIdInfo,
     status,
+    creacteFoobolStatus,
+    construction,
   } = useSelector((state) => state.createFoobol);
-  const [newName, setNewName] = useState();
-  const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [district, setDistrict] = useState(null);
-  const [isModalMap, setIsModalMap] = useState(false);
-  const [description, setDescription] = useState();
-  const [imageUrl, setImageUrl] = useState();
-  const [ImageFile, setImageFile] = useState();
-  const [foodbolId, setFoodbolId] = useState(null);
 
-  const handlerImage = (event) => {
-    const files = Array.from(event.target.files);
-    setImageFile(files);
-    const url = URL.createObjectURL(event.target.files[0]);
-    if (event.target.files[0]) {
-      setImageUrl(url);
+  const { fieldsIdDetail } = useSelector((state) => state.fields);
+  const [constructionListAcc, setConstructionListAcc] = useState([]);
+  const handlerConstruction = (event) => {
+    const newValue = event;
+    if (!constructionListAcc?.includes(newValue)) {
+      setConstructionListAcc([...constructionListAcc, newValue]);
+    } else {
+      setConstructionListAcc(
+        constructionListAcc.filter((item) => item !== newValue)
+      );
     }
   };
+
+  //Дневная цена
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getBranchGetId(id));
+    dispatch(getAdvantages());
+
+    dispatch(getConstructionType());
+    dispatch(fetchFieldsIdList(id));
+  }, []);
+
+  const [priceDay, setPriceDay] = useState({
+    start_time: "",
+    end_time: "",
+    period_day: "day",
+    price: 0,
+  });
+  //Ночная цена
+  const [priceNight, setPriceNight] = useState({
+    start_time: "",
+    end_time: "",
+    period_day: "evening",
+    price: 0,
+  });
+  //Локация
+  const [location, setLocation] = useState();
+  //Описание футбольного поля
+  const [description, setDescription] = useState();
+  //ФИО владельца
+  const [administratorValue, setAdministratorValue] = useState();
+  //ФИО администратора*
+  const [administrator, setAdministrator] = useState();
+  //  location   add
   const [mapLatLon, setMapLatLon] = useState();
 
-  useEffect(() => {
-    dispatch(getAdvantages());
-    dispatch(getLocationsCities());
-    dispatch(fetchFieldsIdList(id));
-    dispatch(getSportComplexList());
-  }, []);
-  const { fieldsIdList, fieldsIdDetail, footballId } = useSelector(
-    (state) => state.fields
-  );
+  const [isModalMap, setIsModalMap] = useState(false);
 
-  const [errorList, setErrorList] = useState([]);
-
+  //График работы
+  const [schedule, setSchedule] = useState();
+  //Преимущества
   const [advantagesList, setAdvantagesList] = useState([]);
-  const [complex_type, setComplex_type] = useState();
-  const [administratorValue, setAdministratorValue] = useState(null);
-  const handlerPostCreacteFoobolField = () => {
-    const errors = {};
-    // Обработка advantagesList для удаления пустых описаний
-    const processedAdvantagesList = advantagesList?.map((item) => {
-      if (item.description === "") {
-        return { advantages: item.name };
-      }
-      return item;
-    });
 
-    const data = {
-      name: newName,
-      description: description,
-      administrator: 1,
-      address: address,
-      city: locationsCitiesValue,
-      district: district,
-      latitude: mapLatLon?.[0],
-      longitude: mapLatLon?.[1],
-      advantages: processedAdvantagesList,
-      sport_complex_type: complex_type,
-    };
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("description", data.description);
-    formData.append("administrator", data.administrator);
-    formData.append("address", data.address);
-    formData.append("city", data.city);
-    formData.append("district", data.district);
-    formData.append("latitude", data.latitude);
-    formData.append("longitude", data.longitude);
-    ImageFile?.forEach((image, index) => {
-      formData.append("back_ground_foto", image);
-    });
-    selectedIamgeFile?.forEach((image, index) => {
-      formData.append("main_foto", image);
-    });
-    formData.append("sport_complex_type", data.sport_complex_type);
-    for (const [key, value] of Object.entries(data)) {
-      if (!value && value !== 0 && key !== "advantages") {
-        errors[key] = "Обязательное поле *";
-      }
-    }
-    if (Object.keys(errors).length > 0) {
-      setErrorList(errors);
+  const [selectedImages1, setSelectedImages1] = useState([]);
 
-      return;
-    }
-
-    const newData = {
-      data: processedAdvantagesList,
-      formData: formData,
-    };
-    dispatch(postAdvantages(newData));
+  const [selectedIamgeFile, setSelectedImageFile] = useState(null);
+  const handleFileChange1 = (e) => {
+    const files = Array.from(e.target.files);
+    setSelectedImageFile(files);
+    const fileUrls = files?.map((file) => URL.createObjectURL(file));
+    setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
-  useEffect(() => {
-    if (fieldsIdList !== null) {
-      setNewName(fieldsIdList?.name);
-      setDescription(fieldsIdList?.description);
-      setMapLatLon([fieldsIdList?.latitude, fieldsIdList?.longitude]);
-      setLocationsCitiesValue(fieldsIdList?.city);
-      setDistrict(fieldsIdList?.district);
-      setAdministratorValue(fieldsIdList?.administrator?.name);
-      setAddress(fieldsIdList?.address);
-      setComplex_type(fieldsIdList?.sport_complex_type);
-      setSelectedImage(fieldsIdList?.main_foto);
-      setAdvantagesList(fieldsIdList?.advantages);
-    }
-  }, [fieldsIdList]);
-
-  console.log(fieldsIdList)
-
-  const goToPage = (pageName) => {
-    handlerPostCreacteFoobolField();
-  };
-
-  const [administratorList, setAdministratorList] = useState([
-    { name: "Erik", id: 1, type: "Менеджер " },
-    { name: "john", id: 2, type: "Админ" },
-    { name: "alex", id: 3, type: "Админ" },
-    { name: "jane", id: 4, type: "Техник" },
-    { name: "jane", id: 5, type: "Админ" },
-  ]);
+  const [newName, setNewName] = useState();
 
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
@@ -175,9 +112,6 @@ export default function EditType() {
       }
     });
   };
-
-  console.log(advantagesList);
-
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
       prevList.map((item) =>
@@ -188,301 +122,379 @@ export default function EditType() {
     );
   };
 
+  const handleGetInfo = () => {
+    const data = {
+      location,
+      administrator,
+      administratorValue,
+      priceDay,
+      priceNight,
+      description,
+      selectedImages1,
+      mapLatLon,
+    };
+
+    const formData = new FormData();
+    let dataPUT = [];
+    // advantagesList, [(priceDay, priceNight)]
+    formData.append("football_f", id);
+    const schedule = [priceDay, priceNight];
+    dataPUT["advantages"] = advantagesList;
+    dataPUT["schedule"] = schedule;
+    formData.append("description", description);
+    formData.append("name", newName);
+    selectedIamgeFile?.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    const newData = [formData, dataPUT];
+    dispatch(postCreacteFieldType(newData));
+  };
+
+  const newFoobolField = () => {
+    setMapLatLon([]);
+    setNewName("");
+    setDescription("");
+    setAdministratorValue("");
+    setAdministrator("");
+    setPriceDay("");
+    setPriceNight("");
+  };
   useEffect(() => {
-    if (isCreate === false) {
-      navigate(`/fields/football/${idFields}`);
-    }
-  }, [isCreate]);
-  if (isCreate === true) {
-    return <div>test</div>;
+    setNewName(fieldsIdDetail?.name);
+    setDescription(fieldsIdDetail?.description);
+    setAdministratorValue(fieldsIdDetail?.administratorValue);
+    setAdministrator(fieldsIdDetail?.administrator);
+    setPriceDay(fieldsIdDetail?.schedule[0]);
+    setPriceNight(fieldsIdDetail?.schedule[1]);
+    setMapLatLon(fieldsIdDetail?.location);
+    setPriceDay({
+      start_time: fieldsIdDetail?.price[0].start_time,
+      end_time: fieldsIdDetail?.price[0].end_time,
+      period_day: "day",
+      price: fieldsIdDetail?.price[0].price,
+    });
+    setPriceNight({
+      start_time: fieldsIdDetail?.price[1].start_time,
+      end_time: fieldsIdDetail?.price[1].end_time,
+      period_day: "evening",
+      price: fieldsIdDetail?.price[1].price,
+    });
+    const imageUrls = fieldsIdDetail?.gallery_f_type.map((item) => item.img);
+    setSelectedImages1(imageUrls);
+    setConstructionListAcc(fieldsIdDetail?.construction_type);
+  }, [fieldsIdDetail]);
+  if (creacteFoobolStatus === "loading") {
+    return <div>Loading...</div>;
   }
-
+  console.log(fieldsIdDetail, "fieldsIdDetail");
   return (
-    <div className="mx-[20px] mt-[90px] mb-[20px]">
-      {page === "home" && (
-        <div className="mt-[50px]">
-          <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
-            {isModalMap && (
-              <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap}  />
-            )}
-            <div className="h-min w-full rounded-[10px] bg-white">
-              <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
-                <h4>Преимущества</h4>
-              </div>
-              <div className={s.checkboxList}>
-                {advantages?.map((res, i) => {
-                  const isChecked = advantagesList?.some(
-                    (item) => item.advantages === res.id
-                  );
-                  const currentItem = advantagesList?.find((item) => item?.advantages === res?.id) || {};
+    <div className="mx-[20px] mt-[90px]">
+      <div>
+        {isModalMap && (
+         <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap}  />
+        )}
 
-                  const checked = advantagesList?.find((item) => console.log(item))
-                  console.log(res)
-                  console.log(advantages)
-                  return (
-                    <div className={s.checkbox} key={i}>
-                      <div className="flex gap-[5px] w-full flex-col">
-                        <div className="flex gap-[10px] w-full">
-                          <input
-                            onChange={(e) => {
-                              const data = [e.target.name, res.id];
-                              handleAdvantages(data, e.target.checked);
-                            }}
-                            name={res.id}
-                            type="checkbox"
-                            className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
-                          />
-                          <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
-                            {res?.name}
-                          </label>
-                        </div>
-                      </div>
-                      {isChecked && (
-                        <div className={s.checkboxInput}>
-                          <input
-                            type="text"
-                            placeholder="Добавить описание"
-                            value={currentItem.description || ""}
-                            onChange={(e) =>
-                              updateDescription(res.id, e.target.value)
-                            }
-                          />
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+        <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-[1fr] gap-x-[20px] xl:px-[5px] px-[5px]">
+          <div className="rounded-[10px] h-min bg-[#ffffff]">
+            <div className="w-full border-b border-solid border-gray-200 p-[20px]">
+              <h4>Описание</h4>
             </div>
-            <div className="bg-[#fff] rounded-[10px]">
-              <div className="p-[20px] bg-white border-b-[1px] border-[#E8E8E8]">
-                <h4 className="text-[16px] font-normal leading-[18px] text-[#222]">
-                  Информация
-                </h4>
-              </div>
-              <div className="p-[20px] grid gap-y-[20px]">
-                <div className="bg-white">
-                  <div className="sm:grid-cols-3  grid gap-x-[10px] mb-[20px] grid-cols-1 ">
-                    <div className="flex flex-col gap-y-[10px] items-center">
-                      <div
-                        style={{
-                          backgroundImage: `url(${selectedImage != null ? selectedImage : img7
-                            })`,
-                        }}
-                        className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
-                      ></div>
-                      <p className="text-center font-medium text-[13px] leading-4 text-[#222222]">
-                        По умолчанию
-                      </p>
-                    </div>
-                    <div className="grid justify-items-center gap-y-[10px]">
-                      <div className="w-full h-[150px]  flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
-                        <label
-                          htmlFor="uploa1d"
-                          className="w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer"
-                        >
-                          <BiSolidCameraPlus size={30} />
-                          <input
-                            type="file"
-                            id="uploa1d"
-                            className="hidden"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                          />
-                        </label>
-                      </div>
-                      <p className="text-center font-medium text-[13px] leading-4 text-[#222222]">
-                        Коснитесь, чтобы загрузить фото обложку
-                      </p>
-                    </div>
-                    <div className="grid justify-items-center gap-y-[10px]">
-                      <div className="w-full overflow-hidden h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md">
-                        <label
-                          htmlFor="upload"
-                          className="relative w-full h-[150px] position-relative flex flex-col items-center justify-center bg-gray-100 rounded shadow-md cursor-pointer"
-                        >
-                          {imageUrl && (
-                            <img
-                              style={{
-                                position: "absolute",
-                                height: "150px",
-                                objectFit: "cover",
-                                borderRadius: "5px",
-                              }}
-                              src={imageUrl}
-                              alt=""
-                            />
-                          )}
-                          <BiSolidCameraPlus size={30} />
-                          <input
-                            type="file"
-                            id="upload"
-                            className="hidden"
-                            accept="image/*"
-                            onChange={handlerImage}
-                          />
-                        </label>
-                      </div>
-                      <p className="text-center font-medium text-[13px] leading-4 text-[#222222]">
-                        Коснитесь, чтобы загрузить фото карточки
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px]">
-                  <h4 className="text-base font-normal leading-normal text-left">
-                    Название футбольного поля
-                  </h4>
-                  <div>
-                    <input
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full outline-none focus-within:border-[green] focus-within:border-[2px]"
-                      type="text"
-                      placeholder="El-Clasico"
-                    />
-                    {errorList?.name && <Pe>{errorList?.name}</Pe>}
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px]">
-                  <h4 className="text-base font-normal leading-normal text-left">
-                    Адрес
-                  </h4>
-                  <div>
-                    <input
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full  outline-none focus-within:border-[green] focus-within:border-[2px]"
-                      type="text"
-                      placeholder="г. Москва, ул. Пушкина, д. 17"
-                    />
-                    {errorList?.address && <Pe>{errorList?.address}</Pe>}
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px]">
-                  <h4 className="text-base font-normal leading-normal text-left">
-                    Выбрать кординаты на карте
-                  </h4>
-                  <div>
-                    <input
-                      value={mapLatLon}
-                      onClick={(e) => setIsModalMap(!isModalMap)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full focus:outline-none foc us:shadow-outline"
-                      type="text"
-                      placeholder="42.9797372189141,74.35650861718749"
-                    />
-                    {errorList?.longitude && <Pe>{errorList?.longitude}</Pe>}
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px]">
-                  <h4 className="text-base font-normal leading-normal text-left">
-                    Округ
-                  </h4>
-                  <div>
-                    <input
-                      value={district}
-                      onChange={(e) => setDistrict(e.target.value)}
-                      className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[10px] w-full outline-none focus-within:border-[green] focus-within:border-[2px]"
-                      type="text"
-                      placeholder="Округ 1"
-                    />
-                    {errorList?.district && <Pe>{errorList?.district}</Pe>}
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px] ">
-                  <h4 className="text-base font-normal leading-normal text-left">Выберите тип</h4>
-                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {sportComplexList?.map((res, i) => (
-                      <button
-                        key={i}
-                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                      >
-                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res?.title}
-                        </h4>
-                        <input
-                          value={complex_type}
-                          onChange={(e) => setComplex_type(res.id)}
-                          name="myRadio"
-                          type="radio"
-                          checked={complex_type === res?.title}
-                          className="w-[18px] h-[18px]"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px] ">
-                  <h4 className="text-base font-normal leading-normal text-left">Выберите город </h4>
-                  {errorList?.city && <Pe>{errorList?.city}</Pe>}
-                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {locationsCities?.map((res, i) => (
-                      <button
-                        key={i}
-                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                      >
-                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res?.name.ru}
-                        </h4>
-                        <input
-                          onChange={(e) => setLocationsCitiesValue(res.slug)}
-                          name="locationsCities"
-                          type="radio"
-                          checked={locationsCitiesValue === res?.slug}
-                          className="w-[18px] h-[18px]"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid gap-y-[8px] ">
-                  <h4 className="text-base font-normal leading-normal text-left">Администратор Футбольного комплекса </h4>
-                  {errorList?.administrator && (
-                    <Pe>{errorList?.administrator}</Pe>
-                  )}
-                  <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                    {administratorList?.map((res, i) => (
-                      <button
-                        key={i}
-                        className="bg-[#F0F0F0] py-[10px] px-[20px] rounded-[8px] flex justify-between items-center "
-                      >
-                        <h4 className="text-base font-normal leading-6 tracking-tight text-left">
-                          {res?.name}
-                        </h4>
-                        <input
-                          onChange={(e) => setAdministratorValue(res.name)}
-                          name="administrator"
-                          type="radio"
-                          checked={administratorValue === res?.name}
-                          className="w-[18px] h-[18px]"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className={"flex flex-col gap-y-[8px]"}>
-                  <p className="text-base font-normal leading-6 tracking-tight text-left">Описание</p>
-                  {errorList?.description && <Pe>{errorList?.description}</Pe>}
-                  <textarea
-                    className="bg-[#F0F0F0] min-h-[180px]  p-[16px]  rounded-[10px] w-full text-[14px] text-[#222222] leading-normal font-normal outline-none focus-within:border-[2px] focus-within:border-[green]"
-                    type="text"
-                    placeholder="Напишите сюда..."
-                    onChange={(e) => setDescription(e.target.value)}
-                    value={description}
+            <div className="p-[20px] grid gap-y-[20px]">
+              <div className="grid gap-y-[8px] ">
+                <p>Название </p>
+                <div className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                  <input
+                    onChange={(e) => setNewName(e.target.value)}
+                    value={newName}
+                    className="bg-[#F0F0F0] w-fill"
+                    style={{ width: "100%", border: "none", outline: "none" }}
+                    placeholder="Название"
                   />
                 </div>
-                <button
-                  onClick={() => goToPage("about")}
-                  className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${newName && locationsCitiesValue && district && description && mapLatLon && address ? "opacity-100 сursor-pointer hover:shadow-lg" : "opacity-50"}`}
-                >
-                  Далее
-                </button>
               </div>
+              <div className="grid gap-y-[8px]">
+                <h5>Тип поля</h5>
+                <div className={s.constructionList}>
+                  {construction?.map((res, i) => {
+                    const isAcc = constructionListAcc?.find(
+                      (el) => el.name === res.name
+                    );
+                    return (
+                      <div
+                        onClick={() => handlerConstruction(res)}
+                        key={i}
+                        className={cm(s.construction, {
+                          [s.activeIsAcc]: !!isAcc,
+                        })}
+                      >
+                        {res.name}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1">
+                <div className=" w-full grid gap-y-[8px]">
+                  <h5>Дневная цена</h5>
+                  <div className="flex justify-between p-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                    <input
+                      onChange={(e) => {
+                        setPriceDay((prevPriceDay) => ({
+                          ...prevPriceDay,
+                          price: e.target.value,
+                        }));
+                      }}
+                      value={priceDay.price}
+                      className="bg-[#F0F0F0] w-fufll"
+                      style={{
+                        width: "100% ",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      type="number"
+                      placeholder="Укажите цену"
+                    />
+                    <p className=" text-base font-normal leading-6 tracking-tight text-left">
+                      Сом
+                    </p>
+                  </div>
+                  <div className="flex justify-between p-[10px] gap-5 bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                    <input
+                      onChange={(e) => {
+                        setPriceDay((prevPriceDay) => ({
+                          ...prevPriceDay,
+                          start_time: e.target.value,
+                        }));
+                      }}
+                      value={priceDay.start_time}
+                      style={{
+                        width: "100% ",
+                        border: "none",
+                        outline: "none",
+
+                        backgroundColor: "transparent",
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+                    <input
+                      onChange={(e) => {
+                        setPriceDay((prevPriceDay) => ({
+                          ...prevPriceDay,
+                          end_time: e.target.value,
+                        }));
+                      }}
+                      value={priceDay.end_time}
+                      style={{
+                        width: "100% ",
+                        backgroundColor: "transparent",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+                  </div>
+                </div>
+                <div className=" w-full grid gap-y-[8px]">
+                  <h5>Ночная цена</h5>
+                  <div className="flex justify-between px-[14px]  py-[10px] bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                    <input
+                      onChange={(e) => {
+                        setPriceNight((prevPriceNight) => ({
+                          ...prevPriceNight,
+                          price: e.target.value,
+                        }));
+                      }}
+                      className="bg-[#F0F0F0] w-full"
+                      style={{
+                        width: "100% ",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      type="number"
+                      value={priceNight.price}
+                      placeholder="Укажите цену"
+                    />
+                    <p className=" text-base font-normal leading-6 tracking-tight text-left">
+                      Сом
+                    </p>
+                  </div>
+
+                  <div className="flex justify-between p-[10px] gap-5 bg-[#F0F0F0] border border-customColor rounded-[10px]">
+                    <input
+                      onChange={(e) => {
+                        setPriceNight((prevPriceNight) => ({
+                          ...prevPriceNight,
+                          start_time: e.target.value,
+                        }));
+                      }}
+                      value={priceNight.start_time}
+                      style={{
+                        width: "100% ",
+                        border: "none",
+                        outline: "none",
+                        backgroundColor: "transparent",
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+                    <input
+                      onChange={(e) => {
+                        setPriceNight((prevPriceNight) => ({
+                          ...prevPriceNight,
+                          end_time: e.target.value,
+                        }));
+                      }}
+                      value={priceNight.end_time}
+                      style={{
+                        width: "100% ",
+
+                        backgroundColor: "transparent",
+                        border: "none",
+                        outline: "none",
+                      }}
+                      type="time"
+                      placeholder="Укажите цену"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="grid gap-y-[8px]">
+                <h5>Описание футбольного поля</h5>
+                <textarea
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  value={description}
+                  className="rounded-[10px] p-[10px] bg-[#f0f0f0] outline-none focus:border-[2px] focus:border-green-500"
+                  name=""
+                  id=""
+                  rows="5"
+                  placeholder="Напишите сюда..."
+                ></textarea>
+              </div>
+            </div>
+            <div className="w-full border-b border-solid border-gray-200 p-[20px]">
+              <h4>Преимущества</h4>
+            </div>
+            <div
+              className={`${s.checkboxList} `}
+              style={{ padding: "20px !important" }}
+            >
+              {advantages?.map((res, i) => {
+                const isChecked = advantagesList.some(
+                  (item) => item.advantages === res.id
+                );
+                const currentItem =
+                  advantagesList.find((item) => item.advantages === res.id) ||
+                  {};
+                return (
+                  <div className={s.checkbox} key={i}>
+                    <div className="flex gap-[5px] w-full flex-col">
+                      <div className="flex gap-[10px] w-full">
+                        <input
+                          onChange={(e) => {
+                            const data = [e.target.name, res.id];
+                            handleAdvantages(data, e.target.checked); // Pass checked state
+                          }}
+                          name={res.id}
+                          type="checkbox"
+                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                        />
+                        <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
+                          {res?.name}
+                        </label>
+                      </div>
+                    </div>
+                    {isChecked && (
+                      <div className={s.checkboxInput}>
+                        <input
+                          type="text"
+                          placeholder="Добавить описание"
+                          value={currentItem.description || ""}
+                          onChange={(e) =>
+                            updateDescription(res.id, e.target.value)
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="grid gap-y-[40px] rounded-[10px]">
+            <div className="grid bg-white  ">
+              <div className="p-[20px] border-b border-gray-300">
+                <h4>График работы</h4>
+              </div>
+              <ScheduleList setSchedule={setSchedule} />
+            </div>
+            <div className=" bg-[#fff] rounded-[10px]">
+              <div className="p-[20px]  border-b border-gray-300">
+                <h4>Галерея</h4>
+              </div>
+              <div className="p-[20px]">
+                <div className="grid gap-[10px]">
+                  <div className="w-full h-[140px] flex items-center justify-center bg-[#f0f0f0]">
+                    <label htmlFor="upload" className="cursor-pointer">
+                      <HiOutlinePlusSm size={30} />
+                      <input
+                        type="file"
+                        id="upload"
+                        multiple
+                        className="hidden"
+                        onChange={handleFileChange1}
+                      />
+                    </label>
+                  </div>
+                  {selectedImages1?.length > 0 ? (
+                    <div className="grid  gap-[10px] grid-cols-3">
+                      {selectedImages1?.map((imageURL, index) => (
+                        <img
+                          className="w-full h-200 object-cover"
+                          key={index}
+                          src={imageURL}
+                          alt={`Uploaded image ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className=" sm:grid-cols-[1fr_2fr] grid grid-cols-1  gap-x-[10px]">
+                      <div className="w-full h-[320px] bg-[#D9D9D9]"></div>
+                      <div className="grid gap-y-[10px]">
+                        <div className="w-full h-[130px] bg-[#D9D9D9]"></div>
+                        <div className="flex gap-x-[10px] ">
+                          <div className="w-full h-[180px] bg-[#D9D9D9]"></div>
+                          <div
+                            className="w-full h-[180px] bg
+                          -[#D9D9D9]"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="items-center gap-y-[10px] md:gap-x-[10px] grid md:grid-cols-2 grid-cols-1  ">
+              <button className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]">
+                Предыдущая
+              </button>
+              <button
+                onClick={() => handleGetInfo()}
+                className="w-full p-[8px] rounded-[8px] bg-[#F0F0F0] text-base font-medium leading-5 text-center text-[#1c1c1c]"
+              >
+                Далее
+              </button>
             </div>
           </div>
         </div>
-      )}
-      {page === "about" && <Page2 />}
+      </div>
     </div>
   );
-}
+};
+
+export default EditType;

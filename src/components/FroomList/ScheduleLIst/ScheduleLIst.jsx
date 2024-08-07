@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import s from "./page.module.scss";
 
 const DaySchedule = ({ day, dayState, setDayState }) => {
   const handleChange = (e) => {
+
     const { name, value, type, checked } = e.target;
+    console.log(name, value, type, checked);
     setDayState((prev) => ({
       ...prev,
       [day]: {
@@ -14,30 +15,30 @@ const DaySchedule = ({ day, dayState, setDayState }) => {
   };
 
   return (
-    <div className={s.dya}>
-      <p>{day.charAt(0).toUpperCase() + day.slice(1)}</p>
-      <span>
-        <div className={s.time}>
+    <div className={'flex gap-3 justify-between items-center rounded-[8px] py-[10px] px-[14px] bg-[#f0f0f0] border-[2px] border-[#E8E8E8]'}>
+      <p className="text-[16px] font-normal text-left leading-[18px]">{day.charAt(0).toUpperCase() + day.slice(1)}</p>
+      <div className="flex gap-3 items-center">
+        <div className={'flex gap-[6px] md:gap-[10px] items-center'}>
           <input
+          className=" md:w-full  font-normal text-[14px] md:text-[18px] leading-[17px] text-left  bg-transparent outline-none"
             type="time"
             name="startTime"
             value={dayState[day].startTime}
             onChange={handleChange}
           />
           <input
+          className="md:w-full  font-normal text-[14px] md:text-[18px] leading-[17px] text-left outline-none bg-transparent"
             type="time"
             name="endime"
             value={dayState[day].endime}
             onChange={handleChange}
           />
         </div>
-        <input
-          type="checkbox"
-          name="checkbox"
-          checked={dayState[day].checkbox}
-          onChange={handleChange}
-        />
-      </span>
+        <label class="inline-flex items-center cursor-pointer">
+          <input type="checkbox" name="checkbox" checked={dayState[day].checkbox} onChange={handleChange} class="sr-only peer"/>
+          <div class="relative w-11 h-6 bg-[#78788029] rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+        </label>
+      </div>
     </div>
   );
 };
@@ -87,7 +88,7 @@ const ScheduleList = ({ setSchedule }) => {
   }, [dayState, setSchedule]);
 
   return (
-    <div className={s.Froom}>
+    <div className={'flex flex-col gap-[10px] p-[16px] md:p-[20px]'}>
       {Object.keys(dayState).map((day) => (
         <DaySchedule
           key={day}
