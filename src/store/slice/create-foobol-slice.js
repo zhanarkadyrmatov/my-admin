@@ -166,6 +166,47 @@ export const PATCHAdvantages = createAsyncThunk(
   }
 );
 
+export const patchAdvantages = createAsyncThunk(
+  "advantages/patchAdvantages",
+  async (data, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await axios.patch(
+        `${Api}admin_api/football-field/`,
+        data?.formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // const id = await response.data.id;
+      // const advantages = await data.data;
+      // const PATCHAdvantagesData = {
+      //   id,
+      //   advantages,
+      // };
+
+      // if (id) {
+      //   dispatch(PATCHAdvantages(PATCHAdvantagesData));
+      // }
+
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else if (error.request) {
+        return rejectWithValue({ error: "Network error" });
+      } else {
+        return rejectWithValue({ error: error.message });
+      }
+    }
+  }
+);
+
 export const getSportComplexList = createAsyncThunk(
   "advantages/getSportComplexList",
   async (_, { rejectWithValue }) => {

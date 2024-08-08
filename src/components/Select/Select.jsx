@@ -14,7 +14,7 @@ export default function Select({setName, name}) {
     <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Добавьте типы футбольных полей</p>
     <div className="relative">
       <div onClick={() => setSelect(!select)} className={`flex justify-between items-center py-[10px] px-[14px] bg-[#F0F0F0] rounded-[10px] cursor-pointer border-[2px] border-[#1C1C1C0D]}`}>
-        <p className="text-[16px] text-[#1C1C1C] font-normal leading-normal">{name}</p>
+        <p className="text-[16px] text-[#1C1C1C] font-normal leading-normal">{name?.name}</p>
         <IoIosArrowDown className="w-6 h-6" />
       </div>
       {select && (
@@ -25,7 +25,7 @@ export default function Select({setName, name}) {
             {typeName?.map((item, index) => (
               <div 
                 key={index}
-                onClick={() => (setName(item?.name), setSelect(!select))}
+                onClick={() => (setName(item), setSelect(!select))}
                 className={`flex justify-between items-center px-[17px] py-[5px] rounded-[10px] cursor-pointer ${item?.name === name && 'bg-[#F0F0F0]'}`}
               >
                 <p className="text-[15px] text-[#0E1422] font-normal leading-[26px]">{item?.name}</p>

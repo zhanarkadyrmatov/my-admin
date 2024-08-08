@@ -96,6 +96,7 @@ const AddFootballFieldType = () => {
       }
     });
   };
+  
 
   console.log(newName)
   console.log(typeName)
@@ -132,7 +133,7 @@ const AddFootballFieldType = () => {
     dataPUT["price"] = price;
     dataPUT["construction_type"] = constructionListAcc;
     formData.append("description", description);
-    formData.append("name", newName);
+    formData.append("name", newName?.slug);
     selectedIamgeFile?.forEach((file) => {
       formData.append("images", file);
     });
@@ -149,7 +150,6 @@ const AddFootballFieldType = () => {
 
   const newFoobolField = () => {
     setMapLatLon([]);
-    setNewName("");
     setDescription("");
     setAdministratorValue("");
     setAdministrator("");
@@ -164,7 +164,7 @@ const AddFootballFieldType = () => {
 
 
   useEffect(() => {
-    setNewName(typeName && typeName[0]?.name)
+    setNewName(typeName && typeName[0])
      }, [typeName])
 
 
@@ -310,7 +310,6 @@ const AddFootballFieldType = () => {
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-col gap-y-[8px]">
                 <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Тип поля</p>
                 <div className={s.constructionList}>

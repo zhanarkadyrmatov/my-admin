@@ -101,7 +101,7 @@ export default function FieldsId() {
                   {fieldsIdList?.name}
                 </h4>
                 <p className="text-white text-[13px] leading-[15px] font-normal opacity-70">
-                  {fieldsIdList?.sport_complex_type}
+                  {fieldsIdList?.sport_complex_type?.title}
                 </p>
               </div>
             </div>
@@ -147,8 +147,7 @@ export default function FieldsId() {
                   </button>
                 )}
                 <NavLink
-                  to={`/fields/editType/${id}`}
-                  v
+                  to={`/fields/edit/${id}`}
                   className="w-full lg:w-auto flex justify-center items-center gap-1 p-[8px] bg-[#E5E5E5] rounded-[8px] hover:bg-[#9d9a9a] duration-300"
                 >
                   <CiEdit className="xl:w-[18px] xl:h-[18px] w-[16px] h-[16px] fill-[#1C1C1C]" />

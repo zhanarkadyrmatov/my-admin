@@ -9,6 +9,7 @@ import {
   getAdvantages,
   getLocationsCities,
   getSportComplexList,
+  patchAdvantages,
   postAdvantages,
 } from "../../../store/slice/create-foobol-slice";
 import {
@@ -16,6 +17,7 @@ import {
 } from "../../../store/slice/fields-slice";
 import YandexMap from "../../../components/YandexMap/YandexMap";
 import Radio from "../../../components/Radio/Radio";
+import Loader from "../../../components/Loader/Loader";
 const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
 export default function EditField() {
   const { id } = useParams();
@@ -76,11 +78,11 @@ export default function EditField() {
   const [errorList, setErrorList] = useState([]);
 
   const [advantagesList, setAdvantagesList] = useState([]);
-  const [complex_type, setComplex_type] = useState();
+  const [complex_type, setComplex_type] = useState(null);
   const [administratorValue, setAdministratorValue] = useState(null);
+
   const handlerPostCreacteFoobolField = () => {
     const errors = {};
-    // Обработка advantagesList для удаления пустых описаний
     const processedAdvantagesList = advantagesList?.map((item) => {
       if (item.description === "") {
         return { advantages: item.name };
@@ -131,7 +133,7 @@ export default function EditField() {
       data: processedAdvantagesList,
       formData: formData,
     };
-    dispatch(postAdvantages(newData));
+    dispatch(patchAdvantages(newData));
   };
 
   useEffect(() => {
@@ -143,7 +145,7 @@ export default function EditField() {
       setDistrict(fieldsIdList?.district);
       setAdministratorValue(fieldsIdList?.administrator?.name);
       setAddress(fieldsIdList?.address);
-      setComplex_type(fieldsIdList?.sport_complex_type);
+      setComplex_type(fieldsIdList?.sport_complex_type?.id);
       setSelectedImage(fieldsIdList?.main_foto);
       setAdvantagesList(
         fieldsIdList?.advantages?.map((item) => ({
@@ -159,9 +161,6 @@ export default function EditField() {
   const goToPage = (pageName) => {
     handlerPostCreacteFoobolField();
   };
-
-  console.log(advantagesList)
-
 
   const handleAdvantages = (data, isChecked) => {
     console.log(data);
@@ -188,13 +187,17 @@ export default function EditField() {
     );
   };
 
+
   useEffect(() => {
     if (isCreate === false) {
-      navigate(`/fields/football/${idFields}`);
+      navigate(`/fields/editType/${idFields}`);
     }
   }, [isCreate]);
+
   if (isCreate === true) {
-    return <div>test</div>;
+    return <div>
+      <Loader />
+    </div>;
   }
 
   return (
@@ -214,13 +217,7 @@ export default function EditField() {
                   const isChecked = advantagesList?.some(
                     (item) => item?.advantages === res.id
                   );
-                  // const currentItem = advantagesList?.find((item) => item?.advantages === res?.id) || {};
-
                   const checked = advantagesList?.find((item) => item?.advantages === res?.id);
-
-                  console.log(checked);
-                  console.log(advantagesList);
-
 
                   return (
                     <div className={s.checkbox} key={i}>
