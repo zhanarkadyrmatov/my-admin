@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { HiOutlinePlusSm } from "react-icons/hi";
-
-import s from "../page.module.scss";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   getAdvantages,
   getBranchGetId,
@@ -15,12 +11,12 @@ import {
 } from "../../../store/slice/create-foobol-slice";
 import { NavLink, useParams } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
-import cm from "classnames";
 import { useEffect } from "react";
 import Loader from "../../../components/Loader/Loader";
 import YandexMap from "../../../components/YandexMap/YandexMap";
 import Select from "../../../components/Select/Select";
 import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
+import Textarea from "../../../components/Textarea/Textarea";
 
 const AddFootballFieldType = () => {
   const { id } = useParams();
@@ -47,18 +43,12 @@ const AddFootballFieldType = () => {
     price: 0,
   });
   const [location, setLocation] = useState();
-  //Описание футбольного поля
   const [description, setDescription] = useState(null);
-  //ФИО владельца
   const [administratorValue, setAdministratorValue] = useState();
-  //ФИО администратора*
   const [administrator, setAdministrator] = useState();
-  //  location   add
   const [mapLatLon, setMapLatLon] = useState();
   const [isModalMap, setIsModalMap] = useState(false);
-  //График работы
   const [schedule, setSchedule] = useState();
-  //Преимущества
   const [advantagesList, setAdvantagesList] = useState([]);
   const [selectedImages1, setSelectedImages1] = useState([]);
   const [selectedIamgeFile, setSelectedImageFile] = useState([]);
@@ -88,7 +78,7 @@ const AddFootballFieldType = () => {
     setAdvantagesList((prevList) => {
       if (isChecked) {
         if (!prevList.some((item) => item.advantages === resId)) {
-          return [...prevList, { advantages: resId, description: "" }];
+          return [...prevList, { advantages: resId, description: null }];
         }
         return prevList;
       } else {
@@ -96,11 +86,11 @@ const AddFootballFieldType = () => {
       }
     });
   };
-  
+
 
   console.log(newName)
   console.log(typeName)
-  
+
 
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
@@ -165,7 +155,7 @@ const AddFootballFieldType = () => {
 
   useEffect(() => {
     setNewName(typeName && typeName[0])
-     }, [typeName])
+  }, [typeName])
 
 
   useEffect(() => {
@@ -184,6 +174,7 @@ const AddFootballFieldType = () => {
     </div>;
   }
 
+  console.log(description)
 
   return (
     <div className="mx-[20px] mt-[90px] mb-7">
@@ -193,23 +184,30 @@ const AddFootballFieldType = () => {
         )}
         <div
           className={
-            "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] "
+            "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex  gap-[10px] justify-between items-center"
           }
         >
           <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
             {fieldsIdInfo?.football_field_type?.map((res) => (
               <button
-                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:bg-[#1C1C1C] hover:text-[#fff] hover:shadow-md duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px] `}
               >
                 {res.name}
               </button>
             ))}
             <button
               onClick={() => newFoobolField()}
-              className={`w-full h-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+              className={`px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:bg-[#1C1C1C] hover:text-[#fff] duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
             >
-              <BiPlus />
+              <BiPlus className="w-5 h-5" />
             </button>
+          </div>
+          <div className="flex items-center gap-[10px]">
+            <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Cкопировать детали предыдущих полей</p>
+            <label class="inline-flex items-center cursor-pointer">
+              <input type="checkbox" name="checkbox"  class="sr-only peer" />
+              <div class="relative w-11 h-6 bg-[#78788029] rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+            </label>
           </div>
         </div>
         <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-1 gap-[20px] xl:px-[5px] px-[5px]">
@@ -312,18 +310,18 @@ const AddFootballFieldType = () => {
               </div>
               <div className="flex flex-col gap-y-[8px]">
                 <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Тип поля</p>
-                <div className={s.constructionList}>
+                <div className={'flex gap-[10px] flex-wrap'}>
                   {construction?.map((res, i) => {
-                    const isAcc = constructionListAcc?.find(
+                    const isAcc = constructionListAcc?.some(
                       (el) => el.name === res.name
                     );
+
+                    console.log(isAcc);
                     return (
                       <div
                         onClick={() => handlerConstruction(res)}
                         key={i}
-                        className={cm(s.construction, {
-                          [s.activeIsAcc]: !!isAcc,
-                        })}
+                        className={`border-[2px] py-[6px] px-[10px] rounded-[4px] cursor-pointer text-[15px] text-[#222222] font-normal leading-[17.24px] text-left ${isAcc ? 'border-[#222222]'  : 'border-[#2222221a]' }`}
                       >
                         {res.name}
                       </div>
@@ -331,27 +329,13 @@ const AddFootballFieldType = () => {
                   })}
                 </div>
               </div>
-              <div className="flex flex-col gap-y-[8px]">
-                <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Описание футбольного поля</p>
-                <textarea
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
-                  value={description}
-                  className="rounded-[10px] p-[10px] bg-[#f0f0f0] border-[2px] border-[#1C1C1C0D] outline-none focus:border-[2px] focus:border-[green]"
-                  name=""
-                  id=""
-                  rows="5"
-                  placeholder="Напишите сюда..."
-                ></textarea>
-              </div>
+              <Textarea label="Описание футбольного поля" value={description} onchange={setDescription} placeholder={'Напишите сюда...'}/>
             </div>
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
               <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">Преимущества</h4>
             </div>
             <div
-              className={`${s.checkboxList} `}
-              style={{ padding: "20px !important" }}
+              className={'flex flex-col gap-[10px] p-[20px]'}
             >
               {advantages?.map((res, i) => {
                 const isChecked = advantagesList.some(
@@ -361,9 +345,9 @@ const AddFootballFieldType = () => {
                   advantagesList.find((item) => item.advantages === res.id) ||
                   {};
                 return (
-                  <div className={s.checkbox} key={i}>
+                  <div className={'flex gap-[5px] flex-col'} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
-                      <div className="flex gap-[10px] w-full">
+                      <div className="flex items-center gap-[10px] w-full">
                         <input
                           onChange={(e) => {
                             const data = [e.target.name, res.id];
@@ -371,7 +355,7 @@ const AddFootballFieldType = () => {
                           }}
                           name={res.id}
                           type="checkbox"
-                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                          className="w-[22px] h-[22px] border-[1px] border-[#2222221A] rounded-[4px]"
                         />
                         <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                           {res?.name}
@@ -379,8 +363,9 @@ const AddFootballFieldType = () => {
                       </div>
                     </div>
                     {isChecked && (
-                      <div className={s.checkboxInput}>
+                      <div className={'flex gap-[10px]'}>
                         <input
+                        className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
                           placeholder="Добавить описание"
                           value={currentItem.description || ""}

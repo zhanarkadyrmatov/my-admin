@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BiSolidCameraPlus } from "react-icons/bi";
 import img7 from "../../img/img7.svg";
-import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAdministrators,
@@ -10,11 +9,12 @@ import {
   getSportComplexList,
   postAdvantages,
 } from "../../store/slice/create-foobol-slice";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import YandexMap from "../../components/YandexMap/YandexMap";
 import Radio from "../../components/Radio/Radio";
-const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
+import Textarea from "../../components/Textarea/Textarea";
+const Pe = ({ children }) => <p className={'text-red-500 text-[14px] font-normal leading-normal'}>{children}</p>;
 
 export default function AddFootballField() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -28,8 +28,6 @@ export default function AddFootballField() {
     }
   };
 
-  //about
-  const [page, setPage] = useState("home");
   const dispatch = useDispatch();
   const {
     advantages,
@@ -69,8 +67,6 @@ export default function AddFootballField() {
 
   const [advantagesList, setAdvantagesList] = useState([]);
   const [complex_type, setComplex_type] = useState();
-
-  console.log(complex_type)
 
   const [administratorValue, setAdministratorValue] = useState();
   const handlerPostCreacteFoobolField = () => {
@@ -130,6 +126,8 @@ export default function AddFootballField() {
     dispatch(postAdvantages(newData));
   };
 
+
+  console.log(advantagesList);
   const goToPage = (pageName) => {
     handlerPostCreacteFoobolField();
   };
@@ -139,7 +137,7 @@ export default function AddFootballField() {
     setAdvantagesList((prevList) => {
       if (isChecked) {
         if (!prevList.some((item) => item.advantages === resId)) {
-          return [...prevList, { advantages: resId, description: "" }];
+          return [...prevList, { advantages: resId, description: null }];
         }
         return prevList;
       } else {
@@ -148,6 +146,7 @@ export default function AddFootballField() {
     });
   };
   const updateDescription = (resId, newDescription) => {
+    console.log(resId, newDescription);
     setAdvantagesList((prevList) =>
       prevList.map((item) =>
         item.advantages === resId
@@ -180,7 +179,7 @@ export default function AddFootballField() {
             <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
               <h4>Преимущества</h4>
             </div>
-            <div className={s.checkboxList}>
+            <div className={'flex flex-col gap-[10px] p-[20px]'}>
               {advantages?.map((res, i) => {
                 const isChecked = advantagesList.some(
                   (item) => item.advantages === res.id
@@ -189,9 +188,9 @@ export default function AddFootballField() {
                   advantagesList.find((item) => item.advantages === res.id) ||
                   {};
                 return (
-                  <div className={s.checkbox} key={i}>
+                  <div className={'flex gap-[5px] flex-col'} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
-                      <div className="flex gap-[10px] w-full">
+                      <div className="flex items-center gap-[10px] w-full">
                         <input
                           onChange={(e) => {
                             const data = [e.target.name, res.id];
@@ -199,7 +198,7 @@ export default function AddFootballField() {
                           }}
                           name={res.id}
                           type="checkbox"
-                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                          className="w-[22px] h-[22px] border-[1px] border-[#2222221A] rounded-[4px]"
                         />
                         <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                           {res?.name}
@@ -207,8 +206,9 @@ export default function AddFootballField() {
                       </div>
                     </div>
                     {isChecked && (
-                      <div className={s.checkboxInput}>
+                      <div className={'flex gap-[10px]'}>
                         <input
+                          className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
                           placeholder="Добавить описание"
                           value={currentItem.description || ""}
@@ -383,17 +383,7 @@ export default function AddFootballField() {
                   ))}
                 </div>
               </div>
-              <div className={"flex flex-col gap-y-[8px]"}>
-                <p className="text-base font-normal leading-6 tracking-tight text-left">Описание</p>
-                {errorList?.description && <Pe>{errorList?.description}</Pe>}
-                <textarea
-                  className="bg-[#F0F0F0] min-h-[180px]  p-[16px]  rounded-[10px] w-full text-[14px] text-[#222222] leading-normal font-normal outline-none border-[2px] border-[#1C1C1C0D] focus-within:border-[2px] focus-within:border-[green]"
-                  type="text"
-                  placeholder="Напишите сюда..."
-                  onChange={(e) => setDescription(e.target.value)}
-                  value={description}
-                />
-              </div>
+              <Textarea onchange={setDescription} value={description} placeholder={'Напишите сюда...'} label="Описание" error={errorList?.description} />
               <button
                 onClick={() => goToPage("about")}
                 className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${newName && locationsCitiesValue && district && description && mapLatLon && address ? "opacity-100 сursor-pointer hover:shadow-lg" : "opacity-50"}`}

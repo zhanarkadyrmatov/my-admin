@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HiOutlinePlusSm } from "react-icons/hi";
 
-import s from "./page.module.scss";
+// import s from "./page.module.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -337,18 +337,16 @@ const EditType = () => {
               </div>
               <div className="flex flex-col gap-y-[8px]">
                 <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Тип поля</p>
-                <div className={s.constructionList}>
+                <div className={'flex gap-[10px] flex-wrap'}>
                   {construction?.map((res, i) => {
-                    const isAcc = constructionListAcc?.find(
+                    const isAcc = constructionListAcc?.some(
                       (el) => el.name === res.name
                     );
                     return (
                       <div
                         onClick={() => handlerConstruction(res)}
                         key={i}
-                        className={cm(s.construction, {
-                          [s.activeIsAcc]: !!isAcc,
-                        })}
+                        className={`border-[2px] py-[6px] px-[10px] rounded-[4px] cursor-pointer text-[15px] text-[#222222] font-normal leading-[17.24px] text-left ${isAcc ? 'border-[#222222]'  : 'border-[#2222221a]' }`}
                       >
                         {res.name}
                       </div>
@@ -375,8 +373,7 @@ const EditType = () => {
               <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">Преимущества</h4>
             </div>
             <div
-              className={`${s.checkboxList} `}
-              style={{ padding: "20px !important" }}
+              className={`flex flex-col gap-[10px] p-[20px]`}
             >
               {advantages?.map((res, i) => {
                 const isChecked = advantagesList.some(
@@ -386,9 +383,9 @@ const EditType = () => {
                   advantagesList.find((item) => item.advantages === res.id) ||
                   {};
                 return (
-                  <div className={s.checkbox} key={i}>
+                  <div className={'flex gap-[5px] flex-col'} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
-                      <div className="flex gap-[10px] w-full">
+                      <div className="flex items-center gap-[10px] w-full">
                         <input
                           onChange={(e) => {
                             const data = [e.target.name, res.id];
@@ -396,7 +393,7 @@ const EditType = () => {
                           }}
                           name={res.id}
                           type="checkbox"
-                          className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                          className="w-[22px] h-[22px] border-[1px] border-[#2222221A] rounded-[4px]"
                         />
                         <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                           {res?.name}
@@ -404,8 +401,9 @@ const EditType = () => {
                       </div>
                     </div>
                     {isChecked && (
-                      <div className={s.checkboxInput}>
+                      <div className={'flex gap-[10px]'}>
                         <input
+                        className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
                           placeholder="Добавить описание"
                           value={currentItem.description || ""}

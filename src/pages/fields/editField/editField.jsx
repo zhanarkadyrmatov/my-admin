@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BiSolidCameraPlus } from "react-icons/bi";
 import img7 from "../../../img/img7.svg";
-import s from "./page.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -18,7 +17,7 @@ import {
 import YandexMap from "../../../components/YandexMap/YandexMap";
 import Radio from "../../../components/Radio/Radio";
 import Loader from "../../../components/Loader/Loader";
-const Pe = ({ children }) => <p className={s.Pe}>{children}</p>;
+const Pe = ({ children }) => <p className={'text-red-500 text-[14px] font-normal leading-normal'}>{children}</p>;
 export default function EditField() {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -150,7 +149,7 @@ export default function EditField() {
       setAdvantagesList(
         fieldsIdList?.advantages?.map((item) => ({
           advantages: item?.advantages?.id,
-          description: item?.description, 
+          description: item?.description,
         }))
       );
 
@@ -212,7 +211,7 @@ export default function EditField() {
               <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
                 <h4>Преимущества</h4>
               </div>
-              <div className={s.checkboxList}>
+              <div className={'flex flex-col gap-[10px] p-[20px]'}>
                 {advantages?.map((res, i) => {
                   const isChecked = advantagesList?.some(
                     (item) => item?.advantages === res.id
@@ -220,9 +219,9 @@ export default function EditField() {
                   const checked = advantagesList?.find((item) => item?.advantages === res?.id);
 
                   return (
-                    <div className={s.checkbox} key={i}>
+                    <div className={'flex gap-[5px] flex-col'} key={i}>
                       <div className="flex gap-[5px] w-full flex-col">
-                        <div className="flex gap-[10px] w-full">
+                        <div className="flex items-center gap-[10px] w-full">
                           <input
                             onChange={(e) => {
                               const data = [e.target.name, res.id];
@@ -230,7 +229,7 @@ export default function EditField() {
                             }}
                             name={res.id}
                             type="checkbox"
-                            className="w-[24px] h-[24px] border-[1px] border-[#2222221A] rounded-[4px]"
+                            className="w-[22px] h-[22px] border-[1px] border-[#2222221A] rounded-[4px]"
                             checked={checked?.advantages === res?.id}
                           />
                           <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
@@ -239,8 +238,9 @@ export default function EditField() {
                         </div>
                       </div>
                       {isChecked && (
-                        <div className={s.checkboxInput}>
+                        <div className={'flex gap-[10px]'}>
                           <input
+                            className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                             type="text"
                             placeholder="Добавить описание"
                             value={checked?.description || ""}
@@ -255,7 +255,7 @@ export default function EditField() {
                 })}
               </div>
             </div>
-            <div className="bg-[#fff] rounded-[10px]">
+            <div className="bg-[#fff] h-min w-full rounded-[10px] overflow-hidden">
               <div className="p-[20px] bg-white border-b-[1px] border-[#E8E8E8]">
                 <h4 className="text-[16px] font-normal leading-[18px] text-[#222]">
                   Информация
