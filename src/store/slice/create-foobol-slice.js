@@ -89,15 +89,30 @@ export const getLocationsCities = createAsyncThunk(
   }
 );
 
+
+export const fetchAdministrators = createAsyncThunk(
+  "advantages/fetchAdministrator",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${Api}admin_api/administrator/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postAdvantages = createAsyncThunk(
   "advantages/postAdvantages",
   async (data, { rejectWithValue, dispatch }) => {
-    console.log(data, "datatwtat");
-
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field/`,
-        data.formData,
+        data?.formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -111,19 +126,19 @@ export const postAdvantages = createAsyncThunk(
         id,
         advantages,
       };
-      dispatch(PATCHAdvantages(PATCHAdvantagesData));
 
-      console.log(response.data, "response.data");
+      if (id) {
+        dispatch(PATCHAdvantages(PATCHAdvantagesData));
+      }
+
       return response.data;
     } catch (error) {
+
       if (error.response) {
-        console.error("Ошибка сервера:", error.response.data);
         return rejectWithValue(error.response.data);
       } else if (error.request) {
-        console.error("Запрос не отправлен:", error.request);
         return rejectWithValue({ error: "Network error" });
       } else {
-        console.error("Ошибка:", error.message);
         return rejectWithValue({ error: error.message });
       }
     }
@@ -151,6 +166,47 @@ export const PATCHAdvantages = createAsyncThunk(
   }
 );
 
+export const patchAdvantages = createAsyncThunk(
+  "advantages/patchAdvantages",
+  async (data, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await axios.patch(
+        `${Api}admin_api/football-field/`,
+        data?.formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // const id = await response.data.id;
+      // const advantages = await data.data;
+      // const PATCHAdvantagesData = {
+      //   id,
+      //   advantages,
+      // };
+
+      // if (id) {
+      //   dispatch(PATCHAdvantages(PATCHAdvantagesData));
+      // }
+
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else if (error.request) {
+        return rejectWithValue({ error: "Network error" });
+      } else {
+        return rejectWithValue({ error: error.message });
+      }
+    }
+  }
+);
+
 export const getSportComplexList = createAsyncThunk(
   "advantages/getSportComplexList",
   async (_, { rejectWithValue }) => {
@@ -170,9 +226,29 @@ export const getSportComplexList = createAsyncThunk(
   }
 );
 
+export const getFieldsTypeName = createAsyncThunk(
+  "typeName/getFieldsTypeName",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${Api}admin_api/field-type-name/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const postCreacteFieldType = createAsyncThunk(
   "advantages/postCreacteFieldType",
   async (data, { rejectWithValue, dispatch }) => {
+    console.log(data);
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field-type/`,
@@ -186,14 +262,12 @@ export const postCreacteFieldType = createAsyncThunk(
       );
 
       const id = await response.data.id;
-
-      console.log(response.data.id, "response.data");
       const advantages = await data[1];
       const PATCHAdvantagesData = {
         advantages,
         id,
       };
-      console.log(PATCHAdvantagesData, "PATCHAdvantagesData");
+
       dispatch(postCreacteFoobolField(PATCHAdvantagesData));
 
       return response.data;
@@ -207,8 +281,6 @@ export const postCreacteFoobolField = createAsyncThunk(
   "advantages/postCreacteFoobolField",
   async (data, { rejectWithValue }) => {
     try {
-      console.log(data.advantages.price, "advantages");
-
       const newData = {
         price: data.advantages.price,
         schedule: data.advantages.schedule,
@@ -233,7 +305,6 @@ export const postCreacteFoobolField = createAsyncThunk(
 
 export const advantagesSlice = createSlice({
   name: "advantages",
-
   initialState: {
     advantages: null,
     status: null,
@@ -246,6 +317,13 @@ export const advantagesSlice = createSlice({
     idFields: null,
     fieldsIdInfo: null,
     construction: null,
+    typeName: null,
+    administrators: null,
+  },
+  reducers: {
+    setIsCreate: (state, action) => {
+      state.isCreate = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -337,8 +415,33 @@ export const advantagesSlice = createSlice({
         state.status = "rejected";
         state.error = action.payload;
         console.error("Error fetching advantages:", action.payload);
-      });
+      })
+      .addCase(getFieldsTypeName.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFieldsTypeName.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.typeName = action.payload;
+      })
+      .addCase(getFieldsTypeName.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      })
+
+      .addCase(fetchAdministrators.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAdministrators.fulfilled, (state, action) => {
+        state.status = "fulfilled";
+        state.administrators = action.payload;
+      })
+      .addCase(fetchAdministrators.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      })
+      
   },
 });
 
+export const { setIsCreate } = advantagesSlice.actions;
 export default advantagesSlice.reducer;

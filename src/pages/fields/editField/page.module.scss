@@ -61,38 +61,38 @@
   text-align: left;
 }
 
-.description {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  background: #fff;
+// .description {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 10px;
+//   background: #fff;
 
-  p {
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 16.09px;
-    letter-spacing: -0.5px;
-    text-align: left;
-  }
+//   p {
+//     font-size: 17px;
+//     font-weight: 400;
+//     line-height: 16.09px;
+//     letter-spacing: -0.5px;
+//     text-align: left;
+//   }
 
-  textarea {
-    width: 100%;
-    min-height: 200px;
-    background: #ffffff;
-    border-radius: 10px;
-    outline: #dc3545;
-    border: 1px solid #b7b4b6;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 14.94px;
-    letter-spacing: -0.5px;
-    text-align: left;
-    color: #222222;
-  }
-}
+//   textarea {
+//     width: 100%;
+//     min-height: 200px;
+//     background: #ffffff;
+//     border-radius: 10px;
+//     outline: #dc3545;
+//     border: 1px solid #b7b4b6;
+//     font-size: 13px;
+//     font-weight: 400;
+//     line-height: 14.94px;
+//     letter-spacing: -0.5px;
+//     text-align: left;
+//     color: #222222;
+//   }
+// }
 
 .Map {
   position: absolute;
@@ -183,4 +183,28 @@
     border-bottom: 1px solid var(--black-10, #1c1c1c1a);
     outline: none;
   }
+}
+
+.constructionList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  div {
+    border: 1px solid #2222221a;
+    cursor: pointer;
+    padding: 6px 10px 6px 10px;
+    gap: 4px;
+    border-radius: 4px;
+    border: 1px;
+    border: 1px solid #2222221a;
+    color: #222222;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 17.24px;
+    text-align: left;
+  }
+}
+
+.activeIsAcc {
+  border: 1px solid #222 !important;
 }

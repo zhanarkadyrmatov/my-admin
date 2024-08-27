@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import ReserveDatepicker from "../../components/ReserveDatepicker/ReserveDatepicker";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFields, fetchFieldsIdDetail, fetchFieldsIdList, setFootballId } from "../../store/slice/fields-slice";
-import { fetchReverse, fetchbookingCreate } from "../../store/slice/reserve-slice";
-import { differenceInMinutes, parse, format, addDays } from 'date-fns';
-import { fetchArbitrators } from '../../store/slice/arbitrators';
+import {
+  fetchFields,
+  fetchFieldsIdDetail,
+  fetchFieldsIdList,
+  setFootballId,
+} from "../../store/slice/fields-slice";
+import {
+  fetchReverse,
+  fetchbookingCreate,
+} from "../../store/slice/reserve-slice";
+import { differenceInMinutes, parse, format, addDays } from "date-fns";
+import { fetchArbitrators } from "../../store/slice/arbitrators";
 import Arbitrators from "../../components/Arbitrators/Arbitrators";
 import AddUser from "../../components/AddUser/AddUser";
 import NewUser from "../../components/NewUser/NewUser";
@@ -16,8 +24,13 @@ function Reserve() {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
-  const { footballId, fieldsIdList, fieldsIdDetail } = useSelector((state) => state.fields);
-  const { reverse, booking, loading } = useSelector((state) => state.reserveSlice);
+  const { footballId, fieldsIdList, fieldsIdDetail } = useSelector(
+    (state) => state.fields
+  );
+
+  const { reverse, booking, loading } = useSelector(
+    (state) => state.reserveSlice
+  );
   const [phone, setPhone] = useState(null);
   const [name, setName] = useState(null);
   const [repeat, setRepeat] = useState(null);
@@ -35,19 +48,19 @@ function Reserve() {
     dispatch(fetchFieldsIdList(id));
   }, [id]);
 
-
   useEffect(() => {
     dispatch(fetchReverse({ footballId, startDate }));
   }, [footballId, startDate, booking]);
 
-  const dayOfWeek = fieldsIdDetail?.schedule?.find((el) => el?.day_of_week === startDate.getDay());
+  const dayOfWeek = fieldsIdDetail?.schedule?.find(
+    (el) =>
+      el?.day_of_week === (startDate.getDay() === 0 ? 7 : startDate.getDay())
+  );
 
-  console.log(time);
-
-  const startTime = dayOfWeek?.start_time?.slice(0, 5) || '';
-  const endTime = dayOfWeek?.end_time?.slice(0, 5) || '';
-  const start = parse(startTime, 'HH:mm', startDate);
-  const end = addDays(parse(endTime, 'HH:mm', startDate), 1);
+  const startTime = dayOfWeek?.start_time?.slice(0, 5) || "";
+  const endTime = dayOfWeek?.end_time?.slice(0, 5) || "";
+  const start = parse(startTime, "HH:mm", startDate);
+  const end = addDays(parse(endTime, "HH:mm", startDate), 1);
   const minutesDifference = differenceInMinutes(end, start);
   const intervals = minutesDifference / 30;
   const intervalsArray = [];
@@ -56,10 +69,10 @@ function Reserve() {
     const intervalStart = new Date(start.getTime() + i * 30 * 60 * 1000);
     const intervalEnd = new Date(intervalStart.getTime() + 30 * 60 * 1000);
     intervalsArray.push({
-      start: format(intervalStart, 'HH:mm'),
-      end: format(intervalEnd, 'HH:mm'),
-      dayStart: format(intervalStart, 'dd.MM.yyyy HH:mm'),
-      dayEnd: format(intervalEnd, 'dd.MM.yyyy HH:mm'),
+      start: format(intervalStart, "HH:mm"),
+      end: format(intervalEnd, "HH:mm"),
+      dayStart: format(intervalStart, "dd.MM.yyyy HH:mm"),
+      dayEnd: format(intervalEnd, "dd.MM.yyyy HH:mm"),
       startDate: format(intervalStart, "yyyy-MM-dd'T'HH:mm:ssxxx"),
       endDate: format(intervalEnd, "yyyy-MM-dd'T'HH:mm:ssxxx"),
     });
@@ -68,34 +81,34 @@ function Reserve() {
   const isPastInterval = (intervalStart) => {
     const currentTime = new Date();
     const intervalDate = new Date(startDate);
-    const [hours, minutes] = intervalStart.split(':');
+    const [hours, minutes] = intervalStart.split(":");
     intervalDate.setHours(hours, minutes, 0, 0);
     return intervalDate < currentTime;
   };
 
-
   const handleClick = () => {
     const bookingDateISO = format(startDate, "yyyy-MM-dd'T'HH:mm:ssxxx");
-    dispatch(fetchbookingCreate({
-      booking: state?.reserve,
-      data: {
-        field_type: footballId,
-        start_date: time?.startTime,
-        end_date: time?.endTime,
-        booking_date: bookingDateISO,
-        duration: 1,
-        football_field_cost: price?.price,
-        organizer: user?.id,
-        arbitrator: arbitrator?.id,
-        payment_type: payment,
-        booking_type: repeat || 0,
-        not_registered_user: {
-          phone: phone,
-          name: name,
-        }
-
-      }
-    }))
+    dispatch(
+      fetchbookingCreate({
+        booking: state?.reserve,
+        data: {
+          field_type: footballId,
+          start_date: time?.startTime,
+          end_date: time?.endTime,
+          booking_date: bookingDateISO,
+          duration: 1,
+          football_field_cost: price?.price,
+          organizer: user?.id,
+          arbitrator: arbitrator?.id,
+          payment_type: payment,
+          booking_type: repeat || 0,
+          not_registered_user: {
+            phone: phone,
+            name: name,
+          },
+        },
+      })
+    );
     setUser(null);
     setPhone(null);
     setName(null);
@@ -104,16 +117,15 @@ function Reserve() {
     setArbitrator(null);
     setPayment(null);
     setPrice(null);
-
   };
 
   return (
     <>
-      {loading ?
+      {loading ? (
         <>
           <Loader />
         </>
-        :
+      ) : (
         <>
           <div className="my-[85px] md:my-[90px] flex flex-col gap-[20px] xl:px-5 lg:px-4 px-3">
             <div
@@ -122,15 +134,18 @@ function Reserve() {
               }
             >
               <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-                {fieldsIdList?.football_field_type?.map((item) => (
+                {fieldsIdList?.football_field_type?.map((item, index) => (
                   <button
+                    key={index}
                     onClick={() => {
-                      dispatch(fetchFieldsIdDetail(item?.id))
-                      dispatch(setFootballId(item?.id))
+                      dispatch(fetchFieldsIdDetail(item?.id));
+                      dispatch(setFootballId(item?.id));
                     }}
-                    className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${footballId === item?.id ? "opacity-100 border-[2px]" : "opacity-80 border-[1px]"
-                      }`
-                    }
+                    className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 hover:border-[2px] duration-300 text-[#1C1C1C] border-[#222222] rounded-[8px] ${
+                      footballId === item?.id
+                        ? "opacity-100 border-[2px]"
+                        : "opacity-80 border-[1px]"
+                    }`}
                   >
                     {item?.name}
                   </button>
@@ -145,48 +160,78 @@ function Reserve() {
                   </p>
                 </div>
                 <div>
-                  <ReserveDatepicker setStartDate={setStartDate} startDate={startDate} />
+                  <ReserveDatepicker
+                    setStartDate={setStartDate}
+                    startDate={startDate}
+                  />
                 </div>
                 <div className="p-[20px] rounded-b-[10px] bg-[#fff] flex flex-col gap-[10px] overflow-y-auto max-h-[500px]">
-                  {intervalsArray?.length > 0 ?
+                  {intervalsArray?.length > 0 ? (
                     <>
                       {intervalsArray?.map((res, i) => {
-                        const isReserved = reverse?.some((el) => el?.start_time === res?.start);
-                        const isReservedPast = reverse?.some((el) => el?.end_time === res?.end);
+                        const isReserved = reverse?.some(
+                          (el) => el?.start_time === res?.start
+                        );
+                        const isReservedPast = reverse?.some(
+                          (el) => el?.end_time === res?.end
+                        );
                         const activeTimeStart = time?.start === res?.dayStart;
-                        const isActive = time?.start <= res?.dayStart && time?.end >= res?.dayEnd;
-                        const finds = reverse?.find((el) => el?.start_time <= res?.start && el?.end_time >= res?.end)
-                        const isPast = finds?.start_datetime <= res?.dayStart && finds?.end_datetime >= res?.dayEnd;
+                        const isActive =
+                          time?.start <= res?.dayStart &&
+                          time?.end >= res?.dayEnd;
+                        const finds = reverse?.find(
+                          (el) =>
+                            el?.start_time <= res?.start &&
+                            el?.end_time >= res?.end
+                        );
+                        const isPast =
+                          finds?.start_datetime <= res?.dayStart &&
+                          finds?.end_datetime >= res?.dayEnd;
 
                         return (
-                          <div key={i}
+                          <div
+                            key={i}
                             onClick={() => {
-                              if ((fieldsIdDetail?.price[1]?.start_time > res?.start)) {
-                                setPrice(fieldsIdDetail?.price[0])
+                              if (
+                                fieldsIdDetail?.price[1]?.start_time >
+                                res?.start
+                              ) {
+                                setPrice(fieldsIdDetail?.price[0]);
                               } else {
-                                setPrice(fieldsIdDetail?.price[1])
+                                setPrice(fieldsIdDetail?.price[1]);
                               }
 
-                              if (isPastInterval(res?.start) || isReserved || isReservedPast) {
-
+                              if (
+                                isPastInterval(res?.start) ||
+                                isReserved ||
+                                isReservedPast
+                              ) {
                               } else {
                                 if (time && time?.start < res?.dayStart) {
-                                  setTime({ ...time, end: res?.dayEnd, endTime: res?.endDate });
+                                  setTime({
+                                    ...time,
+                                    end: res?.dayEnd,
+                                    endTime: res?.endDate,
+                                  });
                                 } else {
                                   if (time?.start && !time?.end) {
                                     setTime(null);
-
-                                  }else{
-                                    setTime({ start: res?.dayStart, startTime: res?.startDate });
+                                  } else {
+                                    setTime({
+                                      start: res?.dayStart,
+                                      startTime: res?.startDate,
+                                    });
                                   }
-
                                 }
                               }
                             }}
-                            className={`px-[20px] py-[10px] rounded-[10px] ${isPastInterval(res?.start) || isPast
-                              ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
-                              : activeTimeStart || isActive ? "bg-[#1ec219] cursor-pointer" : "bg-[#F5F5F5] cursor-pointer hover:bg-[#cccbcb] duration-300 hover:shadow-md"
-                              } `}
+                            className={`px-[20px] py-[10px] rounded-[10px] ${
+                              isPastInterval(res?.start) || isPast
+                                ? "bg-[#fff] border-[1px] border-[#2222221A] opacity-70"
+                                : activeTimeStart || isActive
+                                ? "bg-[#1ec219] cursor-pointer"
+                                : "bg-[#F5F5F5] cursor-pointer hover:bg-[#cccbcb] duration-300 hover:shadow-md"
+                            } `}
                           >
                             <div className="flex justify-between items-center gap-2">
                               <div className="flex flex-col gap-[6px]">
@@ -213,7 +258,10 @@ function Reserve() {
                                         Цена:
                                       </p>
                                       <p className="text-[15px] text-[#222222] font-normal leading-[18px]">
-                                        {(fieldsIdDetail?.price[1]?.start_time > res?.start) ? fieldsIdDetail?.price[0]?.price : fieldsIdDetail?.price[1]?.price}
+                                        {fieldsIdDetail?.price[1]?.start_time >
+                                        res?.start
+                                          ? fieldsIdDetail?.price[0]?.price
+                                          : fieldsIdDetail?.price[1]?.price}
                                       </p>
                                     </div>
                                   )}
@@ -222,17 +270,23 @@ function Reserve() {
                             </div>
                           </div>
                         );
-                      })}</>
-                    :
-                    <p className="text-[15px] text-center text-[#1C1C1C] font-normal leading-[18px]">Нет доступного времени</p>
-                  }
+                      })}
+                    </>
+                  ) : (
+                    <p className="text-[15px] text-center text-[#1C1C1C] font-normal leading-[18px]">
+                      Нет доступного времени
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex flex-col gap-[20px]">
                 {state?.reserve === "existing" ? (
                   <>
                     <AddUser user={user} setUser={setUser} />
-                    <Arbitrators setArbitrator={setArbitrator} arbitrator={arbitrator} />
+                    <Arbitrators
+                      setArbitrator={setArbitrator}
+                      arbitrator={arbitrator}
+                    />
                     <div className="p-[20px]  rounded-[10px] bg-[#fff] flex justify-between items-center gap-2">
                       <p className="text-[15px] text-[#1C1C1C] font-normal leading-[18px]">
                         Повтор
@@ -260,34 +314,54 @@ function Reserve() {
                   </p>
                   <div className="flex items-center gap-x-[30px]">
                     <div className="flex items-center gap-x-[10px]">
-                      <input type="radio" name="radio" value={"cash"} onChange={(e) => setPayment(e.target.value)} />
+                      <input
+                        type="radio"
+                        name="radio"
+                        value={"cash"}
+                        onChange={(e) => setPayment(e.target.value)}
+                      />
                       <label className="font-normal text-[16px] leading-[19px] text-[#222222]">
                         Наличными
                       </label>
                     </div>
                     <div className="flex items-center gap-x-[10px]">
-                      <input type="radio" name="radio" value={"online"} onChange={(e) => setPayment(e.target.value)} />
+                      <input
+                        type="radio"
+                        name="radio"
+                        value={"online"}
+                        onChange={(e) => setPayment(e.target.value)}
+                      />
                       <label className="font-normal text-[16px] leading-[19px] text-[#222222]">
                         Онлайн
                       </label>
                     </div>
                   </div>
                 </div>
-                {state?.reserve === 'existing' ?
-                  <button onClick={() => payment && user && time && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && user && time ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
+                {state?.reserve === "existing" ? (
+                  <button
+                    onClick={() => payment && user && time && handleClick()}
+                    className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${
+                      payment && user && time ? "bg-[#304add]" : "bg-[#7384E8]"
+                    }`}
+                  >
                     Забронировать поле
                   </button>
-                  :
-                  <button onClick={() => payment && phone && name && handleClick()} className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${payment && phone && name ? "bg-[#304add]" : "bg-[#7384E8]"}`}>
+                ) : (
+                  <button
+                    onClick={() => payment && phone && name && handleClick()}
+                    className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${
+                      payment && phone && name ? "bg-[#304add]" : "bg-[#7384E8]"
+                    }`}
+                  >
                     Забронировать поле
-                  </button>}
+                  </button>
+                )}
               </div>
             </div>
-          </div >
+          </div>
         </>
-      }
+      )}
     </>
-
   );
 }
 

@@ -1,10 +1,7 @@
 import React from "react";
 import Icon from "../../img/star.svg";
-import { MdOutlineStar } from "react-icons/md";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
 
 export default function CustomerReviews() {
   const { fieldsIdList, fieldsComments } = useSelector((state) => state.fields);
@@ -45,7 +42,12 @@ export default function CustomerReviews() {
                   {[1, 2, 3, 4, 5].map((item, index) => {
                     return (
                       <>
-                        <img className="w-[18px] h-[18px]" src={Icon} alt="" />
+                        <img
+                          key={index}
+                          className="w-[18px] h-[18px]"
+                          src={Icon}
+                          alt=""
+                        />
                       </>
                     );
                   })}
@@ -54,7 +56,12 @@ export default function CustomerReviews() {
                   {[1, 2, 3, 4].map((item, index) => {
                     return (
                       <>
-                        <img className="w-[18px] h-[18px]" src={Icon} alt="" />
+                        <img
+                          key={index}
+                          className="w-[18px] h-[18px]"
+                          src={Icon}
+                          alt=""
+                        />
                       </>
                     );
                   })}
@@ -63,7 +70,12 @@ export default function CustomerReviews() {
                   {[1, 2, 3].map((item, index) => {
                     return (
                       <>
-                        <img className="w-[18px] h-[18px]" src={Icon} alt="" />
+                        <img
+                          key={index}
+                          className="w-[18px] h-[18px]"
+                          src={Icon}
+                          alt=""
+                        />
                       </>
                     );
                   })}
@@ -72,7 +84,12 @@ export default function CustomerReviews() {
                   {[1, 2].map((item, index) => {
                     return (
                       <>
-                        <img className="w-[18px] h-[18px]" src={Icon} alt="" />
+                        <img
+                          key={index}
+                          className="w-[18px] h-[18px]"
+                          src={Icon}
+                          alt=""
+                        />
                       </>
                     );
                   })}
@@ -81,7 +98,12 @@ export default function CustomerReviews() {
                   {[1].map((item, index) => {
                     return (
                       <>
-                        <img className="w-[18px] h-[18px]" src={Icon} alt="" />
+                        <img
+                          key={index}
+                          className="w-[18px] h-[18px]"
+                          src={Icon}
+                          alt=""
+                        />
                       </>
                     );
                   })}

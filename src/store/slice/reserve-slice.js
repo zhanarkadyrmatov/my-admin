@@ -1,57 +1,56 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
-
-
 
 export const fetchReverse = createAsyncThunk(
   "reserve/fetchReverse",
   async ({ footballId, startDate }, { rejectWithValue }) => {
-
     const formattedDate = (date) => {
-      return moment(date).format('YYYY-MM-DD')
-    }
-    const date = formattedDate(startDate)
+      return moment(date).format("YYYY-MM-DD");
+    };
+    const date = formattedDate(startDate);
 
     try {
-      const response = await axios.get(`${Api}football_fields_api/field-booked-hours/${date}/${footballId}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        `${Api}football_fields_api/field-booked-hours/${date}/${footballId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
+);
 
 export const fetchbookingCreate = createAsyncThunk(
   "reserve/fetchbookingCreate",
   async (data, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.post(`${Api}admin_api/admin-booking-field/?user_type=${data?.booking}`, data?.data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.post(
+        `${Api}admin_api/admin-booking-field/?user_type=${data?.booking}`,
+        data?.data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       toast.success("Запись успешно создана");
 
       return response.data;
     } catch (error) {
-      toast.error('Запись не создана');
-      console.log(error?.response.data);
+      toast.error("Запись не создана");
       return rejectWithValue(error.response.data);
     }
   }
-)
-
-
-
+);
 
 export const reserveSlice = createSlice({
   name: "reserve",
@@ -85,8 +84,7 @@ export const reserveSlice = createSlice({
       .addCase(fetchbookingCreate.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
-      })
-
+      });
   },
 });
 

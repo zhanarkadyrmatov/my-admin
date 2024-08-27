@@ -4,7 +4,6 @@ import axios from "axios";
 import { fetchBookings } from "./story";
 import { toast, ToastContainer } from "react-toastify";
 
-
 export const fetchFields = createAsyncThunk(
   "fields/fetchFields",
   async (_, { rejectWithValue, dispatch }) => {
@@ -14,104 +13,135 @@ export const fetchFields = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      dispatch(setFieldsId(response.data[0].id))
-      dispatch(fetchFieldsIdList(response.data[0].id))
+      dispatch(setFieldsId(response.data[0].id));
+      dispatch(fetchFieldsIdList(response.data[0].id));
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
+);
 
 export const fetchFieldsDelete = createAsyncThunk(
   "fields/fetchFieldsDelete",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.delete(`${Api}admin_api/football-field/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.delete(
+        `${Api}admin_api/football-field/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       toast.success("Поле успешно удалена");
-      dispatch(fetchFields())
+      dispatch(fetchFields());
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
+);
 
 export const fetchFieldsTypeDelete = createAsyncThunk(
   "fields/fetchFieldsTypeDelete",
   async (data, { rejectWithValue, dispatch }) => {
-
-    console.log(data);
     try {
-      const response = await axios.delete(`${Api}admin_api/football-field-type/${data?.footballId}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.delete(
+        `${Api}admin_api/football-field-type/${data?.footballId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       toast.success("Тип полей успешно удален");
-      dispatch(fetchFieldsIdList(data?.id))
+      dispatch(fetchFieldsIdList(data?.id));
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
+);
 
 export const fetchFieldsIdList = createAsyncThunk(
   "fields/fetchFieldsIdList",
   async (id, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.get(`${Api}admin_api/football-field/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      dispatch(setFootballId(response?.data?.football_field_type[0]?.id))
-      dispatch(fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id))
-      dispatch(fetchBookings(response?.data?.football_field_type[0]?.id))
-      dispatch(setSelectValue(response?.data?.football_field_type[0]?.name))
+      const response = await axios.get(
+        `${Api}admin_api/football-field/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.data?.football_field_type?.length > 0) {
+        dispatch(setFootballId(response?.data?.football_field_type[0]?.id));
+        dispatch(
+          fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id)
+        );
+        dispatch(fetchBookings(response?.data?.football_field_type[0]?.id));
+        dispatch(setSelectValue(response?.data?.football_field_type[0]?.name));
+      } else {
+        dispatch(setFieldsIdDetail(null));
+      }
       return response.data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
-
+);
+// export const setFieldsId1 = createAsyncThunk(
+//   "fields/setFieldsId",
+//   async (id, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(
+//         `${Api}admin_api/football-field/${id}/`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//           },
+//         }
+//       );
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",
   async (id, { rejectWithValue }) => {
+    console.log(id);
     try {
-      const detail = await axios.get(`${Api}admin_api/football-field-type/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      const comments = await axios.get(`${Api}admin_api/football_field_type_comments/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const detail = await axios.get(
+        `${Api}admin_api/football-field-type/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const comments = await axios.get(
+        `${Api}admin_api/football_field_type_comments/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       const response = {
         detail: detail.data,
-        comments: comments.data
-      }
+        comments: comments.data,
+      };
       return response;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
-)
-
+);
 
 export const fieldsSlice = createSlice({
   name: "fields",
@@ -138,6 +168,10 @@ export const fieldsSlice = createSlice({
       state.footballId = action.payload;
     },
 
+    setFieldsIdDetail: (state, action) => {
+      state.fieldsIdDetail = action.payload;
+      state.fieldsComments = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -169,15 +203,15 @@ export const fieldsSlice = createSlice({
       .addCase(fetchFieldsIdDetail.fulfilled, (state, action) => {
         state.loading = false;
         state.fieldsIdDetail = action.payload.detail;
-        state.fieldsComments = action.payload.comments
+        state.fieldsComments = action.payload.comments;
       })
       .addCase(fetchFieldsIdDetail.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
-
+      });
   },
 });
 
-export const { setFieldsId, setSelectValue, setFootballId } = fieldsSlice.actions;
+export const { setFieldsId, setSelectValue, setFootballId, setFieldsIdDetail } =
+  fieldsSlice.actions;
 export default fieldsSlice.reducer;

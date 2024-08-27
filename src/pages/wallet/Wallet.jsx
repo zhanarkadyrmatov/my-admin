@@ -37,7 +37,7 @@ export default function Wallet() {
                 15 000 сом
               </h1>
             </div>
-            <div class=" absolute justify-end left-[270px] hidden sm:flex">
+            <div className=" absolute justify-end left-[270px] hidden sm:flex">
               <img
                 className="relative right-[-50px] top-[20px] rotate-[-180deg]"
                 src={Ellipse}

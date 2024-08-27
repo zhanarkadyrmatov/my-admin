@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import img6 from "../../img/img6.svg";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function FieldsModal({ setFieldValue, id }) {
+  const { footballId } = useSelector((state) => state.fields);
   return (
     <div>
       <div>
@@ -23,7 +25,7 @@ export default function FieldsModal({ setFieldValue, id }) {
             <div className="flex flex-col md:flex-row  justify-center items-center gap-[12px]">
               <NavLink
                 to={`/reserve/${id}/`}
-                state={{ reserve: "new" }}
+                state={{ reserve: "new", id: footballId }}
                 onClick={() => setFieldValue(false)}
                 className="py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gray-300 text-base font-medium leading-6 text-center"
               >
@@ -31,7 +33,7 @@ export default function FieldsModal({ setFieldValue, id }) {
               </NavLink>
               <NavLink
                 to={`/reserve/${id}/`}
-                state={{ reserve: "existing" }}
+                state={{ reserve: "existing", id: footballId }}
                 onClick={() => setFieldValue(false)}
                 className="text-center py-[11px] px-[20px] w-[100%] rounded-[8px] bg-gradient-to-br from-purple-700 to-purple-600 text-white bg-opacity-90 whitespace-nowrap"
               >
