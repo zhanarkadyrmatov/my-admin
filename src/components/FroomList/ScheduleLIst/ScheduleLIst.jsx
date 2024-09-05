@@ -49,6 +49,8 @@ const ScheduleList = ({ setSchedule }) => {
     (state) => state.fields
   );
 
+  console.log(fieldsIdDetail);
+
   const [dayState, setDayState] = useState({
     понедельник: { day_of_week: 1, endime: "", startTime: "", checkbox: false },
     вторник: { day_of_week: 2, endime: "", startTime: "", checkbox: false },
@@ -58,6 +60,47 @@ const ScheduleList = ({ setSchedule }) => {
     суббота: { day_of_week: 6, endime: "", startTime: "", checkbox: false },
     воскресенье: { day_of_week: 7, endime: "", startTime: "", checkbox: false },
   });
+
+  const updateDayStateWithSchedule = (schedule, setDayState, dayState) => {
+    const updatedDayState = { ...dayState };
+    const scheduledDays = new Set(schedule.map(day => day.day_of_week));
+    Object.keys(updatedDayState).forEach((dayName) => {
+      const dayInfo = updatedDayState[dayName];
+      if (!scheduledDays.has(dayInfo.day_of_week)) {
+        updatedDayState[dayName] = {
+          ...dayInfo,
+          startTime: "00:00",
+          endime: "00:00",
+          checkbox: false, 
+        };
+      }
+    });
+    schedule.forEach((day) => {
+      const { day_of_week, start_time, end_time } = day;
+      const dayName = Object.keys(dayState).find(
+        key => dayState[key].day_of_week === day_of_week
+      );
+      if (dayName) {
+        updatedDayState[dayName] = {
+          ...updatedDayState[dayName],
+          startTime: start_time,
+          endime: end_time,
+          checkbox: true, 
+        };
+      }
+    });
+  
+    setDayState(updatedDayState); 
+  };
+  
+  useEffect(() => {
+    if (fieldsIdDetail?.schedule?.length > 0) {
+      updateDayStateWithSchedule(fieldsIdDetail?.schedule, setDayState, dayState);
+    }
+  }, [fieldsIdDetail]); 
+
+
+  
 
   useEffect(() => {
     const newData = {};
