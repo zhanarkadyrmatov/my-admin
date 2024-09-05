@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const DaySchedule = ({ day, dayState, setDayState }) => {
   const handleChange = (e) => {
@@ -20,14 +21,14 @@ const DaySchedule = ({ day, dayState, setDayState }) => {
       <div className="flex gap-3 items-center">
         <div className={'flex gap-[6px] md:gap-[10px] items-center'}>
           <input
-          className=" md:w-full  font-normal text-[14px] md:text-[18px] leading-[17px] text-left  bg-transparent outline-none"
+            className=" md:w-full  font-normal text-[14px] md:text-[18px] leading-[17px] text-left  bg-transparent outline-none"
             type="time"
             name="startTime"
             value={dayState[day].startTime}
             onChange={handleChange}
           />
           <input
-          className="md:w-full  font-normal text-[14px] md:text-[18px] leading-[17px] text-left outline-none bg-transparent"
+            className="md:w-full  font-normal text-[14px] md:text-[18px] leading-[17px] text-left outline-none bg-transparent"
             type="time"
             name="endime"
             value={dayState[day].endime}
@@ -35,7 +36,7 @@ const DaySchedule = ({ day, dayState, setDayState }) => {
           />
         </div>
         <label class="inline-flex items-center cursor-pointer">
-          <input type="checkbox" name="checkbox" checked={dayState[day].checkbox} onChange={handleChange} class="sr-only peer"/>
+          <input type="checkbox" name="checkbox" checked={dayState[day].checkbox} onChange={handleChange} class="sr-only peer" />
           <div class="relative w-11 h-6 bg-[#78788029] rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
         </label>
       </div>
@@ -44,6 +45,10 @@ const DaySchedule = ({ day, dayState, setDayState }) => {
 };
 
 const ScheduleList = ({ setSchedule }) => {
+  const { fieldsIdList, fieldsIdDetail, footballId } = useSelector(
+    (state) => state.fields
+  );
+
   const [dayState, setDayState] = useState({
     понедельник: { day_of_week: 1, endime: "", startTime: "", checkbox: false },
     вторник: { day_of_week: 2, endime: "", startTime: "", checkbox: false },
@@ -89,14 +94,16 @@ const ScheduleList = ({ setSchedule }) => {
 
   return (
     <div className={'flex flex-col gap-[10px] p-[16px] md:p-[20px]'}>
-      {Object.keys(dayState).map((day) => (
-        <DaySchedule
-          key={day}
-          day={day}
-          dayState={dayState}
-          setDayState={setDayState}
-        />
-      ))}
+      {Object.keys(dayState).map((day) => {
+        return (
+          <DaySchedule
+            key={day}
+            day={day}
+            dayState={dayState}
+            setDayState={setDayState}
+          />
+        )
+      })}
     </div>
   );
 };

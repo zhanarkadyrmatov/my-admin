@@ -92,24 +92,7 @@ export const fetchFieldsIdList = createAsyncThunk(
     }
   }
 );
-// export const setFieldsId1 = createAsyncThunk(
-//   "fields/setFieldsId",
-//   async (id, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.get(
-//         `${Api}admin_api/football-field/${id}/`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${localStorage.getItem("token")}`,
-//           },
-//         }
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",
   async (id, { rejectWithValue }) => {
@@ -142,6 +125,7 @@ export const fetchFieldsIdDetail = createAsyncThunk(
     }
   }
 );
+
 
 export const fieldsSlice = createSlice({
   name: "fields",

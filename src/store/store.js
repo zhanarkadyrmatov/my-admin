@@ -7,6 +7,7 @@ import createFoobol from "./slice/create-foobol-slice";
 import reserveSlice from "./slice/reserve-slice";
 import arbitratorSlice from "./slice/arbitrators";
 import searchSlice from "./slice/search-slice";
+import ubdateFields from "./slice/ubdate-fields";
 const store = configureStore({
   reducer: {
     user,
@@ -17,6 +18,7 @@ const store = configureStore({
     createFoobol,
     arbitratorSlice,
     searchSlice,
+    ubdateFields,
   },
 });
 

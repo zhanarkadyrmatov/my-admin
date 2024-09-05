@@ -1,42 +1,32 @@
 import React, { useState } from "react";
 import { HiOutlinePlusSm } from "react-icons/hi";
-
-// import s from "./page.module.scss";
-
 import { useDispatch, useSelector } from "react-redux";
-
-import {fetchFieldsIdList} from "../../../store/slice/fields-slice";
+import { fetchFieldsIdDetail, fetchFieldsIdList, setFootballId } from "../../../store/slice/fields-slice";
 
 import {
   getAdvantages,
   getBranchGetId,
   getConstructionType,
   getFieldsTypeName,
-  postCreacteFieldType,
   setIsCreate,
 } from "../../../store/slice/create-foobol-slice";
 import { NavLink, useParams } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
-import cm from "classnames";
 import { useEffect } from "react";
-import Loader from "../../../components/Loader/Loader";
-import YandexMap from "../../../components/YandexMap/YandexMap";
 import Select from "../../../components/Select/Select";
 import ScheduleList from "../../../components/FroomList/ScheduleLIst/ScheduleLIst";
+import { fetchUbdateFields } from "../../../store/slice/ubdate-fields";
 
 const EditType = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+
   const {
     advantages,
-    fieldsIdInfo,
     creacteFoobolStatus,
-    construction,
-    typeName
+    construction
   } = useSelector((state) => state.createFoobol);
-  const { fieldsIdDetail } = useSelector((state) => state.fields);
-  console.log(fieldsIdDetail, fieldsIdInfo);
-
-  const dispatch = useDispatch();
+  const { fieldsIdDetail, fieldsIdList } = useSelector((state) => state.fields);
 
   const [priceDay, setPriceDay] = useState({
     start_time: "",
@@ -50,17 +40,14 @@ const EditType = () => {
     period_day: "evening",
     price: 0,
   });
-  const [location, setLocation] = useState();
   const [description, setDescription] = useState(null);
-  const [administratorValue, setAdministratorValue] = useState();
-  const [administrator, setAdministrator] = useState();
-  const [mapLatLon, setMapLatLon] = useState();
-  const [isModalMap, setIsModalMap] = useState(false);
-  const [schedule, setSchedule] = useState();
+  const [administrator, setAdministrator] = useState(null);
+  const [schedule, setSchedule] = useState(null);
   const [advantagesList, setAdvantagesList] = useState([]);
   const [selectedImages1, setSelectedImages1] = useState([]);
   const [selectedIamgeFile, setSelectedImageFile] = useState([]);
   const [constructionListAcc, setConstructionListAcc] = useState([]);
+  const [newName, setNewName] = useState(null);
 
   const handlerConstruction = (event) => {
     const newValue = event;
@@ -72,6 +59,7 @@ const EditType = () => {
       );
     }
   };
+
   const handleFileChange1 = (e) => {
     const files = Array.from(e.target.files);
     setSelectedImageFile((img) => [...img, ...files]);
@@ -79,7 +67,6 @@ const EditType = () => {
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
-  const [newName, setNewName] = useState(null);
 
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
@@ -96,10 +83,6 @@ const EditType = () => {
   };
 
 
-  console.log(newName)
-  console.log(typeName)
-
-
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
       prevList.map((item) =>
@@ -111,17 +94,6 @@ const EditType = () => {
   };
 
   const handleGetInfo = () => {
-    const data = {
-      location,
-      administrator,
-      administratorValue,
-      priceDay,
-      priceNight,
-      description,
-      selectedImages1,
-      mapLatLon,
-    };
-
     const formData = new FormData();
     let dataPUT = [];
     formData.append("football_f", id);
@@ -135,8 +107,9 @@ const EditType = () => {
     selectedIamgeFile?.forEach((file) => {
       formData.append("images", file);
     });
-    const newData = [formData, dataPUT];
-    dispatch(postCreacteFieldType(newData));
+    const newData = { one: formData, two: dataPUT };
+    console.log(newData);
+    dispatch(fetchUbdateFields(newData));
   };
 
   useEffect(() => {
@@ -147,32 +120,30 @@ const EditType = () => {
   }, []);
 
   const newFoobolField = () => {
-    setMapLatLon([]);
-    setDescription("");
-    setAdministratorValue("");
-    setAdministrator("");
-    setPriceDay("");
-    setPriceNight("");
+    setDescription(null);
+    setAdministrator(null);
+    setPriceDay({
+      start_time: "",
+      end_time: "",
+      period_day: "day",
+      price: 0,
+    });
+    setPriceNight({
+      start_time: "",
+      end_time: "",
+      period_day: "evening",
+      price: 0,
+    });
     setConstructionListAcc([]);
     setSelectedImageFile([]);
     setSelectedImages1([]);
-    setIsModalMap(false);
   };
 
-
-
-  useEffect(() => {
-    setNewName(typeName && typeName[0])
-  }, [typeName])
 
   useEffect(() => {
     setNewName(fieldsIdDetail?.name);
     setDescription(fieldsIdDetail?.description);
-    setAdministratorValue(fieldsIdDetail?.administratorValue);
     setAdministrator(fieldsIdDetail?.administrator);
-    setPriceDay(fieldsIdDetail?.schedule[0]);
-    setPriceNight(fieldsIdDetail?.schedule[1]);
-    setMapLatLon(fieldsIdDetail?.location);
     setPriceDay({
       start_time: fieldsIdDetail?.price[0].start_time,
       end_time: fieldsIdDetail?.price[0].end_time,
@@ -185,46 +156,36 @@ const EditType = () => {
       period_day: "evening",
       price: fieldsIdDetail?.price[1].price,
     });
+    setAdvantagesList(
+      fieldsIdDetail?.advantages?.map((item) => ({
+        advantages: item?.advantages?.id,
+        description: item?.description,
+      }))
+    );
+
     const imageUrls = fieldsIdDetail?.gallery_f_type.map((item) => item.img);
     setSelectedImages1(imageUrls);
     setConstructionListAcc(fieldsIdDetail?.construction_type);
   }, [fieldsIdDetail]);
 
 
-  useEffect(() => {
-    if (creacteFoobolStatus === "fulfilled") {
-      newFoobolField();
-      dispatch(getBranchGetId(id));
-      dispatch(getAdvantages());
-      dispatch(getConstructionType());
-    }
-  }, [creacteFoobolStatus]);
-
-
-
-
-  if (creacteFoobolStatus === "loading") {
-    return <div>
-      <Loader />
-    </div>;
-  }
-
-
   return (
-    <div className="mx-[20px] mt-[90px] mb-7">
-      <div>
-        {isModalMap && (
-          <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap} />
-        )}
+    <div className="mx-[20px] my-[40px]">
+      <div className="flex flex-col gap-[20px]">
         <div
           className={
             "mt-[50px] p-[15px] xl:p-[20px] rounded-[10px] bg-[#fff] flex lg:flex-row  gap-[10px] "
           }
         >
           <div className="flex flex-col lg:flex-row items-center gap-[10px] w-full lg:w-auto">
-            {fieldsIdInfo?.football_field_type?.map((res) => (
+            {fieldsIdList?.football_field_type?.map((res) => (
               <button
-                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C] #222222 border-[1px] border-[#222222] rounded-[8px]`}
+                onClick={() => {
+                  dispatch(fetchFieldsIdDetail(res?.id));
+                  dispatch(setFootballId(res?.id));
+                }}
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C]   rounded-[8px] ${fieldsIdDetail?.id === res?.id ? "border-[2px] border-[#222222]" : "border-[#222222] border-[1px]"
+                  }`}
               >
                 {res.name}
               </button>
@@ -237,7 +198,7 @@ const EditType = () => {
             </button>
           </div>
         </div>
-        <div className="xl:grid-cols-2 mt-[10px] grid grid-cols-1 gap-[20px] xl:px-[5px] px-[5px]">
+        <div className="xl:grid-cols-2 grid grid-cols-1 gap-[20px]">
           <div className="rounded-[10px] h-min bg-[#ffffff]">
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
               <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">Описание</h4>
@@ -260,6 +221,7 @@ const EditType = () => {
                       className="bg-transparent w-full outline-none rounded-none"
                       type="number"
                       placeholder="Укажите цену"
+                      value={priceDay?.price || null}
                     />
                     <p className=" text-base font-normal leading-6 tracking-tight text-left">
                       Сом
@@ -276,6 +238,7 @@ const EditType = () => {
                       className="bg-transparent w-full outline-none rounded-none"
                       type="time"
                       placeholder="Укажите цену"
+                      value={priceDay?.start_time || null}
                     />
                     <input
                       onChange={(e) => {
@@ -287,6 +250,7 @@ const EditType = () => {
                       className="bg-transparent w-full outline-none rounded-none"
                       type="time"
                       placeholder="Укажите цену"
+                      value={priceDay?.end_time || null}
                     />
                   </div>
                 </div>
@@ -304,6 +268,7 @@ const EditType = () => {
                       className="bg-transparent w-full outline-none rounded-none "
                       type="number"
                       placeholder="Укажите цену"
+                      value={priceNight?.price || null}
                     />
                     <p className=" text-base font-normal leading-6 tracking-tight text-left">
                       Сом
@@ -320,6 +285,7 @@ const EditType = () => {
                       className="bg-transparent w-full outline-none rounded-none"
                       type="time"
                       placeholder="Укажите цену"
+                      value={priceNight?.start_time || null}
                     />
                     <input
                       onChange={(e) => {
@@ -331,6 +297,7 @@ const EditType = () => {
                       className="bg-transparent w-full  outline-none rounded-none"
                       type="time"
                       placeholder="Укажите цену"
+                      value={priceNight?.end_time || null}
                     />
                   </div>
                 </div>
@@ -346,7 +313,7 @@ const EditType = () => {
                       <div
                         onClick={() => handlerConstruction(res)}
                         key={i}
-                        className={`border-[2px] py-[6px] px-[10px] rounded-[4px] cursor-pointer text-[15px] text-[#222222] font-normal leading-[17.24px] text-left ${isAcc ? 'border-[#222222]'  : 'border-[#2222221a]' }`}
+                        className={`border-[2px] py-[6px] px-[10px] rounded-[4px] cursor-pointer text-[15px] text-[#222222] font-normal leading-[17.24px] text-left ${isAcc ? 'border-[#222222]' : 'border-[#2222221a]'}`}
                       >
                         {res.name}
                       </div>
@@ -376,12 +343,11 @@ const EditType = () => {
               className={`flex flex-col gap-[10px] p-[20px]`}
             >
               {advantages?.map((res, i) => {
-                const isChecked = advantagesList.some(
-                  (item) => item.advantages === res.id
+                const isChecked = advantagesList?.some(
+                  (item) => item?.advantages === res.id
                 );
-                const currentItem =
-                  advantagesList.find((item) => item.advantages === res.id) ||
-                  {};
+                const checked = advantagesList?.find((item) => item?.advantages === res?.id);
+
                 return (
                   <div className={'flex gap-[5px] flex-col'} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
@@ -394,6 +360,7 @@ const EditType = () => {
                           name={res.id}
                           type="checkbox"
                           className="w-[22px] h-[22px] border-[1px] border-[#2222221A] rounded-[4px]"
+                          checked={checked?.advantages === res?.id}
                         />
                         <label className="text-[15px] leading-[17px] text-[#222222] font-normal">
                           {res?.name}
@@ -403,10 +370,10 @@ const EditType = () => {
                     {isChecked && (
                       <div className={'flex gap-[10px]'}>
                         <input
-                        className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
+                          className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
                           placeholder="Добавить описание"
-                          value={currentItem.description || ""}
+                          value={checked?.description || ""}
                           onChange={(e) =>
                             updateDescription(res.id, e.target.value)
                           }

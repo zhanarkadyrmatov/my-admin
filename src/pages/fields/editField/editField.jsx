@@ -16,7 +16,6 @@ import {
 } from "../../../store/slice/fields-slice";
 import YandexMap from "../../../components/YandexMap/YandexMap";
 import Radio from "../../../components/Radio/Radio";
-import Loader from "../../../components/Loader/Loader";
 const Pe = ({ children }) => <p className={'text-red-500 text-[14px] font-normal leading-normal'}>{children}</p>;
 export default function EditField() {
   const { id } = useParams();
@@ -27,9 +26,8 @@ export default function EditField() {
     advantages,
     locationsCities,
     sportComplexList,
-    isCreate,
-    idFields,
-    administrators
+    administrators,
+    isUbdate
   } = useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
   const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
@@ -81,10 +79,11 @@ export default function EditField() {
 
   const handleSubmitUpdate = () => {
     const advantages = advantagesList
+    
     const formData = new FormData();
     formData.append("name", newName);
     formData.append("description", description);
-    formData.append("administrator", 1);
+    formData.append("administrator", administratorValue?.id);
     formData.append("address", address);
     formData.append("city", locationsCitiesValue);
     formData.append("district", district);
@@ -93,12 +92,11 @@ export default function EditField() {
     formData.append("sport_complex_type", complex_type);
     ImageFile?.forEach(image => formData.append("back_ground_foto", image));
     selectedIamgeFile?.forEach(image => formData.append("main_foto", image));
+    console.log(ImageFile, selectedIamgeFile);
+    console.log(formData);
     dispatch(patchAdvantages({ id, formData }));
     dispatch(PATCHAdvantages({ id, advantages }))
   };
-
-  console.log(selectedIamgeFile, ImageFile);
-
 
 
   useEffect(() => {
@@ -108,7 +106,7 @@ export default function EditField() {
       setMapLatLon([fieldsIdList?.latitude, fieldsIdList?.longitude]);
       setLocationsCitiesValue(fieldsIdList?.city);
       setDistrict(fieldsIdList?.district);
-      setAdministratorValue(fieldsIdList?.administrator?.name);
+      setAdministratorValue(fieldsIdList?.administrator);
       setAddress(fieldsIdList?.address);
       setComplex_type(fieldsIdList?.sport_complex_type?.id);
       setSelectedImage(fieldsIdList?.main_foto);
@@ -123,7 +121,6 @@ export default function EditField() {
   }, [fieldsIdList]);
 
   const handleAdvantages = (data, isChecked) => {
-    console.log(data);
     const resId = data[1];
     setAdvantagesList((prevList) => {
       if (isChecked) {
@@ -149,16 +146,10 @@ export default function EditField() {
 
 
   useEffect(() => {
-    if (isCreate === false) {
-      navigate(`/fields/editType/${idFields}`);
+    if (isUbdate === true) {
+      navigate(`/fields/editType/${id}`);
     }
-  }, [isCreate]);
-
-  if (isCreate === true) {
-    return <div>
-      <Loader />
-    </div>;
-  }
+  }, [isUbdate]);
 
   return (
     <div className="mx-[20px] mt-[90px] mb-[20px]">
@@ -370,7 +361,7 @@ export default function EditField() {
                 )}
                 <div className="md:grid-cols-2 grid gap-[10px] grid-cols-1">
                   {administrators?.map((res, i) => (
-                    <Radio key={i} name={'radio-administrator'} title={res?.name} value={res.name} checked={administratorValue === res?.name}
+                    <Radio key={i} name={'radio-administrator'} title={res?.name} value={res} checked={administratorValue?.id === res?.id}
                       onchange={setAdministratorValue} />
                   ))}
                 </div>

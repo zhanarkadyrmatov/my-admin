@@ -146,7 +146,7 @@ export const postAdvantages = createAsyncThunk(
 );
 export const PATCHAdvantages = createAsyncThunk(
   "advantages/PATCHAdvantages",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.patch(
         `${Api}admin_api/football-field/${data.id}/`,
@@ -168,22 +168,25 @@ export const PATCHAdvantages = createAsyncThunk(
 
 export const patchAdvantages = createAsyncThunk(
   "advantages/patchAdvantages",
-  async ({ id, data }, { rejectWithValue, dispatch }) => {
+  async ({ id, formData }, { rejectWithValue, dispatch }) => {
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `${Api}admin_api/football-field/${id}/`,
-        data,
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      console.log(response.data);
+
+      console.log(response.data)
+      dispatch(setIsUbdate(true));
       return response.data;
     } catch (error) {
       console.log(error)
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -231,7 +234,6 @@ export const getFieldsTypeName = createAsyncThunk(
 export const postCreacteFieldType = createAsyncThunk(
   "advantages/postCreacteFieldType",
   async (data, { rejectWithValue, dispatch }) => {
-    console.log(data);
     try {
       const response = await axios.post(
         `${Api}admin_api/football-field-type/`,
@@ -302,11 +304,17 @@ export const advantagesSlice = createSlice({
     construction: null,
     typeName: null,
     administrators: null,
+    isUbdate: false
   },
   reducers: {
     setIsCreate: (state, action) => {
       state.isCreate = action.payload;
+    },
+
+    setIsUbdate: (state, action) => {
+      state.isUbdate = action.payload;
     }
+
   },
   extraReducers: (builder) => {
     builder
@@ -422,9 +430,8 @@ export const advantagesSlice = createSlice({
         state.status = "rejected";
         state.error = action.payload;
       })
-      
   },
 });
 
-export const { setIsCreate } = advantagesSlice.actions;
+export const { setIsCreate, setIsUbdate } = advantagesSlice.actions;
 export default advantagesSlice.reducer;
