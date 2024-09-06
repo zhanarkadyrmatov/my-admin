@@ -253,6 +253,8 @@ export const postCreacteFieldType = createAsyncThunk(
         id,
       };
 
+      console.log(response.data);
+
       dispatch(postCreacteFoobolField(PATCHAdvantagesData));
 
       return response.data;

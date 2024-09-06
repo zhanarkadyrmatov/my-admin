@@ -5,14 +5,16 @@ import { Api } from "../../api";
 export const fetchUbdateFields = createAsyncThunk(
   "ubdateFields/fetchUbdateFields",
   async (data, { rejectWithValue }) => {
-    
+
+    console.log(data)
+
     try {
       const response = await axios.put(
-        `${Api}admin_api/football-field-type/${data.id}/`
-        ,
+        `${Api}admin_api/football-field-type/${data.id}/`,
+        data?.two,
         {
           headers: {
-
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }

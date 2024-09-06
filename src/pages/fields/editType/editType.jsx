@@ -26,7 +26,7 @@ const EditType = () => {
     creacteFoobolStatus,
     construction
   } = useSelector((state) => state.createFoobol);
-  const { fieldsIdDetail, fieldsIdList } = useSelector((state) => state.fields);
+  const { fieldsIdDetail, fieldsIdList, footballId } = useSelector((state) => state.fields);
 
   const [priceDay, setPriceDay] = useState({
     start_time: "",
@@ -96,18 +96,18 @@ const EditType = () => {
   const handleGetInfo = () => {
     const formData = new FormData();
     let dataPUT = [];
-    formData.append("football_f", id);
+    formData.append("football_f", footballId);
     const price = [priceDay, priceNight];
     dataPUT["advantages"] = advantagesList;
     dataPUT["schedule"] = schedule;
     dataPUT["price"] = price;
     dataPUT["construction_type"] = constructionListAcc;
     formData.append("description", description);
-    formData.append("name", newName?.slug);
+    formData.append("name", newName);
     selectedIamgeFile?.forEach((file) => {
       formData.append("images", file);
     });
-    const newData = { one: formData, two: dataPUT };
+    const newData = { id: id, one: formData, two: dataPUT };
     console.log(newData);
     dispatch(fetchUbdateFields(newData));
   };
