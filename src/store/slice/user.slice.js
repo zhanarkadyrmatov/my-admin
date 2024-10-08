@@ -1,7 +1,7 @@
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Api } from "../../api";
 import axios from "axios";
+import { redirect, useNavigate } from "react-router-dom";
 
 const initialState = {
   status: null,
@@ -49,6 +49,9 @@ export const getUser = createAsyncThunk(
 
       return { data: response.data, headers: plainHeaders };
     } catch (error) {
+      if (window.location.pathname !== "/") {
+        window.location.href = "/";
+      }
       return rejectWithValue(error.response.data);
     }
   }
@@ -62,9 +65,11 @@ export const userSlice = createSlice({
     builder
       .addCase(fetchUser.pending, (state) => {
         state.status = "loading";
+        state.error = null;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.status = "fulfilled";
+        state.error = null;
         state.user = action.payload.data;
         state.headers = action.payload.headers;
       })
@@ -74,11 +79,13 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.pending, (state) => {
         state.status = "loading";
+        state.error = null;
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.user = action.payload.data;
         state.headers = action.payload.headers;
+        state.error = null;
       })
       .addCase(getUser.rejected, (state, action) => {
         state.status = "rejected";

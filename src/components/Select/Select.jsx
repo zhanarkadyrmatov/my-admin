@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { FaCheck } from 'react-icons/fa6';
-import { IoIosArrowDown } from 'react-icons/io';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { FaCheck } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 export default function Select({ setName, name }) {
   const [select, setSelect] = useState(false);
   const { typeName } = useSelector((state) => state.createFoobol);
+  console.log(name, "name");
 
   return (
     <div className="flex flex-col gap-y-[8px]">
@@ -17,7 +18,9 @@ export default function Select({ setName, name }) {
           onClick={() => setSelect(!select)}
           className="flex justify-between items-center py-[10px] px-[14px] bg-[#F0F0F0] rounded-[10px] cursor-pointer border-[2px] border-[#1C1C1C0D]"
         >
-          <p className="text-[16px] text-[#1C1C1C] font-normal leading-normal">{name || 'Выберите тип'}</p>
+          <p className="text-[16px] text-[#1C1C1C] font-normal leading-normal">
+            {name?.name || "Выберите тип"}
+          </p>
           <IoIosArrowDown className="w-6 h-6" />
         </div>
         {select && (
@@ -31,11 +34,11 @@ export default function Select({ setName, name }) {
                 <div
                   key={index}
                   onClick={() => {
-                    setName(item?.name);
+                    setName(item);
                     setSelect(!select);
                   }}
                   className={`flex justify-between items-center px-[17px] py-[5px] rounded-[10px] cursor-pointer ${
-                    item?.name === name ? 'bg-[#F0F0F0]' : ''
+                    item?.name === name ? "bg-[#F0F0F0]" : ""
                   }`}
                 >
                   <p className="text-[15px] text-[#0E1422] font-normal leading-[26px]">

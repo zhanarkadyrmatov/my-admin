@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { HiOutlinePlusSm } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFieldsIdDetail, fetchFieldsIdList, setFootballId } from "../../../store/slice/fields-slice";
+import {
+  fetchFieldsIdDetail,
+  fetchFieldsIdList,
+  setFootballId,
+} from "../../../store/slice/fields-slice";
 
 import {
   getAdvantages,
@@ -21,12 +25,12 @@ const EditType = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const {
-    advantages,
-    creacteFoobolStatus,
-    construction
-  } = useSelector((state) => state.createFoobol);
-  const { fieldsIdDetail, fieldsIdList, footballId } = useSelector((state) => state.fields);
+  const { advantages, creacteFoobolStatus, construction } = useSelector(
+    (state) => state.createFoobol
+  );
+  const { fieldsIdDetail, fieldsIdList, footballId } = useSelector(
+    (state) => state.fields
+  );
 
   const [priceDay, setPriceDay] = useState({
     start_time: "",
@@ -67,7 +71,6 @@ const EditType = () => {
     setSelectedImages1((prevImages) => [...prevImages, ...fileUrls]);
   };
 
-
   const handleAdvantages = (data, isChecked) => {
     const resId = data[1];
     setAdvantagesList((prevList) => {
@@ -81,7 +84,6 @@ const EditType = () => {
       }
     });
   };
-
 
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
@@ -139,7 +141,6 @@ const EditType = () => {
     setSelectedImages1([]);
   };
 
-
   useEffect(() => {
     setNewName(fieldsIdDetail?.name);
     setDescription(fieldsIdDetail?.description);
@@ -168,7 +169,6 @@ const EditType = () => {
     setConstructionListAcc(fieldsIdDetail?.construction_type);
   }, [fieldsIdDetail]);
 
-
   return (
     <div className="mx-[20px] my-[40px]">
       <div className="flex flex-col gap-[20px]">
@@ -184,8 +184,11 @@ const EditType = () => {
                   dispatch(fetchFieldsIdDetail(res?.id));
                   dispatch(setFootballId(res?.id));
                 }}
-                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C]   rounded-[8px] ${fieldsIdDetail?.id === res?.id ? "border-[2px] border-[#222222]" : "border-[#222222] border-[1px]"
-                  }`}
+                className={`w-full lg:w-auto px-3 xl:px-4 py-[6px] xl:py-2 font-normal text-[12px] xl:text-[14px] leading-[20px] hover:opacity-100 duration-300 text-[#1C1C1C]   rounded-[8px] ${
+                  fieldsIdDetail?.id === res?.id
+                    ? "border-[2px] border-[#222222]"
+                    : "border-[#222222] border-[1px]"
+                }`}
               >
                 {res.name}
               </button>
@@ -201,15 +204,21 @@ const EditType = () => {
         <div className="xl:grid-cols-2 grid grid-cols-1 gap-[20px]">
           <div className="rounded-[10px] h-min bg-[#ffffff]">
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
-              <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">Описание</h4>
+              <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">
+                Описание
+              </h4>
             </div>
             <div className="p-[20px] flex flex-col gap-y-[20px]">
               <Select setName={setNewName} name={newName} />
               <div className="lg:grid-cols-[1fr_1fr] gap-x-[10px] grid grid-cols-1">
                 <div className=" w-full grid gap-y-[8px]">
-                  <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Дневная цена</p>
-                  <div className="flex justify-between p-[10px] border-[2px]
-                  border-[#1C1C1C0D] bg-[#F0F0F0] rounded-[8px] focus-within:border-[green] focus-within:border-[2px]">
+                  <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">
+                    Дневная цена
+                  </p>
+                  <div
+                    className="flex justify-between p-[10px] border-[2px]
+                  border-[#1C1C1C0D] bg-[#F0F0F0] rounded-[8px] focus-within:border-[green] focus-within:border-[2px]"
+                  >
                     <input
                       onChange={(e) => {
                         setPriceDay((prevPriceDay) => ({
@@ -255,7 +264,9 @@ const EditType = () => {
                   </div>
                 </div>
                 <div className=" w-full grid gap-y-[8px]">
-                  <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Ночная цена</p>
+                  <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">
+                    Ночная цена
+                  </p>
                   <div className="flex justify-between px-[14px] border-[2px] border-[#1C1C1C0D]  py-[10px] bg-[#F0F0F0]  rounded-[8px] focus-within:border-[2px] focus-within:border-[green]">
                     <input
                       onChange={(e) => {
@@ -303,8 +314,10 @@ const EditType = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-y-[8px]">
-                <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Тип поля</p>
-                <div className={'flex gap-[10px] flex-wrap'}>
+                <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">
+                  Тип поля
+                </p>
+                <div className={"flex gap-[10px] flex-wrap"}>
                   {construction?.map((res, i) => {
                     const isAcc = constructionListAcc?.some(
                       (el) => el.name === res.name
@@ -313,7 +326,9 @@ const EditType = () => {
                       <div
                         onClick={() => handlerConstruction(res)}
                         key={i}
-                        className={`border-[2px] py-[6px] px-[10px] rounded-[4px] cursor-pointer text-[15px] text-[#222222] font-normal leading-[17.24px] text-left ${isAcc ? 'border-[#222222]' : 'border-[#2222221a]'}`}
+                        className={`border-[2px] py-[6px] px-[10px] rounded-[4px] cursor-pointer text-[15px] text-[#222222] font-normal leading-[17.24px] text-left ${
+                          isAcc ? "border-[#222222]" : "border-[#2222221a]"
+                        }`}
                       >
                         {res.name}
                       </div>
@@ -322,7 +337,9 @@ const EditType = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-y-[8px]">
-                <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">Описание футбольного поля</p>
+                <p className="text-[14px] text-[#1C1C1C] font-normal leading-normal">
+                  Описание футбольного поля
+                </p>
                 <textarea
                   onChange={(e) => {
                     setDescription(e.target.value);
@@ -337,19 +354,20 @@ const EditType = () => {
               </div>
             </div>
             <div className="w-full border-b border-solid border-gray-200 p-[20px]">
-              <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">Преимущества</h4>
+              <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">
+                Преимущества
+              </h4>
             </div>
-            <div
-              className={`flex flex-col gap-[10px] p-[20px]`}
-            >
+            <div className={`flex flex-col gap-[10px] p-[20px]`}>
               {advantages?.map((res, i) => {
                 const isChecked = advantagesList?.some(
                   (item) => item?.advantages === res.id
                 );
-                const checked = advantagesList?.find((item) => item?.advantages === res?.id);
-
+                const checked = advantagesList?.find(
+                  (item) => item?.advantages === res?.id
+                );
                 return (
-                  <div className={'flex gap-[5px] flex-col'} key={i}>
+                  <div className={"flex gap-[5px] flex-col"} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
                       <div className="flex items-center gap-[10px] w-full">
                         <input
@@ -368,7 +386,7 @@ const EditType = () => {
                       </div>
                     </div>
                     {isChecked && (
-                      <div className={'flex gap-[10px]'}>
+                      <div className={"flex gap-[10px]"}>
                         <input
                           className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
@@ -388,13 +406,17 @@ const EditType = () => {
           <div className="grid gap-y-[20px] lg:gap-y-[40px] rounded-[10px]">
             <div className="grid bg-white  rounded-[10px] ">
               <div className="p-[20px] border-b border-gray-300">
-                <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">График работы</h4>
+                <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">
+                  График работы
+                </h4>
               </div>
               <ScheduleList setSchedule={setSchedule} />
             </div>
             <div className=" bg-[#fff] rounded-[10px]">
               <div className="p-[20px]  border-b border-gray-300">
-                <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">Галерея</h4>
+                <h4 className="text-[16px] text-[#1C1C1C] font-normal leading-[18px]">
+                  Галерея
+                </h4>
               </div>
               <div className="p-[20px]">
                 <div className="grid gap-[10px]">
@@ -411,7 +433,7 @@ const EditType = () => {
                     </label>
                   </div>
                   {selectedImages1?.length > 0 ? (
-                    <div className="grid  gap-[10px] grid-cols-3">
+                    <div className="gridern gap-[10px] grid-cols-3">
                       {selectedImages1?.map((imageURL, index) => (
                         <img
                           className="w-full h-200 object-cover"
@@ -442,20 +464,26 @@ const EditType = () => {
             <div className="items-center gap-y-[10px] md:gap-x-[10px] grid md:grid-cols-2 grid-cols-1  ">
               <button
                 onClick={() => handleGetInfo()}
-                className={`w-full p-[8px] rounded-[8px]  bg-[#475ede] text-[#fff] text-base font-medium leading-5 text-center ${newName && description ? "shadow-md opacity-100 сursor-pointer" : "shadow-none opacity-50"
-                  }`}
+                className={`w-full p-[8px] rounded-[8px]  bg-[#475ede] text-[#fff] text-base font-medium leading-5 text-center ${
+                  newName && description
+                    ? "shadow-md opacity-100 сursor-pointer"
+                    : "shadow-none opacity-50"
+                }`}
               >
                 Сохранить и создать поле
               </button>
-              <NavLink to={`/fields/${id}`} onClick={() => {
-                if (newName && description) {
-                  handleGetInfo()
-                  dispatch(setIsCreate(null))
-                } else {
-                  dispatch(setIsCreate(null))
-                }
-
-              }} className={`w-full p-[8px] rounded-[8px] bg-[#0A9829]  duration-300 hover:shadow-md text-base font-medium leading-5 text-center text-[#fff] сursor-pointer`}>
+              <NavLink
+                to={`/fields/${id}`}
+                onClick={() => {
+                  if (newName && description) {
+                    handleGetInfo();
+                    dispatch(setIsCreate(null));
+                  } else {
+                    dispatch(setIsCreate(null));
+                  }
+                }}
+                className={`w-full p-[8px] rounded-[8px] bg-[#0A9829]  duration-300 hover:shadow-md text-base font-medium leading-5 text-center text-[#fff] сursor-pointer`}
+              >
                 Сохранить
               </NavLink>
             </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Playground from "./components/Playground/Playground";
@@ -18,7 +18,8 @@ import AddFootballFieldType from "./pages/addFootballField/addFootballFieldType/
 import AddFootballField from "./pages/addFootballField/addFootballField";
 import EditType from "./pages/fields/editType/editType";
 import EditField from "./pages/fields/editField/editField";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser, getUser } from "./store/slice/user.slice";
 
 function App({ open }) {
   const [collapsed, setCollapsed] = useCollapsed();
@@ -27,7 +28,24 @@ function App({ open }) {
   const [openSetting, setOpenSetting] = useState(false);
   const [reserve, setReserve] = useState(false);
   const [title, setTitle] = useState("Главная");
+  const [login, setLogin] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      dispatch(getUser());
+    }
+  }, []);
 
+  const { status, error, user, headers } = useSelector((state) => state.user);
+  console.log(status, error, user, headers, "status, error, user, headers");
+
+  useEffect(() => {
+    if (user) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
+  }, [user]);
   return (
     <>
       <ToastContainer
@@ -42,50 +60,57 @@ function App({ open }) {
         pauseOnHover
         theme="dark"
       />
+
       {reserve && <ReserveModal setReserve={setReserve} />}
-      <div className={`flex`}>
-        <Playground
-          collapsed={collapsed}
-          setCollapsed={setCollapsed}
-          toggled={toggled}
-          setToggled={setToggled}
-          setTitle={setTitle}
-        />
-        <main className="relative w-full">
-          <Header
+      {login === false ? (
+        <Routes>
+          <Route path="/" element={<Login />} />
+        </Routes>
+      ) : (
+        <div className={`flex`}>
+          <Playground
             collapsed={collapsed}
             setCollapsed={setCollapsed}
             toggled={toggled}
             setToggled={setToggled}
-            setDarkMode={setDarkMode}
-            darkMode={darkMode}
-            onclick={() => setOpenSetting(!openSetting)}
-            setReserve={setReserve}
-            reserve={reserve}
-            title={title}
+            setTitle={setTitle}
           />
-          <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
-            <div className="">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/booking" element={<Booking />} />
-                <Route path="/wallet" element={<Wallet />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/fields" element={<Fields />} />
-                <Route path="/fields/edit/:id" element={<EditField />} />
-                <Route path="/fields/editType/:id" element={<EditType />} />
-                <Route path="/fields/add" element={<AddFootballField />} />
-                <Route
-                  path="/fields/add/:id"
-                  element={<AddFootballFieldType />}
-                />
-                <Route path="/fields/:id" element={<FieldsId />} />
-                <Route path="/reserve/:id" element={<Reserve />} />
-              </Routes>
+          <main className="relative w-full">
+            <Header
+              collapsed={collapsed}
+              setCollapsed={setCollapsed}
+              toggled={toggled}
+              setToggled={setToggled}
+              setDarkMode={setDarkMode}
+              darkMode={darkMode}
+              onclick={() => setOpenSetting(!openSetting)}
+              setReserve={setReserve}
+              reserve={reserve}
+              title={title}
+            />
+            <div className="overflow-y-auto h-screen  bg-[#f5f5f5] dark:bg-[#17171e] w-[100%]">
+              <div className="">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/booking" element={<Booking />} />
+                  <Route path="/wallet" element={<Wallet />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/fields" element={<Fields />} />
+                  <Route path="/fields/edit/:id" element={<EditField />} />
+                  <Route path="/fields/editType/:id" element={<EditType />} />
+                  <Route path="/fields/add" element={<AddFootballField />} />
+                  <Route
+                    path="/fields/add/:id"
+                    element={<AddFootballFieldType />}
+                  />
+                  <Route path="/fields/:id" element={<FieldsId />} />
+                  <Route path="/reserve/:id" element={<Reserve />} />
+                </Routes>
+              </div>
             </div>
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
+      )}
     </>
   );
 }

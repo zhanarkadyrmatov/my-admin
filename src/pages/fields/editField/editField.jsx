@@ -11,12 +11,14 @@ import {
   getSportComplexList,
   patchAdvantages,
 } from "../../../store/slice/create-foobol-slice";
-import {
-  fetchFieldsIdList,
-} from "../../../store/slice/fields-slice";
+import { fetchFieldsIdList } from "../../../store/slice/fields-slice";
 import YandexMap from "../../../components/YandexMap/YandexMap";
 import Radio from "../../../components/Radio/Radio";
-const Pe = ({ children }) => <p className={'text-red-500 text-[14px] font-normal leading-normal'}>{children}</p>;
+const Pe = ({ children }) => (
+  <p className={"text-red-500 text-[14px] font-normal leading-normal"}>
+    {children}
+  </p>
+);
 export default function EditField() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -27,7 +29,7 @@ export default function EditField() {
     locationsCities,
     sportComplexList,
     administrators,
-    isUbdate
+    isUbdate,
   } = useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
   const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
@@ -76,10 +78,9 @@ export default function EditField() {
   const [complex_type, setComplex_type] = useState(null);
   const [administratorValue, setAdministratorValue] = useState(null);
 
-
   const handleSubmitUpdate = () => {
-    const advantages = advantagesList
-    
+    const advantages = advantagesList;
+
     const formData = new FormData();
     formData.append("name", newName);
     formData.append("description", description);
@@ -90,14 +91,13 @@ export default function EditField() {
     formData.append("latitude", mapLatLon?.[0]);
     formData.append("longitude", mapLatLon?.[1]);
     formData.append("sport_complex_type", complex_type);
-    ImageFile?.forEach(image => formData.append("back_ground_foto", image));
-    selectedIamgeFile?.forEach(image => formData.append("main_foto", image));
+    ImageFile?.forEach((image) => formData.append("back_ground_foto", image));
+    selectedIamgeFile?.forEach((image) => formData.append("main_foto", image));
     console.log(ImageFile, selectedIamgeFile);
     console.log(formData);
     dispatch(patchAdvantages({ id, formData }));
-    dispatch(PATCHAdvantages({ id, advantages }))
+    dispatch(PATCHAdvantages({ id, advantages }));
   };
-
 
   useEffect(() => {
     if (fieldsIdList !== null) {
@@ -116,7 +116,6 @@ export default function EditField() {
           description: item?.description,
         }))
       );
-
     }
   }, [fieldsIdList]);
 
@@ -144,7 +143,6 @@ export default function EditField() {
     );
   };
 
-
   useEffect(() => {
     if (isUbdate === true) {
       navigate(`/fields/editType/${id}`);
@@ -156,21 +154,27 @@ export default function EditField() {
       <div className="mt-[50px]">
         <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px] ">
           {isModalMap && (
-            <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap} />
+            <YandexMap
+              setMapLatLon={setMapLatLon}
+              mapLatLon={mapLatLon}
+              setIsModalMap={setIsModalMap}
+            />
           )}
           <div className="h-min w-full rounded-[10px] bg-white">
             <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
               <h4>Преимущества</h4>
             </div>
-            <div className={'flex flex-col gap-[10px] p-[20px]'}>
+            <div className={"flex flex-col gap-[10px] p-[20px]"}>
               {advantages?.map((res, i) => {
                 const isChecked = advantagesList?.some(
                   (item) => item?.advantages === res.id
                 );
-                const checked = advantagesList?.find((item) => item?.advantages === res?.id);
+                const checked = advantagesList?.find(
+                  (item) => item?.advantages === res?.id
+                );
 
                 return (
-                  <div className={'flex gap-[5px] flex-col'} key={i}>
+                  <div className={"flex gap-[5px] flex-col"} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
                       <div className="flex items-center gap-[10px] w-full">
                         <input
@@ -189,7 +193,7 @@ export default function EditField() {
                       </div>
                     </div>
                     {isChecked && (
-                      <div className={'flex gap-[10px]'}>
+                      <div className={"flex gap-[10px]"}>
                         <input
                           className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
@@ -218,8 +222,9 @@ export default function EditField() {
                   <div className="flex flex-col gap-y-[10px] items-center">
                     <div
                       style={{
-                        backgroundImage: `url(${selectedImage != null ? selectedImage : img7
-                          })`,
+                        backgroundImage: `url(${
+                          selectedImage != null ? selectedImage : img7
+                        })`,
                       }}
                       className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                     ></div>
@@ -336,38 +341,64 @@ export default function EditField() {
                 </div>
               </div>
               <div className="grid gap-y-[8px] ">
-                <h4 className="text-base font-normal leading-normal text-left">Выберите тип</h4>
+                <h4 className="text-base font-normal leading-normal text-left">
+                  Выберите тип
+                </h4>
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                   {sportComplexList?.map((res, i) => (
-                    <Radio key={i} name={'radio-type'} title={res?.title} value={res?.id} checked={complex_type === res?.id}
-                      onchange={setComplex_type} />
+                    <Radio
+                      key={i}
+                      name={"radio-type"}
+                      title={res?.title}
+                      value={res?.id}
+                      checked={complex_type === res?.id}
+                      onchange={setComplex_type}
+                    />
                   ))}
                 </div>
               </div>
               <div className="grid gap-y-[8px] ">
-                <h4 className="text-base font-normal leading-normal text-left">Выберите город </h4>
+                <h4 className="text-base font-normal leading-normal text-left">
+                  Выберите город{" "}
+                </h4>
                 {errorList?.city && <Pe>{errorList?.city}</Pe>}
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                   {locationsCities?.map((res, i) => (
-                    <Radio key={i} name={'radio-city'} title={res?.name.ru} value={res.slug} checked={locationsCitiesValue === res?.slug}
-                      onchange={setLocationsCitiesValue} />
+                    <Radio
+                      key={i}
+                      name={"radio-city"}
+                      title={res?.name.ru}
+                      value={res.slug}
+                      checked={locationsCitiesValue === res?.slug}
+                      onchange={setLocationsCitiesValue}
+                    />
                   ))}
                 </div>
               </div>
               <div className="grid gap-y-[8px] ">
-                <h4 className="text-base font-normal leading-normal text-left">Администратор Футбольного комплекса </h4>
+                <h4 className="text-base font-normal leading-normal text-left">
+                  Администратор Футбольного комплекса{" "}
+                </h4>
                 {errorList?.administrator && (
                   <Pe>{errorList?.administrator}</Pe>
                 )}
                 <div className="md:grid-cols-2 grid gap-[10px] grid-cols-1">
                   {administrators?.map((res, i) => (
-                    <Radio key={i} name={'radio-administrator'} title={res?.name} value={res} checked={administratorValue?.id === res?.id}
-                      onchange={setAdministratorValue} />
+                    <Radio
+                      key={i}
+                      name={"radio-administrator"}
+                      title={res?.name}
+                      value={res}
+                      checked={administratorValue?.id === res?.id}
+                      onchange={setAdministratorValue}
+                    />
                   ))}
                 </div>
               </div>
               <div className={"flex flex-col gap-y-[8px]"}>
-                <p className="text-base font-normal leading-6 tracking-tight text-left">Описание</p>
+                <p className="text-base font-normal leading-6 tracking-tight text-left">
+                  Описание
+                </p>
                 {errorList?.description && <Pe>{errorList?.description}</Pe>}
                 <textarea
                   className="bg-[#F0F0F0] min-h-[180px]  p-[16px]  rounded-[10px] w-full text-[14px] text-[#222222] leading-normal font-normal outline-none focus-within:border-[2px] focus-within:border-[green] border-[2px] border-[#1C1C1C0D]"
@@ -379,7 +410,16 @@ export default function EditField() {
               </div>
               <button
                 onClick={() => handleSubmitUpdate()}
-                className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${newName && locationsCitiesValue && district && description && mapLatLon && address ? "opacity-100 сursor-pointer hover:shadow-lg" : "opacity-50"}`}
+                className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${
+                  newName &&
+                  locationsCitiesValue &&
+                  district &&
+                  description &&
+                  mapLatLon &&
+                  address
+                    ? "opacity-100 сursor-pointer hover:shadow-lg"
+                    : "opacity-50"
+                }`}
               >
                 Далее
               </button>

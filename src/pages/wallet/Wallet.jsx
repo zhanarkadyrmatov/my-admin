@@ -34,7 +34,7 @@ export default function Wallet() {
                 className="mt-1 text-2xl font-medium text-left"
                 style={{ lineHeight: "36.77px" }}
               >
-                15 000 сом
+                999 000 сом
               </h1>
             </div>
             <div className=" absolute justify-end left-[270px] hidden sm:flex">
