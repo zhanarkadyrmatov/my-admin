@@ -82,7 +82,6 @@ const Home = () => {
                 по сравнению с прошлой неделей
               </span>
               <p>Расчёт с 1 по 6 Декабря 2024</p>
-              <div>суда нужно добавить</div>
             </div>
           </div>
           <div className={s.Block1Chart}>
