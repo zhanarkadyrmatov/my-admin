@@ -58,6 +58,7 @@ export default function Wallet() {
         <div className="grid gap-y-[20px] mt-[20px]">
           <h4>История платежей</h4>
           <BalanceCard />
+          
         </div>
       </div>
     </>

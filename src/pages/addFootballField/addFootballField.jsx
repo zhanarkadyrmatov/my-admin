@@ -368,7 +368,7 @@ export default function AddFootballField() {
                 {errorList?.city && <Pe>{errorList?.city}</Pe>}
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
                   {locationsCities?.map((res, i) => (
-                    <Radio key={i} name={'radio-city'} title={res?.name?.ru} value={res?.slug} onchange={setLocationsCitiesValue} />
+                    <Radio key={i} name={'radio-city'} title={res?.name} value={res?.slug} onchange={setLocationsCitiesValue} />
                   ))}
                 </div>
               </div>

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 .Home {
   margin-top: 60px;
   padding: 30px;
@@ -123,14 +124,119 @@
       border-radius: 10px;
       gap: 10px;
       padding: 15px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      p {
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #101010;
+      }
+      .ChartBasic {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        span {
+          display: flex;
+          gap: 20px;
+          justify-content: space-between;
+          align-items: center;
+          p:nth-child(1) {
+            font-family: Inter;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 28px;
+            letter-spacing: 0.5px;
+            text-align: left;
+
+            color: #101010;
+          }
+          p:nth-child(2) {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            font-family: Inter;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 15px;
+            letter-spacing: 0.5px;
+            text-align: left;
+            color: #737b8b;
+            span {
+              font-family: Inter;
+              font-size: 12px;
+              font-weight: 600;
+              line-height: 15px;
+              letter-spacing: 0.5px;
+              text-align: left;
+            }
+          }
+        }
+      }
+      .Block2_Tab {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        p {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          cursor: pointer;
+          font-family: Inter;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 12px;
+          letter-spacing: 0.5px;
+          text-align: left;
+          color: #121212;
+          opacity: 0.7;
+
+          div {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+          }
+        }
+      }
       background-color: #fff;
     }
+
     .Block2_3 {
       box-shadow: 10px #0000001a;
       border-radius: 10px;
-      gap: 10px;
+      gap: 20px;
+      display: flex;
+      flex-direction: column;
+
       padding: 15px 20px;
       background-color: #fff;
+
+      h2 {
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #101010;
+      }
+      .BLock2_3Blocks {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
     }
   }
 }
+
+.Block3_3Blok1 {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+  

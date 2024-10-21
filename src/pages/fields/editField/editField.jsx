@@ -367,7 +367,7 @@ export default function EditField() {
                     <Radio
                       key={i}
                       name={"radio-city"}
-                      title={res?.name.ru}
+                      title={res?.name}
                       value={res.slug}
                       checked={locationsCitiesValue === res?.slug}
                       onchange={setLocationsCitiesValue}

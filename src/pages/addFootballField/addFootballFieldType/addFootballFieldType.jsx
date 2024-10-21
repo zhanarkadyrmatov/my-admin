@@ -423,6 +423,7 @@ const AddFootballFieldType = () => {
                         type="file"
                         id="upload"
                         multiple
+                        accept="image/*"
                         className="hidden"
                         onChange={handleFileChange1}
                       />
