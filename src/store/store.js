@@ -8,6 +8,10 @@ import reserveSlice from "./slice/reserve-slice";
 import arbitratorSlice from "./slice/arbitrators";
 import searchSlice from "./slice/search-slice";
 import ubdateFields from "./slice/ubdate-fields";
+import walletReducer from "./slice/wallet-slice";
+import analitOrdersFieldsReducer from "./slice/analit-orders-fields";
+import totalIncomeReducer from "./slice/total-income";
+import numberOfNewClientsReducer from "./slice/number-of-new-clients";
 const store = configureStore({
   reducer: {
     user,
@@ -19,6 +23,10 @@ const store = configureStore({
     arbitratorSlice,
     searchSlice,
     ubdateFields,
+    wallet: walletReducer,
+    analitOrdersFields: analitOrdersFieldsReducer,
+    totalIncome: totalIncomeReducer,
+    numberOfNewClients: numberOfNewClientsReducer,
   },
 });
 

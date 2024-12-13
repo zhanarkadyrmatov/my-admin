@@ -8,8 +8,7 @@ import Logout from "../Logout/Logout";
 import { ImExit } from "react-icons/im";
 import { FaWallet } from "react-icons/fa6";
 import { FaAddressCard } from "react-icons/fa";
-import Logo from '../../img/Traced Image.png';
-
+import Logo from "../../img/Traced Image.png";
 
 export default function Playground({
   collapsed,
@@ -17,7 +16,6 @@ export default function Playground({
   setToggled,
   setTitle,
 }) {
-
   const [logout, setLogout] = useState(false);
   const isLogin = localStorage.getItem("token");
 
@@ -47,7 +45,7 @@ export default function Playground({
                     svg: {
                       path: {
                         fill: "green",
-                      }
+                      },
                     },
                   },
                 },

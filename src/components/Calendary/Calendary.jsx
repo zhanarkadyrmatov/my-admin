@@ -14,21 +14,23 @@ export default function Calendar() {
         bookings.map((item) => ({
           title: item?.name,
           start: item?.start_date,
-          end: item?.end_date, 
+          end: item?.end_date,
         }))
       );
     }
   }, [bookings]);
 
   return (
-    <div className={`bg-[#fff] border-[1px] border-[#E9E9E9] lg:p-[20px] p-[5px] rounded-[10px]`}>
+    <div
+      className={`bg-[#fff] border-[1px] border-[#E9E9E9] lg:p-[20px] p-[5px] rounded-[10px]`}
+    >
       <FullCalendar
         plugins={[timeGridPlugin]}
-        initialView='timeGridWeek'
+        initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next",
           center: "title",
-          right: "timeGridWeek,timeGridDay"
+          right: "timeGridWeek,timeGridDay",
         }}
         buttonText={{
           week: "Неделя",

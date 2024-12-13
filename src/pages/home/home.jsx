@@ -1,18 +1,78 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./page.module.scss";
 import Chart from "react-apexcharts";
 import { Rating } from "@mui/material";
+import BookId from "../../components/Cards/BookId/BookId";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAnalitOrdersFields } from "../../store/slice/analit-orders-fields";
+import { fetchTotalIncome } from "../../store/slice/total-income";
+import { fetchFields } from "../../store/slice/fields-slice";
+import { fetchNumberOfNewClients } from "../../store/slice/number-of-new-clients";
 
 const Home = () => {
-  const [data] = useState([
-    { x: new Date().getTime(), y: 20 },
-    { x: new Date().getTime() + 1000, y: 30 },
-    { x: new Date().getTime() + 2000, y: 40 },
-    { x: new Date().getTime() + 3000, y: 35 },
-    { x: new Date().getTime() + 4000, y: 50 },
-  ]);
+  const { data, loading, error } = useSelector(
+    (state) => state.analitOrdersFields
+  );
+
+  const { fields } = useSelector((state) => state.fields);
+  useEffect(() => {
+    dispatch(fetchFields());
+  }, []);
+
+  const [fieldDelete, setFieldDelete] = useState(false);
+  const [deleteValue, setDeleteValue] = useState(null);
+
+  const dispatch = useDispatch();
+  const [chartData, setChartData] = useState([]);
+  const {
+    loading: totalIncomeLoading,
+    data: totalIncomeData,
+    error: totalIncomeError,
+  } = useSelector((state) => state.totalIncome);
+
+  console.log(totalIncomeData, "aziret");
+
+  useEffect(() => {
+    dispatch(fetchTotalIncome());
+  }, [dispatch]);
+
+  const { loading: numberLoading, data: numbersData } = useSelector(
+    (state) => state.numberOfNewClients
+  );
+  console.log(numbersData, "numbersData");
+
+  const [chartData2, setChartData2] = useState([]);
+  const [chartData3, setChartData3] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchNumberOfNewClients());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAnalitOrdersFields());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!data) return;
+    const chartData = data?.data?.map((item) => ({
+      x: new Date(item.day),
+      y: item.new_clients,
+    }));
+    const chartData2 = totalIncomeData?.data?.map((item) => ({
+      x: new Date(item.day),
+      y: item.income,
+    }));
+    const chartData3 = numbersData?.data?.map((item) => ({
+      x: new Date(item.day),
+      y: item.bookings,
+    }));
+    setChartData(chartData);
+    setChartData2(chartData2);
+    setChartData3(chartData3);
+  }, [data]);
 
   const [active, setActive] = useState(1);
+
   const chartOptions = {
     chart: {
       id: "ordersChart",
@@ -29,7 +89,28 @@ const Home = () => {
     legend: { show: false },
   };
 
+  const [series3, setSeries3] = useState([
+    {
+      name: "Bookings",
+      data: chartData3,
+    },
+  ]);
+
   const options = {
+    series: [
+      {
+        name: "Net Profit",
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      },
+      {
+        name: "Revenue",
+        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      },
+      {
+        name: "Free Cash Flow",
+        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      },
+    ],
     chart: {
       type: "bar",
       height: 350,
@@ -62,29 +143,33 @@ const Home = () => {
         "Oct",
       ],
     },
-
+    yaxis: {
+      title: {
+        text: "$ (thousands)",
+      },
+    },
     fill: {
       opacity: 1,
-    },
-    tooltip: {
-      y: {
-        formatter: (val) => `$ ${val} thousands`,
-      },
     },
   };
 
   const series = [
     {
-      name: "Net Profit",
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      name: "New Clients",
+      data: chartData,
     },
+  ];
+  const series2 = [
     {
-      name: "Revenue",
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      name: "Total Income",
+      data: chartData2,
     },
+  ];
+
+  const series4 = [
     {
-      name: "Free Cash Flow",
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      name: "New Clients",
+      data: chartData,
     },
   ];
 
@@ -121,7 +206,7 @@ const Home = () => {
           <div className={s.Block1Chart}>
             <Chart
               options={chartOptions}
-              series={[{ data }]}
+              series={series}
               type="line"
               height={200}
             />
@@ -148,7 +233,7 @@ const Home = () => {
           <div className={s.Block1Chart}>
             <Chart
               options={chartOptions}
-              series={[{ data }]}
+              series={series2}
               type="line"
               height={200}
             />
@@ -166,7 +251,14 @@ const Home = () => {
                 прошлой неделей
               </p>
             </span>
-            <Chart options={options} series={series} type="bar" height={200} />{" "}
+            <div className={s.ChartAll}>
+              <Chart
+                options={options}
+                series={series}
+                type="bar"
+                height={200}
+              />
+            </div>
           </div>
           <span className={s.Block2_Tab}>
             <p onClick={() => setActive(1)}>
@@ -177,7 +269,6 @@ const Home = () => {
               ></div>
               За последние 6 дней
             </p>
-
             <p onClick={() => setActive(2)}>
               <div
                 style={{
@@ -190,76 +281,83 @@ const Home = () => {
         </div>
         <div className={s.Block2_3}>
           <h2>Отзывы и рейтинг</h2>
-          <div className={s.BLock2_3Blocks}>
-            <div className={s.Block3_3Blok1}>
-              <select name="" id="">
-                <option value="">За неделю</option>
-                <option value="">За месяц</option>
-                <option value="">За год</option>
-                <option value="">За все время</option>
-              </select>
-              <div className={s.Classico}>
-                <div>
-                  <h3>4.1</h3>
-                  <Rating
-                    name="half-rating"
-                    readOnly
-                    defaultValue={2.5}
-                    precision={0.5}
-                  />
+          <div className={s.Block2_3_1}>
+            <div className={s.BLock2_3Blocks}>
+              <div className={s.Block3_3Blok1}>
+                <select className={s.dropdown} name="" id="">
+                  <option value="week">За неделю</option>
+                  <option value="month">За месяц</option>
+                  <option value="year">За год</option>
+                  <option value="all">За все время</option>
+                </select>
 
-                  <p>256 отзывов</p>
+                <div className={s.Classico}>
+                  <div className={s.Classico_1}>
+                    <h1 className={s.ratingScore}>4.1</h1>
+                    <Rating
+                      name="half-rating"
+                      readOnly
+                      defaultValue={4.1}
+                      precision={0.5}
+                      className={s.ratingStars}
+                    />
+                    <p className={s.reviewCount}>256 отзывов</p>
+                  </div>
+
+                  <ul className={s.ratingList}>
+                    <li className={s.ratingListLi}>
+                      <span>5</span>
+                      <div className={s.barWrapper}>
+                        <div className={s.bar} style={{ width: "80%" }}></div>
+                      </div>
+                    </li>
+                    <li className={s.ratingListLi}>
+                      <span>4</span>
+                      <div className={s.barWrapper}>
+                        <div className={s.bar} style={{ width: "40%" }}></div>
+                      </div>
+                    </li>
+                    <li className={s.ratingListLi}>
+                      <span>3</span>
+                      <div className={s.barWrapper}>
+                        <div className={s.bar} style={{ width: "20%" }}></div>
+                      </div>
+                    </li>
+                    <li className={s.ratingListLi}>
+                      <span>2</span>
+                      <div className={s.barWrapper}>
+                        <div className={s.bar} style={{ width: "10%" }}></div>
+                      </div>
+                    </li>
+                    <li className={s.ratingListLi}>
+                      <span>1</span>
+                      <div className={s.barWrapper}>
+                        <div className={s.bar} style={{ width: "5%" }}></div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-                <ul>
-                  <li>
-                    5{" "}
-                    <span>
-                      <div></div>
-                    </span>
-                  </li>
-                  <li>
-                    4 <span></span> <div></div>
-                  </li>
-                  <li>
-                    3{" "}
-                    <span>
-                      {" "}
-                      <div></div>
-                    </span>
-                  </li>
-                  <li>
-                    2{" "}
-                    <span>
-                      {" "}
-                      <div></div>
-                    </span>
-                  </li>
-                  <li>
-                    1{" "}
-                    <span>
-                      {" "}
-                      <div></div>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <span>
-                <p
-                  style={{
-                    color: "#4C8E4C",
-                  }}
-                >
-                  +2.5%
-                </p>
-                по сравнению с прошлой неделей
 
-                </span>
-                 <p>Расчёт с 1 по 6 Декабря 2024</p>
-         
+                <div className={s.stats}>
+                  <span
+                    className={s.percentageChange}
+                    style={{ color: "#4C8E4C" }}
+                  >
+                    +2.1% по сравнению с прошлой неделей
+                  </span>
+                  <p className={s.dateRange}>Расчёт с 1 по 6 Декабря 2024</p>
+                </div>
               </div>
             </div>
-            <div>2</div>
+            {fields?.length > 0 && (
+              <BookId
+                fieldDelete={fieldDelete}
+                setFieldDelete={setFieldDelete}
+                setDeleteValue={setDeleteValue}
+                key={fields[0].id}
+                item={fields[0]}
+              />
+            )}
           </div>
         </div>
       </div>

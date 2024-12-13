@@ -11,7 +11,6 @@ export default function BookId({
   fieldDelete,
   setDeleteValue,
 }) {
-
   return (
     <div>
       <div className={""}>
@@ -107,7 +106,7 @@ export default function BookId({
                   {item?.name}
                 </h4>
                 <p className="text-[#222222] text-[12px] leading-[16px] font-[500] opacity-70 dark:text-[#fff]">
-                   {item?.sport_complex_type?.title}
+                  {item?.sport_complex_type?.title}
                 </p>
               </div>
               {item?.advantages?.length > 0 && (

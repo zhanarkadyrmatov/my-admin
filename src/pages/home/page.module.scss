@@ -11,11 +11,11 @@
     justify-content: space-between;
     padding: 10px;
     box-shadow: 10px #0000001a;
-
     align-items: center;
-
     border-radius: 10px;
     background-color: #fff;
+    box-shadow: 0px 0px 10px 0px #0000001a;
+
     p {
       font-family: Inter;
       font-size: 14px;
@@ -48,6 +48,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
+    @media (max-width: 1024px) {
+      gap: 10px;
+    }
     .Block1 {
       box-shadow: 10px #0000001a;
       border-radius: 10px;
@@ -56,6 +59,8 @@
       gap: 10px;
       padding: 15px 20px;
       background-color: #fff;
+      box-shadow: 0px 0px 10px 0px #0000001a;
+
       .Block1Text {
         display: flex;
         flex-direction: column;
@@ -117,10 +122,13 @@
   }
   .Blocks2 {
     display: grid;
-    grid-template-columns: 384px 1fr;
+    grid-template-columns: 30% 70%;
     gap: 30px;
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
     .Block2 {
-      box-shadow: 10px #0000001a;
+      box-shadow: 0px 0px 10px 0px #0000001a;
       border-radius: 10px;
       gap: 10px;
       padding: 15px 20px;
@@ -204,16 +212,24 @@
       }
       background-color: #fff;
     }
-
+    .Block2_3_1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      @media screen and (max-width: 765px) {
+        grid-template-columns: 1fr;
+      }
+    }
     .Block2_3 {
-      box-shadow: 10px #0000001a;
+      width: 100%;
+      min-height: 352px;
       border-radius: 10px;
       gap: 20px;
       display: flex;
       flex-direction: column;
-
       padding: 15px 20px;
       background-color: #fff;
+      box-shadow: 0px 0px 10px 0px #0000001a;
 
       h2 {
         font-family: Inter;
@@ -232,11 +248,175 @@
     }
   }
 }
+.BLock2_3Blocks {
+  display: flex;
+  .dropdown {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    color: #333;
+    appearance: none; /* Убираем стандартный стиль */
+    -webkit-appearance: none; /* Для Safari */
+    -moz-appearance: none; /* Для Firefox */
+    font-size: 1rem;
+    padding-right: 30px; /* Отступ для иконки стрелки */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z' fill='%23333'/%3E%3C/svg%3E"); /* Иконка стрелки */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    margin-bottom: 32px;
+  }
+  .Block3_3Blok1 {
+    border-radius: 8px;
+    width: 100%;
+  }
 
+  .dropdown {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .ratingScore {
+    font-size: 45px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    height: 50px;
+  }
+
+  .ratingStars {
+    margin-top: -4px;
+  }
+
+  .reviewCount {
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .ratingList {
+    list-style: none;
+    padding: 0;
+  }
+
+  .ratingListLi {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .ratingListLi span {
+    width: 16px;
+    text-align: right;
+    margin-right: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000;
+  }
+
+  .barWrapper {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .bar {
+    height: 16px;
+    background-color: #3b82f6;
+    border-radius: 4px;
+  }
+
+  .stats {
+    margin-top: 12px;
+    font-size: 0.875rem;
+  }
+
+  .percentageChange {
+    font-weight: bold;
+  }
+
+  .dateRange {
+    color: #888;
+    margin-top: 4px;
+  }
+}
+
+.Classico {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: end;
+  max-width: 100%;
+  gap: 30px;
+  .Classico_1 {
+    max-width: 103px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    h1 {
+      font-size: 45px;
+      font-weight: 500;
+      line-height: 28px;
+      letter-spacing: 0.5px;
+      text-align: left;
+      color: #101010;
+      width: 103px;
+      height: 49px;
+    }
+    p {
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 21px;
+      letter-spacing: 0.5px;
+      opacity: 0.5;
+    }
+  }
+  .ratingList {
+    list-style-type: none;
+    padding: 0;
+    max-width: 100%;
+    display: grid;
+    row-gap: 10px;
+    li {
+      display: flex;
+      align-items: center;
+      height: 16px;
+      span {
+        flex-grow: 1;
+        margin-left: 10px;
+        .bar {
+          height: 10px;
+          background: #7384e8;
+          border-radius: 5px;
+          box-shadow: 0px 0px 16px 0px #00000026;
+        }
+      }
+    }
+  }
+}
+.ChartAll {
+  .Chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 8px 4px 8px 0px rgba(0, 0, 0, 0.1);
+  }
+}
 .Block3_3Blok1 {
   display: flex;
   flex-direction: column;
-  gap: 30px;
   width: 100%;
 }
-  

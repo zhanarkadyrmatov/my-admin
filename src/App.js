@@ -37,7 +37,6 @@ function App({ open }) {
   }, []);
 
   const { status, error, user, headers } = useSelector((state) => state.user);
-  console.log(status, error, user, headers, "status, error, user, headers");
 
   useEffect(() => {
     if (user) {
