@@ -37,7 +37,6 @@ export default function FiledList({
             {item?.avg_rating?.toFixed(1)} ({item?.rating_num})
           </p>
           <div className="flex items-center">
-            {" "}
             <Stack spacing={1}>
               <Rating
                 name="half-rating-read"

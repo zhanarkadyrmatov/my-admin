@@ -17,7 +17,6 @@ export const fetchUser = createAsyncThunk(
       const response = await axios.post(`${Api}user_api/login/`, credentials);
       await localStorage.setItem("token", response?.data.access_token);
       await dispatch(getUser());
-
       const headers = response.headers;
       const plainHeaders = {};
       Object.keys(headers).forEach((key) => {
@@ -46,7 +45,6 @@ export const getUser = createAsyncThunk(
       Object.keys(headers).forEach((key) => {
         plainHeaders[key] = headers[key];
       });
-
       return { data: response.data, headers: plainHeaders };
     } catch (error) {
       if (window.location.pathname !== "/") {

@@ -21,6 +21,8 @@ export default function Fields() {
   useEffect(() => {
     dispatch(fetchFields());
   }, []);
+  console.log(fields?.results);
+  // console.log(fields.results, "ernis");
 
   return (
     <>
@@ -80,13 +82,13 @@ export default function Fields() {
             </div>
           </div>
           {pages === "about" ? (
-            fields && fields.length > 0 ? (
+            fields && fields.results.length > 0 ? (
               <div
                 className={
                   "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[20px] 3xl:grid-cols-4"
                 }
               >
-                {fields?.map((item) => (
+                {fields?.results?.map((item) => (
                   <BookId
                     fieldDelete={fieldDelete}
                     setFieldDelete={setFieldDelete}

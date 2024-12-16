@@ -12,6 +12,7 @@ import walletReducer from "./slice/wallet-slice";
 import analitOrdersFieldsReducer from "./slice/analit-orders-fields";
 import totalIncomeReducer from "./slice/total-income";
 import numberOfNewClientsReducer from "./slice/number-of-new-clients";
+import sortingReducer from "./slice/sorting-slice";
 const store = configureStore({
   reducer: {
     user,
@@ -27,6 +28,7 @@ const store = configureStore({
     analitOrdersFields: analitOrdersFieldsReducer,
     totalIncome: totalIncomeReducer,
     numberOfNewClients: numberOfNewClientsReducer,
+    sorting: sortingReducer,
   },
 });
 

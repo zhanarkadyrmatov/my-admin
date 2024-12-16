@@ -345,7 +345,7 @@ export default function EditField() {
                   Выберите тип
                 </h4>
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {sportComplexList?.map((res, i) => (
+                  {sportComplexList?.results?.map((res, i) => (
                     <Radio
                       key={i}
                       name={"radio-type"}
@@ -363,7 +363,7 @@ export default function EditField() {
                 </h4>
                 {errorList?.city && <Pe>{errorList?.city}</Pe>}
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {locationsCities?.map((res, i) => (
+                  {locationsCities?.results?.map((res, i) => (
                     <Radio
                       key={i}
                       name={"radio-city"}
@@ -383,7 +383,7 @@ export default function EditField() {
                   <Pe>{errorList?.administrator}</Pe>
                 )}
                 <div className="md:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {administrators?.map((res, i) => (
+                  {administrators?.results?.map((res, i) => (
                     <Radio
                       key={i}
                       name={"radio-administrator"}

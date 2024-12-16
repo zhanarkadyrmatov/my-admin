@@ -18,6 +18,7 @@ export const walletget = createAsyncThunk(
   }
 );
 
+
 export const walletSlice = createSlice({
   name: "wallet",
   initialState: {
@@ -25,7 +26,6 @@ export const walletSlice = createSlice({
     data: [],
     error: null,
   },
-
   reducers: {},
   extraReducers: (builder) => {
     builder

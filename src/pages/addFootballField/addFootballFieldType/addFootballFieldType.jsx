@@ -88,7 +88,7 @@ const AddFootballFieldType = () => {
   };
 
   console.log(newName);
-  console.log(typeName);
+  console.log(typeName, "typeName");
 
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
@@ -228,7 +228,7 @@ const AddFootballFieldType = () => {
                   </p>
                   <div
                     className="flex justify-between p-[10px] border-[2px]
-                  border-[#1C1C1C0D] bg-[#F0F0F0] rounded-[8px] focus-within:border-[green] focus-within:border-[2px]"
+                    border-[#1C1C1C0D] bg-[#F0F0F0] rounded-[8px] focus-within:border-[green] focus-within:border-[2px]"
                   >
                     <input
                       onChange={(e) => {
@@ -323,11 +323,10 @@ const AddFootballFieldType = () => {
                   Тип поля
                 </p>
                 <div className={"flex gap-[10px] flex-wrap"}>
-                  {construction?.map((res, i) => {
+                  {construction?.results.map((res, i) => {
                     const isAcc = constructionListAcc?.some(
                       (el) => el.name === res.name
                     );
-
                     console.log(isAcc);
                     return (
                       <div

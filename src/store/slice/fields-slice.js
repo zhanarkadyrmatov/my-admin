@@ -13,9 +13,13 @@ export const fetchFields = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      dispatch(setFieldsId(response.data[0].id));
-      dispatch(fetchFieldsIdList(response.data[0].id));
+  
+      //  dispatch(setFieldsId(response.data[0].id));
+      // dispatch(fetchFieldsIdList(response.data[0].id));
+      console.log(response.data, 'REREWR');
+      
       return response.data;
+
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

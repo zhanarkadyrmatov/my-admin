@@ -82,6 +82,7 @@ export const getLocationsCities = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
+      console.log("Received locations cities data:", response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -131,6 +132,8 @@ export const postAdvantages = createAsyncThunk(
         dispatch(PATCHAdvantages(PATCHAdvantagesData));
       }
 
+      console.log(response, "response");
+      
       return response.data;
     } catch (error) {
 

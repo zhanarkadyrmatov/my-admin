@@ -30,7 +30,7 @@ export default function Select({ setName, name }) {
               className="w-full h-full fixed top-0 left-0 bg-[rgba(255,255,255,0.3)] z-40"
             ></div>
             <div className="absolute w-[50%] right-0 top-[40px] h-auto bg-[#fff] rounded-[14px] p-[14px] shadow-md z-50 flex flex-col gap-y-[10px]">
-              {typeName?.map((item, index) => (
+              {typeName?.results?.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => {

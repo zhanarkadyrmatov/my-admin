@@ -349,7 +349,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            {fields?.length > 0 && (
+            {fields?.results?.length > 0 ? (
               <BookId
                 fieldDelete={fieldDelete}
                 setFieldDelete={setFieldDelete}
@@ -357,6 +357,10 @@ const Home = () => {
                 key={fields[0].id}
                 item={fields[0]}
               />
+            ) : (
+              <div className="flex items-center justify-center">
+                Нет данных для отображения
+              </div>
             )}
           </div>
         </div>

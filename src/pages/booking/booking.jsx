@@ -35,7 +35,7 @@ export default function Booking() {
           }
         >
           <div className={"flex items-center gap-3 flex-wrap"}>
-            {fields?.map((res) => {
+            {fields?.results?.map((res) => {
               return (
                 <div
                   key={res.id}

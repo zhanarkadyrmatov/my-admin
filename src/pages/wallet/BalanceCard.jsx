@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { walletget } from "../../store/slice/wallet-slice";
+import { setSortConfig, setSortedData } from "../../store/slice/sorting-slice";
 
 const BalanceCard = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.wallet);
+  const { sortedData, sortConfig } = useSelector((state) => state.sorting);
 
   const [filters, setFilters] = useState({
     operationType: "all",
@@ -17,12 +19,17 @@ const BalanceCard = () => {
   const dateInputRef1 = useRef(null);
   const dateInputRef2 = useRef(null);
 
-  // Выполняем запрос с фильтрами при изменении состояния
   useEffect(() => {
     dispatch(walletget(filters));
   }, [dispatch, filters]);
 
-  // Обновление фильтров при изменении даты или типа операции
+  useEffect(() => {
+    if (data.length > 0) {
+      const sorted = sortData(data);
+      dispatch(setSortedData(sorted));
+    }
+  }, [data, sortConfig, dispatch]);
+
   const handleOperationTypeChange = (e) => {
     setFilters((prev) => ({
       ...prev,
@@ -46,12 +53,10 @@ const BalanceCard = () => {
     }));
   };
 
-  // Открытие календаря
   const handleDatePickerClick = (ref) => {
     ref.current && ref.current.showPicker();
   };
 
-  // Форматирование даты и времени
   const formatDate = (dateStr, options) => {
     const date = new Date(dateStr);
     return date.toLocaleString("ru-RU", options);
@@ -59,6 +64,27 @@ const BalanceCard = () => {
 
   const handleSearch = () => {
     dispatch(walletget(filters));
+  };
+
+  const sortData = (data) => {
+    if (!sortConfig.key) return data;
+    return [...data].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    dispatch(setSortConfig({ key, direction }));
   };
 
   const renderTransaction = (transaction, index) => (
@@ -139,10 +165,7 @@ const BalanceCard = () => {
               {filters.dateFrom || "Период с"}
             </h4>
           </div>
-          <IoMdArrowDropdown
-            size={30}
-            className="mt-[10px]"
-          />
+          <IoMdArrowDropdown size={30} className="mt-[10px]" />
         </div>
         <div
           className="flex justify-between bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px]"
@@ -165,7 +188,7 @@ const BalanceCard = () => {
               {filters.dateTo || "Период до"}
             </h4>
           </div>
-          <IoMdArrowDropdown size={30} className="mt-[10px]"/>
+          <IoMdArrowDropdown size={30} className="mt-[10px]" />
         </div>
         <button
           onClick={handleSearch}
@@ -200,23 +223,53 @@ const BalanceCard = () => {
         <table className="min-w-full bg-white rounded-[15px]">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Тип операции
+              <th
+                onClick={() => requestSort("type")}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              >
+                Тип операции{" "}
+                {sortConfig.key === "type" &&
+                  (sortConfig.direction === "ascending" ? "▲" : "▼")}
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Дата
+              <th
+                onClick={() => requestSort("create_date")}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              >
+                Дата{" "}
+                {sortConfig.key === "create_date" &&
+                  (sortConfig.direction === "ascending" ? "▲" : "▼")}
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Приход
+              <th
+                onClick={() => requestSort("football_field_cost")}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              >
+                Приход{" "}
+                {sortConfig.key === "football_field_cost" &&
+                  (sortConfig.direction === "ascending" ? "▲" : "▼")}
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Пользователь
+              <th
+                onClick={() => requestSort("created_by")}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              >
+                Пользователь{" "}
+                {sortConfig.key === "created_by" &&
+                  (sortConfig.direction === "ascending" ? "▲" : "▼")}
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Футбольное поле
+              <th
+                onClick={() => requestSort("payment_type")}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              >
+                Футбольное поле{" "}
+                {sortConfig.key === "payment_type" &&
+                  (sortConfig.direction === "ascending" ? "▲" : "▼")}
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Платеж.система
+              <th
+                onClick={() => requestSort("payment_type")}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              >
+                Платеж.система{" "}
+                {sortConfig.key === "payment_type" &&
+                  (sortConfig.direction === "ascending" ? "▲" : "▼")}
               </th>
             </tr>
           </thead>
@@ -233,8 +286,8 @@ const BalanceCard = () => {
                   Ошибка: {error}
                 </td>
               </tr>
-            ) : data?.length ? (
-              data.map((transaction, index) =>
+            ) : sortedData?.length ? (
+              sortedData.map((transaction, index) =>
                 renderTransaction(transaction, index)
               )
             ) : (

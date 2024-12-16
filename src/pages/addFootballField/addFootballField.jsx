@@ -14,7 +14,11 @@ import Loader from "../../components/Loader/Loader";
 import YandexMap from "../../components/YandexMap/YandexMap";
 import Radio from "../../components/Radio/Radio";
 import Textarea from "../../components/Textarea/Textarea";
-const Pe = ({ children }) => <p className={'text-red-500 text-[14px] font-normal leading-normal'}>{children}</p>;
+const Pe = ({ children }) => (
+  <p className={"text-red-500 text-[14px] font-normal leading-normal"}>
+    {children}
+  </p>
+);
 
 export default function AddFootballField() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -35,7 +39,7 @@ export default function AddFootballField() {
     sportComplexList,
     isCreate,
     idFields,
-    administrators
+    administrators,
   } = useSelector((state) => state.createFoobol);
   const [newName, setNewName] = useState();
   const [locationsCitiesValue, setLocationsCitiesValue] = useState(null);
@@ -45,7 +49,6 @@ export default function AddFootballField() {
   const [description, setDescription] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [ImageFile, setImageFile] = useState();
-
   const handlerImage = (event) => {
     const files = Array.from(event.target.files);
     setImageFile(files);
@@ -55,6 +58,7 @@ export default function AddFootballField() {
     }
   };
   const [mapLatLon, setMapLatLon] = useState();
+  console.log(administrators, "administrators");
 
   useEffect(() => {
     dispatch(getAdvantages());
@@ -69,6 +73,7 @@ export default function AddFootballField() {
   const [complex_type, setComplex_type] = useState();
 
   const [administratorValue, setAdministratorValue] = useState();
+
   const handlerPostCreacteFoobolField = () => {
     const errors = {};
 
@@ -82,9 +87,9 @@ export default function AddFootballField() {
     const data = {
       name: newName,
       description: description,
-      administrator: 1,
+      administrator: administratorValue,
       address: address,
-      city: locationsCitiesValue,
+      city: 1,
       district: district,
       latitude: mapLatLon?.[0],
       longitude: mapLatLon?.[1],
@@ -109,7 +114,10 @@ export default function AddFootballField() {
     });
     formData.append("sport_complex_type", data.sport_complex_type);
     for (const [key, value] of Object.entries(data)) {
-      if (!value && value !== 0 && key !== "advantages") {
+      if (
+        (value === null || value === undefined || value === "") &&
+        key !== "advantages"
+      ) {
         errors[key] = "Обязательное поле *";
       }
     }
@@ -125,7 +133,6 @@ export default function AddFootballField() {
 
     dispatch(postAdvantages(newData));
   };
-
 
   console.log(advantagesList);
   const goToPage = (pageName) => {
@@ -156,7 +163,6 @@ export default function AddFootballField() {
     );
   };
 
-
   useEffect(() => {
     if (isCreate === false) {
       navigate(`/fields/add/${idFields}`);
@@ -164,22 +170,28 @@ export default function AddFootballField() {
   }, [isCreate]);
 
   if (isCreate === true) {
-    return <div>
-      <Loader />
-    </div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
   return (
     <div className="mx-[20px] mt-[90px] mb-[20px]">
       <div className="mt-[50px]">
         <div className=" grid-cols-[1fr] grid xl:grid-cols-[1fr_2fr] md: gap-[20px]">
           {isModalMap && (
-            <YandexMap setMapLatLon={setMapLatLon} mapLatLon={mapLatLon} setIsModalMap={setIsModalMap} />
+            <YandexMap
+              setMapLatLon={setMapLatLon}
+              mapLatLon={mapLatLon}
+              setIsModalMap={setIsModalMap}
+            />
           )}
           <div className="h-min w-full rounded-[10px] bg-white">
             <div className="p-[20px] border-b border-solid border-opacity-10 border-black">
               <h4>Преимущества</h4>
             </div>
-            <div className={'flex flex-col gap-[10px] p-[20px]'}>
+            <div className={"flex flex-col gap-[10px] p-[20px]"}>
               {advantages?.map((res, i) => {
                 const isChecked = advantagesList.some(
                   (item) => item.advantages === res.id
@@ -188,7 +200,7 @@ export default function AddFootballField() {
                   advantagesList.find((item) => item.advantages === res.id) ||
                   {};
                 return (
-                  <div className={'flex gap-[5px] flex-col'} key={i}>
+                  <div className={"flex gap-[5px] flex-col"} key={i}>
                     <div className="flex gap-[5px] w-full flex-col">
                       <div className="flex items-center gap-[10px] w-full">
                         <input
@@ -206,7 +218,7 @@ export default function AddFootballField() {
                       </div>
                     </div>
                     {isChecked && (
-                      <div className={'flex gap-[10px]'}>
+                      <div className={"flex gap-[10px]"}>
                         <input
                           className="w-full text-[14px] leading-[17px] text-[#222222] font-normal outline-none border-b-[1px] border-[#1c1c1c1a] pb-[5px]"
                           type="text"
@@ -235,8 +247,9 @@ export default function AddFootballField() {
                   <div className="flex flex-col gap-y-[10px] items-center">
                     <div
                       style={{
-                        backgroundImage: `url(${selectedImage != null ? selectedImage : img7
-                          })`,
+                        backgroundImage: `url(${
+                          selectedImage != null ? selectedImage : img7
+                        })`,
                       }}
                       className="w-full h-[150px] bg-center bg-no-repeat bg-cover flex justify-center items-center  bg-gray-100 rounded shadow-md"
                     ></div>
@@ -356,37 +369,81 @@ export default function AddFootballField() {
               <div className="grid gap-y-[8px] ">
                 <h4>Выберите тип</h4>
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {sportComplexList?.map((res, i) => {
-                    return (
-                      <Radio key={i} name={'radio-type'} title={res?.title} value={res?.id} onchange={setComplex_type} />
-                    )
-                  })}
-                </div>
-              </div>
-              <div className="grid gap-y-[8px] ">
-                <h4>Выберите город </h4>
-                {errorList?.city && <Pe>{errorList?.city}</Pe>}
-                <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {locationsCities?.map((res, i) => (
-                    <Radio key={i} name={'radio-city'} title={res?.name} value={res?.slug} onchange={setLocationsCitiesValue} />
-                  ))}
+                  {Array.isArray(sportComplexList?.results) &&
+                  sportComplexList?.results?.length > 0 ? (
+                    sportComplexList?.results?.map((res, i) => (
+                      <Radio
+                        key={i}
+                        name="radio-type"
+                        title={res?.title}
+                        value={res?.id}
+                        onchange={setComplex_type}
+                      />
+                    ))
+                  ) : (
+                    <div>Нет данных для отображения</div>
+                  )}
                 </div>
               </div>
               <div className="grid gap-y-[8px]">
-                <h4>Администратор Футбольного комплекса </h4>
-                {errorList?.administrator && (
-                  <Pe>{errorList?.administrator}</Pe>
-                )}
+                <h4>Выберите город</h4>
+                {errorList?.city && <Pe>{errorList.city}</Pe>}
                 <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
-                  {administrators?.map((res, i) => (
-                    <Radio key={i} name={'radio-administrator'} title={res?.name + " " + res?.surname} value={res?.name + " " + res?.surname} onchange={setAdministratorValue} />
-                  ))}
+                  {Array.isArray(locationsCities?.results) &&
+                  locationsCities?.results?.length > 0 ? (
+                    locationsCities?.results?.map((res, i) => (
+                      <Radio
+                        key={i}
+                        name="radio-city"
+                        title={res?.name}
+                        value={res?.slug}
+                        onchange={setLocationsCitiesValue}
+                      />
+                    ))
+                  ) : (
+                    <p>Нет доступных городов</p>
+                  )}
                 </div>
               </div>
-              <Textarea onchange={setDescription} value={description} placeholder={'Напишите сюда...'} label="Описание" error={errorList?.description} />
+              <div className="grid gap-y-[8px]">
+                <h4>Администратор Футбольного комплекса</h4>
+                {errorList?.administrator && <Pe>{errorList.administrator}</Pe>}
+                <div className="sm:grid-cols-2 grid gap-[10px] grid-cols-1">
+                  {Array.isArray(administrators?.results) &&
+                  administrators?.results?.length > 0 ? (
+                    administrators?.results?.map((res, i) => (
+                      <Radio
+                        key={i}
+                        name="radio-administrator"
+                        title={`${res?.name} ${res?.surname}`}
+                        value={`${res?.name} ${res?.surname}`}
+                        onchange={setAdministratorValue}
+                      />
+                    ))
+                  ) : (
+                    <p>Нет доступных администраторов</p>
+                  )}
+                </div>
+              </div>
+              <Textarea
+                onchange={setDescription}
+                value={description}
+                placeholder={"Напишите сюда..."}
+                label="Описание"
+                error={errorList?.description}
+              />
               <button
                 onClick={() => goToPage("about")}
-                className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${newName && locationsCitiesValue && district && description && mapLatLon && address ? "opacity-100 сursor-pointer hover:shadow-lg" : "opacity-50"}`}
+                className={`p-[8px] bg-[#3f58e5] rounded-[8px] duration-300 text-base font-medium leading-5 text-center text-[#fff] ${
+                  newName &&
+                  locationsCitiesValue &&
+                  district &&
+                  description &&
+                  mapLatLon &&
+                  address
+                    ? "opacity-100 сursor-pointer hover:shadow-lg"
+                    : "opacity-50"
+                }`}
               >
                 Далее
               </button>
