@@ -26,7 +26,7 @@ export default function Fields() {
 
   return (
     <>
-      {fieldDelete && (
+      {fieldDelete?.results && (
         <FieldsDelete
           setFieldDelete={setFieldDelete}
           deleteValue={deleteValue}
@@ -82,7 +82,7 @@ export default function Fields() {
             </div>
           </div>
           {pages === "about" ? (
-            fields && fields.results.length > 0 ? (
+            fields && fields?.results?.length > 0 ? (
               <div
                 className={
                   "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[20px] 3xl:grid-cols-4"
@@ -109,7 +109,7 @@ export default function Fields() {
             )
           ) : (
             <>
-              {fields?.length > 0 ? (
+              {fields?.results?.length > 0 ? (
                 <div className="w-full overflow-x-auto">
                   <div className="w-[900px] xl:w-[100%]">
                     <div className="w-full py-[20px] px-[30px] bg-[#F0F0F0] rounded-t-[15px]">
@@ -135,7 +135,7 @@ export default function Fields() {
                       </div>
                     </div>
                     <div className="w-full px-[20px] pb-[20px] rounded-bl-lg rounded-br-lg bg-[#FFFFFF]">
-                      {fields?.map((res, index) => (
+                      {fields?.results?.map((res, index) => (
                         <div key={index}>
                           <FiledList
                             fieldDelete={fieldDelete}

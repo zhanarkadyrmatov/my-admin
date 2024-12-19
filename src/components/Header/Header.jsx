@@ -8,7 +8,7 @@ import { FaBars } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../store/slice/user.slice";
 
-import { fetchFields } from "../../store/slice/fields-slice";
+// import { fetchFields } from "../../store/slice/fields-slice";
 
 export default function Header({
   setCollapsed,

@@ -121,7 +121,6 @@ export default function Review() {
           </div>
         </div>
       ) : null}
-
       {fieldsIdDetail?.administrator ? (
         <div className="">
           <div className="p-[20px] bg-white rounded-t-[12px] border-[#2222220D] border-b-[2px]">

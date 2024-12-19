@@ -72,7 +72,7 @@ export default function BookId({
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </NavLink>{" "}
+                  </NavLink>
                 </div>
               </div>
               <NavLink className={"w-[100%]"} to={`/fields/${item?.id}`}>
@@ -101,7 +101,7 @@ export default function BookId({
           </div>
           <div className="px-[14px] py-[10px]">
             <div className={"flex flex-col gap-[10px]"}>
-              <div className={""}>
+              <div>
                 <h4 className="text-[16px] leading-[19px] font-[500] text-[#222222] dark:text-[#fff]">
                   {item?.name}
                 </h4>

@@ -53,6 +53,7 @@ const AddFootballFieldType = () => {
   const [selectedImages1, setSelectedImages1] = useState([]);
   const [selectedIamgeFile, setSelectedImageFile] = useState([]);
   const [constructionListAcc, setConstructionListAcc] = useState([]);
+  console.log(construction, "aziret");
 
   const handlerConstruction = (event) => {
     const newValue = event;
@@ -323,11 +324,10 @@ const AddFootballFieldType = () => {
                   Тип поля
                 </p>
                 <div className={"flex gap-[10px] flex-wrap"}>
-                  {construction?.results.map((res, i) => {
+                  {construction?.results?.map((res, i) => {
                     const isAcc = constructionListAcc?.some(
                       (el) => el.name === res.name
                     );
-                    console.log(isAcc);
                     return (
                       <div
                         onClick={() => handlerConstruction(res)}

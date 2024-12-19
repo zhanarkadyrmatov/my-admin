@@ -349,7 +349,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            {fields?.results?.length > 0 ? (
+            {fields?.length > 0 ? (
               <BookId
                 fieldDelete={fieldDelete}
                 setFieldDelete={setFieldDelete}

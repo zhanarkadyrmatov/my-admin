@@ -132,6 +132,7 @@ export default function AddFootballField() {
     };
 
     dispatch(postAdvantages(newData));
+    console.log(postAdvantages, "advantages");
   };
 
   console.log(advantagesList);
@@ -394,13 +395,14 @@ export default function AddFootballField() {
                     locationsCities?.results?.map((res, i) => (
                       <Radio
                         key={i}
+                        id={res?.id}
                         name="radio-city"
                         title={res?.name}
                         value={res?.slug}
                         onchange={setLocationsCitiesValue}
                       />
                     ))
-                  ) : (
+                  ) : (  
                     <p>Нет доступных городов</p>
                   )}
                 </div>
@@ -414,6 +416,7 @@ export default function AddFootballField() {
                     administrators?.results?.map((res, i) => (
                       <Radio
                         key={i}
+                        id={res?.id}
                         name="radio-administrator"
                         title={`${res?.name} ${res?.surname}`}
                         value={`${res?.name} ${res?.surname}`}

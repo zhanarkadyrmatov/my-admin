@@ -15,7 +15,7 @@ export default function Gallery() {
 
   return (
     <>
-      {fieldsIdDetail?.gallery_f_type?.length > 0 ? (
+      {fieldsIdDetail?.results?.gallery_f_type?.length > 0 ? (
         <Box>
           <ImageList variant="masonry" cols={3} gap={8}>
             {fieldsIdDetail?.gallery_f_type?.map((item) => (

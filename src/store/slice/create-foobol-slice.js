@@ -116,7 +116,6 @@ export const postAdvantages = createAsyncThunk(
         data?.formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -137,7 +136,7 @@ export const postAdvantages = createAsyncThunk(
       return response.data;
     } catch (error) {
 
-      if (error.response) {
+      if (error.response.data) {
         return rejectWithValue(error.response.data);
       } else if (error.request) {
         return rejectWithValue({ error: "Network error" });
@@ -162,6 +161,8 @@ export const PATCHAdvantages = createAsyncThunk(
           },
         }
       );
+      console.log("Data sent:", data.formData);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -347,10 +348,12 @@ export const advantagesSlice = createSlice({
         state.error = action.payload;
         console.error("Error fetching advantages:", action.payload);
       })
+
       .addCase(postAdvantages.pending, (state) => {
         state.creacteFoobolStatus = "loading";
         state.isCreate = true;
       })
+
       .addCase(postAdvantages.fulfilled, (state, action) => {
         state.creacteFoobolStatus = "fulfilled";
         state.isCreate = false;
@@ -359,7 +362,7 @@ export const advantagesSlice = createSlice({
       .addCase(postAdvantages.rejected, (state, action) => {
         state.creacteFoobolStatus = "rejected";
         state.error = action.payload;
-        state.isCreate = false;
+        state.isCreate = true;
         console.error("Error fetching advantages:", action.payload);
       })
       .addCase(getSportComplexList.pending, (state) => {

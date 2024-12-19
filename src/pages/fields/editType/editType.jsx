@@ -146,16 +146,17 @@ const EditType = () => {
     setDescription(fieldsIdDetail?.description);
     setAdministrator(fieldsIdDetail?.administrator);
     setPriceDay({
-      start_time: fieldsIdDetail?.price[0].start_time,
-      end_time: fieldsIdDetail?.price[0].end_time,
+      start_time: fieldsIdDetail?.price?.[0]?.start_time || "",
+      end_time: fieldsIdDetail?.price?.[0]?.end_time || "",
       period_day: "day",
-      price: fieldsIdDetail?.price[0].price,
+      price: fieldsIdDetail?.price?.[0]?.price || 0,
     });
+
     setPriceNight({
-      start_time: fieldsIdDetail?.price[1].start_time,
-      end_time: fieldsIdDetail?.price[1].end_time,
+      start_time: fieldsIdDetail?.price?.[1]?.start_time || "",
+      end_time: fieldsIdDetail?.price?.[1]?.end_time || "",
       period_day: "evening",
-      price: fieldsIdDetail?.price[1].price,
+      price: fieldsIdDetail?.price?.[1]?.price || 0,
     });
     setAdvantagesList(
       fieldsIdDetail?.advantages?.map((item) => ({
@@ -318,7 +319,7 @@ const EditType = () => {
                   Тип поля
                 </p>
                 <div className={"flex gap-[10px] flex-wrap"}>
-                  {construction?.map((res, i) => {
+                  {construction?.results?.map((res, i) => {
                     const isAcc = constructionListAcc?.some(
                       (el) => el.name === res.name
                     );

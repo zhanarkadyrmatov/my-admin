@@ -13,9 +13,8 @@ export const fetchFields = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-  
-      //  dispatch(setFieldsId(response.data[0].id));
-      // dispatch(fetchFieldsIdList(response.data[0].id));
+       dispatch(setFieldsId(response.data[0].id));
+      dispatch(fetchFieldsIdList(response.data[0].id));
       console.log(response.data, 'REREWR');
       
       return response.data;
@@ -72,6 +71,10 @@ export const fetchFieldsIdList = createAsyncThunk(
   "fields/fetchFieldsIdList",
   async (id, { rejectWithValue, dispatch }) => {
     try {
+      if (!id) {
+        throw new Error("ID is required but was not provided.");
+      }
+
       const response = await axios.get(
         `${Api}admin_api/football-field/${id}/`,
         {
@@ -80,22 +83,35 @@ export const fetchFieldsIdList = createAsyncThunk(
           },
         }
       );
-      if (response.data?.football_field_type?.length > 0) {
-        dispatch(setFootballId(response?.data?.football_field_type[0]?.id));
-        dispatch(
-          fetchFieldsIdDetail(response?.data?.football_field_type[0]?.id)
-        );
-        dispatch(fetchBookings(response?.data?.football_field_type[0]?.id));
-        dispatch(setSelectValue(response?.data?.football_field_type[0]?.name));
+    
+      const data = response.data;
+
+      if (!data || !data.football_field_type) {
+        throw new Error("Invalid response structure or missing data.");
+      }
+
+      if (data.football_field_type.length > 0) {
+        const firstField = data.football_field_type[0];
+        dispatch(setFootballId(firstField.id));
+        dispatch(fetchFieldsIdDetail(firstField.id));
+        dispatch(fetchBookings(firstField.id));
+        dispatch(setSelectValue(firstField.id
+
+        ));
       } else {
         dispatch(setFieldsIdDetail(null));
       }
-      return response.data;
+
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      const errorMessage =
+        error.response?.data?.message || error.message || "Unknown error";
+      console.error("Error fetching fields ID list:", errorMessage);
+      return rejectWithValue(errorMessage);
     }
   }
 );
+
 
 export const fetchFieldsIdDetail = createAsyncThunk(
   "fields/fetchFieldsIdDetail",

@@ -2,13 +2,16 @@ import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoCalendarClearOutline } from "react-icons/io5";
-import { walletget } from "../../store/slice/wallet-slice";
-import { setSortConfig, setSortedData } from "../../store/slice/sorting-slice";
-
+import { walletget, walletgetSorted } from "../../store/slice/wallet-slice.js";
 const BalanceCard = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useSelector((state) => state.wallet);
-  const { sortedData, sortConfig } = useSelector((state) => state.sorting);
+
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
+  const [sortedData, setSortedData] = useState([]);
 
   const [filters, setFilters] = useState({
     operationType: "all",
@@ -20,15 +23,15 @@ const BalanceCard = () => {
   const dateInputRef2 = useRef(null);
 
   useEffect(() => {
-    dispatch(walletget(filters));
-  }, [dispatch, filters]);
+    dispatch(walletget());
+  }, [dispatch]);
 
   useEffect(() => {
     if (data.length > 0) {
       const sorted = sortData(data);
-      dispatch(setSortedData(sorted));
+      setSortedData(sorted);
     }
-  }, [data, sortConfig, dispatch]);
+  }, [data, sortConfig]);
 
   const handleOperationTypeChange = (e) => {
     setFilters((prev) => ({
@@ -63,7 +66,13 @@ const BalanceCard = () => {
   };
 
   const handleSearch = () => {
-    dispatch(walletget(filters));
+    if (filters.dateFrom && filters.dateTo) {
+      dispatch(
+        walletgetSorted({ start: filters.dateFrom, end: filters.dateTo })
+      );
+    } else {
+      dispatch(walletget());
+    }
   };
 
   const sortData = (data) => {
@@ -84,7 +93,7 @@ const BalanceCard = () => {
     if (sortConfig.key === key && sortConfig.direction === "ascending") {
       direction = "descending";
     }
-    dispatch(setSortConfig({ key, direction }));
+    setSortConfig({ key, direction });
   };
 
   const renderTransaction = (transaction, index) => (
@@ -128,7 +137,9 @@ const BalanceCard = () => {
 
   return (
     <div className="grid gap-y-[30px] rounded-[15px]">
+      {/* Filter and search section */}
       <div className="gap-y-[20px] grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[16px] w-full rounded-[15px] bg-white p-[18px]">
+        {/* Operation type filter */}
         <div className="flex items-center bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px]">
           <select
             className="outline-none w-full bg-[#F7F8F9]"
@@ -140,6 +151,7 @@ const BalanceCard = () => {
             <option value="withdrawal">Вывод</option>
           </select>
         </div>
+        {/* Date from filter */}
         <div
           className="relative flex justify-between bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px]"
           onClick={() => handleDatePickerClick(dateInputRef1)}
@@ -153,7 +165,7 @@ const BalanceCard = () => {
             <input
               ref={dateInputRef1}
               type="date"
-              value={filters.dateFrom}
+              value={filters.start}
               onChange={handleDateFromChange}
               className="h-[50px] bg-[#F7F8F9] rounded-[10px]"
             />
@@ -167,6 +179,7 @@ const BalanceCard = () => {
           </div>
           <IoMdArrowDropdown size={30} className="mt-[10px]" />
         </div>
+        {/* Date to filter */}
         <div
           className="flex justify-between bg-[#F7F8F9] rounded-[10px] w-full h-[50px] px-[10px]"
           onClick={() => handleDatePickerClick(dateInputRef2)}
@@ -178,7 +191,7 @@ const BalanceCard = () => {
             <input
               ref={dateInputRef2}
               type="date"
-              value={filters.dateTo}
+              value={filters.end}
               onChange={handleDateToChange}
               className="h-[50px] bg-[#F7F8F9] rounded-[10px]"
             />
@@ -190,6 +203,7 @@ const BalanceCard = () => {
           </div>
           <IoMdArrowDropdown size={30} className="mt-[10px]" />
         </div>
+        {/* Search button */}
         <button
           onClick={handleSearch}
           className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold h-[50px] px-[10px] rounded-[10px] inline-flex gap-x-[8px] justify-center items-center"
@@ -219,6 +233,7 @@ const BalanceCard = () => {
           Поиск
         </button>
       </div>
+      {/* Table section */}
       <div className="w-full overflow-x-auto rounded-[15px]">
         <table className="min-w-full bg-white rounded-[15px]">
           <thead className="bg-gray-50">
