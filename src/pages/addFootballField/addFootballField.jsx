@@ -87,9 +87,9 @@ export default function AddFootballField() {
     const data = {
       name: newName,
       description: description,
-      administrator: administratorValue,
+      administrator: 1,
       address: address,
-      city: 1,
+      city: locationsCitiesValue,
       district: district,
       latitude: mapLatLon?.[0],
       longitude: mapLatLon?.[1],
@@ -402,7 +402,7 @@ export default function AddFootballField() {
                         onchange={setLocationsCitiesValue}
                       />
                     ))
-                  ) : (  
+                  ) : (
                     <p>Нет доступных городов</p>
                   )}
                 </div>
