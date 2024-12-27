@@ -58,7 +58,6 @@ const ScheduleList = ({ setSchedule }) => {
     (state) => state.fields
   );
 
-  console.log(fieldsIdDetail);
 
   const [dayState, setDayState] = useState({
     понедельник: { day_of_week: 1, endime: "", startTime: "", checkbox: false },

@@ -13,6 +13,7 @@ import analitOrdersFieldsReducer from "./slice/analit-orders-fields";
 import totalIncomeReducer from "./slice/total-income";
 import numberOfNewClientsReducer from "./slice/number-of-new-clients";
 import sortingReducer from "./slice/sorting-slice";
+import ratingReducer from './slice/ratingSlice'
 const store = configureStore({
   reducer: {
     user,
@@ -29,6 +30,7 @@ const store = configureStore({
     totalIncome: totalIncomeReducer,
     numberOfNewClients: numberOfNewClientsReducer,
     sorting: sortingReducer,
+    rating: ratingReducer,
   },
 });
 

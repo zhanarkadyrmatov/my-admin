@@ -9,7 +9,6 @@ import {
 
 import {
   getAdvantages,
-  getBranchGetId,
   getConstructionType,
   getFieldsTypeName,
   setIsCreate,
@@ -110,7 +109,6 @@ const EditType = () => {
       formData.append("images", file);
     });
     const newData = { id: id, one: formData, two: dataPUT };
-    console.log(newData);
     dispatch(fetchUbdateFields(newData));
   };
 

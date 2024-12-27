@@ -18,7 +18,7 @@ export default function Gallery() {
       {fieldsIdDetail?.results?.gallery_f_type?.length > 0 ? (
         <Box>
           <ImageList variant="masonry" cols={3} gap={8}>
-            {fieldsIdDetail?.gallery_f_type?.map((item) => (
+            {fieldsIdDetail?.results?.gallery_f_type?.map((item) => (
               <ImageListItem key={item.id}>
                 <a href={item.img} data-fancybox="gallery">
                   <img

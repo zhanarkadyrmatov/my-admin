@@ -93,8 +93,6 @@ export default function EditField() {
     formData.append("sport_complex_type", complex_type);
     ImageFile?.forEach((image) => formData.append("back_ground_foto", image));
     selectedIamgeFile?.forEach((image) => formData.append("main_foto", image));
-    console.log(ImageFile, selectedIamgeFile);
-    console.log(formData);
     dispatch(patchAdvantages({ id, formData }));
     dispatch(PATCHAdvantages({ id, advantages }));
   };

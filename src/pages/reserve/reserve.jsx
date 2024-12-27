@@ -337,7 +337,7 @@ function Reserve() {
                     </div>
                   </div>
                 </div>
-                {state?.reserve === "existing" ? (
+                {state?.results?.reserve === "existing" ? (
                   <button
                     onClick={() => payment && user && time && handleClick()}
                     className={`w-full p-[8px] rounded-[8px]  border   font-normal text-white text-[16px] leading-[19px] ${

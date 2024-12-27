@@ -3,7 +3,7 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAdvantages,
-  getBranchGetId,
+  getBranchById,
   getConstructionType,
   getFieldsTypeName,
   postCreacteFieldType,
@@ -45,7 +45,7 @@ const AddFootballFieldType = () => {
   const [location, setLocation] = useState();
   const [description, setDescription] = useState(null);
   const [administratorValue, setAdministratorValue] = useState();
-  const [administrator, setAdministrator] = useState();
+  const [administrator, setAdministrator] = useState("");
   const [mapLatLon, setMapLatLon] = useState();
   const [isModalMap, setIsModalMap] = useState(false);
   const [schedule, setSchedule] = useState();
@@ -53,7 +53,6 @@ const AddFootballFieldType = () => {
   const [selectedImages1, setSelectedImages1] = useState([]);
   const [selectedIamgeFile, setSelectedImageFile] = useState([]);
   const [constructionListAcc, setConstructionListAcc] = useState([]);
-  console.log(construction, "aziret");
 
   const handlerConstruction = (event) => {
     const newValue = event;
@@ -88,9 +87,6 @@ const AddFootballFieldType = () => {
     });
   };
 
-  console.log(newName);
-  console.log(typeName, "typeName");
-
   const updateDescription = (resId, newDescription) => {
     setAdvantagesList((prevList) =>
       prevList.map((item) =>
@@ -122,7 +118,7 @@ const AddFootballFieldType = () => {
     dataPUT["price"] = price;
     dataPUT["construction_type"] = constructionListAcc;
     formData.append("description", description);
-    formData.append("name", newName?.slug);
+    formData.append("name", newName);
     selectedIamgeFile?.forEach((file) => {
       formData.append("images", file);
     });
@@ -131,11 +127,11 @@ const AddFootballFieldType = () => {
   };
 
   useEffect(() => {
-    dispatch(getBranchGetId(id));
+    dispatch(getBranchById(id));
     dispatch(getAdvantages());
     dispatch(getConstructionType());
     dispatch(getFieldsTypeName());
-  }, []);
+  }, [dispatch, id]);
 
   const newFoobolField = () => {
     setMapLatLon([]);
@@ -157,11 +153,11 @@ const AddFootballFieldType = () => {
   useEffect(() => {
     if (creacteFoobolStatus === "fulfilled") {
       newFoobolField();
-      dispatch(getBranchGetId(id));
+      dispatch(getBranchById(id));
       dispatch(getAdvantages());
       dispatch(getConstructionType());
     }
-  }, [creacteFoobolStatus]);
+  }, [creacteFoobolStatus, dispatch, id]);
 
   if (creacteFoobolStatus === "loading") {
     return (
@@ -170,8 +166,6 @@ const AddFootballFieldType = () => {
       </div>
     );
   }
-
-  console.log(description);
 
   return (
     <div className="mx-[20px] mt-[90px] mb-7">

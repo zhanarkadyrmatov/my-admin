@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 export default function Select({ setName, name }) {
   const [select, setSelect] = useState(false);
   const { typeName } = useSelector((state) => state.createFoobol);
-  console.log(name, "name");
 
   return (
     <div className="flex flex-col gap-y-[8px]">

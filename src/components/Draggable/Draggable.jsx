@@ -89,9 +89,9 @@ export default function Draggable() {
             </tr>
           </thead>
           <tbody>
-            {bookings?.length > 0 ? (
+            {bookings?.results?.length > 0 ? (
               <>
-                {bookings?.map((res, i) => (
+                {bookings?.results?.map((res, i) => (
                   <tr
                     key={i}
                     className={

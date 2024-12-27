@@ -46,6 +46,7 @@ export const getBranchGetId = createAsyncThunk(
           },
         }
       );
+      
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -181,11 +182,9 @@ export const patchAdvantages = createAsyncThunk(
         }
       );
 
-      console.log(response.data)
       dispatch(setIsUbdate(true));
       return response.data;
     } catch (error) {
-      console.log(error)
       return rejectWithValue(error.response.data);
     }
   }
@@ -253,7 +252,6 @@ export const postCreacteFieldType = createAsyncThunk(
         id,
       };
 
-      console.log(response.data);
 
       dispatch(postCreacteFoobolField(PATCHAdvantagesData));
 

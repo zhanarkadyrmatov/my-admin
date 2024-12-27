@@ -82,7 +82,6 @@ export default function Wallet() {
   };
 
   const onSubmit = (data) => {
-    console.log("Форма отправлена:", data);
     toggleModal();
   };
 

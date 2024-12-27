@@ -58,7 +58,6 @@ export default function AddFootballField() {
     }
   };
   const [mapLatLon, setMapLatLon] = useState();
-  console.log(administrators, "administrators");
 
   useEffect(() => {
     dispatch(getAdvantages());
@@ -113,6 +112,7 @@ export default function AddFootballField() {
       formData.append("main_foto", image);
     });
     formData.append("sport_complex_type", data.sport_complex_type);
+
     for (const [key, value] of Object.entries(data)) {
       if (
         (value === null || value === undefined || value === "") &&
@@ -132,10 +132,8 @@ export default function AddFootballField() {
     };
 
     dispatch(postAdvantages(newData));
-    console.log(postAdvantages, "advantages");
   };
 
-  console.log(advantagesList);
   const goToPage = (pageName) => {
     handlerPostCreacteFoobolField();
   };
@@ -154,7 +152,6 @@ export default function AddFootballField() {
     });
   };
   const updateDescription = (resId, newDescription) => {
-    console.log(resId, newDescription);
     setAdvantagesList((prevList) =>
       prevList.map((item) =>
         item.advantages === resId
@@ -416,7 +413,6 @@ export default function AddFootballField() {
                     administrators?.results?.map((res, i) => (
                       <Radio
                         key={i}
-                        id={res?.id}
                         name="radio-administrator"
                         title={`${res?.name} ${res?.surname}`}
                         value={`${res?.name} ${res?.surname}`}

@@ -11,7 +11,7 @@ export default function Calendar() {
   useEffect(() => {
     if (bookings) {
       setData(
-        bookings.map((item) => ({
+        bookings.results?.map((item) => ({
           title: item?.name,
           start: item?.start_date,
           end: item?.end_date,

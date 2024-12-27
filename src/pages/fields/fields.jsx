@@ -21,8 +21,6 @@ export default function Fields() {
   useEffect(() => {
     dispatch(fetchFields());
   }, []);
-  console.log(fields?.results);
-  // console.log(fields.results, "ernis");
 
   return (
     <>

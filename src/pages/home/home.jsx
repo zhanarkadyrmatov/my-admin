@@ -8,6 +8,7 @@ import { fetchAnalitOrdersFields } from "../../store/slice/analit-orders-fields"
 import { fetchTotalIncome } from "../../store/slice/total-income";
 import { fetchFields } from "../../store/slice/fields-slice";
 import { fetchNumberOfNewClients } from "../../store/slice/number-of-new-clients";
+import RatingComponent from "../../components/RatingComponent/RatingComponent";
 
 const Home = () => {
   const { data, loading, error } = useSelector(
@@ -30,7 +31,6 @@ const Home = () => {
     error: totalIncomeError,
   } = useSelector((state) => state.totalIncome);
 
-  console.log(totalIncomeData, "aziret");
 
   useEffect(() => {
     dispatch(fetchTotalIncome());
@@ -39,7 +39,6 @@ const Home = () => {
   const { loading: numberLoading, data: numbersData } = useSelector(
     (state) => state.numberOfNewClients
   );
-  console.log(numbersData, "numbersData");
 
   const [chartData2, setChartData2] = useState([]);
   const [chartData3, setChartData3] = useState([]);
@@ -290,54 +289,7 @@ const Home = () => {
                   <option value="year">За год</option>
                   <option value="all">За все время</option>
                 </select>
-
-                <div className={s.Classico}>
-                  <div className={s.Classico_1}>
-                    <h1 className={s.ratingScore}>4.1</h1>
-                    <Rating
-                      name="half-rating"
-                      readOnly
-                      defaultValue={4.1}
-                      precision={0.5}
-                      className={s.ratingStars}
-                    />
-                    <p className={s.reviewCount}>256 отзывов</p>
-                  </div>
-
-                  <ul className={s.ratingList}>
-                    <li className={s.ratingListLi}>
-                      <span>5</span>
-                      <div className={s.barWrapper}>
-                        <div className={s.bar} style={{ width: "80%" }}></div>
-                      </div>
-                    </li>
-                    <li className={s.ratingListLi}>
-                      <span>4</span>
-                      <div className={s.barWrapper}>
-                        <div className={s.bar} style={{ width: "40%" }}></div>
-                      </div>
-                    </li>
-                    <li className={s.ratingListLi}>
-                      <span>3</span>
-                      <div className={s.barWrapper}>
-                        <div className={s.bar} style={{ width: "20%" }}></div>
-                      </div>
-                    </li>
-                    <li className={s.ratingListLi}>
-                      <span>2</span>
-                      <div className={s.barWrapper}>
-                        <div className={s.bar} style={{ width: "10%" }}></div>
-                      </div>
-                    </li>
-                    <li className={s.ratingListLi}>
-                      <span>1</span>
-                      <div className={s.barWrapper}>
-                        <div className={s.bar} style={{ width: "5%" }}></div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
+                <RatingComponent fieldId={1} days={7} />
                 <div className={s.stats}>
                   <span
                     className={s.percentageChange}

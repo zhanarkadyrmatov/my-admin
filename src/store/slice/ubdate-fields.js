@@ -5,9 +5,6 @@ import { Api } from "../../api";
 export const fetchUbdateFields = createAsyncThunk(
   "ubdateFields/fetchUbdateFields",
   async (data, { rejectWithValue }) => {
-
-    console.log(data)
-
     try {
       const response = await axios.put(
         `${Api}admin_api/football-field-type/${data.id}/`,
@@ -19,7 +16,6 @@ export const fetchUbdateFields = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
